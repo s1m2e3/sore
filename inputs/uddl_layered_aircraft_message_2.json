@@ -1,0 +1,330 @@
+{
+  "uddl_layered_message": {
+    "message_id": "uddl-layered-002",
+    "message_name": "AirVehicleStatusReport",
+    "description": "LLM-generated UDDL message for the same aircraft as message-001. Introduces lexical divergence (different observable names, units, entity types) to simulate realistic LLM translation errors for comparison against the human ground truth.",
+    "source": "llm",
+    "timestamp_utc": "2026-03-26T18:22:05Z",
+
+    "conceptual": {
+      "basis_entities": [
+        {
+          "id": "basis-flight-platform-002",
+          "name": "RegisteredFlightPlatform",
+          "description": "A flight platform registered under an aviation authority."
+        }
+      ],
+      "entities": [
+        {
+          "id": "air-vehicle-entity-002",
+          "name": "AirVehicle",
+          "description": "An air vehicle identified by its registration mark and flight designator.",
+          "specializes": "basis-flight-platform-002",
+          "compositions": [
+            {
+              "id": "comp-height-002",
+              "role_name": "heightAboveMSL",
+              "observable_ref": "obs-height-002",
+              "cardinality": "1..1",
+              "description": "The height of the air vehicle above mean sea level."
+            },
+            {
+              "id": "comp-airrelspeed-002",
+              "role_name": "airRelativeSpeedMagnitude",
+              "observable_ref": "obs-airrelspeed-002",
+              "cardinality": "1..1",
+              "description": "The magnitude of the air-relative speed vector."
+            },
+            {
+              "id": "comp-exttemp-002",
+              "role_name": "externalTemperature",
+              "observable_ref": "obs-exttemp-002",
+              "cardinality": "1..1",
+              "description": "The external temperature of the surrounding air."
+            },
+            {
+              "id": "comp-weight-002",
+              "role_name": "vehicleWeightEquivalentMass",
+              "observable_ref": "obs-weight-002",
+              "cardinality": "1..1",
+              "description": "The weight of the vehicle expressed as an equivalent mass."
+            },
+            {
+              "id": "comp-fob-002",
+              "role_name": "fuelOnBoard",
+              "observable_ref": "obs-fob-002",
+              "cardinality": "1..1",
+              "description": "The quantity of fuel currently on board."
+            },
+            {
+              "id": "comp-track-002",
+              "role_name": "directionOfNoseRelativeToTrueNorth",
+              "observable_ref": "obs-track-002",
+              "cardinality": "1..1",
+              "description": "The direction the nose is pointing relative to true north."
+            },
+            {
+              "id": "comp-geoloc-002",
+              "role_name": "geodeticLocation",
+              "entity_ref": "entity-geodetic-loc-002",
+              "cardinality": "1..1",
+              "description": "The geodetic location of the air vehicle."
+            }
+          ]
+        },
+        {
+          "id": "entity-geodetic-loc-002",
+          "name": "GeodeticLocation",
+          "description": "A geographic location expressed in WGS-84 coordinates.",
+          "specializes": null,
+          "compositions": [
+            {
+              "id": "comp-lat-002",
+              "role_name": "lat",
+              "observable_ref": "obs-lat-002",
+              "cardinality": "1..1",
+              "description": "Geodetic latitude coordinate."
+            },
+            {
+              "id": "comp-lon-002",
+              "role_name": "lon",
+              "observable_ref": "obs-lon-002",
+              "cardinality": "1..1",
+              "description": "Geodetic longitude coordinate."
+            }
+          ]
+        }
+      ],
+      "observables": [
+        { "id": "obs-height-002",       "name": "HeightAboveMeanSeaLevel",              "description": "Vertical distance above mean sea level." },
+        { "id": "obs-airrelspeed-002",  "name": "AirRelativeSpeedMagnitude",            "description": "Scalar magnitude of the velocity vector relative to the air mass." },
+        { "id": "obs-exttemp-002",      "name": "ExternalTemperature",                  "description": "Temperature of the air external to the vehicle." },
+        { "id": "obs-weight-002",       "name": "VehicleWeightEquivalentMass",          "description": "The gravitational weight of the vehicle expressed as an equivalent mass quantity." },
+        { "id": "obs-fob-002",          "name": "FuelOnBoard",                          "description": "Quantity of fuel currently loaded on the vehicle." },
+        { "id": "obs-track-002",        "name": "DirectionOfNoseRelativeToTrueNorth",  "description": "Bearing of the vehicle nose measured clockwise from true north." },
+        { "id": "obs-lat-002",          "name": "GeodeticLatitude",                     "description": "Geodetic latitude coordinate on the WGS-84 ellipsoid." },
+        { "id": "obs-lon-002",          "name": "GeodeticLongitude",                    "description": "Geodetic longitude coordinate on the WGS-84 ellipsoid." }
+      ]
+    },
+
+    "logical": {
+      "entity_realizations": [
+        {
+          "id": "lentity-air-vehicle-002",
+          "name": "LogicalAirVehicle",
+          "realizes": "air-vehicle-entity-002",
+          "description": "Logical realization of the AirVehicle conceptual entity."
+        },
+        {
+          "id": "lentity-geodetic-loc-002",
+          "name": "LogicalGeodeticLocation",
+          "realizes": "entity-geodetic-loc-002",
+          "description": "Logical realization of the GeodeticLocation conceptual entity."
+        }
+      ],
+      "measurements": [
+        {
+          "id": "lm-height-002",
+          "name": "HeightMSLMeasurement",
+          "realizes": "obs-height-002",
+          "primitive_data_type": "real+",
+          "value_type": "Length",
+          "unit": "Meters",
+          "measurement_system": "MSLHeightSystem",
+          "coordinate_system": "Scalar_CoordSys",
+          "numeric_value": 10668,
+          "description": "Height above MSL expressed in meters using SI units."
+        },
+        {
+          "id": "lm-airrelspeed-002",
+          "name": "AirRelativeSpeedMeasurement",
+          "realizes": "obs-airrelspeed-002",
+          "primitive_data_type": "real+",
+          "value_type": "Speed",
+          "unit": "MetersPerSecond",
+          "measurement_system": "SIKinematicsSystem",
+          "coordinate_system": "Scalar_CoordSys",
+          "numeric_value": 230.47,
+          "description": "Air-relative speed in meters per second."
+        },
+        {
+          "id": "lm-exttemp-002",
+          "name": "ExternalTemperatureMeasurement",
+          "realizes": "obs-exttemp-002",
+          "primitive_data_type": "real+",
+          "value_type": "Temperature",
+          "unit": "DegreesKelvin",
+          "measurement_system": "AbsoluteTemperatureSystem",
+          "coordinate_system": "Scalar_CoordSys",
+          "numeric_value": 219.15,
+          "description": "External air temperature in Kelvin using absolute scale."
+        },
+        {
+          "id": "lm-weight-002",
+          "name": "VehicleWeightMassMeasurement",
+          "realizes": "obs-weight-002",
+          "primitive_data_type": "real+",
+          "value_type": "Mass",
+          "unit": "Pounds",
+          "measurement_system": "ImperialMassSystem",
+          "coordinate_system": "Scalar_CoordSys",
+          "numeric_value": 141095,
+          "description": "Vehicle weight expressed as equivalent mass in pounds."
+        },
+        {
+          "id": "lm-fob-002",
+          "name": "FuelOnBoardMeasurement",
+          "realizes": "obs-fob-002",
+          "primitive_data_type": "real+",
+          "value_type": "Mass",
+          "unit": "Pounds",
+          "measurement_system": "ImperialMassSystem",
+          "coordinate_system": "Scalar_CoordSys",
+          "numeric_value": 18078,
+          "description": "Fuel on board expressed as mass in pounds."
+        },
+        {
+          "id": "lm-track-002",
+          "name": "NoseBearingMeasurement",
+          "realizes": "obs-track-002",
+          "primitive_data_type": "real+",
+          "value_type": "Angle",
+          "unit": "Radians",
+          "measurement_system": "TrueNorthBearingSystem",
+          "coordinate_system": "Polar_CoordSys",
+          "numeric_value": 1.43117,
+          "description": "Nose bearing relative to true north expressed in radians."
+        },
+        {
+          "id": "lm-lat-002",
+          "name": "GeodeticLatitudeMeasurement",
+          "realizes": "obs-lat-002",
+          "primitive_data_type": "real",
+          "value_type": "Angle",
+          "unit": "DegreesOfArc",
+          "measurement_system": "WGS84GeodeticSystem",
+          "coordinate_system": "Spherical_CoordSys",
+          "numeric_value": 33.9425,
+          "description": "WGS-84 geodetic latitude in decimal degrees."
+        },
+        {
+          "id": "lm-lon-002",
+          "name": "GeodeticLongitudeMeasurement",
+          "realizes": "obs-lon-002",
+          "primitive_data_type": "real",
+          "value_type": "Angle",
+          "unit": "DegreesOfArc",
+          "measurement_system": "WGS84GeodeticSystem",
+          "coordinate_system": "Spherical_CoordSys",
+          "numeric_value": -112.4081,
+          "description": "WGS-84 geodetic longitude in decimal degrees."
+        }
+      ]
+    },
+
+    "platform": {
+      "message_type": "AirVehicleStatusReport",
+      "serialization": "JSON",
+      "entity_realizations": [
+        {
+          "id": "pentity-air-vehicle-002",
+          "name": "PlatformAirVehicle",
+          "realizes": "lentity-air-vehicle-002",
+          "description": "Platform realization of the logical air vehicle entity."
+        }
+      ],
+      "platform_compositions": [
+        {
+          "id": "pcomp-reg-002",
+          "role_name": "registrationMark",
+          "data_type": "String",
+          "cardinality": "1..1",
+          "realizes": null,
+          "value": "N817QA",
+          "description": "Aviation authority registration mark."
+        },
+        {
+          "id": "pcomp-fltdes-002",
+          "role_name": "flightDesignator",
+          "data_type": "String",
+          "cardinality": "1..1",
+          "realizes": null,
+          "value": "QFA817",
+          "description": "ICAO flight designator."
+        },
+        {
+          "id": "pcomp-height-002",
+          "role_name": "height_m",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-height-002",
+          "value": 10668,
+          "description": "Height above MSL in meters."
+        },
+        {
+          "id": "pcomp-airrelspeed-002",
+          "role_name": "speedThroughAir_mps",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-airrelspeed-002",
+          "value": 230.47,
+          "description": "Air-relative speed in meters per second."
+        },
+        {
+          "id": "pcomp-exttemp-002",
+          "role_name": "externalTemperature_K",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-exttemp-002",
+          "value": 219.15,
+          "description": "External temperature in Kelvin."
+        },
+        {
+          "id": "pcomp-weight-002",
+          "role_name": "aircraftWeight_lb",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-weight-002",
+          "value": 141095,
+          "description": "Aircraft weight expressed as equivalent mass in pounds."
+        },
+        {
+          "id": "pcomp-fob-002",
+          "role_name": "fuelOnBoard_lb",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-fob-002",
+          "value": 18078,
+          "description": "Fuel on board in pounds."
+        },
+        {
+          "id": "pcomp-track-002",
+          "role_name": "trackDirection_rad",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-track-002",
+          "value": 1.43117,
+          "description": "Track direction in radians."
+        },
+        {
+          "id": "pcomp-lat-002",
+          "role_name": "lat",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-lat-002",
+          "value": 33.9425,
+          "description": "Geodetic latitude in decimal degrees."
+        },
+        {
+          "id": "pcomp-lon-002",
+          "role_name": "lon",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-lon-002",
+          "value": -112.4081,
+          "description": "Geodetic longitude in decimal degrees."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,330 @@
+{
+  "uddl_layered_message": {
+    "message_id": "uddl-layered-001",
+    "message_name": "AircraftOperationalSnapshot",
+    "description": "Human-authored UDDL message describing the operational state of a fixed-wing aircraft. Represents the ground truth against which LLM-generated translations will be compared.",
+    "source": "human",
+    "timestamp_utc": "2026-03-26T18:22:00Z",
+
+    "conceptual": {
+      "basis_entities": [
+        {
+          "id": "basis-airframe-001",
+          "name": "TailRegisteredAirframe",
+          "description": "A physical airframe uniquely identified by its tail registration number."
+        }
+      ],
+      "entities": [
+        {
+          "id": "aircraft-entity-001",
+          "name": "Aircraft",
+          "description": "A fixed-wing jet aircraft uniquely identified by its tail number and callsign.",
+          "specializes": "basis-airframe-001",
+          "compositions": [
+            {
+              "id": "comp-altitude-001",
+              "role_name": "altitude",
+              "observable_ref": "obs-altitude-001",
+              "cardinality": "1..1",
+              "description": "The altitude of the aircraft above mean sea level."
+            },
+            {
+              "id": "comp-airspeed-001",
+              "role_name": "trueAirspeed",
+              "observable_ref": "obs-airspeed-001",
+              "cardinality": "1..1",
+              "description": "The true airspeed of the aircraft."
+            },
+            {
+              "id": "comp-temp-001",
+              "role_name": "outsideAirTemperature",
+              "observable_ref": "obs-temp-001",
+              "cardinality": "1..1",
+              "description": "The outside air temperature at the aircraft altitude."
+            },
+            {
+              "id": "comp-mass-001",
+              "role_name": "grossMass",
+              "observable_ref": "obs-mass-001",
+              "cardinality": "1..1",
+              "description": "The gross mass of the aircraft including fuel and payload."
+            },
+            {
+              "id": "comp-fuel-001",
+              "role_name": "fuelRemaining",
+              "observable_ref": "obs-fuel-001",
+              "cardinality": "1..1",
+              "description": "The mass of fuel remaining on board."
+            },
+            {
+              "id": "comp-heading-001",
+              "role_name": "trueHeading",
+              "observable_ref": "obs-heading-001",
+              "cardinality": "1..1",
+              "description": "The true heading of the aircraft relative to true north."
+            },
+            {
+              "id": "comp-position-001",
+              "role_name": "geodeticPosition",
+              "entity_ref": "entity-geodetic-pos-001",
+              "cardinality": "1..1",
+              "description": "The geodetic position of the aircraft."
+            }
+          ]
+        },
+        {
+          "id": "entity-geodetic-pos-001",
+          "name": "GeodeticPosition",
+          "description": "A position on the Earth surface expressed in WGS-84 latitude and longitude.",
+          "specializes": null,
+          "compositions": [
+            {
+              "id": "comp-lat-001",
+              "role_name": "latitude",
+              "observable_ref": "obs-lat-001",
+              "cardinality": "1..1",
+              "description": "Geodetic latitude in degrees."
+            },
+            {
+              "id": "comp-lon-001",
+              "role_name": "longitude",
+              "observable_ref": "obs-lon-001",
+              "cardinality": "1..1",
+              "description": "Geodetic longitude in degrees."
+            }
+          ]
+        }
+      ],
+      "observables": [
+        { "id": "obs-altitude-001",  "name": "Altitude",              "description": "Vertical distance of the aircraft above mean sea level." },
+        { "id": "obs-airspeed-001",  "name": "TrueAirspeed",          "description": "Speed of the aircraft relative to the surrounding air mass." },
+        { "id": "obs-temp-001",      "name": "OutsideAirTemperature", "description": "Ambient air temperature at the aircraft current altitude." },
+        { "id": "obs-mass-001",      "name": "GrossMass",             "description": "Total mass of the aircraft including fuel and payload." },
+        { "id": "obs-fuel-001",      "name": "FuelRemaining",         "description": "Mass of fuel currently on board the aircraft." },
+        { "id": "obs-heading-001",   "name": "TrueHeading",           "description": "Angular orientation of the aircraft nose relative to true north." },
+        { "id": "obs-lat-001",       "name": "Latitude",              "description": "Angular distance north or south of the equator." },
+        { "id": "obs-lon-001",       "name": "Longitude",             "description": "Angular distance east or west of the prime meridian." }
+      ]
+    },
+
+    "logical": {
+      "entity_realizations": [
+        {
+          "id": "lentity-aircraft-001",
+          "name": "LogicalAircraft",
+          "realizes": "aircraft-entity-001",
+          "description": "Logical realization of the Aircraft conceptual entity."
+        },
+        {
+          "id": "lentity-geodetic-pos-001",
+          "name": "LogicalGeodeticPosition",
+          "realizes": "entity-geodetic-pos-001",
+          "description": "Logical realization of the GeodeticPosition conceptual entity."
+        }
+      ],
+      "measurements": [
+        {
+          "id": "lm-altitude-001",
+          "name": "AltitudeMeasurement",
+          "realizes": "obs-altitude-001",
+          "primitive_data_type": "real+",
+          "value_type": "Length",
+          "unit": "Feet",
+          "measurement_system": "AviationAltitudeSystem",
+          "coordinate_system": "Scalar_CoordSys",
+          "numeric_value": 35000,
+          "description": "Altitude expressed in feet above MSL using aviation altimetry standard."
+        },
+        {
+          "id": "lm-airspeed-001",
+          "name": "TrueAirspeedMeasurement",
+          "realizes": "obs-airspeed-001",
+          "primitive_data_type": "real+",
+          "value_type": "Speed",
+          "unit": "Knots",
+          "measurement_system": "AeronauticalSpeedSystem",
+          "coordinate_system": "Scalar_CoordSys",
+          "numeric_value": 448,
+          "description": "True airspeed in knots using aeronautical speed convention."
+        },
+        {
+          "id": "lm-temp-001",
+          "name": "OutsideAirTemperatureMeasurement",
+          "realizes": "obs-temp-001",
+          "primitive_data_type": "real",
+          "value_type": "Temperature",
+          "unit": "DegreesCelsius",
+          "measurement_system": "ThermodynamicTemperatureSystem",
+          "coordinate_system": "Scalar_CoordSys",
+          "numeric_value": -54,
+          "description": "Outside air temperature in degrees Celsius."
+        },
+        {
+          "id": "lm-mass-001",
+          "name": "GrossMassMeasurement",
+          "realizes": "obs-mass-001",
+          "primitive_data_type": "real+",
+          "value_type": "Mass",
+          "unit": "KiloGrams",
+          "measurement_system": "MetricMassSystem",
+          "coordinate_system": "Scalar_CoordSys",
+          "numeric_value": 64000,
+          "description": "Gross aircraft mass in kilograms."
+        },
+        {
+          "id": "lm-fuel-001",
+          "name": "FuelRemainingMeasurement",
+          "realizes": "obs-fuel-001",
+          "primitive_data_type": "real+",
+          "value_type": "Mass",
+          "unit": "KiloGrams",
+          "measurement_system": "MetricMassSystem",
+          "coordinate_system": "Scalar_CoordSys",
+          "numeric_value": 8200,
+          "description": "Fuel remaining expressed as mass in kilograms."
+        },
+        {
+          "id": "lm-heading-001",
+          "name": "TrueHeadingMeasurement",
+          "realizes": "obs-heading-001",
+          "primitive_data_type": "real+",
+          "value_type": "Angle",
+          "unit": "DegreesOfArc",
+          "measurement_system": "TrueNorthBearingSystem",
+          "coordinate_system": "Polar_CoordSys",
+          "numeric_value": 82,
+          "description": "True heading in degrees from true north, clockwise positive."
+        },
+        {
+          "id": "lm-lat-001",
+          "name": "LatitudeMeasurement",
+          "realizes": "obs-lat-001",
+          "primitive_data_type": "real",
+          "value_type": "Angle",
+          "unit": "DegreesOfArc",
+          "measurement_system": "WGS84GeodeticSystem",
+          "coordinate_system": "Spherical_CoordSys",
+          "numeric_value": 33.9425,
+          "description": "WGS-84 geodetic latitude in decimal degrees."
+        },
+        {
+          "id": "lm-lon-001",
+          "name": "LongitudeMeasurement",
+          "realizes": "obs-lon-001",
+          "primitive_data_type": "real",
+          "value_type": "Angle",
+          "unit": "DegreesOfArc",
+          "measurement_system": "WGS84GeodeticSystem",
+          "coordinate_system": "Spherical_CoordSys",
+          "numeric_value": -112.4081,
+          "description": "WGS-84 geodetic longitude in decimal degrees."
+        }
+      ]
+    },
+
+    "platform": {
+      "message_type": "AircraftOperationalSnapshot",
+      "serialization": "JSON",
+      "entity_realizations": [
+        {
+          "id": "pentity-aircraft-001",
+          "name": "PlatformAircraft",
+          "realizes": "lentity-aircraft-001",
+          "description": "Platform realization of the logical aircraft entity."
+        }
+      ],
+      "platform_compositions": [
+        {
+          "id": "pcomp-tail-001",
+          "role_name": "tailNumber",
+          "data_type": "String",
+          "cardinality": "1..1",
+          "realizes": null,
+          "value": "N817QA",
+          "description": "ICAO aircraft tail registration number."
+        },
+        {
+          "id": "pcomp-callsign-001",
+          "role_name": "callSign",
+          "data_type": "String",
+          "cardinality": "1..1",
+          "realizes": null,
+          "value": "QFA817",
+          "description": "ICAO flight callsign."
+        },
+        {
+          "id": "pcomp-altitude-001",
+          "role_name": "altitude_ft",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-altitude-001",
+          "value": 35000,
+          "description": "Altitude above MSL in feet."
+        },
+        {
+          "id": "pcomp-airspeed-001",
+          "role_name": "trueAirspeed_kt",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-airspeed-001",
+          "value": 448,
+          "description": "True airspeed in knots."
+        },
+        {
+          "id": "pcomp-temp-001",
+          "role_name": "outsideAirTemp_degC",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-temp-001",
+          "value": -54,
+          "description": "Outside air temperature in degrees Celsius."
+        },
+        {
+          "id": "pcomp-mass-001",
+          "role_name": "grossMass_kg",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-mass-001",
+          "value": 64000,
+          "description": "Gross aircraft mass in kilograms."
+        },
+        {
+          "id": "pcomp-fuel-001",
+          "role_name": "fuelRemaining_kg",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-fuel-001",
+          "value": 8200,
+          "description": "Fuel remaining in kilograms."
+        },
+        {
+          "id": "pcomp-heading-001",
+          "role_name": "trueHeading_deg",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-heading-001",
+          "value": 82,
+          "description": "True heading in degrees."
+        },
+        {
+          "id": "pcomp-lat-001",
+          "role_name": "latitude_deg",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-lat-001",
+          "value": 33.9425,
+          "description": "WGS-84 latitude in decimal degrees."
+        },
+        {
+          "id": "pcomp-lon-001",
+          "role_name": "longitude_deg",
+          "data_type": "Double",
+          "cardinality": "1..1",
+          "realizes": "lm-lon-001",
+          "value": -112.4081,
+          "description": "WGS-84 longitude in decimal degrees."
+        }
+      ]
+    }
+  }
+}

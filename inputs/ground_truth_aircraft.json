@@ -1,0 +1,10 @@
+[
+  {"src_name": "Altitude",              "tgt_name": "HeightAboveMeanSeaLevel",           "note": "vertical distance above MSL"},
+  {"src_name": "TrueAirspeed",          "tgt_name": "AirRelativeSpeedMagnitude",         "note": "speed relative to air mass"},
+  {"src_name": "OutsideAirTemperature", "tgt_name": "ExternalTemperature",               "note": "ambient air temperature"},
+  {"src_name": "GrossMass",             "tgt_name": "VehicleWeightEquivalentMass",        "note": "total vehicle mass"},
+  {"src_name": "FuelRemaining",         "tgt_name": "FuelOnBoard",                        "note": "fuel quantity on board"},
+  {"src_name": "TrueHeading",           "tgt_name": "DirectionOfNoseRelativeToTrueNorth", "note": "bearing from true north"},
+  {"src_name": "Latitude",              "tgt_name": "GeodeticLatitude",                   "note": "WGS-84 latitude"},
+  {"src_name": "Longitude",             "tgt_name": "GeodeticLongitude",                  "note": "WGS-84 longitude"}
+]

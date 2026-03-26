@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+venv/
+
+# Generated outputs
+outputs/
+cache/
+
+# Build artifacts
+__pycache__/
+*.pyc
+*.pyo
+
+# Claude/tooling config
+.claude/
+.claude-flow/
+.swarm/
+.server-storage/
+CLAUDE.md
+.mcp.json
+
+# Node/package files
+package.json
+package-lock.json
+
+# OWL/ontology generated files (root level)
+icd_metamodel.owl
+icd_populated_inferred.owl
+
+# Statistics/results files
+human_llmstatistics.json
+src_tgtstatistics.json
+
+# Diagram/config files
+system.drawio
+limes_configs/
+tools/
+
+# Accidental files
+'
+0
+NT
+Observable
+realizes
+role
+realizes
