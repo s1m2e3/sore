@@ -1,0 +1,933 @@
+{
+  "modelName": "Hospital_Model_V2_EquipmentAndSpaceCentric",
+  "modelDescription": "Equipment-and-space-centric decomposition of a hospital system. Every piece of medical equipment, clinical space, infrastructure component, and personnel role is a flat, independent entity. Structural and functional relationships are expressed entirely through Associations, making every resource independently addressable.",
+  "observables": [
+    "Identifier", "Temperature", "Pressure", "Power", "Energy",
+    "ElectricPotential", "ElectricCurrent", "Mass",
+    "Position", "Distance", "Duration",
+    "TemporalFrequency", "ScalarVolume", "ScalarArea",
+    "MassFlowRate", "Ratio", "Count", "HealthState",
+    "OperationalState", "Kind", "Description", "Extent",
+    "Humidity", "Illuminance", "ConfigurationState", "Size",
+    "DataRate", "CalendarTime", "NonPhysicalAddress",
+    "Audio", "Video", "Speed", "Mode",
+    "ChemicalConcentration", "CountRate"
+  ],
+  "entities": [
+    {
+      "entityName": "Hospital",
+      "entityAttributes": [
+        { "name": "hospitalID", "type": "Identifier" },
+        { "name": "hospitalName", "type": "Description" },
+        { "name": "location", "type": "Position" },
+        { "name": "totalBedCount", "type": "Count" },
+        { "name": "traumaLevel", "type": "Kind" },
+        { "name": "accreditationStatus", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "Building",
+      "entityAttributes": [
+        { "name": "buildingID", "type": "Identifier" },
+        { "name": "buildingName", "type": "Description" },
+        { "name": "grossArea", "type": "ScalarArea" },
+        { "name": "floorCount", "type": "Count" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Floor",
+      "entityAttributes": [
+        { "name": "floorID", "type": "Identifier" },
+        { "name": "floorLevel", "type": "Identifier" },
+        { "name": "floorArea", "type": "ScalarArea" }
+      ]
+    },
+    {
+      "entityName": "PatientRoom",
+      "entityAttributes": [
+        { "name": "roomID", "type": "Identifier" },
+        { "name": "roomNumber", "type": "Identifier" },
+        { "name": "roomType", "type": "Kind" },
+        { "name": "bedCount", "type": "Count" },
+        { "name": "floorArea", "type": "ScalarArea" },
+        { "name": "temperature", "type": "Temperature" },
+        { "name": "humidity", "type": "Humidity" },
+        { "name": "isolationState", "type": "ConfigurationState" },
+        { "name": "occupancyState", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "ICUBay",
+      "entityAttributes": [
+        { "name": "bayID", "type": "Identifier" },
+        { "name": "bayType", "type": "Kind" },
+        { "name": "floorArea", "type": "ScalarArea" },
+        { "name": "occupancyState", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "OperatingRoom",
+      "entityAttributes": [
+        { "name": "orID", "type": "Identifier" },
+        { "name": "orNumber", "type": "Identifier" },
+        { "name": "orType", "type": "Kind" },
+        { "name": "floorArea", "type": "ScalarArea" },
+        { "name": "temperature", "type": "Temperature" },
+        { "name": "humidity", "type": "Humidity" },
+        { "name": "airExchangeRate", "type": "CountRate" },
+        { "name": "operationalStatus", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "EmergencyBay",
+      "entityAttributes": [
+        { "name": "bayID", "type": "Identifier" },
+        { "name": "bayType", "type": "Kind" },
+        { "name": "occupancyState", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "ExamRoom",
+      "entityAttributes": [
+        { "name": "roomID", "type": "Identifier" },
+        { "name": "roomNumber", "type": "Identifier" },
+        { "name": "specialty", "type": "Kind" },
+        { "name": "floorArea", "type": "ScalarArea" },
+        { "name": "occupancyState", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "TriageArea",
+      "entityAttributes": [
+        { "name": "areaID", "type": "Identifier" },
+        { "name": "stationCount", "type": "Count" },
+        { "name": "waitingCapacity", "type": "Count" }
+      ]
+    },
+    {
+      "entityName": "PreOpBay",
+      "entityAttributes": [
+        { "name": "bayID", "type": "Identifier" },
+        { "name": "occupancyState", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "RecoveryBay",
+      "entityAttributes": [
+        { "name": "bayID", "type": "Identifier" },
+        { "name": "occupancyState", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "NurseStation",
+      "entityAttributes": [
+        { "name": "stationID", "type": "Identifier" },
+        { "name": "workstationCount", "type": "Count" }
+      ]
+    },
+    {
+      "entityName": "MedicationRoom",
+      "entityAttributes": [
+        { "name": "roomID", "type": "Identifier" },
+        { "name": "temperature", "type": "Temperature" }
+      ]
+    },
+    {
+      "entityName": "ClinicalLaboratory",
+      "entityAttributes": [
+        { "name": "labID", "type": "Identifier" },
+        { "name": "labType", "type": "Kind" },
+        { "name": "labName", "type": "Description" },
+        { "name": "biosafety", "type": "Kind" },
+        { "name": "temperature", "type": "Temperature" }
+      ]
+    },
+    {
+      "entityName": "ImagingSuite",
+      "entityAttributes": [
+        { "name": "suiteID", "type": "Identifier" },
+        { "name": "suiteType", "type": "Kind" },
+        { "name": "floorArea", "type": "ScalarArea" },
+        { "name": "shielding", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "PharmacySpace",
+      "entityAttributes": [
+        { "name": "pharmacyID", "type": "Identifier" },
+        { "name": "pharmacyType", "type": "Kind" },
+        { "name": "floorArea", "type": "ScalarArea" },
+        { "name": "hasCleanRoom", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "SterileProcessingArea",
+      "entityAttributes": [
+        { "name": "areaID", "type": "Identifier" },
+        { "name": "floorArea", "type": "ScalarArea" }
+      ]
+    },
+    {
+      "entityName": "DecontaminationRoom",
+      "entityAttributes": [
+        { "name": "roomID", "type": "Identifier" },
+        { "name": "showerCount", "type": "Count" },
+        { "name": "ventilationRate", "type": "CountRate" }
+      ]
+    },
+    {
+      "entityName": "AmbulanceBay",
+      "entityAttributes": [
+        { "name": "bayID", "type": "Identifier" },
+        { "name": "vehicleCapacity", "type": "Count" },
+        { "name": "helipadPresent", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "PatientBed",
+      "entityAttributes": [
+        { "name": "bedID", "type": "Identifier" },
+        { "name": "bedType", "type": "Kind" },
+        { "name": "weightCapacity", "type": "Mass" },
+        { "name": "condition", "type": "HealthState" },
+        { "name": "occupancyState", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "BedsideMonitor",
+      "entityAttributes": [
+        { "name": "monitorID", "type": "Identifier" },
+        { "name": "monitorType", "type": "Kind" },
+        { "name": "parameterCount", "type": "Count" },
+        { "name": "alarmState", "type": "ConfigurationState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Ventilator",
+      "entityAttributes": [
+        { "name": "ventilatorID", "type": "Identifier" },
+        { "name": "ventilatorType", "type": "Kind" },
+        { "name": "ventilationMode", "type": "Mode" },
+        { "name": "tidalVolume", "type": "ScalarVolume" },
+        { "name": "respiratoryRate", "type": "TemporalFrequency" },
+        { "name": "peep", "type": "Pressure" },
+        { "name": "fio2", "type": "Ratio" },
+        { "name": "alarmState", "type": "ConfigurationState" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "InfusionPump",
+      "entityAttributes": [
+        { "name": "pumpID", "type": "Identifier" },
+        { "name": "pumpType", "type": "Kind" },
+        { "name": "channelCount", "type": "Count" },
+        { "name": "infusionRate", "type": "MassFlowRate" },
+        { "name": "alarmState", "type": "ConfigurationState" },
+        { "name": "batteryLevel", "type": "Ratio" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Defibrillator",
+      "entityAttributes": [
+        { "name": "defibID", "type": "Identifier" },
+        { "name": "defibType", "type": "Kind" },
+        { "name": "batteryLevel", "type": "Ratio" },
+        { "name": "padExpiration", "type": "CalendarTime" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "SurgicalTable",
+      "entityAttributes": [
+        { "name": "tableID", "type": "Identifier" },
+        { "name": "tableType", "type": "Kind" },
+        { "name": "weightCapacity", "type": "Mass" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "SurgicalLight",
+      "entityAttributes": [
+        { "name": "lightID", "type": "Identifier" },
+        { "name": "lightIntensity", "type": "Illuminance" },
+        { "name": "colorTemperature", "type": "Temperature" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "AnesthesiaMachine",
+      "entityAttributes": [
+        { "name": "machineID", "type": "Identifier" },
+        { "name": "ventilatoryMode", "type": "Mode" },
+        { "name": "oxygenFlowRate", "type": "MassFlowRate" },
+        { "name": "gasConcentration", "type": "ChemicalConcentration" },
+        { "name": "alarmState", "type": "ConfigurationState" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "ElectrosurgicalUnit",
+      "entityAttributes": [
+        { "name": "unitID", "type": "Identifier" },
+        { "name": "powerSetting", "type": "Power" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "SurgicalBoom",
+      "entityAttributes": [
+        { "name": "boomID", "type": "Identifier" },
+        { "name": "boomType", "type": "Kind" },
+        { "name": "loadCapacity", "type": "Mass" },
+        { "name": "outletCount", "type": "Count" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "MRIScanner",
+      "entityAttributes": [
+        { "name": "scannerID", "type": "Identifier" },
+        { "name": "fieldStrength", "type": "Kind" },
+        { "name": "boreSize", "type": "Distance" },
+        { "name": "heliumLevel", "type": "Ratio" },
+        { "name": "powerRequirement", "type": "Power" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "CTScanner",
+      "entityAttributes": [
+        { "name": "scannerID", "type": "Identifier" },
+        { "name": "sliceCount", "type": "Count" },
+        { "name": "gantryAperture", "type": "Distance" },
+        { "name": "powerRequirement", "type": "Power" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "XRayMachine",
+      "entityAttributes": [
+        { "name": "machineID", "type": "Identifier" },
+        { "name": "machineType", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "UltrasoundMachine",
+      "entityAttributes": [
+        { "name": "machineID", "type": "Identifier" },
+        { "name": "probeCount", "type": "Count" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "LabAnalyzer",
+      "entityAttributes": [
+        { "name": "analyzerID", "type": "Identifier" },
+        { "name": "analyzerType", "type": "Kind" },
+        { "name": "throughput", "type": "CountRate" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Centrifuge",
+      "entityAttributes": [
+        { "name": "centrifugeID", "type": "Identifier" },
+        { "name": "maxSpeed", "type": "Speed" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Microscope",
+      "entityAttributes": [
+        { "name": "microscopeID", "type": "Identifier" },
+        { "name": "microscopeType", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Autoclave",
+      "entityAttributes": [
+        { "name": "autoclaveID", "type": "Identifier" },
+        { "name": "chamberVolume", "type": "ScalarVolume" },
+        { "name": "sterilizationTemperature", "type": "Temperature" },
+        { "name": "sterilizationPressure", "type": "Pressure" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "AutomatedMedicationDispenser",
+      "entityAttributes": [
+        { "name": "dispenserID", "type": "Identifier" },
+        { "name": "dispenserType", "type": "Kind" },
+        { "name": "drawerCount", "type": "Count" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "MedicationRefrigerator",
+      "entityAttributes": [
+        { "name": "fridgeID", "type": "Identifier" },
+        { "name": "temperature", "type": "Temperature" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "alarmState", "type": "ConfigurationState" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "BloodBankFreezer",
+      "entityAttributes": [
+        { "name": "freezerID", "type": "Identifier" },
+        { "name": "temperature", "type": "Temperature" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "alarmState", "type": "ConfigurationState" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "CompoundingHood",
+      "entityAttributes": [
+        { "name": "hoodID", "type": "Identifier" },
+        { "name": "hoodType", "type": "Kind" },
+        { "name": "airFlowRate", "type": "MassFlowRate" },
+        { "name": "lastCertification", "type": "CalendarTime" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "IncubatorUnit",
+      "entityAttributes": [
+        { "name": "incubatorID", "type": "Identifier" },
+        { "name": "setTemperature", "type": "Temperature" },
+        { "name": "currentTemperature", "type": "Temperature" },
+        { "name": "humidity", "type": "Humidity" },
+        { "name": "oxygenConcentration", "type": "Ratio" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "ECGMachine",
+      "entityAttributes": [
+        { "name": "machineID", "type": "Identifier" },
+        { "name": "leadCount", "type": "Count" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "PulseOximeter",
+      "entityAttributes": [
+        { "name": "oximeterID", "type": "Identifier" },
+        { "name": "oximeterType", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "NurseCallUnit",
+      "entityAttributes": [
+        { "name": "unitID", "type": "Identifier" },
+        { "name": "callState", "type": "ConfigurationState" },
+        { "name": "priorityLevel", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "MedicalGasOutlet",
+      "entityAttributes": [
+        { "name": "outletID", "type": "Identifier" },
+        { "name": "gasType", "type": "Kind" },
+        { "name": "pressure", "type": "Pressure" },
+        { "name": "flowRate", "type": "MassFlowRate" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "PneumaticTubeTerminal",
+      "entityAttributes": [
+        { "name": "terminalID", "type": "Identifier" },
+        { "name": "operationalState", "type": "OperationalState" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "GasManifold",
+      "entityAttributes": [
+        { "name": "manifoldID", "type": "Identifier" },
+        { "name": "gasType", "type": "Kind" },
+        { "name": "supplyPressure", "type": "Pressure" },
+        { "name": "tankLevel", "type": "Ratio" },
+        { "name": "alarmState", "type": "ConfigurationState" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Generator",
+      "entityAttributes": [
+        { "name": "generatorID", "type": "Identifier" },
+        { "name": "ratedPower", "type": "Power" },
+        { "name": "fuelType", "type": "Kind" },
+        { "name": "fuelLevel", "type": "Ratio" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "UPS",
+      "entityAttributes": [
+        { "name": "upsID", "type": "Identifier" },
+        { "name": "ratedPower", "type": "Power" },
+        { "name": "batteryRuntime", "type": "Duration" },
+        { "name": "batteryLevel", "type": "Ratio" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "AirHandlingUnit",
+      "entityAttributes": [
+        { "name": "ahuID", "type": "Identifier" },
+        { "name": "airFlowRate", "type": "MassFlowRate" },
+        { "name": "supplyTemp", "type": "Temperature" },
+        { "name": "filterCondition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Chiller",
+      "entityAttributes": [
+        { "name": "chillerID", "type": "Identifier" },
+        { "name": "coolingCapacity", "type": "Power" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Boiler",
+      "entityAttributes": [
+        { "name": "boilerID", "type": "Identifier" },
+        { "name": "heatingCapacity", "type": "Power" },
+        { "name": "steamPressure", "type": "Pressure" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Elevator",
+      "entityAttributes": [
+        { "name": "elevatorID", "type": "Identifier" },
+        { "name": "elevatorType", "type": "Kind" },
+        { "name": "weightCapacity", "type": "Mass" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "WiFiAccessPoint",
+      "entityAttributes": [
+        { "name": "apID", "type": "Identifier" },
+        { "name": "band", "type": "Kind" },
+        { "name": "connectedClients", "type": "Count" },
+        { "name": "dataRate", "type": "DataRate" }
+      ]
+    },
+    {
+      "entityName": "Server",
+      "entityAttributes": [
+        { "name": "serverID", "type": "Identifier" },
+        { "name": "serverType", "type": "Kind" },
+        { "name": "memorySize", "type": "Size" },
+        { "name": "storageSize", "type": "Size" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "ClinicalWorkstation",
+      "entityAttributes": [
+        { "name": "workstationID", "type": "Identifier" },
+        { "name": "workstationType", "type": "Kind" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "PACSServer",
+      "entityAttributes": [
+        { "name": "serverID", "type": "Identifier" },
+        { "name": "storageCapacity", "type": "Size" },
+        { "name": "usedStorage", "type": "Size" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "Physician",
+      "entityAttributes": [
+        { "name": "physicianID", "type": "Identifier" },
+        { "name": "name", "type": "Description" },
+        { "name": "specialty", "type": "Kind" },
+        { "name": "licenseNumber", "type": "Identifier" },
+        { "name": "contactPager", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "Nurse",
+      "entityAttributes": [
+        { "name": "nurseID", "type": "Identifier" },
+        { "name": "name", "type": "Description" },
+        { "name": "nurseType", "type": "Kind" },
+        { "name": "licenseNumber", "type": "Identifier" },
+        { "name": "certifications", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "Technician",
+      "entityAttributes": [
+        { "name": "technicianID", "type": "Identifier" },
+        { "name": "name", "type": "Description" },
+        { "name": "technicianType", "type": "Kind" },
+        { "name": "certifications", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "Pharmacist",
+      "entityAttributes": [
+        { "name": "pharmacistID", "type": "Identifier" },
+        { "name": "name", "type": "Description" },
+        { "name": "licenseNumber", "type": "Identifier" }
+      ]
+    },
+    {
+      "entityName": "Surgeon",
+      "entityAttributes": [
+        { "name": "surgeonID", "type": "Identifier" },
+        { "name": "name", "type": "Description" },
+        { "name": "surgicalSpecialty", "type": "Kind" },
+        { "name": "licenseNumber", "type": "Identifier" }
+      ]
+    },
+    {
+      "entityName": "Anesthesiologist",
+      "entityAttributes": [
+        { "name": "anesthesiologistID", "type": "Identifier" },
+        { "name": "name", "type": "Description" },
+        { "name": "licenseNumber", "type": "Identifier" }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "associationName": "FloorInBuilding",
+      "associationAttributes": [],
+      "associationParticipants": ["Floor", "Building"]
+    },
+    {
+      "associationName": "PatientRoomOnFloor",
+      "associationAttributes": [],
+      "associationParticipants": ["PatientRoom", "Floor"]
+    },
+    {
+      "associationName": "ICUBayOnFloor",
+      "associationAttributes": [],
+      "associationParticipants": ["ICUBay", "Floor"]
+    },
+    {
+      "associationName": "OROnFloor",
+      "associationAttributes": [],
+      "associationParticipants": ["OperatingRoom", "Floor"]
+    },
+    {
+      "associationName": "LabOnFloor",
+      "associationAttributes": [],
+      "associationParticipants": ["ClinicalLaboratory", "Floor"]
+    },
+    {
+      "associationName": "ImagingSuiteOnFloor",
+      "associationAttributes": [],
+      "associationParticipants": ["ImagingSuite", "Floor"]
+    },
+    {
+      "associationName": "PharmacyOnFloor",
+      "associationAttributes": [],
+      "associationParticipants": ["PharmacySpace", "Floor"]
+    },
+    {
+      "associationName": "BedInPatientRoom",
+      "associationAttributes": [
+        { "name": "bedPosition", "type": "Kind" }
+      ],
+      "associationParticipants": ["PatientBed", "PatientRoom"]
+    },
+    {
+      "associationName": "BedInICUBay",
+      "associationAttributes": [],
+      "associationParticipants": ["PatientBed", "ICUBay"]
+    },
+    {
+      "associationName": "MonitorInRoom",
+      "associationAttributes": [],
+      "associationParticipants": ["BedsideMonitor", "PatientRoom"]
+    },
+    {
+      "associationName": "MonitorInICU",
+      "associationAttributes": [],
+      "associationParticipants": ["BedsideMonitor", "ICUBay"]
+    },
+    {
+      "associationName": "MonitorInRecovery",
+      "associationAttributes": [],
+      "associationParticipants": ["BedsideMonitor", "RecoveryBay"]
+    },
+    {
+      "associationName": "VentilatorInICU",
+      "associationAttributes": [],
+      "associationParticipants": ["Ventilator", "ICUBay"]
+    },
+    {
+      "associationName": "VentilatorInEmergency",
+      "associationAttributes": [],
+      "associationParticipants": ["Ventilator", "EmergencyBay"]
+    },
+    {
+      "associationName": "InfusionPumpAtBedside",
+      "associationAttributes": [],
+      "associationParticipants": ["InfusionPump", "PatientBed"]
+    },
+    {
+      "associationName": "DefibrillatorInArea",
+      "associationAttributes": [
+        { "name": "mountLocation", "type": "Kind" }
+      ],
+      "associationParticipants": ["Defibrillator", "EmergencyBay"]
+    },
+    {
+      "associationName": "SurgicalTableInOR",
+      "associationAttributes": [],
+      "associationParticipants": ["SurgicalTable", "OperatingRoom"]
+    },
+    {
+      "associationName": "SurgicalLightInOR",
+      "associationAttributes": [],
+      "associationParticipants": ["SurgicalLight", "OperatingRoom"]
+    },
+    {
+      "associationName": "AnesthesiaMachineInOR",
+      "associationAttributes": [],
+      "associationParticipants": ["AnesthesiaMachine", "OperatingRoom"]
+    },
+    {
+      "associationName": "ElectrosurgicalUnitInOR",
+      "associationAttributes": [],
+      "associationParticipants": ["ElectrosurgicalUnit", "OperatingRoom"]
+    },
+    {
+      "associationName": "BoomInOR",
+      "associationAttributes": [],
+      "associationParticipants": ["SurgicalBoom", "OperatingRoom"]
+    },
+    {
+      "associationName": "MRIInSuite",
+      "associationAttributes": [],
+      "associationParticipants": ["MRIScanner", "ImagingSuite"]
+    },
+    {
+      "associationName": "CTInSuite",
+      "associationAttributes": [],
+      "associationParticipants": ["CTScanner", "ImagingSuite"]
+    },
+    {
+      "associationName": "XRayInSuite",
+      "associationAttributes": [],
+      "associationParticipants": ["XRayMachine", "ImagingSuite"]
+    },
+    {
+      "associationName": "UltrasoundInSuite",
+      "associationAttributes": [],
+      "associationParticipants": ["UltrasoundMachine", "ImagingSuite"]
+    },
+    {
+      "associationName": "AnalyzerInLab",
+      "associationAttributes": [],
+      "associationParticipants": ["LabAnalyzer", "ClinicalLaboratory"]
+    },
+    {
+      "associationName": "CentrifugeInLab",
+      "associationAttributes": [],
+      "associationParticipants": ["Centrifuge", "ClinicalLaboratory"]
+    },
+    {
+      "associationName": "MicroscopeInLab",
+      "associationAttributes": [],
+      "associationParticipants": ["Microscope", "ClinicalLaboratory"]
+    },
+    {
+      "associationName": "FreezerInLab",
+      "associationAttributes": [],
+      "associationParticipants": ["BloodBankFreezer", "ClinicalLaboratory"]
+    },
+    {
+      "associationName": "AutoclaveInSterile",
+      "associationAttributes": [],
+      "associationParticipants": ["Autoclave", "SterileProcessingArea"]
+    },
+    {
+      "associationName": "DispenserInMedRoom",
+      "associationAttributes": [],
+      "associationParticipants": ["AutomatedMedicationDispenser", "MedicationRoom"]
+    },
+    {
+      "associationName": "DispenserInPharmacy",
+      "associationAttributes": [],
+      "associationParticipants": ["AutomatedMedicationDispenser", "PharmacySpace"]
+    },
+    {
+      "associationName": "FridgeInMedRoom",
+      "associationAttributes": [],
+      "associationParticipants": ["MedicationRefrigerator", "MedicationRoom"]
+    },
+    {
+      "associationName": "HoodInPharmacy",
+      "associationAttributes": [],
+      "associationParticipants": ["CompoundingHood", "PharmacySpace"]
+    },
+    {
+      "associationName": "GasOutletInRoom",
+      "associationAttributes": [],
+      "associationParticipants": ["MedicalGasOutlet", "PatientRoom"]
+    },
+    {
+      "associationName": "GasOutletInOR",
+      "associationAttributes": [],
+      "associationParticipants": ["MedicalGasOutlet", "OperatingRoom"]
+    },
+    {
+      "associationName": "GasOutletInICU",
+      "associationAttributes": [],
+      "associationParticipants": ["MedicalGasOutlet", "ICUBay"]
+    },
+    {
+      "associationName": "ManifoldSuppliesOutlet",
+      "associationAttributes": [],
+      "associationParticipants": ["GasManifold", "MedicalGasOutlet"]
+    },
+    {
+      "associationName": "NurseCallInRoom",
+      "associationAttributes": [],
+      "associationParticipants": ["NurseCallUnit", "PatientRoom"]
+    },
+    {
+      "associationName": "TubeTerminalAtStation",
+      "associationAttributes": [],
+      "associationParticipants": ["PneumaticTubeTerminal", "NurseStation"]
+    },
+    {
+      "associationName": "TubeTerminalAtPharmacy",
+      "associationAttributes": [],
+      "associationParticipants": ["PneumaticTubeTerminal", "PharmacySpace"]
+    },
+    {
+      "associationName": "TubeTerminalAtLab",
+      "associationAttributes": [],
+      "associationParticipants": ["PneumaticTubeTerminal", "ClinicalLaboratory"]
+    },
+    {
+      "associationName": "AHUServesFloor",
+      "associationAttributes": [
+        { "name": "airExchangeRate", "type": "CountRate" }
+      ],
+      "associationParticipants": ["AirHandlingUnit", "Floor"]
+    },
+    {
+      "associationName": "GeneratorBacksUpBuilding",
+      "associationAttributes": [],
+      "associationParticipants": ["Generator", "Building"]
+    },
+    {
+      "associationName": "UPSProtectsEquipment",
+      "associationAttributes": [],
+      "associationParticipants": ["UPS", "Server"]
+    },
+    {
+      "associationName": "ElevatorInBuilding",
+      "associationAttributes": [],
+      "associationParticipants": ["Elevator", "Building"]
+    },
+    {
+      "associationName": "WiFiOnFloor",
+      "associationAttributes": [],
+      "associationParticipants": ["WiFiAccessPoint", "Floor"]
+    },
+    {
+      "associationName": "WorkstationAtStation",
+      "associationAttributes": [],
+      "associationParticipants": ["ClinicalWorkstation", "NurseStation"]
+    },
+    {
+      "associationName": "WorkstationInExamRoom",
+      "associationAttributes": [],
+      "associationParticipants": ["ClinicalWorkstation", "ExamRoom"]
+    },
+    {
+      "associationName": "PACSStoresFromSuite",
+      "associationAttributes": [],
+      "associationParticipants": ["PACSServer", "ImagingSuite"]
+    },
+    {
+      "associationName": "PhysicianHasPrivileges",
+      "associationAttributes": [
+        { "name": "privilegeType", "type": "Kind" }
+      ],
+      "associationParticipants": ["Physician", "Hospital"]
+    },
+    {
+      "associationName": "NurseAssignedToFloor",
+      "associationAttributes": [
+        { "name": "shiftType", "type": "Kind" }
+      ],
+      "associationParticipants": ["Nurse", "Floor"]
+    },
+    {
+      "associationName": "TechnicianInLab",
+      "associationAttributes": [],
+      "associationParticipants": ["Technician", "ClinicalLaboratory"]
+    },
+    {
+      "associationName": "TechnicianInImaging",
+      "associationAttributes": [],
+      "associationParticipants": ["Technician", "ImagingSuite"]
+    },
+    {
+      "associationName": "PharmacistInPharmacy",
+      "associationAttributes": [],
+      "associationParticipants": ["Pharmacist", "PharmacySpace"]
+    },
+    {
+      "associationName": "SurgeonOperatesInOR",
+      "associationAttributes": [],
+      "associationParticipants": ["Surgeon", "OperatingRoom"]
+    },
+    {
+      "associationName": "AnesthesiologistInOR",
+      "associationAttributes": [],
+      "associationParticipants": ["Anesthesiologist", "OperatingRoom"]
+    },
+    {
+      "associationName": "NurseStationServesRooms",
+      "associationAttributes": [
+        { "name": "roomCount", "type": "Count" }
+      ],
+      "associationParticipants": ["NurseStation", "PatientRoom"]
+    },
+    {
+      "associationName": "MedRoomServesUnit",
+      "associationAttributes": [],
+      "associationParticipants": ["MedicationRoom", "NurseStation"]
+    },
+    {
+      "associationName": "IncubatorInNursery",
+      "associationAttributes": [],
+      "associationParticipants": ["IncubatorUnit", "PatientRoom"]
+    }
+  ]
+}

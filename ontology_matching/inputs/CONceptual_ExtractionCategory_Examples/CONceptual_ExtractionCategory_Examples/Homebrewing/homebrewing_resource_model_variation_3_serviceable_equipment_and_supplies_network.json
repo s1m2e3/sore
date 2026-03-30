@@ -1,0 +1,622 @@
+{
+  "topicDomain": "Home Beer Brewing",
+  "modelName": "Homebrewing Resource Model - Serviceable Equipment and Supplies Network",
+  "methodBasis": "All entities represent serviceable equipment parts, accessories, and ingredient supplies within a homebrewing setup. Variations differ by emphasizing direct support, connection, storage, and supply relationships among these resources.",
+  "entities": [
+    {
+      "name": "BrewStand",
+      "attributes": [
+        {
+          "name": "brewStandID",
+          "type": "Identifier"
+        },
+        {
+          "name": "standPosition",
+          "type": "Position"
+        },
+        {
+          "name": "standExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "standOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Burner",
+      "attributes": [
+        {
+          "name": "burnerID",
+          "type": "Identifier"
+        },
+        {
+          "name": "burnerPower",
+          "type": "Power"
+        },
+        {
+          "name": "fuelState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "burnerOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Kettle",
+      "attributes": [
+        {
+          "name": "kettleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "kettleVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "kettleTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "kettleOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "FalseBottom",
+      "attributes": [
+        {
+          "name": "falseBottomID",
+          "type": "Identifier"
+        },
+        {
+          "name": "componentPosition",
+          "type": "Position"
+        },
+        {
+          "name": "componentExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "componentOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ValveAssembly",
+      "attributes": [
+        {
+          "name": "valveAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "flowState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "flowRate",
+          "type": "MassFlowRate"
+        },
+        {
+          "name": "assemblyOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "TubingSet",
+      "attributes": [
+        {
+          "name": "tubingSetID",
+          "type": "Identifier"
+        },
+        {
+          "name": "lineVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "flowRate",
+          "type": "MassFlowRate"
+        },
+        {
+          "name": "setOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "FermentationBucket",
+      "attributes": [
+        {
+          "name": "fermentationBucketID",
+          "type": "Identifier"
+        },
+        {
+          "name": "bucketVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "bucketTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "bucketOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Stopper",
+      "attributes": [
+        {
+          "name": "stopperID",
+          "type": "Identifier"
+        },
+        {
+          "name": "sealState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "componentPosition",
+          "type": "Position"
+        },
+        {
+          "name": "componentOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Airlock",
+      "attributes": [
+        {
+          "name": "airlockID",
+          "type": "Identifier"
+        },
+        {
+          "name": "liquidVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "pressureState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "airlockOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Hydrometer",
+      "attributes": [
+        {
+          "name": "hydrometerID",
+          "type": "Identifier"
+        },
+        {
+          "name": "measurementCount",
+          "type": "Count"
+        },
+        {
+          "name": "measurementOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "sampleTemperature",
+          "type": "Temperature"
+        }
+      ]
+    },
+    {
+      "name": "Thermometer",
+      "attributes": [
+        {
+          "name": "thermometerID",
+          "type": "Identifier"
+        },
+        {
+          "name": "measurementCount",
+          "type": "Count"
+        },
+        {
+          "name": "measurementOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "measuredTemperature",
+          "type": "Temperature"
+        }
+      ]
+    },
+    {
+      "name": "GrainBag",
+      "attributes": [
+        {
+          "name": "grainBagID",
+          "type": "Identifier"
+        },
+        {
+          "name": "storedMass",
+          "type": "Mass"
+        },
+        {
+          "name": "bagExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "bagOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "HopPacket",
+      "attributes": [
+        {
+          "name": "hopPacketID",
+          "type": "Identifier"
+        },
+        {
+          "name": "storedMass",
+          "type": "Mass"
+        },
+        {
+          "name": "packetExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "packetOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "YeastPacket",
+      "attributes": [
+        {
+          "name": "yeastPacketID",
+          "type": "Identifier"
+        },
+        {
+          "name": "storedMass",
+          "type": "Mass"
+        },
+        {
+          "name": "packetExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "packetOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "PrimingSugarContainer",
+      "attributes": [
+        {
+          "name": "primingSugarContainerID",
+          "type": "Identifier"
+        },
+        {
+          "name": "storedMass",
+          "type": "Mass"
+        },
+        {
+          "name": "containerExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "containerOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "BottleSet",
+      "attributes": [
+        {
+          "name": "bottleSetID",
+          "type": "Identifier"
+        },
+        {
+          "name": "bottleCount",
+          "type": "Count"
+        },
+        {
+          "name": "bottleVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "setOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Capper",
+      "attributes": [
+        {
+          "name": "capperID",
+          "type": "Identifier"
+        },
+        {
+          "name": "capperForce",
+          "type": "Force"
+        },
+        {
+          "name": "capperOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "useCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "SanitizerBottle",
+      "attributes": [
+        {
+          "name": "sanitizerBottleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "solutionVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "sprayState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "bottleOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "BrewStandSupportsBurner",
+      "participants": [
+        "BrewStand",
+        "Burner"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "BrewStandSupportsKettle",
+      "participants": [
+        "BrewStand",
+        "Kettle"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "KettleContainsFalseBottom",
+      "participants": [
+        "Kettle",
+        "FalseBottom"
+      ],
+      "attributes": [
+        {
+          "name": "componentPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "KettleContainsValveAssembly",
+      "participants": [
+        "Kettle",
+        "ValveAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "componentPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "ValveAssemblyConnectsTubingSet",
+      "participants": [
+        "ValveAssembly",
+        "TubingSet"
+      ],
+      "attributes": [
+        {
+          "name": "connectionState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "TubingSetConnectsKettleAndFermentationBucket",
+      "participants": [
+        "TubingSet",
+        "Kettle",
+        "FermentationBucket"
+      ],
+      "attributes": [
+        {
+          "name": "connectionState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "FermentationBucketContainsStopper",
+      "participants": [
+        "FermentationBucket",
+        "Stopper"
+      ],
+      "attributes": [
+        {
+          "name": "componentPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "StopperContainsAirlock",
+      "participants": [
+        "Stopper",
+        "Airlock"
+      ],
+      "attributes": [
+        {
+          "name": "componentPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "HydrometerUsedWithFermentationBucket",
+      "participants": [
+        "Hydrometer",
+        "FermentationBucket"
+      ],
+      "attributes": [
+        {
+          "name": "usageState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ThermometerUsedWithKettle",
+      "participants": [
+        "Thermometer",
+        "Kettle"
+      ],
+      "attributes": [
+        {
+          "name": "usageState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "GrainBagStoredAdjacentToKettle",
+      "participants": [
+        "GrainBag",
+        "Kettle"
+      ],
+      "attributes": [
+        {
+          "name": "adjacencyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "HopPacketStoredAdjacentToKettle",
+      "participants": [
+        "HopPacket",
+        "Kettle"
+      ],
+      "attributes": [
+        {
+          "name": "adjacencyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "YeastPacketStoredAdjacentToFermentationBucket",
+      "participants": [
+        "YeastPacket",
+        "FermentationBucket"
+      ],
+      "attributes": [
+        {
+          "name": "adjacencyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "PrimingSugarContainerStoredAdjacentToBottleSet",
+      "participants": [
+        "PrimingSugarContainer",
+        "BottleSet"
+      ],
+      "attributes": [
+        {
+          "name": "adjacencyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "CapperUsedWithBottleSet",
+      "participants": [
+        "Capper",
+        "BottleSet"
+      ],
+      "attributes": [
+        {
+          "name": "usageState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SanitizerBottleServesKettle",
+      "participants": [
+        "SanitizerBottle",
+        "Kettle"
+      ],
+      "attributes": [
+        {
+          "name": "sprayState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SanitizerBottleServesFermentationBucket",
+      "participants": [
+        "SanitizerBottle",
+        "FermentationBucket"
+      ],
+      "attributes": [
+        {
+          "name": "sprayState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "BurnerHeatsKettle",
+      "participants": [
+        "Burner",
+        "Kettle"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        }
+      ]
+    }
+  ]
+}

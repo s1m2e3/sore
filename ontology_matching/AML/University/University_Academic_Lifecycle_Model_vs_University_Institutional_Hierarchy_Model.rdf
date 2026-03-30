@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rdf:RDF xmlns='http://knowledgeweb.semanticweb.org/heterogeneity/alignment'
+	 xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' 
+	 xmlns:xsd='http://www.w3.org/2001/XMLSchema#' 
+	 alignmentSource='AgreementMakerLight'>
+
+<Alignment>
+	<xml>yes</xml>
+	<level>0</level>
+	<type>11</type>
+	<onto1>http://example.org/concept_instances/University_Academic_Lifecycle_Model</onto1>
+	<onto2>http://example.org/concept_instances/University_Institutional_Hierarchy_Model</onto2>
+	<uri1>http://example.org/concept_instances/University_Academic_Lifecycle_Model</uri1>
+	<uri2>http://example.org/concept_instances/University_Institutional_Hierarchy_Model</uri2>
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/University_Academic_Lifecycle_Model/University_Academic_Lifecycle_Model_attr_Student_standingState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/University_Institutional_Hierarchy_Model/University_Institutional_Hierarchy_Model_attr_Student_academicStandingState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.7661</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/University_Academic_Lifecycle_Model/University_Academic_Lifecycle_Model_attr_Student_earnedCreditCount"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/University_Institutional_Hierarchy_Model/University_Institutional_Hierarchy_Model_attr_Student_earnedCreditCount"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.7509</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/University_Academic_Lifecycle_Model/University_Academic_Lifecycle_Model_obs_TemporalFrequency"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/University_Institutional_Hierarchy_Model/University_Institutional_Hierarchy_Model_obs_TemporalFrequency"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.7155</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/University_Academic_Lifecycle_Model/University_Academic_Lifecycle_Model_obs_OperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/University_Institutional_Hierarchy_Model/University_Institutional_Hierarchy_Model_obs_OperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6866</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/University_Academic_Lifecycle_Model/University_Academic_Lifecycle_Model_attr_Student_studentID"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/University_Institutional_Hierarchy_Model/University_Institutional_Hierarchy_Model_attr_Student_studentID"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6619</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/University_Academic_Lifecycle_Model/University_Academic_Lifecycle_Model_attr_Student_studentName"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/University_Institutional_Hierarchy_Model/University_Institutional_Hierarchy_Model_attr_Student_studentName"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6584</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/University_Academic_Lifecycle_Model/University_Academic_Lifecycle_Model_obs_Order"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/University_Institutional_Hierarchy_Model/University_Institutional_Hierarchy_Model_obs_Order"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6451</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/University_Academic_Lifecycle_Model/University_Academic_Lifecycle_Model_obs_Identifier"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/University_Institutional_Hierarchy_Model/University_Institutional_Hierarchy_Model_obs_Identifier"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6451</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/University_Academic_Lifecycle_Model/University_Academic_Lifecycle_Model_attr_Student_studentState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/University_Institutional_Hierarchy_Model/University_Institutional_Hierarchy_Model_attr_Student_studentState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6343</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/University_Academic_Lifecycle_Model/University_Academic_Lifecycle_Model_obs_Name"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/University_Institutional_Hierarchy_Model/University_Institutional_Hierarchy_Model_obs_Name"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6162</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/University_Academic_Lifecycle_Model/University_Academic_Lifecycle_Model_obs_Time"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/University_Institutional_Hierarchy_Model/University_Institutional_Hierarchy_Model_obs_Time"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6115</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/University_Academic_Lifecycle_Model/University_Academic_Lifecycle_Model_obs_Count"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/University_Institutional_Hierarchy_Model/University_Institutional_Hierarchy_Model_obs_Count"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6015</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+</Alignment>
+</rdf:RDF>

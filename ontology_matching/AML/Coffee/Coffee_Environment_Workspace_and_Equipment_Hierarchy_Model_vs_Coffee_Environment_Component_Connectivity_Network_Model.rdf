@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rdf:RDF xmlns='http://knowledgeweb.semanticweb.org/heterogeneity/alignment'
+	 xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' 
+	 xmlns:xsd='http://www.w3.org/2001/XMLSchema#' 
+	 alignmentSource='AgreementMakerLight'>
+
+<Alignment>
+	<xml>yes</xml>
+	<level>0</level>
+	<type>11</type>
+	<onto1>http://example.org/concept_instances/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model</onto1>
+	<onto2>http://example.org/concept_instances/Coffee_Environment_Component_Connectivity_Network_Model</onto2>
+	<uri1>http://example.org/concept_instances/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model</uri1>
+	<uri2>http://example.org/concept_instances/Coffee_Environment_Component_Connectivity_Network_Model</uri2>
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model_attr_ConsumerUsesCup_useState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Coffee_Environment_Component_Connectivity_Network_Model/Coffee_Environment_Component_Connectivity_Network_Model_attr_ConsumerUsesCup_useState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6671</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model_assoc_ConsumerUsesCup"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Coffee_Environment_Component_Connectivity_Network_Model/Coffee_Environment_Component_Connectivity_Network_Model_assoc_ConsumerUsesCup"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6298</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model_attr_Consumer_consumerOperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Coffee_Environment_Component_Connectivity_Network_Model/Coffee_Environment_Component_Connectivity_Network_Model_attr_Consumer_consumerOperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6132</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model_attr_Cup_cupOperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Coffee_Environment_Component_Connectivity_Network_Model/Coffee_Environment_Component_Connectivity_Network_Model_attr_Cup_cupOperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6114</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model_obs_ScalarVolume"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Coffee_Environment_Component_Connectivity_Network_Model/Coffee_Environment_Component_Connectivity_Network_Model_obs_ScalarVolume"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6076</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+</Alignment>
+</rdf:RDF>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rdf:RDF xmlns='http://knowledgeweb.semanticweb.org/heterogeneity/alignment'
+	 xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' 
+	 xmlns:xsd='http://www.w3.org/2001/XMLSchema#' 
+	 alignmentSource='AgreementMakerLight'>
+
+<Alignment>
+	<xml>yes</xml>
+	<level>0</level>
+	<type>11</type>
+	<onto1>http://example.org/concept_instances/Smart_Home_Space_and_Device_Interaction_Network_Model</onto1>
+	<onto2>http://example.org/concept_instances/Smart_Home_System_Hierarchy_Model</onto2>
+	<uri1>http://example.org/concept_instances/Smart_Home_Space_and_Device_Interaction_Network_Model</uri1>
+	<uri2>http://example.org/concept_instances/Smart_Home_System_Hierarchy_Model</uri2>
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Smart_Home_Space_and_Device_Interaction_Network_Model/Smart_Home_Space_and_Device_Interaction_Network_Model_obs_MassFlowRate"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Smart_Home_System_Hierarchy_Model/Smart_Home_System_Hierarchy_Model_obs_MassFlowRate"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6561</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Smart_Home_Space_and_Device_Interaction_Network_Model/Smart_Home_Space_and_Device_Interaction_Network_Model_attr_Appliance_appliancePowerDemand"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Smart_Home_System_Hierarchy_Model/Smart_Home_System_Hierarchy_Model_attr_ApplianceSystem_appliancePowerDemand"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6269</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Smart_Home_Space_and_Device_Interaction_Network_Model/Smart_Home_Space_and_Device_Interaction_Network_Model_obs_LuminousIntensity"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Smart_Home_System_Hierarchy_Model/Smart_Home_System_Hierarchy_Model_obs_LuminousIntensity"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6177</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Smart_Home_Space_and_Device_Interaction_Network_Model/Smart_Home_Space_and_Device_Interaction_Network_Model_obs_TemporalFrequency"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Smart_Home_System_Hierarchy_Model/Smart_Home_System_Hierarchy_Model_obs_TemporalFrequency"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6138</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Smart_Home_Space_and_Device_Interaction_Network_Model/Smart_Home_Space_and_Device_Interaction_Network_Model_attr_NetworkHub_connectedDeviceCount"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Smart_Home_System_Hierarchy_Model/Smart_Home_System_Hierarchy_Model_attr_NetworkSystem_connectedDeviceCount"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6122</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Smart_Home_Space_and_Device_Interaction_Network_Model/Smart_Home_Space_and_Device_Interaction_Network_Model_attr_Appliance_applianceOperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Smart_Home_System_Hierarchy_Model/Smart_Home_System_Hierarchy_Model_attr_ApplianceSystem_applianceOperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6046</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+</Alignment>
+</rdf:RDF>

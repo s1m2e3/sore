@@ -1,0 +1,1361 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4437 2172" width="4437" height="2172" style="font-family: Consolas, Monaco, monospace; font-size: 11px;">
+<defs>
+  <marker id="arrowComp" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#4a6fa5"/>
+  </marker>
+  <marker id="arrowAssoc" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#c05746"/>
+  </marker>
+  <marker id="diamond" markerWidth="12" markerHeight="8" refX="0" refY="4" orient="auto">
+    <polygon points="0 4, 6 0, 12 4, 6 8" fill="#4a6fa5"/>
+  </marker>
+</defs>
+<rect width="4437" height="2172" fill="#fafafa" rx="4"/>
+<text x="2218.5" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">SmartHome_Model_V3_FunctionalLayer</text>
+<text x="2218.5" y="50" text-anchor="middle" font-size="10" fill="#7f8c8d" style="font-family: sans-serif;">Functional-layer decomposition of a smart home. Entities are organized into functional layers: PhysicalInfrastructure (r</text>
+<rect x="4137" y="10" width="280" height="55" fill="white" stroke="#ddd" rx="4"/>
+<rect x="4147" y="20" width="14" height="14" fill="#34698a" rx="2"/>
+<text x="4167" y="32" font-size="10" fill="#333" style="font-family: sans-serif;">Entity</text>
+<rect x="4237" y="20" width="14" height="14" fill="#8b5e3c" rx="6"/>
+<text x="4257" y="32" font-size="10" fill="#333" style="font-family: sans-serif;">Association</text>
+<line x1="4147" y1="48" x2="4177" y2="48" stroke="#4a6fa5" stroke-width="1.5" marker-start="url(#diamond)"/>
+<text x="4185" y="52" font-size="10" fill="#333" style="font-family: sans-serif;">Composition</text>
+<line x1="4277" y1="48" x2="4307" y2="48" stroke="#c05746" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)"/>
+<text x="4315" y="52" font-size="10" fill="#333" style="font-family: sans-serif;">Association Link</text>
+<line x1="419.0" y1="179.7" x2="459.0" y2="170.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="419.0" y1="223.5" x2="1943.0" y2="253.4" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="419.0" y1="244.5" x2="2547.0" y2="534.3" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="392.8" y1="360.0" x2="784.8" y2="718.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="419.0" y1="258.5" x2="2920.0" y2="794.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="391.5" y1="360.0" x2="1076.0" y2="990.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="231.4" y1="360.0" x2="180.0" y2="1248.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="419.0" y1="313.6" x2="2245.0" y2="1265.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="662.0" y1="144.9" x2="774.0" y2="141.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="662.0" y1="145.0" x2="1076.0" y2="132.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="662.0" y1="150.0" x2="1365.0" y2="164.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="662.0" y1="146.4" x2="1654.0" y2="131.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2205.0" y1="212.1" x2="2245.0" y2="198.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2205.0" y1="232.3" x2="2547.0" y2="170.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2205.0" y1="240.2" x2="2920.0" y2="154.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2205.0" y1="247.6" x2="3215.0" y2="183.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2205.0" y1="246.9" x2="3504.0" y2="156.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2205.0" y1="247.7" x2="3793.0" y2="146.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2205.0" y1="249.4" x2="4088.0" y2="154.3" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1943.0" y1="276.2" x2="309.0" y2="528.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1943.0" y1="280.3" x2="734.0" y2="504.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1943.0" y1="285.5" x2="1023.0" y2="492.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1943.0" y1="298.4" x2="1325.0" y2="498.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1943.0" y1="317.4" x2="1614.0" y2="471.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1943.0" y1="381.5" x2="1858.9" y2="462.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2069.5" y1="432.0" x2="2068.8" y2="462.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2205.0" y1="397.4" x2="2264.8" y2="462.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2880.0" y1="543.4" x2="2920.0" y2="540.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2880.0" y1="547.4" x2="3215.0" y2="528.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2880.0" y1="555.4" x2="3504.0" y2="549.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2880.0" y1="554.5" x2="3793.0" y2="540.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2880.0" y1="554.0" x2="4088.0" y2="532.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2547.0" y1="572.1" x2="322.0" y2="774.1" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2547.0" y1="575.6" x2="708.0" y2="781.1" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="984.0" y1="812.8" x2="1076.0" y2="820.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="984.0" y1="802.5" x2="1365.0" y2="796.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="984.0" y1="800.8" x2="1654.0" y2="780.4" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="984.0" y1="803.2" x2="1943.0" y2="795.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="984.0" y1="802.7" x2="2245.0" y2="787.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="984.0" y1="803.5" x2="2547.0" y2="795.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3175.0" y1="817.6" x2="3215.0" y2="816.3" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3175.0" y1="818.0" x2="3793.0" y2="798.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3175.0" y1="822.0" x2="4088.0" y2="822.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2920.0" y1="832.2" x2="309.0" y2="1041.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2920.0" y1="833.8" x2="708.0" y2="1039.4" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2920.0" y1="836.1" x2="1023.0" y2="1046.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3405.0" y1="807.5" x2="3504.0" y2="801.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1305.0" y1="1085.7" x2="1365.0" y2="1080.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1305.0" y1="1094.2" x2="1654.0" y2="1088.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1305.0" y1="1087.8" x2="1943.0" y2="1041.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1305.0" y1="1092.5" x2="2245.0" y2="1063.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1305.0" y1="1093.2" x2="2547.0" y2="1063.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1305.0" y1="1093.8" x2="2920.0" y2="1062.4" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1305.0" y1="1095.0" x2="3215.0" y2="1079.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1305.0" y1="1092.6" x2="3504.0" y2="1027.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1305.0" y1="1093.4" x2="3793.0" y2="1035.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1305.0" y1="1095.0" x2="4088.0" y2="1070.1" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="289.0" y1="1338.0" x2="459.0" y2="1330.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="289.0" y1="1350.1" x2="774.0" y2="1379.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="289.0" y1="1342.0" x2="1076.0" y2="1335.1" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="289.0" y1="1339.9" x2="1365.0" y2="1310.4" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="289.0" y1="1342.4" x2="1654.0" y2="1334.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="289.0" y1="1340.3" x2="1943.0" y2="1301.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2507.0" y1="1342.0" x2="2547.0" y2="1344.4" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2507.0" y1="1334.0" x2="2920.0" y2="1334.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2507.0" y1="1331.6" x2="3215.0" y2="1318.3" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2507.0" y1="1334.0" x2="3504.0" y2="1334.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2507.0" y1="1333.2" x2="3793.0" y2="1325.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2507.0" y1="1334.0" x2="4088.0" y2="1334.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="179.4" y1="1558.0" x2="1374.8" y2="252.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="169.9" y1="1558.0" x2="1126.8" y2="180.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="557.2" y1="1558.0" x2="1140.3" y2="180.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="548.4" y1="1558.0" x2="846.6" y2="198.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="931.6" y1="1558.0" x2="2290.5" y2="234.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="893.5" y1="1558.0" x2="1418.9" y2="252.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1246.7" y1="1558.0" x2="3215.0" y2="257.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1178.3" y1="1558.0" x2="1436.5" y2="252.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1511.6" y1="1558.0" x2="3526.4" y2="216.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1447.2" y1="1558.0" x2="1453.1" y2="252.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1816.5" y1="1558.0" x2="3830.1" y2="198.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1729.2" y1="1558.0" x2="1470.5" y2="252.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2049.0" y1="1558.0" x2="2332.7" y2="688.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2026.2" y1="1558.0" x2="1744.2" y2="180.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2249.7" y1="1558.0" x2="1614.0" y2="1149.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2275.6" y1="1558.0" x2="1897.8" y2="1200.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2581.6" y1="1558.0" x2="2125.3" y2="1092.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2590.0" y1="1558.0" x2="1523.7" y2="252.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3046.7" y1="1558.0" x2="3276.1" y2="1182.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2958.8" y1="1558.0" x2="1542.0" y2="247.8" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3321.7" y1="1558.0" x2="3599.8" y2="1074.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3300.5" y1="1558.0" x2="3331.0" y2="1182.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3611.1" y1="1558.0" x2="3883.1" y2="1092.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3565.7" y1="1558.0" x2="3388.5" y2="1182.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3864.8" y1="1558.0" x2="3375.6" y2="270.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3826.2" y1="1558.0" x2="3444.9" y2="1182.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="4149.0" y1="1558.0" x2="3090.4" y2="198.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="4162.0" y1="1558.0" x2="3673.9" y2="634.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="220.0" y1="1725.4" x2="3504.0" y2="591.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="175.6" y1="1710.0" x2="1382.3" y2="252.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="589.9" y1="1710.0" x2="774.0" y2="1521.9" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="568.8" y1="1710.0" x2="1404.2" y2="252.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="862.8" y1="1710.0" x2="886.7" y2="1528.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="884.0" y1="1710.0" x2="1707.1" y2="180.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1161.4" y1="1710.0" x2="1191.6" y2="1420.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1165.7" y1="1710.0" x2="1437.5" y2="252.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1365.0" y1="1713.1" x2="708.0" y2="1386.8" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1542.1" y1="1710.0" x2="3828.3" y2="198.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1654.0" y1="1716.9" x2="708.0" y2="1370.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1727.1" y1="1710.0" x2="1524.3" y2="1366.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1949.5" y1="1710.0" x2="309.0" y2="630.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1966.9" y1="1710.0" x2="1559.4" y2="1366.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2273.4" y1="1710.0" x2="966.7" y2="580.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2363.5" y1="1710.0" x2="3005.3" y2="598.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2714.5" y1="1710.0" x2="4126.2" y2="598.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2665.2" y1="1710.0" x2="3022.6" y2="598.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3005.4" y1="1710.0" x2="2432.8" y2="688.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3084.2" y1="1710.0" x2="4147.5" y2="598.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3300.7" y1="1710.0" x2="3333.1" y2="1182.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3220.2" y1="1710.0" x2="2164.5" y2="872.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3504.0" y1="1711.0" x2="2188.3" y2="872.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3504.0" y1="1730.8" x2="1325.0" y2="879.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3793.0" y1="1728.8" x2="1614.0" y2="845.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3793.0" y1="1733.5" x2="1325.0" y2="874.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="4088.0" y1="1752.8" x2="1036.0" y2="1403.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="4088.0" y1="1710.3" x2="2790.7" y2="872.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="296.0" y1="1872.5" x2="3215.0" y2="846.4" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="296.0" y1="1878.7" x2="3793.0" y2="832.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="630.0" y1="1885.6" x2="3793.0" y2="836.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="630.0" y1="1888.4" x2="4088.0" y2="851.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="934.0" y1="1884.8" x2="3793.0" y2="840.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="813.7" y1="1862.0" x2="244.2" y2="1128.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1240.0" y1="1884.4" x2="4088.0" y2="857.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1099.3" y1="1862.0" x2="271.4" y2="1128.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1383.4" y1="1862.0" x2="298.3" y2="1128.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1403.5" y1="1862.0" x2="661.4" y2="1128.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1820.4" y1="1862.0" x2="3556.8" y2="216.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1748.5" y1="1862.0" x2="1520.5" y2="1164.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2009.7" y1="1862.0" x2="1247.6" y2="616.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2102.6" y1="1862.0" x2="2943.5" y2="1146.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2405.0" y1="1866.8" x2="3224.1" y2="1384.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2357.1" y1="1862.0" x2="2607.4" y2="1456.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2664.7" y1="1862.0" x2="2985.2" y2="1420.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2707.0" y1="1867.7" x2="3504.0" y2="1406.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2974.5" y1="1862.0" x2="2733.3" y2="1456.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2961.8" y1="1862.0" x2="1530.0" y2="252.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3276.4" y1="1862.0" x2="3084.8" y2="1420.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3249.5" y1="1862.0" x2="1542.0" y2="249.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3594.5" y1="1862.0" x2="3898.7" y2="616.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3531.3" y1="1862.0" x2="1542.0" y2="238.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3793.0" y1="1878.0" x2="708.0" y2="837.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3813.2" y1="1862.0" x2="1542.0" y2="229.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="4094.7" y1="1862.0" x2="1903.0" y2="610.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="4088.0" y1="1885.5" x2="708.0" y2="1080.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="178.5" y1="1996.0" x2="1428.7" y2="598.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="220.0" y1="1997.4" x2="2920.0" y2="594.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<rect x="62" y="82" width="359" height="280" fill="#00000010" rx="4"/>
+<rect x="60" y="80" width="359" height="280" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="80" width="359" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="106" width="359" height="4" fill="#34698a"/>
+<text x="239.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartHome</text>
+<text x="74" y="130" fill="#555" style="">homeID: Identifier</text>
+<text x="74" y="148" fill="#555" style="">homeName: Description</text>
+<text x="74" y="166" fill="#555" style="">location: Position</text>
+<text x="74" y="184" fill="#555" style="">totalArea: ScalarArea</text>
+<text x="74" y="202" fill="#555" style="">globalMode: Mode</text>
+<text x="74" y="220" fill="#4a6fa5" style="font-weight: bold;">physicalInfrastructure: PhysicalInfrastructureLayer</text>
+<text x="74" y="238" fill="#4a6fa5" style="font-weight: bold;">sensing: SensingLayer</text>
+<text x="74" y="256" fill="#4a6fa5" style="font-weight: bold;">actuation: ActuationLayer</text>
+<text x="74" y="274" fill="#4a6fa5" style="font-weight: bold;">networking: NetworkLayer</text>
+<text x="74" y="292" fill="#4a6fa5" style="font-weight: bold;">energy: EnergyLayer</text>
+<text x="74" y="310" fill="#4a6fa5" style="font-weight: bold;">comfort: ComfortLayer</text>
+<text x="74" y="328" fill="#4a6fa5" style="font-weight: bold;">security: SecurityLayer</text>
+<text x="74" y="346" fill="#4a6fa5" style="font-weight: bold;">entertainment: EntertainmentLayer</text>
+<rect x="461" y="82" width="203" height="136" fill="#00000010" rx="4"/>
+<rect x="459" y="80" width="203" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="459" y="80" width="203" height="30" fill="#34698a" rx="4"/>
+<rect x="459" y="106" width="203" height="4" fill="#34698a"/>
+<text x="560.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PhysicalInfrastructureLayer</text>
+<text x="473" y="130" fill="#555" style="">layerID: Identifier</text>
+<text x="473" y="148" fill="#4a6fa5" style="font-weight: bold;">building: Building</text>
+<text x="473" y="166" fill="#4a6fa5" style="font-weight: bold;">floor: Floor</text>
+<text x="473" y="184" fill="#4a6fa5" style="font-weight: bold;">room: Room</text>
+<text x="473" y="202" fill="#4a6fa5" style="font-weight: bold;">outdoorArea: OutdoorArea</text>
+<rect x="776" y="82" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="774" y="80" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="774" y="80" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="774" y="106" width="171" height="4" fill="#34698a"/>
+<text x="859.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Building</text>
+<text x="788" y="130" fill="#555" style="">buildingID: Identifier</text>
+<text x="788" y="148" fill="#555" style="">buildingType: Kind</text>
+<text x="788" y="166" fill="#555" style="">footprint: ScalarArea</text>
+<text x="788" y="184" fill="#555" style="">floorCount: Count</text>
+<rect x="1078" y="82" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="1076" y="80" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1076" y="80" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1076" y="106" width="171" height="4" fill="#34698a"/>
+<text x="1161.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Floor</text>
+<text x="1090" y="130" fill="#555" style="">floorID: Identifier</text>
+<text x="1090" y="148" fill="#555" style="">floorLevel: Identifier</text>
+<text x="1090" y="166" fill="#555" style="">floorArea: ScalarArea</text>
+<rect x="1367" y="82" width="177" height="172" fill="#00000010" rx="4"/>
+<rect x="1365" y="80" width="177" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1365" y="80" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="1365" y="106" width="177" height="4" fill="#34698a"/>
+<text x="1453.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Room</text>
+<text x="1379" y="130" fill="#555" style="">roomID: Identifier</text>
+<text x="1379" y="148" fill="#555" style="">roomType: Kind</text>
+<text x="1379" y="166" fill="#555" style="">roomName: Description</text>
+<text x="1379" y="184" fill="#555" style="">floorArea: ScalarArea</text>
+<text x="1379" y="202" fill="#555" style="">volume: ScalarVolume</text>
+<text x="1379" y="220" fill="#555" style="">ceilingHeight: Distance</text>
+<text x="1379" y="238" fill="#555" style="">windowCount: Count</text>
+<rect x="1656" y="82" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="1654" y="80" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1654" y="80" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="1654" y="106" width="160" height="4" fill="#34698a"/>
+<text x="1734.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">OutdoorArea</text>
+<text x="1668" y="130" fill="#555" style="">areaID: Identifier</text>
+<text x="1668" y="148" fill="#555" style="">areaType: Kind</text>
+<text x="1668" y="166" fill="#555" style="">areaSize: ScalarArea</text>
+<rect x="1945" y="82" width="262" height="352" fill="#00000010" rx="4"/>
+<rect x="1943" y="80" width="262" height="352" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1943" y="80" width="262" height="30" fill="#34698a" rx="4"/>
+<rect x="1943" y="106" width="262" height="4" fill="#34698a"/>
+<text x="2074.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SensingLayer</text>
+<text x="1957" y="130" fill="#555" style="">layerID: Identifier</text>
+<text x="1957" y="148" fill="#555" style="">totalSensorCount: Count</text>
+<text x="1957" y="166" fill="#4a6fa5" style="font-weight: bold;">temperatureSensor: TemperatureSensor</text>
+<text x="1957" y="184" fill="#4a6fa5" style="font-weight: bold;">humiditySensor: HumiditySensor</text>
+<text x="1957" y="202" fill="#4a6fa5" style="font-weight: bold;">lightSensor: AmbientLightSensor</text>
+<text x="1957" y="220" fill="#4a6fa5" style="font-weight: bold;">motionSensor: MotionSensor</text>
+<text x="1957" y="238" fill="#4a6fa5" style="font-weight: bold;">occupancySensor: OccupancySensor</text>
+<text x="1957" y="256" fill="#4a6fa5" style="font-weight: bold;">contactSensor: DoorWindowSensor</text>
+<text x="1957" y="274" fill="#4a6fa5" style="font-weight: bold;">glassBreakSensor: GlassBreakSensor</text>
+<text x="1957" y="292" fill="#4a6fa5" style="font-weight: bold;">smokeSensor: SmokeDetector</text>
+<text x="1957" y="310" fill="#4a6fa5" style="font-weight: bold;">coSensor: CODetector</text>
+<text x="1957" y="328" fill="#4a6fa5" style="font-weight: bold;">waterLeakSensor: WaterLeakSensor</text>
+<text x="1957" y="346" fill="#4a6fa5" style="font-weight: bold;">airQualitySensor: AirQualitySensor</text>
+<text x="1957" y="364" fill="#4a6fa5" style="font-weight: bold;">waterFlowSensor: WaterFlowSensor</text>
+<text x="1957" y="382" fill="#4a6fa5" style="font-weight: bold;">powerSensor: PowerMonitor</text>
+<text x="1957" y="400" fill="#4a6fa5" style="font-weight: bold;">noiseSensor: NoiseSensor</text>
+<text x="1957" y="418" fill="#4a6fa5" style="font-weight: bold;">weatherStation: WeatherStation</text>
+<rect x="2247" y="82" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="2245" y="80" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2245" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2245" y="106" width="249" height="4" fill="#34698a"/>
+<text x="2369.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">TemperatureSensor</text>
+<text x="2259" y="130" fill="#555" style="">sensorID: Identifier</text>
+<text x="2259" y="148" fill="#555" style="">measuredTemperature: Temperature</text>
+<text x="2259" y="166" fill="#555" style="">accuracy: Ratio</text>
+<text x="2259" y="184" fill="#555" style="">batteryLevel: Ratio</text>
+<text x="2259" y="202" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="2259" y="220" fill="#555" style="">condition: HealthState</text>
+<rect x="2549" y="82" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="2547" y="80" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2547" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2547" y="106" width="249" height="4" fill="#34698a"/>
+<text x="2671.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">HumiditySensor</text>
+<text x="2561" y="130" fill="#555" style="">sensorID: Identifier</text>
+<text x="2561" y="148" fill="#555" style="">measuredHumidity: Humidity</text>
+<text x="2561" y="166" fill="#555" style="">batteryLevel: Ratio</text>
+<text x="2561" y="184" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="2561" y="202" fill="#555" style="">condition: HealthState</text>
+<rect x="2922" y="82" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="2920" y="80" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2920" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2920" y="106" width="249" height="4" fill="#34698a"/>
+<text x="3044.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AmbientLightSensor</text>
+<text x="2934" y="130" fill="#555" style="">sensorID: Identifier</text>
+<text x="2934" y="148" fill="#555" style="">measuredIlluminance: Illuminance</text>
+<text x="2934" y="166" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="2934" y="184" fill="#555" style="">condition: HealthState</text>
+<rect x="3217" y="82" width="249" height="190" fill="#00000010" rx="4"/>
+<rect x="3215" y="80" width="249" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3215" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3215" y="106" width="249" height="4" fill="#34698a"/>
+<text x="3339.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MotionSensor</text>
+<text x="3229" y="130" fill="#555" style="">sensorID: Identifier</text>
+<text x="3229" y="148" fill="#555" style="">sensorType: Kind</text>
+<text x="3229" y="166" fill="#555" style="">detectionRange: Distance</text>
+<text x="3229" y="184" fill="#555" style="">detectionAngle: Angle</text>
+<text x="3229" y="202" fill="#555" style="">motionDetected: ConfigurationState</text>
+<text x="3229" y="220" fill="#555" style="">sensitivity: Ratio</text>
+<text x="3229" y="238" fill="#555" style="">batteryLevel: Ratio</text>
+<text x="3229" y="256" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="3506" y="82" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="3504" y="80" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3504" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3504" y="106" width="249" height="4" fill="#34698a"/>
+<text x="3628.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">OccupancySensor</text>
+<text x="3518" y="130" fill="#555" style="">sensorID: Identifier</text>
+<text x="3518" y="148" fill="#555" style="">sensorType: Kind</text>
+<text x="3518" y="166" fill="#555" style="">occupancyState: ConfigurationState</text>
+<text x="3518" y="184" fill="#555" style="">occupantCount: Count</text>
+<text x="3518" y="202" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="3795" y="82" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="3793" y="80" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3793" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3793" y="106" width="249" height="4" fill="#34698a"/>
+<text x="3917.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">DoorWindowSensor</text>
+<text x="3807" y="130" fill="#555" style="">sensorID: Identifier</text>
+<text x="3807" y="148" fill="#555" style="">contactState: ConfigurationState</text>
+<text x="3807" y="166" fill="#555" style="">batteryLevel: Ratio</text>
+<text x="3807" y="184" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="4090" y="82" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="4088" y="80" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="4088" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="4088" y="106" width="249" height="4" fill="#34698a"/>
+<text x="4212.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">GlassBreakSensor</text>
+<text x="4102" y="130" fill="#555" style="">sensorID: Identifier</text>
+<text x="4102" y="148" fill="#555" style="">detectionRange: Distance</text>
+<text x="4102" y="166" fill="#555" style="">alertState: ConfigurationState</text>
+<text x="4102" y="184" fill="#555" style="">batteryLevel: Ratio</text>
+<text x="4102" y="202" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="62" y="464" width="249" height="172" fill="#00000010" rx="4"/>
+<rect x="60" y="462" width="249" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="462" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="488" width="249" height="4" fill="#34698a"/>
+<text x="184.5" y="482" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmokeDetector</text>
+<text x="74" y="512" fill="#555" style="">detectorID: Identifier</text>
+<text x="74" y="530" fill="#555" style="">detectorType: Kind</text>
+<text x="74" y="548" fill="#555" style="">smokeLevel: ChemicalConcentration</text>
+<text x="74" y="566" fill="#555" style="">alarmState: ConfigurationState</text>
+<text x="74" y="584" fill="#555" style="">batteryLevel: Ratio</text>
+<text x="74" y="602" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="74" y="620" fill="#555" style="">condition: HealthState</text>
+<rect x="461" y="464" width="275" height="136" fill="#00000010" rx="4"/>
+<rect x="459" y="462" width="275" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="459" y="462" width="275" height="30" fill="#34698a" rx="4"/>
+<rect x="459" y="488" width="275" height="4" fill="#34698a"/>
+<text x="596.5" y="482" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CODetector</text>
+<text x="473" y="512" fill="#555" style="">detectorID: Identifier</text>
+<text x="473" y="530" fill="#555" style="">coConcentration: ChemicalConcentration</text>
+<text x="473" y="548" fill="#555" style="">alarmState: ConfigurationState</text>
+<text x="473" y="566" fill="#555" style="">batteryLevel: Ratio</text>
+<text x="473" y="584" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="776" y="464" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="774" y="462" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="774" y="462" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="774" y="488" width="249" height="4" fill="#34698a"/>
+<text x="898.5" y="482" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WaterLeakSensor</text>
+<text x="788" y="512" fill="#555" style="">sensorID: Identifier</text>
+<text x="788" y="530" fill="#555" style="">leakDetected: ConfigurationState</text>
+<text x="788" y="548" fill="#555" style="">batteryLevel: Ratio</text>
+<text x="788" y="566" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="1078" y="464" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="1076" y="462" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1076" y="462" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1076" y="488" width="249" height="4" fill="#34698a"/>
+<text x="1200.5" y="482" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AirQualitySensor</text>
+<text x="1090" y="512" fill="#555" style="">sensorID: Identifier</text>
+<text x="1090" y="530" fill="#555" style="">pm25Level: ChemicalConcentration</text>
+<text x="1090" y="548" fill="#555" style="">co2Level: ChemicalConcentration</text>
+<text x="1090" y="566" fill="#555" style="">vocLevel: ChemicalConcentration</text>
+<text x="1090" y="584" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="1090" y="602" fill="#555" style="">condition: HealthState</text>
+<rect x="1367" y="464" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="1365" y="462" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1365" y="462" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1365" y="488" width="249" height="4" fill="#34698a"/>
+<text x="1489.5" y="482" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WaterFlowSensor</text>
+<text x="1379" y="512" fill="#555" style="">sensorID: Identifier</text>
+<text x="1379" y="530" fill="#555" style="">flowRate: MassFlowRate</text>
+<text x="1379" y="548" fill="#555" style="">totalVolume: ScalarVolume</text>
+<text x="1379" y="566" fill="#555" style="">waterTemperature: Temperature</text>
+<text x="1379" y="584" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="1656" y="464" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="1654" y="462" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1654" y="462" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1654" y="488" width="249" height="4" fill="#34698a"/>
+<text x="1778.5" y="482" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PowerMonitor</text>
+<text x="1668" y="512" fill="#555" style="">monitorID: Identifier</text>
+<text x="1668" y="530" fill="#555" style="">measuredPower: Power</text>
+<text x="1668" y="548" fill="#555" style="">measuredVoltage: ElectricPotential</text>
+<text x="1668" y="566" fill="#555" style="">measuredCurrent: ElectricCurrent</text>
+<text x="1668" y="584" fill="#555" style="">cumulativeEnergy: Energy</text>
+<text x="1668" y="602" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="1945" y="464" width="249" height="100" fill="#00000010" rx="4"/>
+<rect x="1943" y="462" width="249" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1943" y="462" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1943" y="488" width="249" height="4" fill="#34698a"/>
+<text x="2067.5" y="482" text-anchor="middle" fill="white" font-weight="bold" font-size="12">NoiseSensor</text>
+<text x="1957" y="512" fill="#555" style="">sensorID: Identifier</text>
+<text x="1957" y="530" fill="#555" style="">measuredLevel: Ratio</text>
+<text x="1957" y="548" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="2247" y="464" width="249" height="226" fill="#00000010" rx="4"/>
+<rect x="2245" y="462" width="249" height="226" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2245" y="462" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2245" y="488" width="249" height="4" fill="#34698a"/>
+<text x="2369.5" y="482" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WeatherStation</text>
+<text x="2259" y="512" fill="#555" style="">stationID: Identifier</text>
+<text x="2259" y="530" fill="#555" style="">outdoorTemperature: Temperature</text>
+<text x="2259" y="548" fill="#555" style="">outdoorHumidity: Humidity</text>
+<text x="2259" y="566" fill="#555" style="">barometricPressure: Pressure</text>
+<text x="2259" y="584" fill="#555" style="">windSpeed: Speed</text>
+<text x="2259" y="602" fill="#555" style="">windDirection: Angle</text>
+<text x="2259" y="620" fill="#555" style="">uvIndex: Ratio</text>
+<text x="2259" y="638" fill="#555" style="">rainfallRate: MassFlowRate</text>
+<text x="2259" y="656" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="2259" y="674" fill="#555" style="">condition: HealthState</text>
+<rect x="2549" y="464" width="333" height="190" fill="#00000010" rx="4"/>
+<rect x="2547" y="462" width="333" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2547" y="462" width="333" height="30" fill="#34698a" rx="4"/>
+<rect x="2547" y="488" width="333" height="4" fill="#34698a"/>
+<text x="2713.5" y="482" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ActuationLayer</text>
+<text x="2561" y="512" fill="#555" style="">layerID: Identifier</text>
+<text x="2561" y="530" fill="#4a6fa5" style="font-weight: bold;">smartValve: SmartWaterValve</text>
+<text x="2561" y="548" fill="#4a6fa5" style="font-weight: bold;">smartRelay: SmartRelay</text>
+<text x="2561" y="566" fill="#4a6fa5" style="font-weight: bold;">motorizedBlinds: MotorizedBlinds</text>
+<text x="2561" y="584" fill="#4a6fa5" style="font-weight: bold;">smartPlug: SmartPlug</text>
+<text x="2561" y="602" fill="#4a6fa5" style="font-weight: bold;">irrigationController: SmartIrrigationController</text>
+<text x="2561" y="620" fill="#4a6fa5" style="font-weight: bold;">garageDoorOpener: SmartGarageDoor</text>
+<text x="2561" y="638" fill="#4a6fa5" style="font-weight: bold;">smartFan: SmartFan</text>
+<rect x="2922" y="464" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="2920" y="462" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2920" y="462" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2920" y="488" width="249" height="4" fill="#34698a"/>
+<text x="3044.5" y="482" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartWaterValve</text>
+<text x="2934" y="512" fill="#555" style="">valveID: Identifier</text>
+<text x="2934" y="530" fill="#555" style="">valveState: ConfigurationState</text>
+<text x="2934" y="548" fill="#555" style="">valveType: Kind</text>
+<text x="2934" y="566" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="2934" y="584" fill="#555" style="">condition: HealthState</text>
+<rect x="3217" y="464" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="3215" y="462" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3215" y="462" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3215" y="488" width="249" height="4" fill="#34698a"/>
+<text x="3339.5" y="482" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartRelay</text>
+<text x="3229" y="512" fill="#555" style="">relayID: Identifier</text>
+<text x="3229" y="530" fill="#555" style="">relayState: ConfigurationState</text>
+<text x="3229" y="548" fill="#555" style="">maxLoad: Power</text>
+<text x="3229" y="566" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="3506" y="464" width="249" height="172" fill="#00000010" rx="4"/>
+<rect x="3504" y="462" width="249" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3504" y="462" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3504" y="488" width="249" height="4" fill="#34698a"/>
+<text x="3628.5" y="482" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MotorizedBlinds</text>
+<text x="3518" y="512" fill="#555" style="">blindsID: Identifier</text>
+<text x="3518" y="530" fill="#555" style="">blindsType: Kind</text>
+<text x="3518" y="548" fill="#555" style="">openLevel: Ratio</text>
+<text x="3518" y="566" fill="#555" style="">tiltAngle: Angle</text>
+<text x="3518" y="584" fill="#555" style="">batteryLevel: Ratio</text>
+<text x="3518" y="602" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="3518" y="620" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="3795" y="464" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="3793" y="462" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3793" y="462" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3793" y="488" width="249" height="4" fill="#34698a"/>
+<text x="3917.5" y="482" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartPlug</text>
+<text x="3807" y="512" fill="#555" style="">plugID: Identifier</text>
+<text x="3807" y="530" fill="#555" style="">switchState: ConfigurationState</text>
+<text x="3807" y="548" fill="#555" style="">currentPowerDraw: Power</text>
+<text x="3807" y="566" fill="#555" style="">cumulativeEnergy: Energy</text>
+<text x="3807" y="584" fill="#555" style="">maxLoad: Power</text>
+<text x="3807" y="602" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="4090" y="464" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="4088" y="462" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="4088" y="462" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="4088" y="488" width="249" height="4" fill="#34698a"/>
+<text x="4212.5" y="482" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartIrrigationController</text>
+<text x="4102" y="512" fill="#555" style="">controllerID: Identifier</text>
+<text x="4102" y="530" fill="#555" style="">zoneCount: Count</text>
+<text x="4102" y="548" fill="#555" style="">activeZone: ConfigurationState</text>
+<text x="4102" y="566" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="4102" y="584" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="62" y="720" width="262" height="136" fill="#00000010" rx="4"/>
+<rect x="60" y="718" width="262" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="718" width="262" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="744" width="262" height="4" fill="#34698a"/>
+<text x="191.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartGarageDoor</text>
+<text x="74" y="768" fill="#555" style="">garageDoorID: Identifier</text>
+<text x="74" y="786" fill="#555" style="">doorState: ConfigurationState</text>
+<text x="74" y="804" fill="#555" style="">motorPower: Power</text>
+<text x="74" y="822" fill="#555" style="">obstructionState: ConfigurationState</text>
+<text x="74" y="840" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="461" y="720" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="459" y="718" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="459" y="718" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="459" y="744" width="249" height="4" fill="#34698a"/>
+<text x="583.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartFan</text>
+<text x="473" y="768" fill="#555" style="">fanID: Identifier</text>
+<text x="473" y="786" fill="#555" style="">fanSpeed: Speed</text>
+<text x="473" y="804" fill="#555" style="">direction: ConfigurationState</text>
+<text x="473" y="822" fill="#555" style="">powerConsumption: Power</text>
+<text x="473" y="840" fill="#555" style="">operationalState: OperationalState</text>
+<text x="473" y="858" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="776" y="720" width="210" height="172" fill="#00000010" rx="4"/>
+<rect x="774" y="718" width="210" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="774" y="718" width="210" height="30" fill="#34698a" rx="4"/>
+<rect x="774" y="744" width="210" height="4" fill="#34698a"/>
+<text x="879.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">NetworkLayer</text>
+<text x="788" y="768" fill="#555" style="">layerID: Identifier</text>
+<text x="788" y="786" fill="#4a6fa5" style="font-weight: bold;">router: SmartRouter</text>
+<text x="788" y="804" fill="#4a6fa5" style="font-weight: bold;">meshNode: MeshWiFiNode</text>
+<text x="788" y="822" fill="#4a6fa5" style="font-weight: bold;">networkSwitch: NetworkSwitch</text>
+<text x="788" y="840" fill="#4a6fa5" style="font-weight: bold;">hub: SmartHomeHub</text>
+<text x="788" y="858" fill="#4a6fa5" style="font-weight: bold;">bridge: ProtocolBridge</text>
+<text x="788" y="876" fill="#4a6fa5" style="font-weight: bold;">nasDevice: NASDevice</text>
+<rect x="1078" y="720" width="249" height="226" fill="#00000010" rx="4"/>
+<rect x="1076" y="718" width="249" height="226" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1076" y="718" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1076" y="744" width="249" height="4" fill="#34698a"/>
+<text x="1200.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartRouter</text>
+<text x="1090" y="768" fill="#555" style="">routerID: Identifier</text>
+<text x="1090" y="786" fill="#555" style="">wanAddress: NonPhysicalAddress</text>
+<text x="1090" y="804" fill="#555" style="">lanAddress: NonPhysicalAddress</text>
+<text x="1090" y="822" fill="#555" style="">wifiSSID: Identifier</text>
+<text x="1090" y="840" fill="#555" style="">wifiBand: Kind</text>
+<text x="1090" y="858" fill="#555" style="">connectedDeviceCount: Count</text>
+<text x="1090" y="876" fill="#555" style="">wanSpeed: DataRate</text>
+<text x="1090" y="894" fill="#555" style="">lanSpeed: DataRate</text>
+<text x="1090" y="912" fill="#555" style="">operationalState: OperationalState</text>
+<text x="1090" y="930" fill="#555" style="">condition: HealthState</text>
+<rect x="1367" y="720" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="1365" y="718" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1365" y="718" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1365" y="744" width="249" height="4" fill="#34698a"/>
+<text x="1489.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MeshWiFiNode</text>
+<text x="1379" y="768" fill="#555" style="">nodeID: Identifier</text>
+<text x="1379" y="786" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="1379" y="804" fill="#555" style="">connectedClients: Count</text>
+<text x="1379" y="822" fill="#555" style="">backhaulSpeed: DataRate</text>
+<text x="1379" y="840" fill="#555" style="">signalStrength: Ratio</text>
+<text x="1379" y="858" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="1656" y="720" width="223" height="118" fill="#00000010" rx="4"/>
+<rect x="1654" y="718" width="223" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1654" y="718" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="1654" y="744" width="223" height="4" fill="#34698a"/>
+<text x="1765.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">NetworkSwitch</text>
+<text x="1668" y="768" fill="#555" style="">switchID: Identifier</text>
+<text x="1668" y="786" fill="#555" style="">portCount: Count</text>
+<text x="1668" y="804" fill="#555" style="">speed: DataRate</text>
+<text x="1668" y="822" fill="#555" style="">poeCapable: ConfigurationState</text>
+<rect x="1945" y="720" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="1943" y="718" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1943" y="718" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1943" y="744" width="249" height="4" fill="#34698a"/>
+<text x="2067.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartHomeHub</text>
+<text x="1957" y="768" fill="#555" style="">hubID: Identifier</text>
+<text x="1957" y="786" fill="#555" style="">hubPlatform: Kind</text>
+<text x="1957" y="804" fill="#555" style="">supportedProtocols: Kind</text>
+<text x="1957" y="822" fill="#555" style="">connectedDevices: Count</text>
+<text x="1957" y="840" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="1957" y="858" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="2247" y="720" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="2245" y="718" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2245" y="718" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2245" y="744" width="249" height="4" fill="#34698a"/>
+<text x="2369.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ProtocolBridge</text>
+<text x="2259" y="768" fill="#555" style="">bridgeID: Identifier</text>
+<text x="2259" y="786" fill="#555" style="">sourceProtocol: Kind</text>
+<text x="2259" y="804" fill="#555" style="">targetProtocol: Kind</text>
+<text x="2259" y="822" fill="#555" style="">connectedDevices: Count</text>
+<text x="2259" y="840" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="2549" y="720" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="2547" y="718" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2547" y="718" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2547" y="744" width="249" height="4" fill="#34698a"/>
+<text x="2671.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">NASDevice</text>
+<text x="2561" y="768" fill="#555" style="">nasID: Identifier</text>
+<text x="2561" y="786" fill="#555" style="">totalStorage: Size</text>
+<text x="2561" y="804" fill="#555" style="">usedStorage: Size</text>
+<text x="2561" y="822" fill="#555" style="">driveCount: Count</text>
+<text x="2561" y="840" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="2561" y="858" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="2922" y="720" width="255" height="208" fill="#00000010" rx="4"/>
+<rect x="2920" y="718" width="255" height="208" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2920" y="718" width="255" height="30" fill="#34698a" rx="4"/>
+<rect x="2920" y="744" width="255" height="4" fill="#34698a"/>
+<text x="3047.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">EnergyLayer</text>
+<text x="2934" y="768" fill="#555" style="">layerID: Identifier</text>
+<text x="2934" y="786" fill="#555" style="">totalConsumption: Power</text>
+<text x="2934" y="804" fill="#555" style="">totalGeneration: Power</text>
+<text x="2934" y="822" fill="#4a6fa5" style="font-weight: bold;">solarArray: SolarArray</text>
+<text x="2934" y="840" fill="#4a6fa5" style="font-weight: bold;">solarInverter: SolarInverter</text>
+<text x="2934" y="858" fill="#4a6fa5" style="font-weight: bold;">batteryStorage: HomeBattery</text>
+<text x="2934" y="876" fill="#4a6fa5" style="font-weight: bold;">energyMeter: SmartEnergyMeter</text>
+<text x="2934" y="894" fill="#4a6fa5" style="font-weight: bold;">circuitBreaker: SmartCircuitBreaker</text>
+<text x="2934" y="912" fill="#4a6fa5" style="font-weight: bold;">evCharger: EVCharger</text>
+<rect x="3217" y="720" width="190" height="190" fill="#00000010" rx="4"/>
+<rect x="3215" y="718" width="190" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3215" y="718" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="3215" y="744" width="190" height="4" fill="#34698a"/>
+<text x="3310.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SolarArray</text>
+<text x="3229" y="768" fill="#555" style="">arrayID: Identifier</text>
+<text x="3229" y="786" fill="#555" style="">panelCount: Count</text>
+<text x="3229" y="804" fill="#555" style="">totalRatedPower: Power</text>
+<text x="3229" y="822" fill="#555" style="">currentTotalOutput: Power</text>
+<text x="3229" y="840" fill="#555" style="">arrayArea: ScalarArea</text>
+<text x="3229" y="858" fill="#555" style="">tiltAngle: Angle</text>
+<text x="3229" y="876" fill="#555" style="">azimuth: Angle</text>
+<text x="3229" y="894" fill="#4a6fa5" style="font-weight: bold;">solarPanel: SolarPanel</text>
+<rect x="3506" y="720" width="236" height="154" fill="#00000010" rx="4"/>
+<rect x="3504" y="718" width="236" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3504" y="718" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="3504" y="744" width="236" height="4" fill="#34698a"/>
+<text x="3622.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SolarPanel</text>
+<text x="3518" y="768" fill="#555" style="">panelID: Identifier</text>
+<text x="3518" y="786" fill="#555" style="">ratedPower: Power</text>
+<text x="3518" y="804" fill="#555" style="">currentOutput: Power</text>
+<text x="3518" y="822" fill="#555" style="">outputVoltage: ElectricPotential</text>
+<text x="3518" y="840" fill="#555" style="">efficiency: Ratio</text>
+<text x="3518" y="858" fill="#555" style="">condition: HealthState</text>
+<rect x="3795" y="720" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="3793" y="718" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3793" y="718" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3793" y="744" width="249" height="4" fill="#34698a"/>
+<text x="3917.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SolarInverter</text>
+<text x="3807" y="768" fill="#555" style="">inverterID: Identifier</text>
+<text x="3807" y="786" fill="#555" style="">inputPower: Power</text>
+<text x="3807" y="804" fill="#555" style="">outputPower: Power</text>
+<text x="3807" y="822" fill="#555" style="">efficiency: Ratio</text>
+<text x="3807" y="840" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="3807" y="858" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="4090" y="720" width="197" height="208" fill="#00000010" rx="4"/>
+<rect x="4088" y="718" width="197" height="208" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="4088" y="718" width="197" height="30" fill="#34698a" rx="4"/>
+<rect x="4088" y="744" width="197" height="4" fill="#34698a"/>
+<text x="4186.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">HomeBattery</text>
+<text x="4102" y="768" fill="#555" style="">batteryID: Identifier</text>
+<text x="4102" y="786" fill="#555" style="">capacity: Energy</text>
+<text x="4102" y="804" fill="#555" style="">stateOfCharge: Ratio</text>
+<text x="4102" y="822" fill="#555" style="">chargePower: Power</text>
+<text x="4102" y="840" fill="#555" style="">dischargePower: Power</text>
+<text x="4102" y="858" fill="#555" style="">voltage: ElectricPotential</text>
+<text x="4102" y="876" fill="#555" style="">temperature: Temperature</text>
+<text x="4102" y="894" fill="#555" style="">cycleCount: Count</text>
+<text x="4102" y="912" fill="#555" style="">condition: HealthState</text>
+<rect x="62" y="976" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="60" y="974" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="974" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="1000" width="249" height="4" fill="#34698a"/>
+<text x="184.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartEnergyMeter</text>
+<text x="74" y="1024" fill="#555" style="">meterID: Identifier</text>
+<text x="74" y="1042" fill="#555" style="">currentPower: Power</text>
+<text x="74" y="1060" fill="#555" style="">voltage: ElectricPotential</text>
+<text x="74" y="1078" fill="#555" style="">current: ElectricCurrent</text>
+<text x="74" y="1096" fill="#555" style="">cumulativeEnergy: Energy</text>
+<text x="74" y="1114" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="461" y="976" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="459" y="974" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="459" y="974" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="459" y="1000" width="249" height="4" fill="#34698a"/>
+<text x="583.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartCircuitBreaker</text>
+<text x="473" y="1024" fill="#555" style="">breakerID: Identifier</text>
+<text x="473" y="1042" fill="#555" style="">circuitName: Description</text>
+<text x="473" y="1060" fill="#555" style="">ratedCurrent: ElectricCurrent</text>
+<text x="473" y="1078" fill="#555" style="">currentDraw: ElectricCurrent</text>
+<text x="473" y="1096" fill="#555" style="">tripState: ConfigurationState</text>
+<text x="473" y="1114" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="776" y="976" width="249" height="172" fill="#00000010" rx="4"/>
+<rect x="774" y="974" width="249" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="774" y="974" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="774" y="1000" width="249" height="4" fill="#34698a"/>
+<text x="898.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">EVCharger</text>
+<text x="788" y="1024" fill="#555" style="">chargerID: Identifier</text>
+<text x="788" y="1042" fill="#555" style="">chargerType: Kind</text>
+<text x="788" y="1060" fill="#555" style="">maxPower: Power</text>
+<text x="788" y="1078" fill="#555" style="">currentPower: Power</text>
+<text x="788" y="1096" fill="#555" style="">energyDelivered: Energy</text>
+<text x="788" y="1114" fill="#555" style="">chargingState: OperationalState</text>
+<text x="788" y="1132" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="1078" y="976" width="229" height="244" fill="#00000010" rx="4"/>
+<rect x="1076" y="974" width="229" height="244" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1076" y="974" width="229" height="30" fill="#34698a" rx="4"/>
+<rect x="1076" y="1000" width="229" height="4" fill="#34698a"/>
+<text x="1190.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ComfortLayer</text>
+<text x="1090" y="1024" fill="#555" style="">layerID: Identifier</text>
+<text x="1090" y="1042" fill="#4a6fa5" style="font-weight: bold;">thermostat: SmartThermostat</text>
+<text x="1090" y="1060" fill="#4a6fa5" style="font-weight: bold;">hvacUnit: HVACUnit</text>
+<text x="1090" y="1078" fill="#4a6fa5" style="font-weight: bold;">smartVent: SmartVent</text>
+<text x="1090" y="1096" fill="#4a6fa5" style="font-weight: bold;">humidifier: SmartHumidifier</text>
+<text x="1090" y="1114" fill="#4a6fa5" style="font-weight: bold;">dehumidifier: SmartDehumidifier</text>
+<text x="1090" y="1132" fill="#4a6fa5" style="font-weight: bold;">airPurifier: AirPurifier</text>
+<text x="1090" y="1150" fill="#4a6fa5" style="font-weight: bold;">lightFixture: SmartLightFixture</text>
+<text x="1090" y="1168" fill="#4a6fa5" style="font-weight: bold;">lightSwitch: SmartLightSwitch</text>
+<text x="1090" y="1186" fill="#4a6fa5" style="font-weight: bold;">dimmer: DimmerSwitch</text>
+<text x="1090" y="1204" fill="#4a6fa5" style="font-weight: bold;">waterHeater: SmartWaterHeater</text>
+<rect x="1367" y="976" width="249" height="190" fill="#00000010" rx="4"/>
+<rect x="1365" y="974" width="249" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1365" y="974" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1365" y="1000" width="249" height="4" fill="#34698a"/>
+<text x="1489.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartThermostat</text>
+<text x="1379" y="1024" fill="#555" style="">thermostatID: Identifier</text>
+<text x="1379" y="1042" fill="#555" style="">targetTemperature: Temperature</text>
+<text x="1379" y="1060" fill="#555" style="">currentTemperature: Temperature</text>
+<text x="1379" y="1078" fill="#555" style="">currentHumidity: Humidity</text>
+<text x="1379" y="1096" fill="#555" style="">operatingMode: Mode</text>
+<text x="1379" y="1114" fill="#555" style="">fanMode: Mode</text>
+<text x="1379" y="1132" fill="#555" style="">scheduleState: ConfigurationState</text>
+<text x="1379" y="1150" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="1656" y="976" width="249" height="226" fill="#00000010" rx="4"/>
+<rect x="1654" y="974" width="249" height="226" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1654" y="974" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1654" y="1000" width="249" height="4" fill="#34698a"/>
+<text x="1778.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">HVACUnit</text>
+<text x="1668" y="1024" fill="#555" style="">unitID: Identifier</text>
+<text x="1668" y="1042" fill="#555" style="">unitType: Kind</text>
+<text x="1668" y="1060" fill="#555" style="">heatingCapacity: Power</text>
+<text x="1668" y="1078" fill="#555" style="">coolingCapacity: Power</text>
+<text x="1668" y="1096" fill="#555" style="">airFlowRate: MassFlowRate</text>
+<text x="1668" y="1114" fill="#555" style="">supplyAirTemp: Temperature</text>
+<text x="1668" y="1132" fill="#555" style="">returnAirTemp: Temperature</text>
+<text x="1668" y="1150" fill="#555" style="">filterCondition: HealthState</text>
+<text x="1668" y="1168" fill="#555" style="">powerConsumption: Power</text>
+<text x="1668" y="1186" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="1945" y="976" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="1943" y="974" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1943" y="974" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1943" y="1000" width="249" height="4" fill="#34698a"/>
+<text x="2067.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartVent</text>
+<text x="1957" y="1024" fill="#555" style="">ventID: Identifier</text>
+<text x="1957" y="1042" fill="#555" style="">openingLevel: Ratio</text>
+<text x="1957" y="1060" fill="#555" style="">airFlowRate: MassFlowRate</text>
+<text x="1957" y="1078" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="2247" y="976" width="249" height="172" fill="#00000010" rx="4"/>
+<rect x="2245" y="974" width="249" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2245" y="974" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2245" y="1000" width="249" height="4" fill="#34698a"/>
+<text x="2369.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartHumidifier</text>
+<text x="2259" y="1024" fill="#555" style="">humidifierID: Identifier</text>
+<text x="2259" y="1042" fill="#555" style="">targetHumidity: Humidity</text>
+<text x="2259" y="1060" fill="#555" style="">outputRate: MassFlowRate</text>
+<text x="2259" y="1078" fill="#555" style="">waterLevel: Ratio</text>
+<text x="2259" y="1096" fill="#555" style="">powerConsumption: Power</text>
+<text x="2259" y="1114" fill="#555" style="">operationalState: OperationalState</text>
+<text x="2259" y="1132" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="2549" y="976" width="249" height="172" fill="#00000010" rx="4"/>
+<rect x="2547" y="974" width="249" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2547" y="974" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2547" y="1000" width="249" height="4" fill="#34698a"/>
+<text x="2671.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartDehumidifier</text>
+<text x="2561" y="1024" fill="#555" style="">dehumidifierID: Identifier</text>
+<text x="2561" y="1042" fill="#555" style="">targetHumidity: Humidity</text>
+<text x="2561" y="1060" fill="#555" style="">extractionRate: MassFlowRate</text>
+<text x="2561" y="1078" fill="#555" style="">bucketLevel: Ratio</text>
+<text x="2561" y="1096" fill="#555" style="">powerConsumption: Power</text>
+<text x="2561" y="1114" fill="#555" style="">operationalState: OperationalState</text>
+<text x="2561" y="1132" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="2922" y="976" width="249" height="172" fill="#00000010" rx="4"/>
+<rect x="2920" y="974" width="249" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2920" y="974" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2920" y="1000" width="249" height="4" fill="#34698a"/>
+<text x="3044.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AirPurifier</text>
+<text x="2934" y="1024" fill="#555" style="">purifierID: Identifier</text>
+<text x="2934" y="1042" fill="#555" style="">airQualityIndex: Ratio</text>
+<text x="2934" y="1060" fill="#555" style="">filterCondition: HealthState</text>
+<text x="2934" y="1078" fill="#555" style="">fanSpeed: Speed</text>
+<text x="2934" y="1096" fill="#555" style="">powerConsumption: Power</text>
+<text x="2934" y="1114" fill="#555" style="">operationalState: OperationalState</text>
+<text x="2934" y="1132" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="3217" y="976" width="249" height="208" fill="#00000010" rx="4"/>
+<rect x="3215" y="974" width="249" height="208" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3215" y="974" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3215" y="1000" width="249" height="4" fill="#34698a"/>
+<text x="3339.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartLightFixture</text>
+<text x="3229" y="1024" fill="#555" style="">fixtureID: Identifier</text>
+<text x="3229" y="1042" fill="#555" style="">fixtureType: Kind</text>
+<text x="3229" y="1060" fill="#555" style="">powerRating: Power</text>
+<text x="3229" y="1078" fill="#555" style="">brightness: LuminousIntensity</text>
+<text x="3229" y="1096" fill="#555" style="">colorValue: Color</text>
+<text x="3229" y="1114" fill="#555" style="">colorTemperature: Temperature</text>
+<text x="3229" y="1132" fill="#555" style="">dimLevel: Ratio</text>
+<text x="3229" y="1150" fill="#555" style="">operationalState: OperationalState</text>
+<text x="3229" y="1168" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="3506" y="976" width="249" height="100" fill="#00000010" rx="4"/>
+<rect x="3504" y="974" width="249" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3504" y="974" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3504" y="1000" width="249" height="4" fill="#34698a"/>
+<text x="3628.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartLightSwitch</text>
+<text x="3518" y="1024" fill="#555" style="">switchID: Identifier</text>
+<text x="3518" y="1042" fill="#555" style="">switchState: ConfigurationState</text>
+<text x="3518" y="1060" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="3795" y="976" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="3793" y="974" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3793" y="974" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3793" y="1000" width="249" height="4" fill="#34698a"/>
+<text x="3917.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">DimmerSwitch</text>
+<text x="3807" y="1024" fill="#555" style="">dimmerID: Identifier</text>
+<text x="3807" y="1042" fill="#555" style="">dimLevel: Ratio</text>
+<text x="3807" y="1060" fill="#555" style="">maxLoad: Power</text>
+<text x="3807" y="1078" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="4090" y="976" width="249" height="190" fill="#00000010" rx="4"/>
+<rect x="4088" y="974" width="249" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="4088" y="974" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="4088" y="1000" width="249" height="4" fill="#34698a"/>
+<text x="4212.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartWaterHeater</text>
+<text x="4102" y="1024" fill="#555" style="">heaterID: Identifier</text>
+<text x="4102" y="1042" fill="#555" style="">heaterType: Kind</text>
+<text x="4102" y="1060" fill="#555" style="">targetTemperature: Temperature</text>
+<text x="4102" y="1078" fill="#555" style="">currentTemperature: Temperature</text>
+<text x="4102" y="1096" fill="#555" style="">tankCapacity: ScalarVolume</text>
+<text x="4102" y="1114" fill="#555" style="">powerConsumption: Power</text>
+<text x="4102" y="1132" fill="#555" style="">operationalState: OperationalState</text>
+<text x="4102" y="1150" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="62" y="1250" width="229" height="190" fill="#00000010" rx="4"/>
+<rect x="60" y="1248" width="229" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="1248" width="229" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="1274" width="229" height="4" fill="#34698a"/>
+<text x="174.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SecurityLayer</text>
+<text x="74" y="1298" fill="#555" style="">layerID: Identifier</text>
+<text x="74" y="1316" fill="#555" style="">armingState: ConfigurationState</text>
+<text x="74" y="1334" fill="#4a6fa5" style="font-weight: bold;">securityPanel: SecurityPanel</text>
+<text x="74" y="1352" fill="#4a6fa5" style="font-weight: bold;">camera: SecurityCamera</text>
+<text x="74" y="1370" fill="#4a6fa5" style="font-weight: bold;">doorLock: SmartDoorLock</text>
+<text x="74" y="1388" fill="#4a6fa5" style="font-weight: bold;">siren: SmartSiren</text>
+<text x="74" y="1406" fill="#4a6fa5" style="font-weight: bold;">doorbell: SmartDoorbell</text>
+<text x="74" y="1424" fill="#4a6fa5" style="font-weight: bold;">keypad: SecurityKeypad</text>
+<rect x="461" y="1250" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="459" y="1248" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="459" y="1248" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="459" y="1274" width="249" height="4" fill="#34698a"/>
+<text x="583.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SecurityPanel</text>
+<text x="473" y="1298" fill="#555" style="">panelID: Identifier</text>
+<text x="473" y="1316" fill="#555" style="">armingState: ConfigurationState</text>
+<text x="473" y="1334" fill="#555" style="">alarmState: OperationalState</text>
+<text x="473" y="1352" fill="#555" style="">batteryBackup: Ratio</text>
+<text x="473" y="1370" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="473" y="1388" fill="#555" style="">condition: HealthState</text>
+<rect x="776" y="1250" width="262" height="280" fill="#00000010" rx="4"/>
+<rect x="774" y="1248" width="262" height="280" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="774" y="1248" width="262" height="30" fill="#34698a" rx="4"/>
+<rect x="774" y="1274" width="262" height="4" fill="#34698a"/>
+<text x="905.0" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SecurityCamera</text>
+<text x="788" y="1298" fill="#555" style="">cameraID: Identifier</text>
+<text x="788" y="1316" fill="#555" style="">cameraType: Kind</text>
+<text x="788" y="1334" fill="#555" style="">resolution: Kind</text>
+<text x="788" y="1352" fill="#555" style="">fieldOfView: Angle</text>
+<text x="788" y="1370" fill="#555" style="">panAngle: Angle</text>
+<text x="788" y="1388" fill="#555" style="">tiltAngle: Angle</text>
+<text x="788" y="1406" fill="#555" style="">nightVisionState: ConfigurationState</text>
+<text x="788" y="1424" fill="#555" style="">videoStream: Video</text>
+<text x="788" y="1442" fill="#555" style="">audioStream: Audio</text>
+<text x="788" y="1460" fill="#555" style="">storageUsed: Size</text>
+<text x="788" y="1478" fill="#555" style="">powerConsumption: Power</text>
+<text x="788" y="1496" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="788" y="1514" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="1078" y="1250" width="249" height="172" fill="#00000010" rx="4"/>
+<rect x="1076" y="1248" width="249" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1076" y="1248" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1076" y="1274" width="249" height="4" fill="#34698a"/>
+<text x="1200.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartDoorLock</text>
+<text x="1090" y="1298" fill="#555" style="">lockID: Identifier</text>
+<text x="1090" y="1316" fill="#555" style="">lockType: Kind</text>
+<text x="1090" y="1334" fill="#555" style="">lockState: ConfigurationState</text>
+<text x="1090" y="1352" fill="#555" style="">batteryLevel: Ratio</text>
+<text x="1090" y="1370" fill="#555" style="">autoLockDuration: Duration</text>
+<text x="1090" y="1388" fill="#555" style="">accessCodeCount: Count</text>
+<text x="1090" y="1406" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="1367" y="1250" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="1365" y="1248" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1365" y="1248" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1365" y="1274" width="249" height="4" fill="#34698a"/>
+<text x="1489.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartSiren</text>
+<text x="1379" y="1298" fill="#555" style="">sirenID: Identifier</text>
+<text x="1379" y="1316" fill="#555" style="">volumeLevel: Ratio</text>
+<text x="1379" y="1334" fill="#555" style="">operationalState: OperationalState</text>
+<text x="1379" y="1352" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="1656" y="1250" width="249" height="172" fill="#00000010" rx="4"/>
+<rect x="1654" y="1248" width="249" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1654" y="1248" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1654" y="1274" width="249" height="4" fill="#34698a"/>
+<text x="1778.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartDoorbell</text>
+<text x="1668" y="1298" fill="#555" style="">doorbellID: Identifier</text>
+<text x="1668" y="1316" fill="#555" style="">videoStream: Video</text>
+<text x="1668" y="1334" fill="#555" style="">audioStream: Audio</text>
+<text x="1668" y="1352" fill="#555" style="">fieldOfView: Angle</text>
+<text x="1668" y="1370" fill="#555" style="">motionDetected: ConfigurationState</text>
+<text x="1668" y="1388" fill="#555" style="">buttonState: ConfigurationState</text>
+<text x="1668" y="1406" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="1945" y="1250" width="249" height="100" fill="#00000010" rx="4"/>
+<rect x="1943" y="1248" width="249" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1943" y="1248" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1943" y="1274" width="249" height="4" fill="#34698a"/>
+<text x="2067.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SecurityKeypad</text>
+<text x="1957" y="1298" fill="#555" style="">keypadID: Identifier</text>
+<text x="1957" y="1316" fill="#555" style="">keypadType: Kind</text>
+<text x="1957" y="1334" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="2247" y="1250" width="262" height="172" fill="#00000010" rx="4"/>
+<rect x="2245" y="1248" width="262" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2245" y="1248" width="262" height="30" fill="#34698a" rx="4"/>
+<rect x="2245" y="1274" width="262" height="4" fill="#34698a"/>
+<text x="2376.0" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">EntertainmentLayer</text>
+<text x="2259" y="1298" fill="#555" style="">layerID: Identifier</text>
+<text x="2259" y="1316" fill="#4a6fa5" style="font-weight: bold;">smartTV: SmartTV</text>
+<text x="2259" y="1334" fill="#4a6fa5" style="font-weight: bold;">smartSpeaker: SmartSpeaker</text>
+<text x="2259" y="1352" fill="#4a6fa5" style="font-weight: bold;">streamingDevice: StreamingDevice</text>
+<text x="2259" y="1370" fill="#4a6fa5" style="font-weight: bold;">audioReceiver: AudioReceiver</text>
+<text x="2259" y="1388" fill="#4a6fa5" style="font-weight: bold;">voiceAssistant: VoiceAssistantDevice</text>
+<text x="2259" y="1406" fill="#4a6fa5" style="font-weight: bold;">projector: SmartProjector</text>
+<rect x="2549" y="1250" width="249" height="208" fill="#00000010" rx="4"/>
+<rect x="2547" y="1248" width="249" height="208" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2547" y="1248" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2547" y="1274" width="249" height="4" fill="#34698a"/>
+<text x="2671.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartTV</text>
+<text x="2561" y="1298" fill="#555" style="">tvID: Identifier</text>
+<text x="2561" y="1316" fill="#555" style="">screenSize: Distance</text>
+<text x="2561" y="1334" fill="#555" style="">displayResolution: Kind</text>
+<text x="2561" y="1352" fill="#555" style="">brightness: LuminousIntensity</text>
+<text x="2561" y="1370" fill="#555" style="">volumeLevel: Ratio</text>
+<text x="2561" y="1388" fill="#555" style="">activeInput: ConfigurationState</text>
+<text x="2561" y="1406" fill="#555" style="">powerConsumption: Power</text>
+<text x="2561" y="1424" fill="#555" style="">operationalState: OperationalState</text>
+<text x="2561" y="1442" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="2922" y="1250" width="255" height="172" fill="#00000010" rx="4"/>
+<rect x="2920" y="1248" width="255" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2920" y="1248" width="255" height="30" fill="#34698a" rx="4"/>
+<rect x="2920" y="1274" width="255" height="4" fill="#34698a"/>
+<text x="3047.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartSpeaker</text>
+<text x="2934" y="1298" fill="#555" style="">speakerID: Identifier</text>
+<text x="2934" y="1316" fill="#555" style="">speakerType: Kind</text>
+<text x="2934" y="1334" fill="#555" style="">volumeLevel: Ratio</text>
+<text x="2934" y="1352" fill="#555" style="">audioOutput: Audio</text>
+<text x="2934" y="1370" fill="#555" style="">microphoneState: ConfigurationState</text>
+<text x="2934" y="1388" fill="#555" style="">operationalState: OperationalState</text>
+<text x="2934" y="1406" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="3217" y="1250" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="3215" y="1248" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3215" y="1248" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3215" y="1274" width="249" height="4" fill="#34698a"/>
+<text x="3339.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">StreamingDevice</text>
+<text x="3229" y="1298" fill="#555" style="">deviceID: Identifier</text>
+<text x="3229" y="1316" fill="#555" style="">deviceType: Kind</text>
+<text x="3229" y="1334" fill="#555" style="">outputResolution: Kind</text>
+<text x="3229" y="1352" fill="#555" style="">operationalState: OperationalState</text>
+<text x="3229" y="1370" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="3506" y="1250" width="249" height="172" fill="#00000010" rx="4"/>
+<rect x="3504" y="1248" width="249" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3504" y="1248" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3504" y="1274" width="249" height="4" fill="#34698a"/>
+<text x="3628.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AudioReceiver</text>
+<text x="3518" y="1298" fill="#555" style="">receiverID: Identifier</text>
+<text x="3518" y="1316" fill="#555" style="">channelCount: Count</text>
+<text x="3518" y="1334" fill="#555" style="">outputPower: Power</text>
+<text x="3518" y="1352" fill="#555" style="">volumeLevel: Ratio</text>
+<text x="3518" y="1370" fill="#555" style="">activeInput: ConfigurationState</text>
+<text x="3518" y="1388" fill="#555" style="">operationalState: OperationalState</text>
+<text x="3518" y="1406" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="3795" y="1250" width="255" height="154" fill="#00000010" rx="4"/>
+<rect x="3793" y="1248" width="255" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3793" y="1248" width="255" height="30" fill="#34698a" rx="4"/>
+<rect x="3793" y="1274" width="255" height="4" fill="#34698a"/>
+<text x="3920.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">VoiceAssistantDevice</text>
+<text x="3807" y="1298" fill="#555" style="">deviceID: Identifier</text>
+<text x="3807" y="1316" fill="#555" style="">platform: Kind</text>
+<text x="3807" y="1334" fill="#555" style="">microphoneState: ConfigurationState</text>
+<text x="3807" y="1352" fill="#555" style="">speakerVolume: Ratio</text>
+<text x="3807" y="1370" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="3807" y="1388" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="4090" y="1250" width="249" height="172" fill="#00000010" rx="4"/>
+<rect x="4088" y="1248" width="249" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="4088" y="1248" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="4088" y="1274" width="249" height="4" fill="#34698a"/>
+<text x="4212.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SmartProjector</text>
+<text x="4102" y="1298" fill="#555" style="">projectorID: Identifier</text>
+<text x="4102" y="1316" fill="#555" style="">brightness: LuminousIntensity</text>
+<text x="4102" y="1334" fill="#555" style="">resolution: Kind</text>
+<text x="4102" y="1352" fill="#555" style="">throwDistance: Distance</text>
+<text x="4102" y="1370" fill="#555" style="">powerConsumption: Power</text>
+<text x="4102" y="1388" fill="#555" style="">operationalState: OperationalState</text>
+<text x="4102" y="1406" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="62" y="1560" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="60" y="1558" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1558" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1582" width="160" height="6" fill="#8b5e3c"/>
+<text x="140.0" y="1578" text-anchor="middle" fill="white" font-weight="bold" font-size="11">RoomOnFloor</text>
+<line x1="68" y1="1602" x2="212" y2="1602" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1614" fill="#c05746" font-weight="bold">→ Room</text>
+<text x="74" y="1632" fill="#c05746" font-weight="bold">→ Floor</text>
+<rect x="461" y="1560" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="459" y="1558" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="459" y="1558" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="459" y="1582" width="160" height="6" fill="#8b5e3c"/>
+<text x="539.0" y="1578" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FloorInBuilding</text>
+<line x1="467" y1="1602" x2="611" y2="1602" stroke="#ccc" stroke-width="0.5"/>
+<text x="473" y="1614" fill="#c05746" font-weight="bold">→ Floor</text>
+<text x="473" y="1632" fill="#c05746" font-weight="bold">→ Building</text>
+<rect x="776" y="1560" width="190" height="122" fill="#00000010" rx="10"/>
+<rect x="774" y="1558" width="190" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="774" y="1558" width="190" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="774" y="1582" width="190" height="6" fill="#8b5e3c"/>
+<text x="869.0" y="1578" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SensorDeployedInRoom</text>
+<text x="788" y="1608" fill="#555">mountPosition: Position</text>
+<text x="788" y="1626" fill="#555">installDate: CalendarTime</text>
+<line x1="782" y1="1638" x2="956" y2="1638" stroke="#ccc" stroke-width="0.5"/>
+<text x="788" y="1650" fill="#c05746" font-weight="bold">→ TemperatureSensor</text>
+<text x="788" y="1668" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="1078" y="1560" width="184" height="104" fill="#00000010" rx="10"/>
+<rect x="1076" y="1558" width="184" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1076" y="1558" width="184" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1076" y="1582" width="184" height="6" fill="#8b5e3c"/>
+<text x="1168.0" y="1578" text-anchor="middle" fill="white" font-weight="bold" font-size="11">MotionSensorCoversRoom</text>
+<text x="1090" y="1608" fill="#555">coverageArea: ScalarArea</text>
+<line x1="1084" y1="1620" x2="1252" y2="1620" stroke="#ccc" stroke-width="0.5"/>
+<text x="1090" y="1632" fill="#c05746" font-weight="bold">→ MotionSensor</text>
+<text x="1090" y="1650" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="1367" y="1560" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="1365" y="1558" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1365" y="1558" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1365" y="1582" width="164" height="6" fill="#8b5e3c"/>
+<text x="1447.0" y="1578" text-anchor="middle" fill="white" font-weight="bold" font-size="11">OccupancySensorInRoom</text>
+<line x1="1373" y1="1602" x2="1521" y2="1602" stroke="#ccc" stroke-width="0.5"/>
+<text x="1379" y="1614" fill="#c05746" font-weight="bold">→ OccupancySensor</text>
+<text x="1379" y="1632" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="1656" y="1560" width="171" height="104" fill="#00000010" rx="10"/>
+<rect x="1654" y="1558" width="171" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1654" y="1558" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1654" y="1582" width="171" height="6" fill="#8b5e3c"/>
+<text x="1739.5" y="1578" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ContactSensorOnOpening</text>
+<text x="1668" y="1608" fill="#555">openingType: Kind</text>
+<line x1="1662" y1="1620" x2="1817" y2="1620" stroke="#ccc" stroke-width="0.5"/>
+<text x="1668" y="1632" fill="#c05746" font-weight="bold">→ DoorWindowSensor</text>
+<text x="1668" y="1650" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="1945" y="1560" width="184" height="86" fill="#00000010" rx="10"/>
+<rect x="1943" y="1558" width="184" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1943" y="1558" width="184" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1943" y="1582" width="184" height="6" fill="#8b5e3c"/>
+<text x="2035.0" y="1578" text-anchor="middle" fill="white" font-weight="bold" font-size="11">WeatherStationServesSite</text>
+<line x1="1951" y1="1602" x2="2119" y2="1602" stroke="#ccc" stroke-width="0.5"/>
+<text x="1957" y="1614" fill="#c05746" font-weight="bold">→ WeatherStation</text>
+<text x="1957" y="1632" fill="#c05746" font-weight="bold">→ OutdoorArea</text>
+<rect x="2247" y="1560" width="171" height="104" fill="#00000010" rx="10"/>
+<rect x="2245" y="1558" width="171" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2245" y="1558" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2245" y="1582" width="171" height="6" fill="#8b5e3c"/>
+<text x="2330.5" y="1578" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ThermostatControlsHVAC</text>
+<text x="2259" y="1608" fill="#555">controlMode: Mode</text>
+<line x1="2253" y1="1620" x2="2408" y2="1620" stroke="#ccc" stroke-width="0.5"/>
+<text x="2259" y="1632" fill="#c05746" font-weight="bold">→ SmartThermostat</text>
+<text x="2259" y="1650" fill="#c05746" font-weight="bold">→ HVACUnit</text>
+<rect x="2549" y="1560" width="171" height="104" fill="#00000010" rx="10"/>
+<rect x="2547" y="1558" width="171" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2547" y="1558" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2547" y="1582" width="171" height="6" fill="#8b5e3c"/>
+<text x="2632.5" y="1578" text-anchor="middle" fill="white" font-weight="bold" font-size="11">VentServesRoom</text>
+<text x="2561" y="1608" fill="#555">targetFlowRatio: Ratio</text>
+<line x1="2555" y1="1620" x2="2710" y2="1620" stroke="#ccc" stroke-width="0.5"/>
+<text x="2561" y="1632" fill="#c05746" font-weight="bold">→ SmartVent</text>
+<text x="2561" y="1650" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="2922" y="1560" width="190" height="104" fill="#00000010" rx="10"/>
+<rect x="2920" y="1558" width="190" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2920" y="1558" width="190" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2920" y="1582" width="190" height="6" fill="#8b5e3c"/>
+<text x="3015.0" y="1578" text-anchor="middle" fill="white" font-weight="bold" font-size="11">LightFixtureInRoom</text>
+<text x="2934" y="1608" fill="#555">fixturePosition: Position</text>
+<line x1="2928" y1="1620" x2="3102" y2="1620" stroke="#ccc" stroke-width="0.5"/>
+<text x="2934" y="1632" fill="#c05746" font-weight="bold">→ SmartLightFixture</text>
+<text x="2934" y="1650" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="3217" y="1560" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="3215" y="1558" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3215" y="1558" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3215" y="1582" width="164" height="6" fill="#8b5e3c"/>
+<text x="3297.0" y="1578" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SwitchControlsFixture</text>
+<line x1="3223" y1="1602" x2="3371" y2="1602" stroke="#ccc" stroke-width="0.5"/>
+<text x="3229" y="1614" fill="#c05746" font-weight="bold">→ SmartLightSwitch</text>
+<text x="3229" y="1632" fill="#c05746" font-weight="bold">→ SmartLightFixture</text>
+<rect x="3506" y="1560" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="3504" y="1558" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3504" y="1558" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3504" y="1582" width="164" height="6" fill="#8b5e3c"/>
+<text x="3586.0" y="1578" text-anchor="middle" fill="white" font-weight="bold" font-size="11">DimmerControlsFixture</text>
+<line x1="3512" y1="1602" x2="3660" y2="1602" stroke="#ccc" stroke-width="0.5"/>
+<text x="3518" y="1614" fill="#c05746" font-weight="bold">→ DimmerSwitch</text>
+<text x="3518" y="1632" fill="#c05746" font-weight="bold">→ SmartLightFixture</text>
+<rect x="3795" y="1560" width="190" height="122" fill="#00000010" rx="10"/>
+<rect x="3793" y="1558" width="190" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3793" y="1558" width="190" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3793" y="1582" width="190" height="6" fill="#8b5e3c"/>
+<text x="3888.0" y="1578" text-anchor="middle" fill="white" font-weight="bold" font-size="11">MotionSensorTriggersLight</text>
+<text x="3807" y="1608" fill="#555">triggerDelay: Duration</text>
+<text x="3807" y="1626" fill="#555">timeoutDuration: Duration</text>
+<line x1="3801" y1="1638" x2="3975" y2="1638" stroke="#ccc" stroke-width="0.5"/>
+<text x="3807" y="1650" fill="#c05746" font-weight="bold">→ MotionSensor</text>
+<text x="3807" y="1668" fill="#c05746" font-weight="bold">→ SmartLightFixture</text>
+<rect x="4090" y="1560" width="203" height="104" fill="#00000010" rx="10"/>
+<rect x="4088" y="1558" width="203" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="4088" y="1558" width="203" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="4088" y="1582" width="203" height="6" fill="#8b5e3c"/>
+<text x="4189.5" y="1578" text-anchor="middle" fill="white" font-weight="bold" font-size="11">LightSensorControlsBlinds</text>
+<text x="4102" y="1608" fill="#555">lightThreshold: Illuminance</text>
+<line x1="4096" y1="1620" x2="4283" y2="1620" stroke="#ccc" stroke-width="0.5"/>
+<text x="4102" y="1632" fill="#c05746" font-weight="bold">→ AmbientLightSensor</text>
+<text x="4102" y="1650" fill="#c05746" font-weight="bold">→ MotorizedBlinds</text>
+<rect x="62" y="1712" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="60" y="1710" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1710" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1734" width="160" height="6" fill="#8b5e3c"/>
+<text x="140.0" y="1730" text-anchor="middle" fill="white" font-weight="bold" font-size="11">BlindsInRoom</text>
+<line x1="68" y1="1754" x2="212" y2="1754" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1766" fill="#c05746" font-weight="bold">→ MotorizedBlinds</text>
+<text x="74" y="1784" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="461" y="1712" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="459" y="1710" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="459" y="1710" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="459" y="1734" width="160" height="6" fill="#8b5e3c"/>
+<text x="539.0" y="1730" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CameraMonitorsRoom</text>
+<text x="473" y="1760" fill="#555">coverageAngle: Angle</text>
+<line x1="467" y1="1772" x2="611" y2="1772" stroke="#ccc" stroke-width="0.5"/>
+<text x="473" y="1784" fill="#c05746" font-weight="bold">→ SecurityCamera</text>
+<text x="473" y="1802" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="776" y="1712" width="164" height="104" fill="#00000010" rx="10"/>
+<rect x="774" y="1710" width="164" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="774" y="1710" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="774" y="1734" width="164" height="6" fill="#8b5e3c"/>
+<text x="856.0" y="1730" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CameraMonitorsOutdoor</text>
+<text x="788" y="1760" fill="#555">coverageAngle: Angle</text>
+<line x1="782" y1="1772" x2="930" y2="1772" stroke="#ccc" stroke-width="0.5"/>
+<text x="788" y="1784" fill="#c05746" font-weight="bold">→ SecurityCamera</text>
+<text x="788" y="1802" fill="#c05746" font-weight="bold">→ OutdoorArea</text>
+<rect x="1078" y="1712" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="1076" y="1710" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1076" y="1710" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1076" y="1734" width="160" height="6" fill="#8b5e3c"/>
+<text x="1156.0" y="1730" text-anchor="middle" fill="white" font-weight="bold" font-size="11">LockOnRoomEntry</text>
+<text x="1090" y="1760" fill="#555">doorLocation: Kind</text>
+<line x1="1084" y1="1772" x2="1228" y2="1772" stroke="#ccc" stroke-width="0.5"/>
+<text x="1090" y="1784" fill="#c05746" font-weight="bold">→ SmartDoorLock</text>
+<text x="1090" y="1802" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="1367" y="1712" width="197" height="104" fill="#00000010" rx="10"/>
+<rect x="1365" y="1710" width="197" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1365" y="1710" width="197" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1365" y="1734" width="197" height="6" fill="#8b5e3c"/>
+<text x="1463.5" y="1730" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SecurityPanelManagesSensor</text>
+<text x="1379" y="1760" fill="#555">sensorZone: Identifier</text>
+<line x1="1373" y1="1772" x2="1554" y2="1772" stroke="#ccc" stroke-width="0.5"/>
+<text x="1379" y="1784" fill="#c05746" font-weight="bold">→ SecurityPanel</text>
+<text x="1379" y="1802" fill="#c05746" font-weight="bold">→ DoorWindowSensor</text>
+<rect x="1656" y="1712" width="197" height="86" fill="#00000010" rx="10"/>
+<rect x="1654" y="1710" width="197" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1654" y="1710" width="197" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1654" y="1734" width="197" height="6" fill="#8b5e3c"/>
+<text x="1752.5" y="1730" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SecurityPanelControlsSiren</text>
+<line x1="1662" y1="1754" x2="1843" y2="1754" stroke="#ccc" stroke-width="0.5"/>
+<text x="1668" y="1766" fill="#c05746" font-weight="bold">→ SecurityPanel</text>
+<text x="1668" y="1784" fill="#c05746" font-weight="bold">→ SmartSiren</text>
+<rect x="1945" y="1712" width="171" height="104" fill="#00000010" rx="10"/>
+<rect x="1943" y="1710" width="171" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1943" y="1710" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1943" y="1734" width="171" height="6" fill="#8b5e3c"/>
+<text x="2028.5" y="1730" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SmokeTriggersSiren</text>
+<text x="1957" y="1760" fill="#555">triggerDelay: Duration</text>
+<line x1="1951" y1="1772" x2="2106" y2="1772" stroke="#ccc" stroke-width="0.5"/>
+<text x="1957" y="1784" fill="#c05746" font-weight="bold">→ SmokeDetector</text>
+<text x="1957" y="1802" fill="#c05746" font-weight="bold">→ SmartSiren</text>
+<rect x="2247" y="1712" width="177" height="104" fill="#00000010" rx="10"/>
+<rect x="2245" y="1710" width="177" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2245" y="1710" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2245" y="1734" width="177" height="6" fill="#8b5e3c"/>
+<text x="2333.5" y="1730" text-anchor="middle" fill="white" font-weight="bold" font-size="11">LeakSensorTriggersValve</text>
+<text x="2259" y="1760" fill="#555">shutoffDelay: Duration</text>
+<line x1="2253" y1="1772" x2="2414" y2="1772" stroke="#ccc" stroke-width="0.5"/>
+<text x="2259" y="1784" fill="#c05746" font-weight="bold">→ WaterLeakSensor</text>
+<text x="2259" y="1802" fill="#c05746" font-weight="bold">→ SmartWaterValve</text>
+<rect x="2549" y="1712" width="203" height="104" fill="#00000010" rx="10"/>
+<rect x="2547" y="1710" width="203" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2547" y="1710" width="203" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2547" y="1734" width="203" height="6" fill="#8b5e3c"/>
+<text x="2648.5" y="1730" text-anchor="middle" fill="white" font-weight="bold" font-size="11">IrrigationManagesValve</text>
+<text x="2561" y="1760" fill="#555">zoneNumber: Identifier</text>
+<line x1="2555" y1="1772" x2="2742" y2="1772" stroke="#ccc" stroke-width="0.5"/>
+<text x="2561" y="1784" fill="#c05746" font-weight="bold">→ SmartIrrigationController</text>
+<text x="2561" y="1802" fill="#c05746" font-weight="bold">→ SmartWaterValve</text>
+<rect x="2922" y="1712" width="229" height="104" fill="#00000010" rx="10"/>
+<rect x="2920" y="1710" width="229" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2920" y="1710" width="229" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2920" y="1734" width="229" height="6" fill="#8b5e3c"/>
+<text x="3034.5" y="1730" text-anchor="middle" fill="white" font-weight="bold" font-size="11">WeatherStationInformsIrrigation</text>
+<text x="2934" y="1760" fill="#555">rainfallThreshold: MassFlowRate</text>
+<line x1="2928" y1="1772" x2="3141" y2="1772" stroke="#ccc" stroke-width="0.5"/>
+<text x="2934" y="1784" fill="#c05746" font-weight="bold">→ WeatherStation</text>
+<text x="2934" y="1802" fill="#c05746" font-weight="bold">→ SmartIrrigationController</text>
+<rect x="3217" y="1712" width="164" height="122" fill="#00000010" rx="10"/>
+<rect x="3215" y="1710" width="164" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3215" y="1710" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3215" y="1734" width="164" height="6" fill="#8b5e3c"/>
+<text x="3297.0" y="1730" text-anchor="middle" fill="white" font-weight="bold" font-size="11">DeviceConnectedToHub</text>
+<text x="3229" y="1760" fill="#555">protocol: Kind</text>
+<text x="3229" y="1778" fill="#555">signalStrength: Ratio</text>
+<line x1="3223" y1="1790" x2="3371" y2="1790" stroke="#ccc" stroke-width="0.5"/>
+<text x="3229" y="1802" fill="#c05746" font-weight="bold">→ SmartLightFixture</text>
+<text x="3229" y="1820" fill="#c05746" font-weight="bold">→ SmartHomeHub</text>
+<rect x="3506" y="1712" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="3504" y="1710" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3504" y="1710" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3504" y="1734" width="160" height="6" fill="#8b5e3c"/>
+<text x="3584.0" y="1730" text-anchor="middle" fill="white" font-weight="bold" font-size="11">HubConnectedToRouter</text>
+<text x="3518" y="1760" fill="#555">connectionType: Kind</text>
+<line x1="3512" y1="1772" x2="3656" y2="1772" stroke="#ccc" stroke-width="0.5"/>
+<text x="3518" y="1784" fill="#c05746" font-weight="bold">→ SmartHomeHub</text>
+<text x="3518" y="1802" fill="#c05746" font-weight="bold">→ SmartRouter</text>
+<rect x="3795" y="1712" width="164" height="104" fill="#00000010" rx="10"/>
+<rect x="3793" y="1710" width="164" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3793" y="1710" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3793" y="1734" width="164" height="6" fill="#8b5e3c"/>
+<text x="3875.0" y="1730" text-anchor="middle" fill="white" font-weight="bold" font-size="11">MeshNodeExtendsRouter</text>
+<text x="3807" y="1760" fill="#555">backhaulType: Kind</text>
+<line x1="3801" y1="1772" x2="3949" y2="1772" stroke="#ccc" stroke-width="0.5"/>
+<text x="3807" y="1784" fill="#c05746" font-weight="bold">→ MeshWiFiNode</text>
+<text x="3807" y="1802" fill="#c05746" font-weight="bold">→ SmartRouter</text>
+<rect x="4090" y="1712" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="4088" y="1710" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="4088" y="1710" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="4088" y="1734" width="160" height="6" fill="#8b5e3c"/>
+<text x="4168.0" y="1730" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CameraRecordsToNAS</text>
+<text x="4102" y="1760" fill="#555">retentionDays: Count</text>
+<line x1="4096" y1="1772" x2="4240" y2="1772" stroke="#ccc" stroke-width="0.5"/>
+<text x="4102" y="1784" fill="#c05746" font-weight="bold">→ SecurityCamera</text>
+<text x="4102" y="1802" fill="#c05746" font-weight="bold">→ NASDevice</text>
+<rect x="62" y="1864" width="236" height="104" fill="#00000010" rx="10"/>
+<rect x="60" y="1862" width="236" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1862" width="236" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1886" width="236" height="6" fill="#8b5e3c"/>
+<text x="178.0" y="1882" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SolarArrayToInverter</text>
+<text x="74" y="1912" fill="#555">stringVoltage: ElectricPotential</text>
+<line x1="68" y1="1924" x2="288" y2="1924" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1936" fill="#c05746" font-weight="bold">→ SolarArray</text>
+<text x="74" y="1954" fill="#c05746" font-weight="bold">→ SolarInverter</text>
+<rect x="461" y="1864" width="171" height="104" fill="#00000010" rx="10"/>
+<rect x="459" y="1862" width="171" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="459" y="1862" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="459" y="1886" width="171" height="6" fill="#8b5e3c"/>
+<text x="544.5" y="1882" text-anchor="middle" fill="white" font-weight="bold" font-size="11">InverterChargesBattery</text>
+<text x="473" y="1912" fill="#555">chargePower: Power</text>
+<line x1="467" y1="1924" x2="622" y2="1924" stroke="#ccc" stroke-width="0.5"/>
+<text x="473" y="1936" fill="#c05746" font-weight="bold">→ SolarInverter</text>
+<text x="473" y="1954" fill="#c05746" font-weight="bold">→ HomeBattery</text>
+<rect x="776" y="1864" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="774" y="1862" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="774" y="1862" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="774" y="1886" width="160" height="6" fill="#8b5e3c"/>
+<text x="854.0" y="1882" text-anchor="middle" fill="white" font-weight="bold" font-size="11">InverterFeedsMeter</text>
+<text x="788" y="1912" fill="#555">exportPower: Power</text>
+<line x1="782" y1="1924" x2="926" y2="1924" stroke="#ccc" stroke-width="0.5"/>
+<text x="788" y="1936" fill="#c05746" font-weight="bold">→ SolarInverter</text>
+<text x="788" y="1954" fill="#c05746" font-weight="bold">→ SmartEnergyMeter</text>
+<rect x="1078" y="1864" width="164" height="104" fill="#00000010" rx="10"/>
+<rect x="1076" y="1862" width="164" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1076" y="1862" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1076" y="1886" width="164" height="6" fill="#8b5e3c"/>
+<text x="1158.0" y="1882" text-anchor="middle" fill="white" font-weight="bold" font-size="11">BatteryFeedsMeter</text>
+<text x="1090" y="1912" fill="#555">dischargePower: Power</text>
+<line x1="1084" y1="1924" x2="1232" y2="1924" stroke="#ccc" stroke-width="0.5"/>
+<text x="1090" y="1936" fill="#c05746" font-weight="bold">→ HomeBattery</text>
+<text x="1090" y="1954" fill="#c05746" font-weight="bold">→ SmartEnergyMeter</text>
+<rect x="1367" y="1864" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="1365" y="1862" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1365" y="1862" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1365" y="1886" width="164" height="6" fill="#8b5e3c"/>
+<text x="1447.0" y="1882" text-anchor="middle" fill="white" font-weight="bold" font-size="11">MeterMonitorsBreaker</text>
+<line x1="1373" y1="1906" x2="1521" y2="1906" stroke="#ccc" stroke-width="0.5"/>
+<text x="1379" y="1918" fill="#c05746" font-weight="bold">→ SmartEnergyMeter</text>
+<text x="1379" y="1936" fill="#c05746" font-weight="bold">→ SmartCircuitBreaker</text>
+<rect x="1656" y="1864" width="223" height="104" fill="#00000010" rx="10"/>
+<rect x="1654" y="1862" width="223" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1654" y="1862" width="223" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1654" y="1886" width="223" height="6" fill="#8b5e3c"/>
+<text x="1765.5" y="1882" text-anchor="middle" fill="white" font-weight="bold" font-size="11">OccupancyControlsThermostat</text>
+<text x="1668" y="1912" fill="#555">unoccupiedSetback: Temperature</text>
+<line x1="1662" y1="1924" x2="1869" y2="1924" stroke="#ccc" stroke-width="0.5"/>
+<text x="1668" y="1936" fill="#c05746" font-weight="bold">→ OccupancySensor</text>
+<text x="1668" y="1954" fill="#c05746" font-weight="bold">→ SmartThermostat</text>
+<rect x="1945" y="1864" width="197" height="104" fill="#00000010" rx="10"/>
+<rect x="1943" y="1862" width="197" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1943" y="1862" width="197" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1943" y="1886" width="197" height="6" fill="#8b5e3c"/>
+<text x="2041.5" y="1882" text-anchor="middle" fill="white" font-weight="bold" font-size="11">AirQualityControlsPurifier</text>
+<text x="1957" y="1912" fill="#555">activationThreshold: Ratio</text>
+<line x1="1951" y1="1924" x2="2132" y2="1924" stroke="#ccc" stroke-width="0.5"/>
+<text x="1957" y="1936" fill="#c05746" font-weight="bold">→ AirQualitySensor</text>
+<text x="1957" y="1954" fill="#c05746" font-weight="bold">→ AirPurifier</text>
+<rect x="2247" y="1864" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="2245" y="1862" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2245" y="1862" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2245" y="1886" width="160" height="6" fill="#8b5e3c"/>
+<text x="2325.0" y="1882" text-anchor="middle" fill="white" font-weight="bold" font-size="11">StreamingDeviceToTV</text>
+<text x="2259" y="1912" fill="#555">hdmiPort: Identifier</text>
+<line x1="2253" y1="1924" x2="2397" y2="1924" stroke="#ccc" stroke-width="0.5"/>
+<text x="2259" y="1936" fill="#c05746" font-weight="bold">→ StreamingDevice</text>
+<text x="2259" y="1954" fill="#c05746" font-weight="bold">→ SmartTV</text>
+<rect x="2549" y="1864" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="2547" y="1862" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2547" y="1862" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2547" y="1886" width="160" height="6" fill="#8b5e3c"/>
+<text x="2627.0" y="1882" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SpeakerInAudioGroup</text>
+<text x="2561" y="1912" fill="#555">groupRole: Kind</text>
+<line x1="2555" y1="1924" x2="2699" y2="1924" stroke="#ccc" stroke-width="0.5"/>
+<text x="2561" y="1936" fill="#c05746" font-weight="bold">→ SmartSpeaker</text>
+<text x="2561" y="1954" fill="#c05746" font-weight="bold">→ AudioReceiver</text>
+<rect x="2922" y="1864" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2920" y="1862" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2920" y="1862" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2920" y="1886" width="160" height="6" fill="#8b5e3c"/>
+<text x="3000.0" y="1882" text-anchor="middle" fill="white" font-weight="bold" font-size="11">TVInRoom</text>
+<line x1="2928" y1="1906" x2="3072" y2="1906" stroke="#ccc" stroke-width="0.5"/>
+<text x="2934" y="1918" fill="#c05746" font-weight="bold">→ SmartTV</text>
+<text x="2934" y="1936" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="3217" y="1864" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3215" y="1862" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3215" y="1862" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3215" y="1886" width="160" height="6" fill="#8b5e3c"/>
+<text x="3295.0" y="1882" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SpeakerInRoom</text>
+<line x1="3223" y1="1906" x2="3367" y2="1906" stroke="#ccc" stroke-width="0.5"/>
+<text x="3229" y="1918" fill="#c05746" font-weight="bold">→ SmartSpeaker</text>
+<text x="3229" y="1936" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="3506" y="1864" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3504" y="1862" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3504" y="1862" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3504" y="1886" width="160" height="6" fill="#8b5e3c"/>
+<text x="3584.0" y="1882" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PlugInRoom</text>
+<line x1="3512" y1="1906" x2="3656" y2="1906" stroke="#ccc" stroke-width="0.5"/>
+<text x="3518" y="1918" fill="#c05746" font-weight="bold">→ SmartPlug</text>
+<text x="3518" y="1936" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="3795" y="1864" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3793" y="1862" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3793" y="1862" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3793" y="1886" width="160" height="6" fill="#8b5e3c"/>
+<text x="3873.0" y="1882" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FanInRoom</text>
+<line x1="3801" y1="1906" x2="3945" y2="1906" stroke="#ccc" stroke-width="0.5"/>
+<text x="3807" y="1918" fill="#c05746" font-weight="bold">→ SmartFan</text>
+<text x="3807" y="1936" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="4090" y="1864" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="4088" y="1862" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="4088" y="1862" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="4088" y="1886" width="164" height="6" fill="#8b5e3c"/>
+<text x="4170.0" y="1882" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PowerMonitorOnCircuit</text>
+<line x1="4096" y1="1906" x2="4244" y2="1906" stroke="#ccc" stroke-width="0.5"/>
+<text x="4102" y="1918" fill="#c05746" font-weight="bold">→ PowerMonitor</text>
+<text x="4102" y="1936" fill="#c05746" font-weight="bold">→ SmartCircuitBreaker</text>
+<rect x="62" y="1998" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="60" y="1996" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1996" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="2020" width="160" height="6" fill="#8b5e3c"/>
+<text x="140.0" y="2016" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FlowSensorOnValve</text>
+<line x1="68" y1="2040" x2="212" y2="2040" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="2052" fill="#c05746" font-weight="bold">→ WaterFlowSensor</text>
+<text x="74" y="2070" fill="#c05746" font-weight="bold">→ SmartWaterValve</text>
+</svg>

@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rdf:RDF xmlns='http://knowledgeweb.semanticweb.org/heterogeneity/alignment'
+	 xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' 
+	 xmlns:xsd='http://www.w3.org/2001/XMLSchema#' 
+	 alignmentSource='AgreementMakerLight'>
+
+<Alignment>
+	<xml>yes</xml>
+	<level>0</level>
+	<type>11</type>
+	<onto1>http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network</onto1>
+	<onto2>http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network</onto2>
+	<uri1>http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network</uri1>
+	<uri2>http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network</uri2>
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_obs_MassFlowRate"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network_obs_MassFlowRate"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.7723</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_obs_OperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network_obs_OperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.7156</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_obs_Identifier"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network_obs_Identifier"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.7034</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_obs_Count"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network_obs_Count"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6922</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_obs_Extent"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network_obs_Extent"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.689</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_obs_Power"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network_obs_Power"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6828</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_obs_Position"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network_obs_Position"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6772</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_attr_MedicalGasPanel_gasFlowState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network_attr_MedicalGasOutlet_gasFlowState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6641</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_attr_StructuralBay_bayOperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network_attr_OperatingRoom_sterilityState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6161</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_attr_MedicalGasPanel_panelOperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network_attr_PowerPanel_panelOperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6148</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_attr_CircuitBreakerPanel_suppliedPower"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network_attr_PowerPanel_suppliedPower"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.607</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_attr_MedicalGasPanel_medicalGasPanelID"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network/Hospital_Facility_Resource_Network_Model_Spatial_Infrastructure_Network_attr_MedicalGasOutlet_medicalGasOutletID"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.606</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+</Alignment>
+</rdf:RDF>

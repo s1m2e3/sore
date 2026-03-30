@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rdf:RDF xmlns='http://knowledgeweb.semanticweb.org/heterogeneity/alignment'
+	 xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' 
+	 xmlns:xsd='http://www.w3.org/2001/XMLSchema#' 
+	 alignmentSource='AgreementMakerLight'>
+
+<Alignment>
+	<xml>yes</xml>
+	<level>0</level>
+	<type>11</type>
+	<onto1>http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters</onto1>
+	<onto2>http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network</onto2>
+	<uri1>http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters</uri1>
+	<uri2>http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network</uri2>
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters_obs_MassFlowRate"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_obs_MassFlowRate"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.7747</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters_obs_OperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_obs_OperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.755</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters_obs_Identifier"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_obs_Identifier"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.7021</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters_obs_Power"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_obs_Power"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.69</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters_obs_Extent"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_obs_Extent"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6887</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters_obs_Count"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_obs_Count"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6854</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters/Hospital_Facility_Resource_Network_Model_Operational_Resource_Clusters_obs_Position"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network/Hospital_Facility_Resource_Network_Model_Serviceable_Facility_Parts_Network_obs_Position"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6767</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+</Alignment>
+</rdf:RDF>

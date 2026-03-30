@@ -1,0 +1,838 @@
+{
+  "topicDomain": "Smart Home Automation",
+  "modelName": "Smart Home Space and Device Interaction Network Model",
+  "methodBasis": "Entities represent spaces, fixtures, devices, resources, and interfaces in the home; Associations express containment, sensing, actuation, access, connectivity, and resource flow among components.",
+  "entities": [
+    {
+      "name": "Home",
+      "attributes": [
+        {
+          "name": "homeID",
+          "type": "Identifier"
+        },
+        {
+          "name": "homePosition",
+          "type": "Position"
+        },
+        {
+          "name": "homeExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "homeOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Room",
+      "attributes": [
+        {
+          "name": "roomID",
+          "type": "Identifier"
+        },
+        {
+          "name": "roomName",
+          "type": "Name"
+        },
+        {
+          "name": "roomPosition",
+          "type": "Position"
+        },
+        {
+          "name": "roomExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "roomOccupancyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "LightingFixture",
+      "attributes": [
+        {
+          "name": "lightingFixtureID",
+          "type": "Identifier"
+        },
+        {
+          "name": "lightState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "brightnessLevel",
+          "type": "Ratio"
+        },
+        {
+          "name": "colorState",
+          "type": "Color"
+        },
+        {
+          "name": "powerDemand",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "Thermostat",
+      "attributes": [
+        {
+          "name": "thermostatID",
+          "type": "Identifier"
+        },
+        {
+          "name": "setpointTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "measuredTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "thermostatOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "HVACUnit",
+      "attributes": [
+        {
+          "name": "hvacUnitID",
+          "type": "Identifier"
+        },
+        {
+          "name": "hvacOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "airFlowRate",
+          "type": "MassFlowRate"
+        },
+        {
+          "name": "heatingCoolingPower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "DoorLock",
+      "attributes": [
+        {
+          "name": "doorLockID",
+          "type": "Identifier"
+        },
+        {
+          "name": "lockState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "batteryCharge",
+          "type": "ElectricCharge"
+        },
+        {
+          "name": "lockOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "WindowShade",
+      "attributes": [
+        {
+          "name": "windowShadeID",
+          "type": "Identifier"
+        },
+        {
+          "name": "shadePosition",
+          "type": "Position"
+        },
+        {
+          "name": "shadeOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "shadePower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "Camera",
+      "attributes": [
+        {
+          "name": "cameraID",
+          "type": "Identifier"
+        },
+        {
+          "name": "cameraOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "fieldOfView",
+          "type": "Angle"
+        },
+        {
+          "name": "streamState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "MotionSensor",
+      "attributes": [
+        {
+          "name": "motionSensorID",
+          "type": "Identifier"
+        },
+        {
+          "name": "motionState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "detectionRange",
+          "type": "Extent"
+        },
+        {
+          "name": "sensorOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ContactSensor",
+      "attributes": [
+        {
+          "name": "contactSensorID",
+          "type": "Identifier"
+        },
+        {
+          "name": "contactState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "sensorOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "signalStrength",
+          "type": "Ratio"
+        }
+      ]
+    },
+    {
+      "name": "LeakSensor",
+      "attributes": [
+        {
+          "name": "leakSensorID",
+          "type": "Identifier"
+        },
+        {
+          "name": "leakState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "sensorOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "waterPresenceLevel",
+          "type": "Ratio"
+        }
+      ]
+    },
+    {
+      "name": "SmartPlug",
+      "attributes": [
+        {
+          "name": "smartPlugID",
+          "type": "Identifier"
+        },
+        {
+          "name": "plugOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "instantPowerDemand",
+          "type": "Power"
+        },
+        {
+          "name": "switchState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Appliance",
+      "attributes": [
+        {
+          "name": "applianceID",
+          "type": "Identifier"
+        },
+        {
+          "name": "applianceOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "appliancePowerDemand",
+          "type": "Power"
+        },
+        {
+          "name": "cycleState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SpeakerDisplay",
+      "attributes": [
+        {
+          "name": "speakerDisplayID",
+          "type": "Identifier"
+        },
+        {
+          "name": "volumeLevel",
+          "type": "Ratio"
+        },
+        {
+          "name": "displayOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "streamState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "NetworkHub",
+      "attributes": [
+        {
+          "name": "networkHubID",
+          "type": "Identifier"
+        },
+        {
+          "name": "hubOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "latency",
+          "type": "Duration"
+        },
+        {
+          "name": "connectedDeviceCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "ElectricMeter",
+      "attributes": [
+        {
+          "name": "electricMeterID",
+          "type": "Identifier"
+        },
+        {
+          "name": "powerDemand",
+          "type": "Power"
+        },
+        {
+          "name": "energyConsumption",
+          "type": "Energy"
+        },
+        {
+          "name": "meterOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "BatteryStorage",
+      "attributes": [
+        {
+          "name": "batteryStorageID",
+          "type": "Identifier"
+        },
+        {
+          "name": "storedEnergy",
+          "type": "Energy"
+        },
+        {
+          "name": "chargeState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "dispatchPower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "WaterValve",
+      "attributes": [
+        {
+          "name": "waterValveID",
+          "type": "Identifier"
+        },
+        {
+          "name": "valveState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "waterFlowRate",
+          "type": "MassFlowRate"
+        },
+        {
+          "name": "valveOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "HomeContainsRoom",
+      "participants": [
+        "Home",
+        "Room"
+      ],
+      "attributes": [
+        {
+          "name": "relativePosition",
+          "type": "Position"
+        },
+        {
+          "name": "relativeExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "RoomContainsLightingFixture",
+      "participants": [
+        "Room",
+        "LightingFixture"
+      ],
+      "attributes": [
+        {
+          "name": "fixturePosition",
+          "type": "Position"
+        },
+        {
+          "name": "coverageIntensity",
+          "type": "LuminousIntensity"
+        }
+      ]
+    },
+    {
+      "name": "RoomContainsThermostat",
+      "participants": [
+        "Room",
+        "Thermostat"
+      ],
+      "attributes": [
+        {
+          "name": "mountPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "ThermostatControlsHVACUnit",
+      "participants": [
+        "Thermostat",
+        "HVACUnit"
+      ],
+      "attributes": [
+        {
+          "name": "targetTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "controlState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "HVACUnitConditionsRoom",
+      "participants": [
+        "HVACUnit",
+        "Room"
+      ],
+      "attributes": [
+        {
+          "name": "airFlowRate",
+          "type": "MassFlowRate"
+        },
+        {
+          "name": "temperatureDelta",
+          "type": "TemperatureDelta"
+        }
+      ]
+    },
+    {
+      "name": "RoomContainsDoorLock",
+      "participants": [
+        "Room",
+        "DoorLock"
+      ],
+      "attributes": [
+        {
+          "name": "doorPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "RoomContainsWindowShade",
+      "participants": [
+        "Room",
+        "WindowShade"
+      ],
+      "attributes": [
+        {
+          "name": "windowPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "RoomContainsCamera",
+      "participants": [
+        "Room",
+        "Camera"
+      ],
+      "attributes": [
+        {
+          "name": "cameraPosition",
+          "type": "Position"
+        },
+        {
+          "name": "coverageAngle",
+          "type": "Angle"
+        }
+      ]
+    },
+    {
+      "name": "RoomContainsMotionSensor",
+      "participants": [
+        "Room",
+        "MotionSensor"
+      ],
+      "attributes": [
+        {
+          "name": "sensorPosition",
+          "type": "Position"
+        },
+        {
+          "name": "coverageExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "DoorLockObservedByContactSensor",
+      "participants": [
+        "DoorLock",
+        "ContactSensor"
+      ],
+      "attributes": [
+        {
+          "name": "observedAccessState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "updateFrequency",
+          "type": "TemporalFrequency"
+        }
+      ]
+    },
+    {
+      "name": "LeakSensorTriggersWaterValve",
+      "participants": [
+        "LeakSensor",
+        "WaterValve"
+      ],
+      "attributes": [
+        {
+          "name": "targetValveState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "responseLatency",
+          "type": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "SmartPlugPowersAppliance",
+      "participants": [
+        "SmartPlug",
+        "Appliance"
+      ],
+      "attributes": [
+        {
+          "name": "deliveredPower",
+          "type": "Power"
+        },
+        {
+          "name": "switchState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "RoomContainsSpeakerDisplay",
+      "participants": [
+        "Room",
+        "SpeakerDisplay"
+      ],
+      "attributes": [
+        {
+          "name": "devicePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "NetworkHubConnectsLightingFixture",
+      "participants": [
+        "NetworkHub",
+        "LightingFixture"
+      ],
+      "attributes": [
+        {
+          "name": "signalStrength",
+          "type": "Ratio"
+        },
+        {
+          "name": "messageLatency",
+          "type": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "NetworkHubConnectsThermostat",
+      "participants": [
+        "NetworkHub",
+        "Thermostat"
+      ],
+      "attributes": [
+        {
+          "name": "signalStrength",
+          "type": "Ratio"
+        },
+        {
+          "name": "messageLatency",
+          "type": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "NetworkHubConnectsDoorLock",
+      "participants": [
+        "NetworkHub",
+        "DoorLock"
+      ],
+      "attributes": [
+        {
+          "name": "signalStrength",
+          "type": "Ratio"
+        },
+        {
+          "name": "messageLatency",
+          "type": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "NetworkHubConnectsCamera",
+      "participants": [
+        "NetworkHub",
+        "Camera"
+      ],
+      "attributes": [
+        {
+          "name": "signalStrength",
+          "type": "Ratio"
+        },
+        {
+          "name": "messageLatency",
+          "type": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "NetworkHubConnectsMotionSensor",
+      "participants": [
+        "NetworkHub",
+        "MotionSensor"
+      ],
+      "attributes": [
+        {
+          "name": "signalStrength",
+          "type": "Ratio"
+        },
+        {
+          "name": "messageLatency",
+          "type": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "NetworkHubConnectsContactSensor",
+      "participants": [
+        "NetworkHub",
+        "ContactSensor"
+      ],
+      "attributes": [
+        {
+          "name": "signalStrength",
+          "type": "Ratio"
+        },
+        {
+          "name": "messageLatency",
+          "type": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "NetworkHubConnectsLeakSensor",
+      "participants": [
+        "NetworkHub",
+        "LeakSensor"
+      ],
+      "attributes": [
+        {
+          "name": "signalStrength",
+          "type": "Ratio"
+        },
+        {
+          "name": "messageLatency",
+          "type": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "NetworkHubConnectsSmartPlug",
+      "participants": [
+        "NetworkHub",
+        "SmartPlug"
+      ],
+      "attributes": [
+        {
+          "name": "signalStrength",
+          "type": "Ratio"
+        },
+        {
+          "name": "messageLatency",
+          "type": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "NetworkHubConnectsSpeakerDisplay",
+      "participants": [
+        "NetworkHub",
+        "SpeakerDisplay"
+      ],
+      "attributes": [
+        {
+          "name": "signalStrength",
+          "type": "Ratio"
+        },
+        {
+          "name": "messageLatency",
+          "type": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "ElectricMeterMeasuresHome",
+      "participants": [
+        "ElectricMeter",
+        "Home"
+      ],
+      "attributes": [
+        {
+          "name": "measuredPowerDemand",
+          "type": "Power"
+        },
+        {
+          "name": "measuredEnergyConsumption",
+          "type": "Energy"
+        }
+      ]
+    },
+    {
+      "name": "BatteryStorageSuppliesHome",
+      "participants": [
+        "BatteryStorage",
+        "Home"
+      ],
+      "attributes": [
+        {
+          "name": "dispatchPower",
+          "type": "Power"
+        },
+        {
+          "name": "storedEnergyLevel",
+          "type": "Energy"
+        }
+      ]
+    },
+    {
+      "name": "LightingFixtureIlluminatesRoom",
+      "participants": [
+        "LightingFixture",
+        "Room"
+      ],
+      "attributes": [
+        {
+          "name": "deliveredIllumination",
+          "type": "LuminousIntensity"
+        },
+        {
+          "name": "illuminationState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "MotionSensorObservesRoom",
+      "participants": [
+        "MotionSensor",
+        "Room"
+      ],
+      "attributes": [
+        {
+          "name": "movementState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "detectionConfidence",
+          "type": "Ratio"
+        }
+      ]
+    },
+    {
+      "name": "CameraMonitorsRoom",
+      "participants": [
+        "Camera",
+        "Room"
+      ],
+      "attributes": [
+        {
+          "name": "streamState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "monitoringState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ]
+}

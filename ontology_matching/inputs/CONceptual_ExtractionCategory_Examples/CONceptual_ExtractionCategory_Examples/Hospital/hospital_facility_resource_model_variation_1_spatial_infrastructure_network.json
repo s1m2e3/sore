@@ -1,0 +1,537 @@
+{
+  "topicDomain": "Hospital System",
+  "modelName": "Hospital Facility Resource Network Model - Spatial Infrastructure Network",
+  "methodBasis": "All entities represent facility resources, spaces, and support infrastructure in a hospital system. Variations differ by how resources are grouped and how spatial, containment, support, and utility relationships are modeled.",
+  "entities": [
+    {
+      "name": "HospitalCampus",
+      "attributes": [
+        {
+          "name": "hospitalCampusID",
+          "type": "Identifier"
+        },
+        {
+          "name": "campusPosition",
+          "type": "Position"
+        },
+        {
+          "name": "campusExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "campusOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Building",
+      "attributes": [
+        {
+          "name": "buildingID",
+          "type": "Identifier"
+        },
+        {
+          "name": "buildingName",
+          "type": "Name"
+        },
+        {
+          "name": "buildingExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "buildingOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Floor",
+      "attributes": [
+        {
+          "name": "floorID",
+          "type": "Identifier"
+        },
+        {
+          "name": "floorLevel",
+          "type": "Order"
+        },
+        {
+          "name": "floorExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "floorOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Corridor",
+      "attributes": [
+        {
+          "name": "corridorID",
+          "type": "Identifier"
+        },
+        {
+          "name": "corridorExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "corridorPosition",
+          "type": "Position"
+        },
+        {
+          "name": "corridorOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "PatientRoom",
+      "attributes": [
+        {
+          "name": "patientRoomID",
+          "type": "Identifier"
+        },
+        {
+          "name": "roomExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "roomCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "roomOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "OperatingRoom",
+      "attributes": [
+        {
+          "name": "operatingRoomID",
+          "type": "Identifier"
+        },
+        {
+          "name": "roomExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "sterilityState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "roomOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ImagingRoom",
+      "attributes": [
+        {
+          "name": "imagingRoomID",
+          "type": "Identifier"
+        },
+        {
+          "name": "roomExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "shieldingState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "roomOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SupplyRoom",
+      "attributes": [
+        {
+          "name": "supplyRoomID",
+          "type": "Identifier"
+        },
+        {
+          "name": "roomExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "storageCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "roomOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Bed",
+      "attributes": [
+        {
+          "name": "bedID",
+          "type": "Identifier"
+        },
+        {
+          "name": "bedPosition",
+          "type": "Position"
+        },
+        {
+          "name": "occupancyState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "bedOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "NurseStation",
+      "attributes": [
+        {
+          "name": "nurseStationID",
+          "type": "Identifier"
+        },
+        {
+          "name": "stationPosition",
+          "type": "Position"
+        },
+        {
+          "name": "stationExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "stationOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "HVACUnit",
+      "attributes": [
+        {
+          "name": "hvacUnitID",
+          "type": "Identifier"
+        },
+        {
+          "name": "airFlowRate",
+          "type": "MassFlowRate"
+        },
+        {
+          "name": "temperatureState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "unitOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "PowerPanel",
+      "attributes": [
+        {
+          "name": "powerPanelID",
+          "type": "Identifier"
+        },
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        },
+        {
+          "name": "panelPosition",
+          "type": "Position"
+        },
+        {
+          "name": "panelOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "MedicalGasOutlet",
+      "attributes": [
+        {
+          "name": "medicalGasOutletID",
+          "type": "Identifier"
+        },
+        {
+          "name": "gasFlowState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "outletPosition",
+          "type": "Position"
+        },
+        {
+          "name": "outletOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "WasteHandlingUnit",
+      "attributes": [
+        {
+          "name": "wasteHandlingUnitID",
+          "type": "Identifier"
+        },
+        {
+          "name": "capacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "containmentState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "unitOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "HospitalCampusContainsBuilding",
+      "participants": [
+        "HospitalCampus",
+        "Building"
+      ],
+      "attributes": [
+        {
+          "name": "relativePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "BuildingContainsFloor",
+      "participants": [
+        "Building",
+        "Floor"
+      ],
+      "attributes": [
+        {
+          "name": "relativeLevel",
+          "type": "Order"
+        }
+      ]
+    },
+    {
+      "name": "FloorContainsCorridor",
+      "participants": [
+        "Floor",
+        "Corridor"
+      ],
+      "attributes": [
+        {
+          "name": "relativePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "FloorContainsPatientRoom",
+      "participants": [
+        "Floor",
+        "PatientRoom"
+      ],
+      "attributes": [
+        {
+          "name": "roomPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "FloorContainsOperatingRoom",
+      "participants": [
+        "Floor",
+        "OperatingRoom"
+      ],
+      "attributes": [
+        {
+          "name": "roomPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "FloorContainsImagingRoom",
+      "participants": [
+        "Floor",
+        "ImagingRoom"
+      ],
+      "attributes": [
+        {
+          "name": "roomPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "FloorContainsSupplyRoom",
+      "participants": [
+        "Floor",
+        "SupplyRoom"
+      ],
+      "attributes": [
+        {
+          "name": "roomPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "PatientRoomContainsBed",
+      "participants": [
+        "PatientRoom",
+        "Bed"
+      ],
+      "attributes": [
+        {
+          "name": "bedPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "FloorContainsNurseStation",
+      "participants": [
+        "Floor",
+        "NurseStation"
+      ],
+      "attributes": [
+        {
+          "name": "stationPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "HVACUnitConditionsPatientRoom",
+      "participants": [
+        "HVACUnit",
+        "PatientRoom"
+      ],
+      "attributes": [
+        {
+          "name": "airFlowRate",
+          "type": "MassFlowRate"
+        }
+      ]
+    },
+    {
+      "name": "HVACUnitConditionsOperatingRoom",
+      "participants": [
+        "HVACUnit",
+        "OperatingRoom"
+      ],
+      "attributes": [
+        {
+          "name": "airFlowRate",
+          "type": "MassFlowRate"
+        }
+      ]
+    },
+    {
+      "name": "HVACUnitConditionsImagingRoom",
+      "participants": [
+        "HVACUnit",
+        "ImagingRoom"
+      ],
+      "attributes": [
+        {
+          "name": "airFlowRate",
+          "type": "MassFlowRate"
+        }
+      ]
+    },
+    {
+      "name": "PowerPanelSuppliesPatientRoom",
+      "participants": [
+        "PowerPanel",
+        "PatientRoom"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "PowerPanelSuppliesOperatingRoom",
+      "participants": [
+        "PowerPanel",
+        "OperatingRoom"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "PowerPanelSuppliesImagingRoom",
+      "participants": [
+        "PowerPanel",
+        "ImagingRoom"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "MedicalGasOutletInstalledInPatientRoom",
+      "participants": [
+        "MedicalGasOutlet",
+        "PatientRoom"
+      ],
+      "attributes": [
+        {
+          "name": "outletPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "MedicalGasOutletInstalledInOperatingRoom",
+      "participants": [
+        "MedicalGasOutlet",
+        "OperatingRoom"
+      ],
+      "attributes": [
+        {
+          "name": "outletPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "WasteHandlingUnitServesFloor",
+      "participants": [
+        "WasteHandlingUnit",
+        "Floor"
+      ],
+      "attributes": [
+        {
+          "name": "serviceState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ]
+}

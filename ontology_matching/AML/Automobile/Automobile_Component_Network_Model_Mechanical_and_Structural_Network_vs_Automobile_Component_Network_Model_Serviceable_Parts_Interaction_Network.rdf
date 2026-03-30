@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rdf:RDF xmlns='http://knowledgeweb.semanticweb.org/heterogeneity/alignment'
+	 xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' 
+	 xmlns:xsd='http://www.w3.org/2001/XMLSchema#' 
+	 alignmentSource='AgreementMakerLight'>
+
+<Alignment>
+	<xml>yes</xml>
+	<level>0</level>
+	<type>11</type>
+	<onto1>http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network</onto1>
+	<onto2>http://example.org/concept_instances/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network</onto2>
+	<uri1>http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network</uri1>
+	<uri2>http://example.org/concept_instances/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network</uri2>
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_AngularVelocity"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network_obs_AngularVelocity"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6769</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_Differential_differentialOperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network_attr_Differential_differentialOperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.672</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_Differential_differentialID"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network_attr_Differential_differentialID"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.646</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_OperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network_obs_OperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6317</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_Identifier"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network_obs_Identifier"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.618</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_Extent"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network_obs_Extent"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6098</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_Pressure"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network_obs_Pressure"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6031</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_Mass"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network_obs_Mass"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6017</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_Force"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network/Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network_obs_Force"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.601</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+</Alignment>
+</rdf:RDF>

@@ -1,0 +1,488 @@
+{
+  "topicDomain": "University System",
+  "modelName": "University Campus Resource and Interaction Network Model",
+  "methodBasis": "Entities represent campus spaces, resources, people, and operational units; Associations express containment, access, scheduling, occupancy, service, and resource usage.",
+  "entities": [
+    {
+      "name": "Campus",
+      "attributes": [
+        {
+          "name": "campusID",
+          "type": "Identifier"
+        },
+        {
+          "name": "campusName",
+          "type": "Name"
+        },
+        {
+          "name": "campusPosition",
+          "type": "Position"
+        },
+        {
+          "name": "campusExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "campusState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Building",
+      "attributes": [
+        {
+          "name": "buildingID",
+          "type": "Identifier"
+        },
+        {
+          "name": "buildingName",
+          "type": "Name"
+        },
+        {
+          "name": "buildingExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "buildingState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Room",
+      "attributes": [
+        {
+          "name": "roomID",
+          "type": "Identifier"
+        },
+        {
+          "name": "roomName",
+          "type": "Name"
+        },
+        {
+          "name": "roomExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "roomCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "roomState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "LibraryResource",
+      "attributes": [
+        {
+          "name": "libraryResourceID",
+          "type": "Identifier"
+        },
+        {
+          "name": "resourceName",
+          "type": "Name"
+        },
+        {
+          "name": "resourceState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "accessState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "LaboratoryResource",
+      "attributes": [
+        {
+          "name": "laboratoryResourceID",
+          "type": "Identifier"
+        },
+        {
+          "name": "resourceName",
+          "type": "Name"
+        },
+        {
+          "name": "resourceState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "usageState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Person",
+      "attributes": [
+        {
+          "name": "personID",
+          "type": "Identifier"
+        },
+        {
+          "name": "personName",
+          "type": "Name"
+        },
+        {
+          "name": "personState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "roleState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ClassMeeting",
+      "attributes": [
+        {
+          "name": "classMeetingID",
+          "type": "Identifier"
+        },
+        {
+          "name": "meetingState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "startTime",
+          "type": "Time"
+        },
+        {
+          "name": "endTime",
+          "type": "Time"
+        }
+      ]
+    },
+    {
+      "name": "AdvisingSession",
+      "attributes": [
+        {
+          "name": "advisingSessionID",
+          "type": "Identifier"
+        },
+        {
+          "name": "sessionState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "startTime",
+          "type": "Time"
+        },
+        {
+          "name": "endTime",
+          "type": "Time"
+        }
+      ]
+    },
+    {
+      "name": "ServiceUnit",
+      "attributes": [
+        {
+          "name": "serviceUnitID",
+          "type": "Identifier"
+        },
+        {
+          "name": "serviceUnitName",
+          "type": "Name"
+        },
+        {
+          "name": "serviceState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "caseCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "HousingUnit",
+      "attributes": [
+        {
+          "name": "housingUnitID",
+          "type": "Identifier"
+        },
+        {
+          "name": "housingState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "bedCount",
+          "type": "Count"
+        },
+        {
+          "name": "occupancyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "DiningUnit",
+      "attributes": [
+        {
+          "name": "diningUnitID",
+          "type": "Identifier"
+        },
+        {
+          "name": "diningState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "mealCount",
+          "type": "Count"
+        },
+        {
+          "name": "capacityCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "TechnologySystem",
+      "attributes": [
+        {
+          "name": "technologySystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "technologyState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "deviceCount",
+          "type": "Count"
+        },
+        {
+          "name": "availabilityState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "CampusContainsBuilding",
+      "participants": [
+        "Campus",
+        "Building"
+      ],
+      "attributes": [
+        {
+          "name": "relativePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "BuildingContainsRoom",
+      "participants": [
+        "Building",
+        "Room"
+      ],
+      "attributes": [
+        {
+          "name": "relativePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "BuildingContainsHousingUnit",
+      "participants": [
+        "Building",
+        "HousingUnit"
+      ],
+      "attributes": [
+        {
+          "name": "housingAllocationState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "BuildingContainsDiningUnit",
+      "participants": [
+        "Building",
+        "DiningUnit"
+      ],
+      "attributes": [
+        {
+          "name": "serviceAllocationState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "RoomHostsClassMeeting",
+      "participants": [
+        "Room",
+        "ClassMeeting"
+      ],
+      "attributes": [
+        {
+          "name": "occupancyCount",
+          "type": "Count"
+        },
+        {
+          "name": "meetingState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "PersonParticipatesInClassMeeting",
+      "participants": [
+        "Person",
+        "ClassMeeting"
+      ],
+      "attributes": [
+        {
+          "name": "participationRoleState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "RoomHostsAdvisingSession",
+      "participants": [
+        "Room",
+        "AdvisingSession"
+      ],
+      "attributes": [
+        {
+          "name": "privacyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "PersonParticipatesInAdvisingSession",
+      "participants": [
+        "Person",
+        "AdvisingSession"
+      ],
+      "attributes": [
+        {
+          "name": "participantRoleState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "LibraryResourceAccessedByPerson",
+      "participants": [
+        "LibraryResource",
+        "Person"
+      ],
+      "attributes": [
+        {
+          "name": "accessTime",
+          "type": "Time"
+        },
+        {
+          "name": "accessState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "LaboratoryResourceUsedByPerson",
+      "participants": [
+        "LaboratoryResource",
+        "Person"
+      ],
+      "attributes": [
+        {
+          "name": "usageTime",
+          "type": "Time"
+        },
+        {
+          "name": "usageState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ServiceUnitServesPerson",
+      "participants": [
+        "ServiceUnit",
+        "Person"
+      ],
+      "attributes": [
+        {
+          "name": "serviceTime",
+          "type": "Time"
+        },
+        {
+          "name": "serviceOutcomeState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "HousingUnitAssignedToPerson",
+      "participants": [
+        "HousingUnit",
+        "Person"
+      ],
+      "attributes": [
+        {
+          "name": "assignmentTime",
+          "type": "Time"
+        },
+        {
+          "name": "occupancyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "DiningUnitServesPerson",
+      "participants": [
+        "DiningUnit",
+        "Person"
+      ],
+      "attributes": [
+        {
+          "name": "mealTime",
+          "type": "Time"
+        },
+        {
+          "name": "mealState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "TechnologySystemSupportsRoom",
+      "participants": [
+        "TechnologySystem",
+        "Room"
+      ],
+      "attributes": [
+        {
+          "name": "availabilityState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "TechnologySystemSupportsPerson",
+      "participants": [
+        "TechnologySystem",
+        "Person"
+      ],
+      "attributes": [
+        {
+          "name": "accessState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,591 @@
+{
+  "topicDomain": "How an automobile works (including the engine)",
+  "modelName": "Automobile Component Network Model - Mechanical and Structural Network",
+  "methodBasis": "All entities represent physical components in an automobile system. Variations differ by how component assemblies are composed and how components are associated through containment, coupling, support, and physical interaction.",
+  "entities": [
+    {
+      "name": "Automobile",
+      "attributes": [
+        {
+          "name": "automobileID",
+          "type": "Identifier"
+        },
+        {
+          "name": "automobileMass",
+          "type": "Mass"
+        },
+        {
+          "name": "automobilePosition",
+          "type": "Position"
+        },
+        {
+          "name": "automobileOrientation",
+          "type": "Orientation"
+        },
+        {
+          "name": "automobileOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "BodyFrame",
+      "attributes": [
+        {
+          "name": "bodyFrameID",
+          "type": "Identifier"
+        },
+        {
+          "name": "frameMass",
+          "type": "Mass"
+        },
+        {
+          "name": "frameExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "frameOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "EngineBlock",
+      "attributes": [
+        {
+          "name": "engineBlockID",
+          "type": "Identifier"
+        },
+        {
+          "name": "blockTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "blockMass",
+          "type": "Mass"
+        },
+        {
+          "name": "blockOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "CylinderHead",
+      "attributes": [
+        {
+          "name": "cylinderHeadID",
+          "type": "Identifier"
+        },
+        {
+          "name": "headTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "headMass",
+          "type": "Mass"
+        },
+        {
+          "name": "headOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "PistonAssembly",
+      "attributes": [
+        {
+          "name": "pistonAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "pistonCount",
+          "type": "Count"
+        },
+        {
+          "name": "assemblyTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "assemblyOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Crankshaft",
+      "attributes": [
+        {
+          "name": "crankshaftID",
+          "type": "Identifier"
+        },
+        {
+          "name": "shaftTorque",
+          "type": "Torque"
+        },
+        {
+          "name": "shaftSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "shaftOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Camshaft",
+      "attributes": [
+        {
+          "name": "camshaftID",
+          "type": "Identifier"
+        },
+        {
+          "name": "camshaftSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "camshaftOrientation",
+          "type": "Orientation"
+        },
+        {
+          "name": "camshaftOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ValveTrain",
+      "attributes": [
+        {
+          "name": "valveTrainID",
+          "type": "Identifier"
+        },
+        {
+          "name": "valveCount",
+          "type": "Count"
+        },
+        {
+          "name": "valveTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "valveOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "IntakeManifold",
+      "attributes": [
+        {
+          "name": "intakeManifoldID",
+          "type": "Identifier"
+        },
+        {
+          "name": "manifoldPressure",
+          "type": "Pressure"
+        },
+        {
+          "name": "manifoldTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "manifoldOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ExhaustManifold",
+      "attributes": [
+        {
+          "name": "exhaustManifoldID",
+          "type": "Identifier"
+        },
+        {
+          "name": "exhaustPressure",
+          "type": "Pressure"
+        },
+        {
+          "name": "exhaustTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "exhaustOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Transmission",
+      "attributes": [
+        {
+          "name": "transmissionID",
+          "type": "Identifier"
+        },
+        {
+          "name": "inputSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "outputSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "transmissionOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Differential",
+      "attributes": [
+        {
+          "name": "differentialID",
+          "type": "Identifier"
+        },
+        {
+          "name": "inputTorque",
+          "type": "Torque"
+        },
+        {
+          "name": "outputTorque",
+          "type": "Torque"
+        },
+        {
+          "name": "differentialOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "AxleAssembly",
+      "attributes": [
+        {
+          "name": "axleAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "axleTorque",
+          "type": "Torque"
+        },
+        {
+          "name": "axleSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "axleOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Wheel",
+      "attributes": [
+        {
+          "name": "wheelID",
+          "type": "Identifier"
+        },
+        {
+          "name": "wheelPosition",
+          "type": "Position"
+        },
+        {
+          "name": "wheelSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "wheelOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SuspensionAssembly",
+      "attributes": [
+        {
+          "name": "suspensionAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "suspensionPosition",
+          "type": "Position"
+        },
+        {
+          "name": "suspensionExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "suspensionOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SteeringRack",
+      "attributes": [
+        {
+          "name": "steeringRackID",
+          "type": "Identifier"
+        },
+        {
+          "name": "steeringForce",
+          "type": "Force"
+        },
+        {
+          "name": "steeringPosition",
+          "type": "Position"
+        },
+        {
+          "name": "steeringOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "BrakeAssembly",
+      "attributes": [
+        {
+          "name": "brakeAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "brakeForce",
+          "type": "Force"
+        },
+        {
+          "name": "brakeTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "brakeOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "AutomobileComposedWithBodyFrame",
+      "participants": [
+        "Automobile",
+        "BodyFrame"
+      ],
+      "attributes": [
+        {
+          "name": "mountPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "BodyFrameSupportsEngineBlock",
+      "participants": [
+        "BodyFrame",
+        "EngineBlock"
+      ],
+      "attributes": [
+        {
+          "name": "mountPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "EngineBlockConnectedToCylinderHead",
+      "participants": [
+        "EngineBlock",
+        "CylinderHead"
+      ],
+      "attributes": [
+        {
+          "name": "sealState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "EngineBlockContainsPistonAssembly",
+      "participants": [
+        "EngineBlock",
+        "PistonAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "assemblyPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "PistonAssemblyDrivesCrankshaft",
+      "participants": [
+        "PistonAssembly",
+        "Crankshaft"
+      ],
+      "attributes": [
+        {
+          "name": "transmittedTorque",
+          "type": "Torque"
+        }
+      ]
+    },
+    {
+      "name": "CrankshaftCoupledToCamshaft",
+      "participants": [
+        "Crankshaft",
+        "Camshaft"
+      ],
+      "attributes": [
+        {
+          "name": "timingRatio",
+          "type": "Ratio"
+        }
+      ]
+    },
+    {
+      "name": "CamshaftOperatesValveTrain",
+      "participants": [
+        "Camshaft",
+        "ValveTrain"
+      ],
+      "attributes": [
+        {
+          "name": "liftState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "IntakeManifoldAttachedToCylinderHead",
+      "participants": [
+        "IntakeManifold",
+        "CylinderHead"
+      ],
+      "attributes": [
+        {
+          "name": "attachmentState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ExhaustManifoldAttachedToCylinderHead",
+      "participants": [
+        "ExhaustManifold",
+        "CylinderHead"
+      ],
+      "attributes": [
+        {
+          "name": "attachmentState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "CrankshaftDrivesTransmission",
+      "participants": [
+        "Crankshaft",
+        "Transmission"
+      ],
+      "attributes": [
+        {
+          "name": "inputTorque",
+          "type": "Torque"
+        }
+      ]
+    },
+    {
+      "name": "TransmissionConnectedToDifferential",
+      "participants": [
+        "Transmission",
+        "Differential"
+      ],
+      "attributes": [
+        {
+          "name": "outputTorque",
+          "type": "Torque"
+        }
+      ]
+    },
+    {
+      "name": "DifferentialConnectedToAxleAssembly",
+      "participants": [
+        "Differential",
+        "AxleAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "distributedTorque",
+          "type": "Torque"
+        }
+      ]
+    },
+    {
+      "name": "AxleAssemblyRotatesWheel",
+      "participants": [
+        "AxleAssembly",
+        "Wheel"
+      ],
+      "attributes": [
+        {
+          "name": "wheelTorque",
+          "type": "Torque"
+        }
+      ]
+    },
+    {
+      "name": "BodyFrameSupportsSuspensionAssembly",
+      "participants": [
+        "BodyFrame",
+        "SuspensionAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "SuspensionAssemblySupportsWheel",
+      "participants": [
+        "SuspensionAssembly",
+        "Wheel"
+      ],
+      "attributes": [
+        {
+          "name": "supportState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SteeringRackOrientsWheel",
+      "participants": [
+        "SteeringRack",
+        "Wheel"
+      ],
+      "attributes": [
+        {
+          "name": "steerAngle",
+          "type": "Angle"
+        }
+      ]
+    },
+    {
+      "name": "BrakeAssemblyActsOnWheel",
+      "participants": [
+        "BrakeAssembly",
+        "Wheel"
+      ],
+      "attributes": [
+        {
+          "name": "appliedBrakeForce",
+          "type": "Force"
+        }
+      ]
+    }
+  ]
+}

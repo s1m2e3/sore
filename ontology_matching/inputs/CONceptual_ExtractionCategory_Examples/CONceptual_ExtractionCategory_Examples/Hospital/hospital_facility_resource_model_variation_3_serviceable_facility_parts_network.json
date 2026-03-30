@@ -1,0 +1,537 @@
+{
+  "topicDomain": "Hospital System",
+  "modelName": "Hospital Facility Resource Network Model - Serviceable Facility Parts Network",
+  "methodBasis": "All entities represent serviceable facility resources and replaceable infrastructure units within a hospital. Variations differ by emphasizing direct part-to-part support, installation, and service relationships.",
+  "entities": [
+    {
+      "name": "StructuralBay",
+      "attributes": [
+        {
+          "name": "structuralBayID",
+          "type": "Identifier"
+        },
+        {
+          "name": "bayExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "bayPosition",
+          "type": "Position"
+        },
+        {
+          "name": "bayOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "DoorAssembly",
+      "attributes": [
+        {
+          "name": "doorAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "doorPosition",
+          "type": "Position"
+        },
+        {
+          "name": "accessState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "doorOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "NurseCallPanel",
+      "attributes": [
+        {
+          "name": "nurseCallPanelID",
+          "type": "Identifier"
+        },
+        {
+          "name": "panelPosition",
+          "type": "Position"
+        },
+        {
+          "name": "signalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "panelOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "PatientMonitorMount",
+      "attributes": [
+        {
+          "name": "patientMonitorMountID",
+          "type": "Identifier"
+        },
+        {
+          "name": "mountPosition",
+          "type": "Position"
+        },
+        {
+          "name": "mountForce",
+          "type": "Force"
+        },
+        {
+          "name": "mountOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ImagingMachine",
+      "attributes": [
+        {
+          "name": "imagingMachineID",
+          "type": "Identifier"
+        },
+        {
+          "name": "machinePosition",
+          "type": "Position"
+        },
+        {
+          "name": "machinePower",
+          "type": "Power"
+        },
+        {
+          "name": "machineOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SurgicalLight",
+      "attributes": [
+        {
+          "name": "surgicalLightID",
+          "type": "Identifier"
+        },
+        {
+          "name": "lightPosition",
+          "type": "Position"
+        },
+        {
+          "name": "lightPower",
+          "type": "Power"
+        },
+        {
+          "name": "lightOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "EquipmentBoom",
+      "attributes": [
+        {
+          "name": "equipmentBoomID",
+          "type": "Identifier"
+        },
+        {
+          "name": "boomPosition",
+          "type": "Position"
+        },
+        {
+          "name": "boomLoadForce",
+          "type": "Force"
+        },
+        {
+          "name": "boomOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "HandwashSink",
+      "attributes": [
+        {
+          "name": "handwashSinkID",
+          "type": "Identifier"
+        },
+        {
+          "name": "sinkPosition",
+          "type": "Position"
+        },
+        {
+          "name": "waterFlowState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "sinkOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "AirHandlingTerminal",
+      "attributes": [
+        {
+          "name": "airHandlingTerminalID",
+          "type": "Identifier"
+        },
+        {
+          "name": "terminalPosition",
+          "type": "Position"
+        },
+        {
+          "name": "airFlowRate",
+          "type": "MassFlowRate"
+        },
+        {
+          "name": "terminalOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "MedicalGasPanel",
+      "attributes": [
+        {
+          "name": "medicalGasPanelID",
+          "type": "Identifier"
+        },
+        {
+          "name": "panelPosition",
+          "type": "Position"
+        },
+        {
+          "name": "gasFlowState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "panelOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "CircuitBreakerPanel",
+      "attributes": [
+        {
+          "name": "circuitBreakerPanelID",
+          "type": "Identifier"
+        },
+        {
+          "name": "panelPosition",
+          "type": "Position"
+        },
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        },
+        {
+          "name": "panelOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ServerRack",
+      "attributes": [
+        {
+          "name": "serverRackID",
+          "type": "Identifier"
+        },
+        {
+          "name": "rackPosition",
+          "type": "Position"
+        },
+        {
+          "name": "deviceCount",
+          "type": "Count"
+        },
+        {
+          "name": "rackOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SterileCabinet",
+      "attributes": [
+        {
+          "name": "sterileCabinetID",
+          "type": "Identifier"
+        },
+        {
+          "name": "cabinetPosition",
+          "type": "Position"
+        },
+        {
+          "name": "storageCount",
+          "type": "Count"
+        },
+        {
+          "name": "cabinetOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "WasteBin",
+      "attributes": [
+        {
+          "name": "wasteBinID",
+          "type": "Identifier"
+        },
+        {
+          "name": "binPosition",
+          "type": "Position"
+        },
+        {
+          "name": "capacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "binOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "StructuralBaySupportsDoorAssembly",
+      "participants": [
+        "StructuralBay",
+        "DoorAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "StructuralBaySupportsNurseCallPanel",
+      "participants": [
+        "StructuralBay",
+        "NurseCallPanel"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "StructuralBaySupportsPatientMonitorMount",
+      "participants": [
+        "StructuralBay",
+        "PatientMonitorMount"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "StructuralBaySupportsImagingMachine",
+      "participants": [
+        "StructuralBay",
+        "ImagingMachine"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "StructuralBaySupportsSurgicalLight",
+      "participants": [
+        "StructuralBay",
+        "SurgicalLight"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "StructuralBaySupportsEquipmentBoom",
+      "participants": [
+        "StructuralBay",
+        "EquipmentBoom"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "StructuralBaySupportsHandwashSink",
+      "participants": [
+        "StructuralBay",
+        "HandwashSink"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "StructuralBaySupportsAirHandlingTerminal",
+      "participants": [
+        "StructuralBay",
+        "AirHandlingTerminal"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "StructuralBaySupportsMedicalGasPanel",
+      "participants": [
+        "StructuralBay",
+        "MedicalGasPanel"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "StructuralBaySupportsCircuitBreakerPanel",
+      "participants": [
+        "StructuralBay",
+        "CircuitBreakerPanel"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "StructuralBaySupportsServerRack",
+      "participants": [
+        "StructuralBay",
+        "ServerRack"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "StructuralBaySupportsSterileCabinet",
+      "participants": [
+        "StructuralBay",
+        "SterileCabinet"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "StructuralBaySupportsWasteBin",
+      "participants": [
+        "StructuralBay",
+        "WasteBin"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "CircuitBreakerPanelPowersImagingMachine",
+      "participants": [
+        "CircuitBreakerPanel",
+        "ImagingMachine"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "CircuitBreakerPanelPowersSurgicalLight",
+      "participants": [
+        "CircuitBreakerPanel",
+        "SurgicalLight"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "MedicalGasPanelServesEquipmentBoom",
+      "participants": [
+        "MedicalGasPanel",
+        "EquipmentBoom"
+      ],
+      "attributes": [
+        {
+          "name": "gasFlowState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "AirHandlingTerminalConditionsStructuralBay",
+      "participants": [
+        "AirHandlingTerminal",
+        "StructuralBay"
+      ],
+      "attributes": [
+        {
+          "name": "airFlowRate",
+          "type": "MassFlowRate"
+        }
+      ]
+    },
+    {
+      "name": "ServerRackSupportsNurseCallPanel",
+      "participants": [
+        "ServerRack",
+        "NurseCallPanel"
+      ],
+      "attributes": [
+        {
+          "name": "connectivityState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ]
+}

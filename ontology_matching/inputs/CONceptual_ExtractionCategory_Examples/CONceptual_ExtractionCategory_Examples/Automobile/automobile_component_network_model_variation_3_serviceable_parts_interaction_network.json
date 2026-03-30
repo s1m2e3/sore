@@ -1,0 +1,587 @@
+{
+  "topicDomain": "How an automobile works (including the engine)",
+  "modelName": "Automobile Component Network Model - Serviceable Parts Interaction Network",
+  "methodBasis": "All entities represent serviceable automobile parts and replaceable units. Variations differ by emphasizing direct part-to-part interaction and support relationships among serviceable components.",
+  "entities": [
+    {
+      "name": "Chassis",
+      "attributes": [
+        {
+          "name": "chassisID",
+          "type": "Identifier"
+        },
+        {
+          "name": "chassisMass",
+          "type": "Mass"
+        },
+        {
+          "name": "chassisExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "chassisOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "EngineMount",
+      "attributes": [
+        {
+          "name": "engineMountID",
+          "type": "Identifier"
+        },
+        {
+          "name": "mountPosition",
+          "type": "Position"
+        },
+        {
+          "name": "mountForce",
+          "type": "Force"
+        },
+        {
+          "name": "mountOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Engine",
+      "attributes": [
+        {
+          "name": "engineID",
+          "type": "Identifier"
+        },
+        {
+          "name": "engineTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "engineTorque",
+          "type": "Torque"
+        },
+        {
+          "name": "engineOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Radiator",
+      "attributes": [
+        {
+          "name": "radiatorID",
+          "type": "Identifier"
+        },
+        {
+          "name": "radiatorTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "coolantFlowRate",
+          "type": "MassFlowRate"
+        },
+        {
+          "name": "radiatorOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Battery",
+      "attributes": [
+        {
+          "name": "batteryID",
+          "type": "Identifier"
+        },
+        {
+          "name": "batteryVoltage",
+          "type": "ElectricPotential"
+        },
+        {
+          "name": "batteryCharge",
+          "type": "ElectricCharge"
+        },
+        {
+          "name": "batteryOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Alternator",
+      "attributes": [
+        {
+          "name": "alternatorID",
+          "type": "Identifier"
+        },
+        {
+          "name": "alternatorVoltage",
+          "type": "ElectricPotential"
+        },
+        {
+          "name": "alternatorCurrent",
+          "type": "ElectricCurrent"
+        },
+        {
+          "name": "alternatorOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "StarterMotor",
+      "attributes": [
+        {
+          "name": "starterMotorID",
+          "type": "Identifier"
+        },
+        {
+          "name": "motorTorque",
+          "type": "Torque"
+        },
+        {
+          "name": "motorSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "starterOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "FuelTank",
+      "attributes": [
+        {
+          "name": "fuelTankID",
+          "type": "Identifier"
+        },
+        {
+          "name": "fuelMass",
+          "type": "Mass"
+        },
+        {
+          "name": "tankPosition",
+          "type": "Position"
+        },
+        {
+          "name": "tankOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "FuelPump",
+      "attributes": [
+        {
+          "name": "fuelPumpID",
+          "type": "Identifier"
+        },
+        {
+          "name": "fuelPressure",
+          "type": "Pressure"
+        },
+        {
+          "name": "fuelFlowRate",
+          "type": "MassFlowRate"
+        },
+        {
+          "name": "pumpOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "InjectorRail",
+      "attributes": [
+        {
+          "name": "injectorRailID",
+          "type": "Identifier"
+        },
+        {
+          "name": "railPressure",
+          "type": "Pressure"
+        },
+        {
+          "name": "railTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "railOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Gearbox",
+      "attributes": [
+        {
+          "name": "gearboxID",
+          "type": "Identifier"
+        },
+        {
+          "name": "gearboxInputSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "gearboxOutputSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "gearboxOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Driveshaft",
+      "attributes": [
+        {
+          "name": "driveshaftID",
+          "type": "Identifier"
+        },
+        {
+          "name": "shaftTorque",
+          "type": "Torque"
+        },
+        {
+          "name": "shaftSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "shaftOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Differential",
+      "attributes": [
+        {
+          "name": "differentialID",
+          "type": "Identifier"
+        },
+        {
+          "name": "differentialTorque",
+          "type": "Torque"
+        },
+        {
+          "name": "differentialSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "differentialOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "HubAssembly",
+      "attributes": [
+        {
+          "name": "hubAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "hubPosition",
+          "type": "Position"
+        },
+        {
+          "name": "hubSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "hubOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "TireWheelUnit",
+      "attributes": [
+        {
+          "name": "tireWheelUnitID",
+          "type": "Identifier"
+        },
+        {
+          "name": "wheelSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "wheelPosition",
+          "type": "Position"
+        },
+        {
+          "name": "wheelOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "BrakeCaliper",
+      "attributes": [
+        {
+          "name": "brakeCaliperID",
+          "type": "Identifier"
+        },
+        {
+          "name": "brakeForce",
+          "type": "Force"
+        },
+        {
+          "name": "caliperTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "caliperOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ControlArm",
+      "attributes": [
+        {
+          "name": "controlArmID",
+          "type": "Identifier"
+        },
+        {
+          "name": "armPosition",
+          "type": "Position"
+        },
+        {
+          "name": "armForce",
+          "type": "Force"
+        },
+        {
+          "name": "armOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "ChassisSupportsEngineMount",
+      "participants": [
+        "Chassis",
+        "EngineMount"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "EngineMountSupportsEngine",
+      "participants": [
+        "EngineMount",
+        "Engine"
+      ],
+      "attributes": [
+        {
+          "name": "supportForce",
+          "type": "Force"
+        }
+      ]
+    },
+    {
+      "name": "EngineAdjacentToRadiator",
+      "participants": [
+        "Engine",
+        "Radiator"
+      ],
+      "attributes": [
+        {
+          "name": "adjacencyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "BatteryPowersStarterMotor",
+      "participants": [
+        "Battery",
+        "StarterMotor"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedCurrent",
+          "type": "ElectricCurrent"
+        }
+      ]
+    },
+    {
+      "name": "AlternatorChargesBattery",
+      "participants": [
+        "Alternator",
+        "Battery"
+      ],
+      "attributes": [
+        {
+          "name": "chargingCurrent",
+          "type": "ElectricCurrent"
+        }
+      ]
+    },
+    {
+      "name": "EngineDrivesAlternator",
+      "participants": [
+        "Engine",
+        "Alternator"
+      ],
+      "attributes": [
+        {
+          "name": "driveTorque",
+          "type": "Torque"
+        }
+      ]
+    },
+    {
+      "name": "FuelTankSuppliesFuelPump",
+      "participants": [
+        "FuelTank",
+        "FuelPump"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedFuelMass",
+          "type": "Mass"
+        }
+      ]
+    },
+    {
+      "name": "FuelPumpSuppliesInjectorRail",
+      "participants": [
+        "FuelPump",
+        "InjectorRail"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedFuelPressure",
+          "type": "Pressure"
+        }
+      ]
+    },
+    {
+      "name": "InjectorRailSuppliesEngine",
+      "participants": [
+        "InjectorRail",
+        "Engine"
+      ],
+      "attributes": [
+        {
+          "name": "deliveryPressure",
+          "type": "Pressure"
+        }
+      ]
+    },
+    {
+      "name": "EngineCoupledToGearbox",
+      "participants": [
+        "Engine",
+        "Gearbox"
+      ],
+      "attributes": [
+        {
+          "name": "coupledTorque",
+          "type": "Torque"
+        }
+      ]
+    },
+    {
+      "name": "GearboxDrivesDriveshaft",
+      "participants": [
+        "Gearbox",
+        "Driveshaft"
+      ],
+      "attributes": [
+        {
+          "name": "outputTorque",
+          "type": "Torque"
+        }
+      ]
+    },
+    {
+      "name": "DriveshaftDrivesDifferential",
+      "participants": [
+        "Driveshaft",
+        "Differential"
+      ],
+      "attributes": [
+        {
+          "name": "inputTorque",
+          "type": "Torque"
+        }
+      ]
+    },
+    {
+      "name": "DifferentialDrivesHubAssembly",
+      "participants": [
+        "Differential",
+        "HubAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "hubTorque",
+          "type": "Torque"
+        }
+      ]
+    },
+    {
+      "name": "HubAssemblyRotatesTireWheelUnit",
+      "participants": [
+        "HubAssembly",
+        "TireWheelUnit"
+      ],
+      "attributes": [
+        {
+          "name": "wheelTorque",
+          "type": "Torque"
+        }
+      ]
+    },
+    {
+      "name": "BrakeCaliperActsOnTireWheelUnit",
+      "participants": [
+        "BrakeCaliper",
+        "TireWheelUnit"
+      ],
+      "attributes": [
+        {
+          "name": "appliedBrakeForce",
+          "type": "Force"
+        }
+      ]
+    },
+    {
+      "name": "ControlArmSupportsHubAssembly",
+      "participants": [
+        "ControlArm",
+        "HubAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "supportState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ChassisSupportsControlArm",
+      "participants": [
+        "Chassis",
+        "ControlArm"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    }
+  ]
+}

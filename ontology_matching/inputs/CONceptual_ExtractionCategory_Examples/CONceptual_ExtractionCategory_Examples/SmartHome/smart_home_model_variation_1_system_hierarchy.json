@@ -1,0 +1,570 @@
+{
+  "topicDomain": "Smart Home Automation",
+  "modelName": "Smart Home System Hierarchy Model",
+  "methodBasis": "Entities represent major smart home subsystems and composed entities; Associations represent coordination, control, monitoring, and resource relationships among subsystems.",
+  "entities": [
+    {
+      "name": "SmartHome",
+      "attributes": [
+        {
+          "name": "smartHomeID",
+          "type": "Identifier"
+        },
+        {
+          "name": "overallOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "propertyPosition",
+          "type": "Position"
+        },
+        {
+          "name": "propertyExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "occupancyState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "zoneCount",
+          "type": "Count"
+        },
+        {
+          "name": "lightingSystem",
+          "type": "LightingSystem"
+        },
+        {
+          "name": "climateSystem",
+          "type": "ClimateSystem"
+        },
+        {
+          "name": "securitySystem",
+          "type": "SecuritySystem"
+        },
+        {
+          "name": "accessControlSystem",
+          "type": "AccessControlSystem"
+        },
+        {
+          "name": "energyManagementSystem",
+          "type": "EnergyManagementSystem"
+        },
+        {
+          "name": "waterManagementSystem",
+          "type": "WaterManagementSystem"
+        },
+        {
+          "name": "mediaSystem",
+          "type": "MediaSystem"
+        },
+        {
+          "name": "applianceSystem",
+          "type": "ApplianceSystem"
+        },
+        {
+          "name": "networkSystem",
+          "type": "NetworkSystem"
+        },
+        {
+          "name": "automationController",
+          "type": "AutomationController"
+        }
+      ]
+    },
+    {
+      "name": "AutomationController",
+      "attributes": [
+        {
+          "name": "controllerID",
+          "type": "Identifier"
+        },
+        {
+          "name": "controllerOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "processingLoad",
+          "type": "Ratio"
+        },
+        {
+          "name": "ruleCount",
+          "type": "Count"
+        },
+        {
+          "name": "scheduleCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "LightingSystem",
+      "attributes": [
+        {
+          "name": "lightingSystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "illuminationLevel",
+          "type": "LuminousIntensity"
+        },
+        {
+          "name": "lightingPower",
+          "type": "Power"
+        },
+        {
+          "name": "lightingOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "fixtureCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "ClimateSystem",
+      "attributes": [
+        {
+          "name": "climateSystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "ambientTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "ambientHumidity",
+          "type": "Ratio"
+        },
+        {
+          "name": "airFlowRate",
+          "type": "MassFlowRate"
+        },
+        {
+          "name": "climateOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SecuritySystem",
+      "attributes": [
+        {
+          "name": "securitySystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "securityOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "alarmState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "sensorCount",
+          "type": "Count"
+        },
+        {
+          "name": "cameraCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "AccessControlSystem",
+      "attributes": [
+        {
+          "name": "accessControlSystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "lockCount",
+          "type": "Count"
+        },
+        {
+          "name": "doorState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "windowState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "accessOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "EnergyManagementSystem",
+      "attributes": [
+        {
+          "name": "energyManagementSystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "instantPowerDemand",
+          "type": "Power"
+        },
+        {
+          "name": "storedEnergy",
+          "type": "Energy"
+        },
+        {
+          "name": "energyOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "meterCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "WaterManagementSystem",
+      "attributes": [
+        {
+          "name": "waterManagementSystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "waterPressure",
+          "type": "Pressure"
+        },
+        {
+          "name": "waterFlowRate",
+          "type": "MassFlowRate"
+        },
+        {
+          "name": "waterOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "leakState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "MediaSystem",
+      "attributes": [
+        {
+          "name": "mediaSystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "audioPower",
+          "type": "Power"
+        },
+        {
+          "name": "displayCount",
+          "type": "Count"
+        },
+        {
+          "name": "mediaOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "activeStreamCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "ApplianceSystem",
+      "attributes": [
+        {
+          "name": "applianceSystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "applianceCount",
+          "type": "Count"
+        },
+        {
+          "name": "appliancePowerDemand",
+          "type": "Power"
+        },
+        {
+          "name": "applianceOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "NetworkSystem",
+      "attributes": [
+        {
+          "name": "networkSystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "networkOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "signalStrength",
+          "type": "Ratio"
+        },
+        {
+          "name": "latency",
+          "type": "Duration"
+        },
+        {
+          "name": "connectedDeviceCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "Zone",
+      "attributes": [
+        {
+          "name": "zoneID",
+          "type": "Identifier"
+        },
+        {
+          "name": "zoneName",
+          "type": "Name"
+        },
+        {
+          "name": "zonePosition",
+          "type": "Position"
+        },
+        {
+          "name": "zoneExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "zoneOccupancyState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "AutomationControllerCoordinatesLightingSystem",
+      "participants": [
+        "AutomationController",
+        "LightingSystem"
+      ],
+      "attributes": [
+        {
+          "name": "commandFrequency",
+          "type": "TemporalFrequency"
+        },
+        {
+          "name": "targetOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "AutomationControllerCoordinatesClimateSystem",
+      "participants": [
+        "AutomationController",
+        "ClimateSystem"
+      ],
+      "attributes": [
+        {
+          "name": "targetTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "targetHumidity",
+          "type": "Ratio"
+        }
+      ]
+    },
+    {
+      "name": "AutomationControllerCoordinatesSecuritySystem",
+      "participants": [
+        "AutomationController",
+        "SecuritySystem"
+      ],
+      "attributes": [
+        {
+          "name": "armingState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "alertPriority",
+          "type": "Order"
+        }
+      ]
+    },
+    {
+      "name": "AutomationControllerCoordinatesAccessControlSystem",
+      "participants": [
+        "AutomationController",
+        "AccessControlSystem"
+      ],
+      "attributes": [
+        {
+          "name": "targetDoorState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "targetWindowState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "AutomationControllerCoordinatesEnergyManagementSystem",
+      "participants": [
+        "AutomationController",
+        "EnergyManagementSystem"
+      ],
+      "attributes": [
+        {
+          "name": "demandLimit",
+          "type": "Power"
+        },
+        {
+          "name": "storageDispatchPower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "AutomationControllerCoordinatesWaterManagementSystem",
+      "participants": [
+        "AutomationController",
+        "WaterManagementSystem"
+      ],
+      "attributes": [
+        {
+          "name": "targetValveState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "leakResponseState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "AutomationControllerCoordinatesMediaSystem",
+      "participants": [
+        "AutomationController",
+        "MediaSystem"
+      ],
+      "attributes": [
+        {
+          "name": "mediaMode",
+          "type": "OperationalState"
+        },
+        {
+          "name": "volumeLevel",
+          "type": "Ratio"
+        }
+      ]
+    },
+    {
+      "name": "AutomationControllerCoordinatesApplianceSystem",
+      "participants": [
+        "AutomationController",
+        "ApplianceSystem"
+      ],
+      "attributes": [
+        {
+          "name": "targetApplianceState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "scheduledStartTime",
+          "type": "Time"
+        }
+      ]
+    },
+    {
+      "name": "NetworkSystemConnectsAutomationController",
+      "participants": [
+        "NetworkSystem",
+        "AutomationController"
+      ],
+      "attributes": [
+        {
+          "name": "controllerLatency",
+          "type": "Duration"
+        },
+        {
+          "name": "controllerSignalStrength",
+          "type": "Ratio"
+        }
+      ]
+    },
+    {
+      "name": "SecuritySystemMonitorsZone",
+      "participants": [
+        "SecuritySystem",
+        "Zone"
+      ],
+      "attributes": [
+        {
+          "name": "monitoredState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "coverageCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "LightingSystemIlluminatesZone",
+      "participants": [
+        "LightingSystem",
+        "Zone"
+      ],
+      "attributes": [
+        {
+          "name": "deliveredIllumination",
+          "type": "LuminousIntensity"
+        },
+        {
+          "name": "targetLightState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ClimateSystemConditionsZone",
+      "participants": [
+        "ClimateSystem",
+        "Zone"
+      ],
+      "attributes": [
+        {
+          "name": "zoneTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "zoneHumidity",
+          "type": "Ratio"
+        }
+      ]
+    },
+    {
+      "name": "AccessControlSystemSecuresZone",
+      "participants": [
+        "AccessControlSystem",
+        "Zone"
+      ],
+      "attributes": [
+        {
+          "name": "barrierState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "accessPermissionState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ]
+}

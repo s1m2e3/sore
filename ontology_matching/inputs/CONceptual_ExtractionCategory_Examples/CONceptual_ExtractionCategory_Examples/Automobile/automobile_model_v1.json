@@ -1,0 +1,913 @@
+{
+  "modelName": "Automobile_Model_V1_SystemCentric",
+  "modelDescription": "System-centric decomposition of an automobile. Top-level entities represent major vehicle systems (engine, drivetrain, electrical, etc.), with subsystems and components composed within them.",
+  "observables": [
+    "Identifier", "Temperature", "Pressure", "Speed", "Torque", "Power",
+    "ElectricPotential", "ElectricCurrent", "ElectricResistance", "Force",
+    "Mass", "Position", "Orientation", "Angle", "Distance", "Duration",
+    "TemporalFrequency", "Velocity", "Acceleration", "ScalarVolume",
+    "ScalarArea", "Density", "MassFlowRate", "Energy", "Efficiency",
+    "Ratio", "Count", "HealthState", "OperationalState", "Kind",
+    "Description", "Extent", "DynamicViscosity", "AngularVelocity",
+    "Humidity", "Illuminance", "ConfigurationState", "Size"
+  ],
+  "entities": [
+    {
+      "entityName": "Automobile",
+      "entityAttributes": [
+        { "name": "vin", "type": "Identifier" },
+        { "name": "make", "type": "Kind" },
+        { "name": "model", "type": "Kind" },
+        { "name": "modelYear", "type": "Identifier" },
+        { "name": "curbWeight", "type": "Mass" },
+        { "name": "overallLength", "type": "Distance" },
+        { "name": "overallWidth", "type": "Distance" },
+        { "name": "overallHeight", "type": "Distance" },
+        { "name": "operationalStatus", "type": "OperationalState" },
+        { "name": "engine", "type": "Engine" },
+        { "name": "drivetrain", "type": "Drivetrain" },
+        { "name": "electricalSystem", "type": "ElectricalSystem" },
+        { "name": "chassisSystem", "type": "ChassisSystem" },
+        { "name": "bodyStructure", "type": "BodyStructure" },
+        { "name": "hvacSystem", "type": "HVACSystem" },
+        { "name": "fuelSystem", "type": "FuelSystem" },
+        { "name": "exhaustSystem", "type": "ExhaustSystem" },
+        { "name": "coolingSystem", "type": "CoolingSystem" }
+      ]
+    },
+    {
+      "entityName": "Engine",
+      "entityAttributes": [
+        { "name": "engineID", "type": "Identifier" },
+        { "name": "engineType", "type": "Kind" },
+        { "name": "displacement", "type": "ScalarVolume" },
+        { "name": "horsepower", "type": "Power" },
+        { "name": "peakTorque", "type": "Torque" },
+        { "name": "rpm", "type": "AngularVelocity" },
+        { "name": "oilPressure", "type": "Pressure" },
+        { "name": "oilTemperature", "type": "Temperature" },
+        { "name": "cylinderCount", "type": "Count" },
+        { "name": "compressionRatio", "type": "Ratio" },
+        { "name": "operationalStatus", "type": "OperationalState" },
+        { "name": "cylinderBlock", "type": "CylinderBlock" },
+        { "name": "cylinderHead", "type": "CylinderHead" },
+        { "name": "crankshaft", "type": "Crankshaft" },
+        { "name": "camshaft", "type": "Camshaft" },
+        { "name": "timingSystem", "type": "TimingSystem" }
+      ]
+    },
+    {
+      "entityName": "CylinderBlock",
+      "entityAttributes": [
+        { "name": "blockID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "boreDiameter", "type": "Distance" },
+        { "name": "cylinderCount", "type": "Count" },
+        { "name": "cylinder", "type": "Cylinder" }
+      ]
+    },
+    {
+      "entityName": "Cylinder",
+      "entityAttributes": [
+        { "name": "cylinderID", "type": "Identifier" },
+        { "name": "bore", "type": "Distance" },
+        { "name": "stroke", "type": "Distance" },
+        { "name": "combustionPressure", "type": "Pressure" },
+        { "name": "combustionTemperature", "type": "Temperature" },
+        { "name": "piston", "type": "Piston" },
+        { "name": "sparkPlug", "type": "SparkPlug" }
+      ]
+    },
+    {
+      "entityName": "Piston",
+      "entityAttributes": [
+        { "name": "pistonID", "type": "Identifier" },
+        { "name": "diameter", "type": "Distance" },
+        { "name": "position", "type": "Position" },
+        { "name": "velocity", "type": "Velocity" },
+        { "name": "material", "type": "Kind" },
+        { "name": "connectingRod", "type": "ConnectingRod" },
+        { "name": "pistonRing", "type": "PistonRing" }
+      ]
+    },
+    {
+      "entityName": "PistonRing",
+      "entityAttributes": [
+        { "name": "ringID", "type": "Identifier" },
+        { "name": "ringType", "type": "Kind" },
+        { "name": "material", "type": "Kind" },
+        { "name": "gapSize", "type": "Distance" }
+      ]
+    },
+    {
+      "entityName": "ConnectingRod",
+      "entityAttributes": [
+        { "name": "rodID", "type": "Identifier" },
+        { "name": "length", "type": "Distance" },
+        { "name": "material", "type": "Kind" },
+        { "name": "mass", "type": "Mass" }
+      ]
+    },
+    {
+      "entityName": "SparkPlug",
+      "entityAttributes": [
+        { "name": "sparkPlugID", "type": "Identifier" },
+        { "name": "gapSize", "type": "Distance" },
+        { "name": "heatRange", "type": "Kind" },
+        { "name": "voltage", "type": "ElectricPotential" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "CylinderHead",
+      "entityAttributes": [
+        { "name": "headID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "valveConfiguration", "type": "Kind" },
+        { "name": "intakeValve", "type": "Valve" },
+        { "name": "exhaustValve", "type": "Valve" },
+        { "name": "combustionChamberVolume", "type": "ScalarVolume" }
+      ]
+    },
+    {
+      "entityName": "Valve",
+      "entityAttributes": [
+        { "name": "valveID", "type": "Identifier" },
+        { "name": "valveType", "type": "Kind" },
+        { "name": "diameter", "type": "Distance" },
+        { "name": "liftHeight", "type": "Distance" },
+        { "name": "material", "type": "Kind" },
+        { "name": "operationalState", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "Crankshaft",
+      "entityAttributes": [
+        { "name": "crankshaftID", "type": "Identifier" },
+        { "name": "rotationalSpeed", "type": "AngularVelocity" },
+        { "name": "torqueOutput", "type": "Torque" },
+        { "name": "material", "type": "Kind" },
+        { "name": "length", "type": "Distance" },
+        { "name": "bearingCount", "type": "Count" }
+      ]
+    },
+    {
+      "entityName": "Camshaft",
+      "entityAttributes": [
+        { "name": "camshaftID", "type": "Identifier" },
+        { "name": "camshaftType", "type": "Kind" },
+        { "name": "rotationalSpeed", "type": "AngularVelocity" },
+        { "name": "lobeCount", "type": "Count" },
+        { "name": "material", "type": "Kind" },
+        { "name": "camLobe", "type": "CamLobe" }
+      ]
+    },
+    {
+      "entityName": "CamLobe",
+      "entityAttributes": [
+        { "name": "lobeID", "type": "Identifier" },
+        { "name": "profile", "type": "Kind" },
+        { "name": "liftHeight", "type": "Distance" },
+        { "name": "duration", "type": "Angle" }
+      ]
+    },
+    {
+      "entityName": "TimingSystem",
+      "entityAttributes": [
+        { "name": "timingID", "type": "Identifier" },
+        { "name": "timingType", "type": "Kind" },
+        { "name": "tensionerForce", "type": "Force" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Drivetrain",
+      "entityAttributes": [
+        { "name": "drivetrainID", "type": "Identifier" },
+        { "name": "drivetrainLayout", "type": "Kind" },
+        { "name": "transmission", "type": "Transmission" },
+        { "name": "differential", "type": "Differential" },
+        { "name": "driveshaft", "type": "Driveshaft" },
+        { "name": "axle", "type": "Axle" },
+        { "name": "clutch", "type": "Clutch" }
+      ]
+    },
+    {
+      "entityName": "Transmission",
+      "entityAttributes": [
+        { "name": "transmissionID", "type": "Identifier" },
+        { "name": "transmissionType", "type": "Kind" },
+        { "name": "gearCount", "type": "Count" },
+        { "name": "currentGear", "type": "ConfigurationState" },
+        { "name": "inputSpeed", "type": "AngularVelocity" },
+        { "name": "outputSpeed", "type": "AngularVelocity" },
+        { "name": "fluidTemperature", "type": "Temperature" },
+        { "name": "gear", "type": "Gear" },
+        { "name": "torqueConverter", "type": "TorqueConverter" }
+      ]
+    },
+    {
+      "entityName": "Gear",
+      "entityAttributes": [
+        { "name": "gearID", "type": "Identifier" },
+        { "name": "gearNumber", "type": "Identifier" },
+        { "name": "gearRatio", "type": "Ratio" },
+        { "name": "toothCount", "type": "Count" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "TorqueConverter",
+      "entityAttributes": [
+        { "name": "converterID", "type": "Identifier" },
+        { "name": "stallTorqueRatio", "type": "Ratio" },
+        { "name": "fluidTemperature", "type": "Temperature" },
+        { "name": "lockupState", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "Clutch",
+      "entityAttributes": [
+        { "name": "clutchID", "type": "Identifier" },
+        { "name": "clutchType", "type": "Kind" },
+        { "name": "engagementState", "type": "ConfigurationState" },
+        { "name": "discDiameter", "type": "Distance" },
+        { "name": "clampingForce", "type": "Force" }
+      ]
+    },
+    {
+      "entityName": "Differential",
+      "entityAttributes": [
+        { "name": "differentialID", "type": "Identifier" },
+        { "name": "differentialType", "type": "Kind" },
+        { "name": "gearRatio", "type": "Ratio" },
+        { "name": "fluidTemperature", "type": "Temperature" }
+      ]
+    },
+    {
+      "entityName": "Driveshaft",
+      "entityAttributes": [
+        { "name": "driveshaftID", "type": "Identifier" },
+        { "name": "length", "type": "Distance" },
+        { "name": "rotationalSpeed", "type": "AngularVelocity" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "Axle",
+      "entityAttributes": [
+        { "name": "axleID", "type": "Identifier" },
+        { "name": "axleType", "type": "Kind" },
+        { "name": "loadCapacity", "type": "Mass" },
+        { "name": "length", "type": "Distance" }
+      ]
+    },
+    {
+      "entityName": "ElectricalSystem",
+      "entityAttributes": [
+        { "name": "systemID", "type": "Identifier" },
+        { "name": "systemVoltage", "type": "ElectricPotential" },
+        { "name": "battery", "type": "Battery" },
+        { "name": "alternator", "type": "Alternator" },
+        { "name": "starterMotor", "type": "StarterMotor" },
+        { "name": "wiringHarness", "type": "WiringHarness" },
+        { "name": "fuse", "type": "Fuse" }
+      ]
+    },
+    {
+      "entityName": "Battery",
+      "entityAttributes": [
+        { "name": "batteryID", "type": "Identifier" },
+        { "name": "voltage", "type": "ElectricPotential" },
+        { "name": "capacity", "type": "Energy" },
+        { "name": "current", "type": "ElectricCurrent" },
+        { "name": "temperature", "type": "Temperature" },
+        { "name": "healthState", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Alternator",
+      "entityAttributes": [
+        { "name": "alternatorID", "type": "Identifier" },
+        { "name": "outputVoltage", "type": "ElectricPotential" },
+        { "name": "outputCurrent", "type": "ElectricCurrent" },
+        { "name": "rotationalSpeed", "type": "AngularVelocity" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "StarterMotor",
+      "entityAttributes": [
+        { "name": "starterID", "type": "Identifier" },
+        { "name": "powerRating", "type": "Power" },
+        { "name": "currentDraw", "type": "ElectricCurrent" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "WiringHarness",
+      "entityAttributes": [
+        { "name": "harnessID", "type": "Identifier" },
+        { "name": "circuitCount", "type": "Count" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Fuse",
+      "entityAttributes": [
+        { "name": "fuseID", "type": "Identifier" },
+        { "name": "ampRating", "type": "ElectricCurrent" },
+        { "name": "fuseType", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "ChassisSystem",
+      "entityAttributes": [
+        { "name": "chassisID", "type": "Identifier" },
+        { "name": "chassisType", "type": "Kind" },
+        { "name": "suspension", "type": "Suspension" },
+        { "name": "steeringSystem", "type": "SteeringSystem" },
+        { "name": "brakingSystem", "type": "BrakingSystem" },
+        { "name": "wheel", "type": "Wheel" }
+      ]
+    },
+    {
+      "entityName": "Suspension",
+      "entityAttributes": [
+        { "name": "suspensionID", "type": "Identifier" },
+        { "name": "suspensionType", "type": "Kind" },
+        { "name": "spring", "type": "Spring" },
+        { "name": "shockAbsorber", "type": "ShockAbsorber" },
+        { "name": "controlArm", "type": "ControlArm" }
+      ]
+    },
+    {
+      "entityName": "Spring",
+      "entityAttributes": [
+        { "name": "springID", "type": "Identifier" },
+        { "name": "springType", "type": "Kind" },
+        { "name": "springRate", "type": "Force" },
+        { "name": "freeLength", "type": "Distance" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "ShockAbsorber",
+      "entityAttributes": [
+        { "name": "shockID", "type": "Identifier" },
+        { "name": "dampingRate", "type": "Force" },
+        { "name": "strokeLength", "type": "Distance" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "ControlArm",
+      "entityAttributes": [
+        { "name": "armID", "type": "Identifier" },
+        { "name": "armType", "type": "Kind" },
+        { "name": "material", "type": "Kind" },
+        { "name": "length", "type": "Distance" }
+      ]
+    },
+    {
+      "entityName": "SteeringSystem",
+      "entityAttributes": [
+        { "name": "steeringID", "type": "Identifier" },
+        { "name": "steeringType", "type": "Kind" },
+        { "name": "steeringAngle", "type": "Angle" },
+        { "name": "steeringRack", "type": "SteeringRack" },
+        { "name": "steeringColumn", "type": "SteeringColumn" },
+        { "name": "powerAssist", "type": "PowerSteeringUnit" }
+      ]
+    },
+    {
+      "entityName": "SteeringRack",
+      "entityAttributes": [
+        { "name": "rackID", "type": "Identifier" },
+        { "name": "rackType", "type": "Kind" },
+        { "name": "travelDistance", "type": "Distance" }
+      ]
+    },
+    {
+      "entityName": "SteeringColumn",
+      "entityAttributes": [
+        { "name": "columnID", "type": "Identifier" },
+        { "name": "tiltAngle", "type": "Angle" },
+        { "name": "telescopeLength", "type": "Distance" }
+      ]
+    },
+    {
+      "entityName": "PowerSteeringUnit",
+      "entityAttributes": [
+        { "name": "unitID", "type": "Identifier" },
+        { "name": "assistType", "type": "Kind" },
+        { "name": "fluidPressure", "type": "Pressure" },
+        { "name": "powerConsumption", "type": "Power" }
+      ]
+    },
+    {
+      "entityName": "BrakingSystem",
+      "entityAttributes": [
+        { "name": "brakeSystemID", "type": "Identifier" },
+        { "name": "brakeType", "type": "Kind" },
+        { "name": "brakePedal", "type": "BrakePedal" },
+        { "name": "masterCylinder", "type": "MasterCylinder" },
+        { "name": "brakeDisc", "type": "BrakeDisc" },
+        { "name": "brakePad", "type": "BrakePad" },
+        { "name": "brakeCaliper", "type": "BrakeCaliper" }
+      ]
+    },
+    {
+      "entityName": "BrakePedal",
+      "entityAttributes": [
+        { "name": "pedalID", "type": "Identifier" },
+        { "name": "pedalTravel", "type": "Distance" },
+        { "name": "appliedForce", "type": "Force" }
+      ]
+    },
+    {
+      "entityName": "MasterCylinder",
+      "entityAttributes": [
+        { "name": "cylinderID", "type": "Identifier" },
+        { "name": "boreDiameter", "type": "Distance" },
+        { "name": "fluidPressure", "type": "Pressure" },
+        { "name": "fluidLevel", "type": "Ratio" }
+      ]
+    },
+    {
+      "entityName": "BrakeDisc",
+      "entityAttributes": [
+        { "name": "discID", "type": "Identifier" },
+        { "name": "diameter", "type": "Distance" },
+        { "name": "thickness", "type": "Distance" },
+        { "name": "material", "type": "Kind" },
+        { "name": "surfaceTemperature", "type": "Temperature" }
+      ]
+    },
+    {
+      "entityName": "BrakePad",
+      "entityAttributes": [
+        { "name": "padID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "thickness", "type": "Distance" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "BrakeCaliper",
+      "entityAttributes": [
+        { "name": "caliperID", "type": "Identifier" },
+        { "name": "pistonCount", "type": "Count" },
+        { "name": "clampingForce", "type": "Force" }
+      ]
+    },
+    {
+      "entityName": "Wheel",
+      "entityAttributes": [
+        { "name": "wheelID", "type": "Identifier" },
+        { "name": "wheelPosition", "type": "Position" },
+        { "name": "rotationalSpeed", "type": "AngularVelocity" },
+        { "name": "rim", "type": "Rim" },
+        { "name": "tire", "type": "Tire" }
+      ]
+    },
+    {
+      "entityName": "Rim",
+      "entityAttributes": [
+        { "name": "rimID", "type": "Identifier" },
+        { "name": "diameter", "type": "Distance" },
+        { "name": "width", "type": "Distance" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "Tire",
+      "entityAttributes": [
+        { "name": "tireID", "type": "Identifier" },
+        { "name": "tireSize", "type": "Kind" },
+        { "name": "treadDepth", "type": "Distance" },
+        { "name": "inflation", "type": "Pressure" },
+        { "name": "temperature", "type": "Temperature" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "FuelSystem",
+      "entityAttributes": [
+        { "name": "fuelSystemID", "type": "Identifier" },
+        { "name": "fuelType", "type": "Kind" },
+        { "name": "fuelTank", "type": "FuelTank" },
+        { "name": "fuelPump", "type": "FuelPump" },
+        { "name": "fuelInjector", "type": "FuelInjector" },
+        { "name": "fuelFilter", "type": "FuelFilter" },
+        { "name": "fuelLine", "type": "FuelLine" }
+      ]
+    },
+    {
+      "entityName": "FuelTank",
+      "entityAttributes": [
+        { "name": "tankID", "type": "Identifier" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "currentLevel", "type": "Ratio" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "FuelPump",
+      "entityAttributes": [
+        { "name": "pumpID", "type": "Identifier" },
+        { "name": "outputPressure", "type": "Pressure" },
+        { "name": "flowRate", "type": "MassFlowRate" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "FuelInjector",
+      "entityAttributes": [
+        { "name": "injectorID", "type": "Identifier" },
+        { "name": "sprayPattern", "type": "Kind" },
+        { "name": "flowRate", "type": "MassFlowRate" },
+        { "name": "pulseWidth", "type": "Duration" }
+      ]
+    },
+    {
+      "entityName": "FuelFilter",
+      "entityAttributes": [
+        { "name": "filterID", "type": "Identifier" },
+        { "name": "filterSize", "type": "Distance" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "FuelLine",
+      "entityAttributes": [
+        { "name": "lineID", "type": "Identifier" },
+        { "name": "diameter", "type": "Distance" },
+        { "name": "material", "type": "Kind" },
+        { "name": "fuelPressure", "type": "Pressure" }
+      ]
+    },
+    {
+      "entityName": "ExhaustSystem",
+      "entityAttributes": [
+        { "name": "exhaustID", "type": "Identifier" },
+        { "name": "exhaustManifold", "type": "ExhaustManifold" },
+        { "name": "catalyticConverter", "type": "CatalyticConverter" },
+        { "name": "muffler", "type": "Muffler" },
+        { "name": "exhaustPipe", "type": "ExhaustPipe" }
+      ]
+    },
+    {
+      "entityName": "ExhaustManifold",
+      "entityAttributes": [
+        { "name": "manifoldID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "gasTemperature", "type": "Temperature" },
+        { "name": "portCount", "type": "Count" }
+      ]
+    },
+    {
+      "entityName": "CatalyticConverter",
+      "entityAttributes": [
+        { "name": "converterID", "type": "Identifier" },
+        { "name": "converterType", "type": "Kind" },
+        { "name": "operatingTemperature", "type": "Temperature" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Muffler",
+      "entityAttributes": [
+        { "name": "mufflerID", "type": "Identifier" },
+        { "name": "mufflerType", "type": "Kind" },
+        { "name": "internalVolume", "type": "ScalarVolume" }
+      ]
+    },
+    {
+      "entityName": "ExhaustPipe",
+      "entityAttributes": [
+        { "name": "pipeID", "type": "Identifier" },
+        { "name": "diameter", "type": "Distance" },
+        { "name": "length", "type": "Distance" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "CoolingSystem",
+      "entityAttributes": [
+        { "name": "coolingID", "type": "Identifier" },
+        { "name": "coolantTemperature", "type": "Temperature" },
+        { "name": "radiator", "type": "Radiator" },
+        { "name": "waterPump", "type": "WaterPump" },
+        { "name": "thermostat", "type": "Thermostat" },
+        { "name": "coolantReservoir", "type": "CoolantReservoir" },
+        { "name": "coolingFan", "type": "CoolingFan" }
+      ]
+    },
+    {
+      "entityName": "Radiator",
+      "entityAttributes": [
+        { "name": "radiatorID", "type": "Identifier" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "surfaceArea", "type": "ScalarArea" },
+        { "name": "inletTemperature", "type": "Temperature" },
+        { "name": "outletTemperature", "type": "Temperature" }
+      ]
+    },
+    {
+      "entityName": "WaterPump",
+      "entityAttributes": [
+        { "name": "pumpID", "type": "Identifier" },
+        { "name": "flowRate", "type": "MassFlowRate" },
+        { "name": "rotationalSpeed", "type": "AngularVelocity" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Thermostat",
+      "entityAttributes": [
+        { "name": "thermostatID", "type": "Identifier" },
+        { "name": "openingTemperature", "type": "Temperature" },
+        { "name": "state", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "CoolantReservoir",
+      "entityAttributes": [
+        { "name": "reservoirID", "type": "Identifier" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "currentLevel", "type": "Ratio" }
+      ]
+    },
+    {
+      "entityName": "CoolingFan",
+      "entityAttributes": [
+        { "name": "fanID", "type": "Identifier" },
+        { "name": "fanSpeed", "type": "AngularVelocity" },
+        { "name": "powerConsumption", "type": "Power" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "HVACSystem",
+      "entityAttributes": [
+        { "name": "hvacID", "type": "Identifier" },
+        { "name": "cabinTemperature", "type": "Temperature" },
+        { "name": "cabinHumidity", "type": "Humidity" },
+        { "name": "compressor", "type": "ACCompressor" },
+        { "name": "condenser", "type": "Condenser" },
+        { "name": "evaporator", "type": "Evaporator" },
+        { "name": "blowerMotor", "type": "BlowerMotor" },
+        { "name": "heaterCore", "type": "HeaterCore" }
+      ]
+    },
+    {
+      "entityName": "ACCompressor",
+      "entityAttributes": [
+        { "name": "compressorID", "type": "Identifier" },
+        { "name": "refrigerantPressure", "type": "Pressure" },
+        { "name": "powerConsumption", "type": "Power" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "Condenser",
+      "entityAttributes": [
+        { "name": "condenserID", "type": "Identifier" },
+        { "name": "surfaceArea", "type": "ScalarArea" },
+        { "name": "inletTemperature", "type": "Temperature" },
+        { "name": "outletTemperature", "type": "Temperature" }
+      ]
+    },
+    {
+      "entityName": "Evaporator",
+      "entityAttributes": [
+        { "name": "evaporatorID", "type": "Identifier" },
+        { "name": "surfaceArea", "type": "ScalarArea" },
+        { "name": "temperature", "type": "Temperature" }
+      ]
+    },
+    {
+      "entityName": "BlowerMotor",
+      "entityAttributes": [
+        { "name": "blowerID", "type": "Identifier" },
+        { "name": "fanSpeed", "type": "AngularVelocity" },
+        { "name": "powerConsumption", "type": "Power" },
+        { "name": "speedSetting", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "HeaterCore",
+      "entityAttributes": [
+        { "name": "coreID", "type": "Identifier" },
+        { "name": "inletTemperature", "type": "Temperature" },
+        { "name": "outletTemperature", "type": "Temperature" },
+        { "name": "surfaceArea", "type": "ScalarArea" }
+      ]
+    },
+    {
+      "entityName": "BodyStructure",
+      "entityAttributes": [
+        { "name": "bodyID", "type": "Identifier" },
+        { "name": "bodyType", "type": "Kind" },
+        { "name": "material", "type": "Kind" },
+        { "name": "door", "type": "Door" },
+        { "name": "windshield", "type": "Windshield" },
+        { "name": "sideWindow", "type": "SideWindow" },
+        { "name": "mirror", "type": "Mirror" },
+        { "name": "headlight", "type": "Headlight" },
+        { "name": "taillight", "type": "Taillight" },
+        { "name": "seat", "type": "Seat" }
+      ]
+    },
+    {
+      "entityName": "Door",
+      "entityAttributes": [
+        { "name": "doorID", "type": "Identifier" },
+        { "name": "doorPosition", "type": "Kind" },
+        { "name": "state", "type": "ConfigurationState" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "Windshield",
+      "entityAttributes": [
+        { "name": "windshieldID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "area", "type": "ScalarArea" }
+      ]
+    },
+    {
+      "entityName": "SideWindow",
+      "entityAttributes": [
+        { "name": "windowID", "type": "Identifier" },
+        { "name": "windowPosition", "type": "Kind" },
+        { "name": "state", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "Mirror",
+      "entityAttributes": [
+        { "name": "mirrorID", "type": "Identifier" },
+        { "name": "mirrorType", "type": "Kind" },
+        { "name": "orientation", "type": "Orientation" }
+      ]
+    },
+    {
+      "entityName": "Headlight",
+      "entityAttributes": [
+        { "name": "headlightID", "type": "Identifier" },
+        { "name": "lightType", "type": "Kind" },
+        { "name": "luminousIntensity", "type": "Illuminance" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "Taillight",
+      "entityAttributes": [
+        { "name": "taillightID", "type": "Identifier" },
+        { "name": "lightType", "type": "Kind" },
+        { "name": "luminousIntensity", "type": "Illuminance" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "Seat",
+      "entityAttributes": [
+        { "name": "seatID", "type": "Identifier" },
+        { "name": "seatPosition", "type": "Kind" },
+        { "name": "material", "type": "Kind" },
+        { "name": "heatingState", "type": "ConfigurationState" },
+        { "name": "reclineAngle", "type": "Angle" }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "associationName": "EngineToTransmissionCoupling",
+      "associationAttributes": [
+        { "name": "transmittedTorque", "type": "Torque" },
+        { "name": "couplingEfficiency", "type": "Efficiency" }
+      ],
+      "associationParticipants": ["Engine", "Transmission"]
+    },
+    {
+      "associationName": "TransmissionToDriveshaftLink",
+      "associationAttributes": [
+        { "name": "outputTorque", "type": "Torque" },
+        { "name": "outputSpeed", "type": "AngularVelocity" }
+      ],
+      "associationParticipants": ["Transmission", "Driveshaft"]
+    },
+    {
+      "associationName": "DriveshaftToDifferentialLink",
+      "associationAttributes": [
+        { "name": "transmittedTorque", "type": "Torque" }
+      ],
+      "associationParticipants": ["Driveshaft", "Differential"]
+    },
+    {
+      "associationName": "DifferentialToAxleLink",
+      "associationAttributes": [
+        { "name": "splitRatio", "type": "Ratio" },
+        { "name": "axleTorque", "type": "Torque" }
+      ],
+      "associationParticipants": ["Differential", "Axle"]
+    },
+    {
+      "associationName": "AxleToWheelMount",
+      "associationAttributes": [
+        { "name": "wheelTorque", "type": "Torque" }
+      ],
+      "associationParticipants": ["Axle", "Wheel"]
+    },
+    {
+      "associationName": "SuspensionToWheelAttachment",
+      "associationAttributes": [
+        { "name": "verticalLoad", "type": "Force" },
+        { "name": "camberAngle", "type": "Angle" },
+        { "name": "toeAngle", "type": "Angle" }
+      ],
+      "associationParticipants": ["Suspension", "Wheel"]
+    },
+    {
+      "associationName": "BrakeDiscToWheelMount",
+      "associationAttributes": [
+        { "name": "brakingForce", "type": "Force" }
+      ],
+      "associationParticipants": ["BrakeDisc", "Wheel"]
+    },
+    {
+      "associationName": "CoolingSystemToEngineInterface",
+      "associationAttributes": [
+        { "name": "heatRejected", "type": "Power" },
+        { "name": "coolantFlowRate", "type": "MassFlowRate" }
+      ],
+      "associationParticipants": ["CoolingSystem", "Engine"]
+    },
+    {
+      "associationName": "FuelSystemToEngineSupply",
+      "associationAttributes": [
+        { "name": "fuelFlowRate", "type": "MassFlowRate" },
+        { "name": "fuelPressure", "type": "Pressure" }
+      ],
+      "associationParticipants": ["FuelSystem", "Engine"]
+    },
+    {
+      "associationName": "EngineToExhaustConnection",
+      "associationAttributes": [
+        { "name": "exhaustGasTemperature", "type": "Temperature" },
+        { "name": "exhaustFlowRate", "type": "MassFlowRate" }
+      ],
+      "associationParticipants": ["Engine", "ExhaustSystem"]
+    },
+    {
+      "associationName": "AlternatorToEngineDriver",
+      "associationAttributes": [
+        { "name": "beltTension", "type": "Force" },
+        { "name": "driveRatio", "type": "Ratio" }
+      ],
+      "associationParticipants": ["Engine", "Alternator"]
+    },
+    {
+      "associationName": "BatteryToStarterMotorPower",
+      "associationAttributes": [
+        { "name": "suppliedCurrent", "type": "ElectricCurrent" },
+        { "name": "suppliedVoltage", "type": "ElectricPotential" }
+      ],
+      "associationParticipants": ["Battery", "StarterMotor"]
+    },
+    {
+      "associationName": "StarterMotorToEngineCranking",
+      "associationAttributes": [
+        { "name": "crankingTorque", "type": "Torque" }
+      ],
+      "associationParticipants": ["StarterMotor", "Engine"]
+    },
+    {
+      "associationName": "SteeringRackToWheelLinkage",
+      "associationAttributes": [
+        { "name": "steeringAngle", "type": "Angle" },
+        { "name": "steeringForce", "type": "Force" }
+      ],
+      "associationParticipants": ["SteeringRack", "Wheel"]
+    },
+    {
+      "associationName": "CaliperToPadToDiscClamping",
+      "associationAttributes": [
+        { "name": "clampingForce", "type": "Force" },
+        { "name": "frictionCoefficient", "type": "Ratio" }
+      ],
+      "associationParticipants": ["BrakeCaliper", "BrakePad", "BrakeDisc"]
+    },
+    {
+      "associationName": "HeaterCoreToCoolingSystemTap",
+      "associationAttributes": [
+        { "name": "coolantFlowRate", "type": "MassFlowRate" },
+        { "name": "heatTransferred", "type": "Power" }
+      ],
+      "associationParticipants": ["HeaterCore", "CoolingSystem"]
+    }
+  ]
+}

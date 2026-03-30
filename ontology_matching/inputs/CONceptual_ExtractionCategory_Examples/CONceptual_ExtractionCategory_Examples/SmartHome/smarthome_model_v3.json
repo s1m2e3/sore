@@ -1,0 +1,1100 @@
+{
+  "modelName": "SmartHome_Model_V3_FunctionalLayer",
+  "modelDescription": "Functional-layer decomposition of a smart home. Entities are organized into functional layers: PhysicalInfrastructure (rooms, structure), SensingLayer (all sensors), ActuationLayer (all controllable actuators), NetworkLayer (connectivity infrastructure), EnergyLayer (power generation, storage, metering), ComfortLayer (climate, lighting, coverings), SecurityLayer (cameras, locks, alarms), and EntertainmentLayer (AV devices). Each layer composes its constituent devices. Cross-layer relationships are expressed through Associations.",
+  "observables": [
+    "Identifier", "Temperature", "Pressure", "Power", "Energy",
+    "ElectricPotential", "ElectricCurrent", "Force", "Mass",
+    "Position", "Orientation", "Angle", "Distance", "Duration",
+    "TemporalFrequency", "Velocity", "ScalarVolume", "ScalarArea",
+    "MassFlowRate", "Efficiency", "Ratio", "Count", "HealthState",
+    "OperationalState", "Kind", "Description", "Extent", "Humidity",
+    "Illuminance", "ConfigurationState", "Size", "DataRate",
+    "CalendarTime", "NonPhysicalAddress", "Audio", "Video", "Image",
+    "Color", "LuminousIntensity", "Speed", "ChemicalConcentration",
+    "Mode", "Probability"
+  ],
+  "entities": [
+    {
+      "entityName": "SmartHome",
+      "entityAttributes": [
+        { "name": "homeID", "type": "Identifier" },
+        { "name": "homeName", "type": "Description" },
+        { "name": "location", "type": "Position" },
+        { "name": "totalArea", "type": "ScalarArea" },
+        { "name": "globalMode", "type": "Mode" },
+        { "name": "physicalInfrastructure", "type": "PhysicalInfrastructureLayer" },
+        { "name": "sensing", "type": "SensingLayer" },
+        { "name": "actuation", "type": "ActuationLayer" },
+        { "name": "networking", "type": "NetworkLayer" },
+        { "name": "energy", "type": "EnergyLayer" },
+        { "name": "comfort", "type": "ComfortLayer" },
+        { "name": "security", "type": "SecurityLayer" },
+        { "name": "entertainment", "type": "EntertainmentLayer" }
+      ]
+    },
+    {
+      "entityName": "PhysicalInfrastructureLayer",
+      "entityAttributes": [
+        { "name": "layerID", "type": "Identifier" },
+        { "name": "building", "type": "Building" },
+        { "name": "floor", "type": "Floor" },
+        { "name": "room", "type": "Room" },
+        { "name": "outdoorArea", "type": "OutdoorArea" }
+      ]
+    },
+    {
+      "entityName": "Building",
+      "entityAttributes": [
+        { "name": "buildingID", "type": "Identifier" },
+        { "name": "buildingType", "type": "Kind" },
+        { "name": "footprint", "type": "ScalarArea" },
+        { "name": "floorCount", "type": "Count" }
+      ]
+    },
+    {
+      "entityName": "Floor",
+      "entityAttributes": [
+        { "name": "floorID", "type": "Identifier" },
+        { "name": "floorLevel", "type": "Identifier" },
+        { "name": "floorArea", "type": "ScalarArea" }
+      ]
+    },
+    {
+      "entityName": "Room",
+      "entityAttributes": [
+        { "name": "roomID", "type": "Identifier" },
+        { "name": "roomType", "type": "Kind" },
+        { "name": "roomName", "type": "Description" },
+        { "name": "floorArea", "type": "ScalarArea" },
+        { "name": "volume", "type": "ScalarVolume" },
+        { "name": "ceilingHeight", "type": "Distance" },
+        { "name": "windowCount", "type": "Count" }
+      ]
+    },
+    {
+      "entityName": "OutdoorArea",
+      "entityAttributes": [
+        { "name": "areaID", "type": "Identifier" },
+        { "name": "areaType", "type": "Kind" },
+        { "name": "areaSize", "type": "ScalarArea" }
+      ]
+    },
+    {
+      "entityName": "SensingLayer",
+      "entityAttributes": [
+        { "name": "layerID", "type": "Identifier" },
+        { "name": "totalSensorCount", "type": "Count" },
+        { "name": "temperatureSensor", "type": "TemperatureSensor" },
+        { "name": "humiditySensor", "type": "HumiditySensor" },
+        { "name": "lightSensor", "type": "AmbientLightSensor" },
+        { "name": "motionSensor", "type": "MotionSensor" },
+        { "name": "occupancySensor", "type": "OccupancySensor" },
+        { "name": "contactSensor", "type": "DoorWindowSensor" },
+        { "name": "glassBreakSensor", "type": "GlassBreakSensor" },
+        { "name": "smokeSensor", "type": "SmokeDetector" },
+        { "name": "coSensor", "type": "CODetector" },
+        { "name": "waterLeakSensor", "type": "WaterLeakSensor" },
+        { "name": "airQualitySensor", "type": "AirQualitySensor" },
+        { "name": "waterFlowSensor", "type": "WaterFlowSensor" },
+        { "name": "powerSensor", "type": "PowerMonitor" },
+        { "name": "noiseSensor", "type": "NoiseSensor" },
+        { "name": "weatherStation", "type": "WeatherStation" }
+      ]
+    },
+    {
+      "entityName": "TemperatureSensor",
+      "entityAttributes": [
+        { "name": "sensorID", "type": "Identifier" },
+        { "name": "measuredTemperature", "type": "Temperature" },
+        { "name": "accuracy", "type": "Ratio" },
+        { "name": "batteryLevel", "type": "Ratio" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "HumiditySensor",
+      "entityAttributes": [
+        { "name": "sensorID", "type": "Identifier" },
+        { "name": "measuredHumidity", "type": "Humidity" },
+        { "name": "batteryLevel", "type": "Ratio" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "AmbientLightSensor",
+      "entityAttributes": [
+        { "name": "sensorID", "type": "Identifier" },
+        { "name": "measuredIlluminance", "type": "Illuminance" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "MotionSensor",
+      "entityAttributes": [
+        { "name": "sensorID", "type": "Identifier" },
+        { "name": "sensorType", "type": "Kind" },
+        { "name": "detectionRange", "type": "Distance" },
+        { "name": "detectionAngle", "type": "Angle" },
+        { "name": "motionDetected", "type": "ConfigurationState" },
+        { "name": "sensitivity", "type": "Ratio" },
+        { "name": "batteryLevel", "type": "Ratio" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "OccupancySensor",
+      "entityAttributes": [
+        { "name": "sensorID", "type": "Identifier" },
+        { "name": "sensorType", "type": "Kind" },
+        { "name": "occupancyState", "type": "ConfigurationState" },
+        { "name": "occupantCount", "type": "Count" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "DoorWindowSensor",
+      "entityAttributes": [
+        { "name": "sensorID", "type": "Identifier" },
+        { "name": "contactState", "type": "ConfigurationState" },
+        { "name": "batteryLevel", "type": "Ratio" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "GlassBreakSensor",
+      "entityAttributes": [
+        { "name": "sensorID", "type": "Identifier" },
+        { "name": "detectionRange", "type": "Distance" },
+        { "name": "alertState", "type": "ConfigurationState" },
+        { "name": "batteryLevel", "type": "Ratio" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "SmokeDetector",
+      "entityAttributes": [
+        { "name": "detectorID", "type": "Identifier" },
+        { "name": "detectorType", "type": "Kind" },
+        { "name": "smokeLevel", "type": "ChemicalConcentration" },
+        { "name": "alarmState", "type": "ConfigurationState" },
+        { "name": "batteryLevel", "type": "Ratio" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "CODetector",
+      "entityAttributes": [
+        { "name": "detectorID", "type": "Identifier" },
+        { "name": "coConcentration", "type": "ChemicalConcentration" },
+        { "name": "alarmState", "type": "ConfigurationState" },
+        { "name": "batteryLevel", "type": "Ratio" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "WaterLeakSensor",
+      "entityAttributes": [
+        { "name": "sensorID", "type": "Identifier" },
+        { "name": "leakDetected", "type": "ConfigurationState" },
+        { "name": "batteryLevel", "type": "Ratio" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "AirQualitySensor",
+      "entityAttributes": [
+        { "name": "sensorID", "type": "Identifier" },
+        { "name": "pm25Level", "type": "ChemicalConcentration" },
+        { "name": "co2Level", "type": "ChemicalConcentration" },
+        { "name": "vocLevel", "type": "ChemicalConcentration" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "WaterFlowSensor",
+      "entityAttributes": [
+        { "name": "sensorID", "type": "Identifier" },
+        { "name": "flowRate", "type": "MassFlowRate" },
+        { "name": "totalVolume", "type": "ScalarVolume" },
+        { "name": "waterTemperature", "type": "Temperature" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "PowerMonitor",
+      "entityAttributes": [
+        { "name": "monitorID", "type": "Identifier" },
+        { "name": "measuredPower", "type": "Power" },
+        { "name": "measuredVoltage", "type": "ElectricPotential" },
+        { "name": "measuredCurrent", "type": "ElectricCurrent" },
+        { "name": "cumulativeEnergy", "type": "Energy" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "NoiseSensor",
+      "entityAttributes": [
+        { "name": "sensorID", "type": "Identifier" },
+        { "name": "measuredLevel", "type": "Ratio" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "WeatherStation",
+      "entityAttributes": [
+        { "name": "stationID", "type": "Identifier" },
+        { "name": "outdoorTemperature", "type": "Temperature" },
+        { "name": "outdoorHumidity", "type": "Humidity" },
+        { "name": "barometricPressure", "type": "Pressure" },
+        { "name": "windSpeed", "type": "Speed" },
+        { "name": "windDirection", "type": "Angle" },
+        { "name": "uvIndex", "type": "Ratio" },
+        { "name": "rainfallRate", "type": "MassFlowRate" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "ActuationLayer",
+      "entityAttributes": [
+        { "name": "layerID", "type": "Identifier" },
+        { "name": "smartValve", "type": "SmartWaterValve" },
+        { "name": "smartRelay", "type": "SmartRelay" },
+        { "name": "motorizedBlinds", "type": "MotorizedBlinds" },
+        { "name": "smartPlug", "type": "SmartPlug" },
+        { "name": "irrigationController", "type": "SmartIrrigationController" },
+        { "name": "garageDoorOpener", "type": "SmartGarageDoor" },
+        { "name": "smartFan", "type": "SmartFan" }
+      ]
+    },
+    {
+      "entityName": "SmartWaterValve",
+      "entityAttributes": [
+        { "name": "valveID", "type": "Identifier" },
+        { "name": "valveState", "type": "ConfigurationState" },
+        { "name": "valveType", "type": "Kind" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "SmartRelay",
+      "entityAttributes": [
+        { "name": "relayID", "type": "Identifier" },
+        { "name": "relayState", "type": "ConfigurationState" },
+        { "name": "maxLoad", "type": "Power" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "MotorizedBlinds",
+      "entityAttributes": [
+        { "name": "blindsID", "type": "Identifier" },
+        { "name": "blindsType", "type": "Kind" },
+        { "name": "openLevel", "type": "Ratio" },
+        { "name": "tiltAngle", "type": "Angle" },
+        { "name": "batteryLevel", "type": "Ratio" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "SmartPlug",
+      "entityAttributes": [
+        { "name": "plugID", "type": "Identifier" },
+        { "name": "switchState", "type": "ConfigurationState" },
+        { "name": "currentPowerDraw", "type": "Power" },
+        { "name": "cumulativeEnergy", "type": "Energy" },
+        { "name": "maxLoad", "type": "Power" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "SmartIrrigationController",
+      "entityAttributes": [
+        { "name": "controllerID", "type": "Identifier" },
+        { "name": "zoneCount", "type": "Count" },
+        { "name": "activeZone", "type": "ConfigurationState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "SmartGarageDoor",
+      "entityAttributes": [
+        { "name": "garageDoorID", "type": "Identifier" },
+        { "name": "doorState", "type": "ConfigurationState" },
+        { "name": "motorPower", "type": "Power" },
+        { "name": "obstructionState", "type": "ConfigurationState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "SmartFan",
+      "entityAttributes": [
+        { "name": "fanID", "type": "Identifier" },
+        { "name": "fanSpeed", "type": "Speed" },
+        { "name": "direction", "type": "ConfigurationState" },
+        { "name": "powerConsumption", "type": "Power" },
+        { "name": "operationalState", "type": "OperationalState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "NetworkLayer",
+      "entityAttributes": [
+        { "name": "layerID", "type": "Identifier" },
+        { "name": "router", "type": "SmartRouter" },
+        { "name": "meshNode", "type": "MeshWiFiNode" },
+        { "name": "networkSwitch", "type": "NetworkSwitch" },
+        { "name": "hub", "type": "SmartHomeHub" },
+        { "name": "bridge", "type": "ProtocolBridge" },
+        { "name": "nasDevice", "type": "NASDevice" }
+      ]
+    },
+    {
+      "entityName": "SmartRouter",
+      "entityAttributes": [
+        { "name": "routerID", "type": "Identifier" },
+        { "name": "wanAddress", "type": "NonPhysicalAddress" },
+        { "name": "lanAddress", "type": "NonPhysicalAddress" },
+        { "name": "wifiSSID", "type": "Identifier" },
+        { "name": "wifiBand", "type": "Kind" },
+        { "name": "connectedDeviceCount", "type": "Count" },
+        { "name": "wanSpeed", "type": "DataRate" },
+        { "name": "lanSpeed", "type": "DataRate" },
+        { "name": "operationalState", "type": "OperationalState" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "MeshWiFiNode",
+      "entityAttributes": [
+        { "name": "nodeID", "type": "Identifier" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "connectedClients", "type": "Count" },
+        { "name": "backhaulSpeed", "type": "DataRate" },
+        { "name": "signalStrength", "type": "Ratio" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "NetworkSwitch",
+      "entityAttributes": [
+        { "name": "switchID", "type": "Identifier" },
+        { "name": "portCount", "type": "Count" },
+        { "name": "speed", "type": "DataRate" },
+        { "name": "poeCapable", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "SmartHomeHub",
+      "entityAttributes": [
+        { "name": "hubID", "type": "Identifier" },
+        { "name": "hubPlatform", "type": "Kind" },
+        { "name": "supportedProtocols", "type": "Kind" },
+        { "name": "connectedDevices", "type": "Count" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "ProtocolBridge",
+      "entityAttributes": [
+        { "name": "bridgeID", "type": "Identifier" },
+        { "name": "sourceProtocol", "type": "Kind" },
+        { "name": "targetProtocol", "type": "Kind" },
+        { "name": "connectedDevices", "type": "Count" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "NASDevice",
+      "entityAttributes": [
+        { "name": "nasID", "type": "Identifier" },
+        { "name": "totalStorage", "type": "Size" },
+        { "name": "usedStorage", "type": "Size" },
+        { "name": "driveCount", "type": "Count" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "EnergyLayer",
+      "entityAttributes": [
+        { "name": "layerID", "type": "Identifier" },
+        { "name": "totalConsumption", "type": "Power" },
+        { "name": "totalGeneration", "type": "Power" },
+        { "name": "solarArray", "type": "SolarArray" },
+        { "name": "solarInverter", "type": "SolarInverter" },
+        { "name": "batteryStorage", "type": "HomeBattery" },
+        { "name": "energyMeter", "type": "SmartEnergyMeter" },
+        { "name": "circuitBreaker", "type": "SmartCircuitBreaker" },
+        { "name": "evCharger", "type": "EVCharger" }
+      ]
+    },
+    {
+      "entityName": "SolarArray",
+      "entityAttributes": [
+        { "name": "arrayID", "type": "Identifier" },
+        { "name": "panelCount", "type": "Count" },
+        { "name": "totalRatedPower", "type": "Power" },
+        { "name": "currentTotalOutput", "type": "Power" },
+        { "name": "arrayArea", "type": "ScalarArea" },
+        { "name": "tiltAngle", "type": "Angle" },
+        { "name": "azimuth", "type": "Angle" },
+        { "name": "solarPanel", "type": "SolarPanel" }
+      ]
+    },
+    {
+      "entityName": "SolarPanel",
+      "entityAttributes": [
+        { "name": "panelID", "type": "Identifier" },
+        { "name": "ratedPower", "type": "Power" },
+        { "name": "currentOutput", "type": "Power" },
+        { "name": "outputVoltage", "type": "ElectricPotential" },
+        { "name": "efficiency", "type": "Ratio" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "SolarInverter",
+      "entityAttributes": [
+        { "name": "inverterID", "type": "Identifier" },
+        { "name": "inputPower", "type": "Power" },
+        { "name": "outputPower", "type": "Power" },
+        { "name": "efficiency", "type": "Ratio" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "HomeBattery",
+      "entityAttributes": [
+        { "name": "batteryID", "type": "Identifier" },
+        { "name": "capacity", "type": "Energy" },
+        { "name": "stateOfCharge", "type": "Ratio" },
+        { "name": "chargePower", "type": "Power" },
+        { "name": "dischargePower", "type": "Power" },
+        { "name": "voltage", "type": "ElectricPotential" },
+        { "name": "temperature", "type": "Temperature" },
+        { "name": "cycleCount", "type": "Count" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "SmartEnergyMeter",
+      "entityAttributes": [
+        { "name": "meterID", "type": "Identifier" },
+        { "name": "currentPower", "type": "Power" },
+        { "name": "voltage", "type": "ElectricPotential" },
+        { "name": "current", "type": "ElectricCurrent" },
+        { "name": "cumulativeEnergy", "type": "Energy" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "SmartCircuitBreaker",
+      "entityAttributes": [
+        { "name": "breakerID", "type": "Identifier" },
+        { "name": "circuitName", "type": "Description" },
+        { "name": "ratedCurrent", "type": "ElectricCurrent" },
+        { "name": "currentDraw", "type": "ElectricCurrent" },
+        { "name": "tripState", "type": "ConfigurationState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "EVCharger",
+      "entityAttributes": [
+        { "name": "chargerID", "type": "Identifier" },
+        { "name": "chargerType", "type": "Kind" },
+        { "name": "maxPower", "type": "Power" },
+        { "name": "currentPower", "type": "Power" },
+        { "name": "energyDelivered", "type": "Energy" },
+        { "name": "chargingState", "type": "OperationalState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "ComfortLayer",
+      "entityAttributes": [
+        { "name": "layerID", "type": "Identifier" },
+        { "name": "thermostat", "type": "SmartThermostat" },
+        { "name": "hvacUnit", "type": "HVACUnit" },
+        { "name": "smartVent", "type": "SmartVent" },
+        { "name": "humidifier", "type": "SmartHumidifier" },
+        { "name": "dehumidifier", "type": "SmartDehumidifier" },
+        { "name": "airPurifier", "type": "AirPurifier" },
+        { "name": "lightFixture", "type": "SmartLightFixture" },
+        { "name": "lightSwitch", "type": "SmartLightSwitch" },
+        { "name": "dimmer", "type": "DimmerSwitch" },
+        { "name": "waterHeater", "type": "SmartWaterHeater" }
+      ]
+    },
+    {
+      "entityName": "SmartThermostat",
+      "entityAttributes": [
+        { "name": "thermostatID", "type": "Identifier" },
+        { "name": "targetTemperature", "type": "Temperature" },
+        { "name": "currentTemperature", "type": "Temperature" },
+        { "name": "currentHumidity", "type": "Humidity" },
+        { "name": "operatingMode", "type": "Mode" },
+        { "name": "fanMode", "type": "Mode" },
+        { "name": "scheduleState", "type": "ConfigurationState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "HVACUnit",
+      "entityAttributes": [
+        { "name": "unitID", "type": "Identifier" },
+        { "name": "unitType", "type": "Kind" },
+        { "name": "heatingCapacity", "type": "Power" },
+        { "name": "coolingCapacity", "type": "Power" },
+        { "name": "airFlowRate", "type": "MassFlowRate" },
+        { "name": "supplyAirTemp", "type": "Temperature" },
+        { "name": "returnAirTemp", "type": "Temperature" },
+        { "name": "filterCondition", "type": "HealthState" },
+        { "name": "powerConsumption", "type": "Power" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "SmartVent",
+      "entityAttributes": [
+        { "name": "ventID", "type": "Identifier" },
+        { "name": "openingLevel", "type": "Ratio" },
+        { "name": "airFlowRate", "type": "MassFlowRate" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "SmartHumidifier",
+      "entityAttributes": [
+        { "name": "humidifierID", "type": "Identifier" },
+        { "name": "targetHumidity", "type": "Humidity" },
+        { "name": "outputRate", "type": "MassFlowRate" },
+        { "name": "waterLevel", "type": "Ratio" },
+        { "name": "powerConsumption", "type": "Power" },
+        { "name": "operationalState", "type": "OperationalState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "SmartDehumidifier",
+      "entityAttributes": [
+        { "name": "dehumidifierID", "type": "Identifier" },
+        { "name": "targetHumidity", "type": "Humidity" },
+        { "name": "extractionRate", "type": "MassFlowRate" },
+        { "name": "bucketLevel", "type": "Ratio" },
+        { "name": "powerConsumption", "type": "Power" },
+        { "name": "operationalState", "type": "OperationalState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "AirPurifier",
+      "entityAttributes": [
+        { "name": "purifierID", "type": "Identifier" },
+        { "name": "airQualityIndex", "type": "Ratio" },
+        { "name": "filterCondition", "type": "HealthState" },
+        { "name": "fanSpeed", "type": "Speed" },
+        { "name": "powerConsumption", "type": "Power" },
+        { "name": "operationalState", "type": "OperationalState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "SmartLightFixture",
+      "entityAttributes": [
+        { "name": "fixtureID", "type": "Identifier" },
+        { "name": "fixtureType", "type": "Kind" },
+        { "name": "powerRating", "type": "Power" },
+        { "name": "brightness", "type": "LuminousIntensity" },
+        { "name": "colorValue", "type": "Color" },
+        { "name": "colorTemperature", "type": "Temperature" },
+        { "name": "dimLevel", "type": "Ratio" },
+        { "name": "operationalState", "type": "OperationalState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "SmartLightSwitch",
+      "entityAttributes": [
+        { "name": "switchID", "type": "Identifier" },
+        { "name": "switchState", "type": "ConfigurationState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "DimmerSwitch",
+      "entityAttributes": [
+        { "name": "dimmerID", "type": "Identifier" },
+        { "name": "dimLevel", "type": "Ratio" },
+        { "name": "maxLoad", "type": "Power" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "SmartWaterHeater",
+      "entityAttributes": [
+        { "name": "heaterID", "type": "Identifier" },
+        { "name": "heaterType", "type": "Kind" },
+        { "name": "targetTemperature", "type": "Temperature" },
+        { "name": "currentTemperature", "type": "Temperature" },
+        { "name": "tankCapacity", "type": "ScalarVolume" },
+        { "name": "powerConsumption", "type": "Power" },
+        { "name": "operationalState", "type": "OperationalState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "SecurityLayer",
+      "entityAttributes": [
+        { "name": "layerID", "type": "Identifier" },
+        { "name": "armingState", "type": "ConfigurationState" },
+        { "name": "securityPanel", "type": "SecurityPanel" },
+        { "name": "camera", "type": "SecurityCamera" },
+        { "name": "doorLock", "type": "SmartDoorLock" },
+        { "name": "siren", "type": "SmartSiren" },
+        { "name": "doorbell", "type": "SmartDoorbell" },
+        { "name": "keypad", "type": "SecurityKeypad" }
+      ]
+    },
+    {
+      "entityName": "SecurityPanel",
+      "entityAttributes": [
+        { "name": "panelID", "type": "Identifier" },
+        { "name": "armingState", "type": "ConfigurationState" },
+        { "name": "alarmState", "type": "OperationalState" },
+        { "name": "batteryBackup", "type": "Ratio" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "SecurityCamera",
+      "entityAttributes": [
+        { "name": "cameraID", "type": "Identifier" },
+        { "name": "cameraType", "type": "Kind" },
+        { "name": "resolution", "type": "Kind" },
+        { "name": "fieldOfView", "type": "Angle" },
+        { "name": "panAngle", "type": "Angle" },
+        { "name": "tiltAngle", "type": "Angle" },
+        { "name": "nightVisionState", "type": "ConfigurationState" },
+        { "name": "videoStream", "type": "Video" },
+        { "name": "audioStream", "type": "Audio" },
+        { "name": "storageUsed", "type": "Size" },
+        { "name": "powerConsumption", "type": "Power" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "SmartDoorLock",
+      "entityAttributes": [
+        { "name": "lockID", "type": "Identifier" },
+        { "name": "lockType", "type": "Kind" },
+        { "name": "lockState", "type": "ConfigurationState" },
+        { "name": "batteryLevel", "type": "Ratio" },
+        { "name": "autoLockDuration", "type": "Duration" },
+        { "name": "accessCodeCount", "type": "Count" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "SmartSiren",
+      "entityAttributes": [
+        { "name": "sirenID", "type": "Identifier" },
+        { "name": "volumeLevel", "type": "Ratio" },
+        { "name": "operationalState", "type": "OperationalState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "SmartDoorbell",
+      "entityAttributes": [
+        { "name": "doorbellID", "type": "Identifier" },
+        { "name": "videoStream", "type": "Video" },
+        { "name": "audioStream", "type": "Audio" },
+        { "name": "fieldOfView", "type": "Angle" },
+        { "name": "motionDetected", "type": "ConfigurationState" },
+        { "name": "buttonState", "type": "ConfigurationState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "SecurityKeypad",
+      "entityAttributes": [
+        { "name": "keypadID", "type": "Identifier" },
+        { "name": "keypadType", "type": "Kind" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "EntertainmentLayer",
+      "entityAttributes": [
+        { "name": "layerID", "type": "Identifier" },
+        { "name": "smartTV", "type": "SmartTV" },
+        { "name": "smartSpeaker", "type": "SmartSpeaker" },
+        { "name": "streamingDevice", "type": "StreamingDevice" },
+        { "name": "audioReceiver", "type": "AudioReceiver" },
+        { "name": "voiceAssistant", "type": "VoiceAssistantDevice" },
+        { "name": "projector", "type": "SmartProjector" }
+      ]
+    },
+    {
+      "entityName": "SmartTV",
+      "entityAttributes": [
+        { "name": "tvID", "type": "Identifier" },
+        { "name": "screenSize", "type": "Distance" },
+        { "name": "displayResolution", "type": "Kind" },
+        { "name": "brightness", "type": "LuminousIntensity" },
+        { "name": "volumeLevel", "type": "Ratio" },
+        { "name": "activeInput", "type": "ConfigurationState" },
+        { "name": "powerConsumption", "type": "Power" },
+        { "name": "operationalState", "type": "OperationalState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "SmartSpeaker",
+      "entityAttributes": [
+        { "name": "speakerID", "type": "Identifier" },
+        { "name": "speakerType", "type": "Kind" },
+        { "name": "volumeLevel", "type": "Ratio" },
+        { "name": "audioOutput", "type": "Audio" },
+        { "name": "microphoneState", "type": "ConfigurationState" },
+        { "name": "operationalState", "type": "OperationalState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "StreamingDevice",
+      "entityAttributes": [
+        { "name": "deviceID", "type": "Identifier" },
+        { "name": "deviceType", "type": "Kind" },
+        { "name": "outputResolution", "type": "Kind" },
+        { "name": "operationalState", "type": "OperationalState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "AudioReceiver",
+      "entityAttributes": [
+        { "name": "receiverID", "type": "Identifier" },
+        { "name": "channelCount", "type": "Count" },
+        { "name": "outputPower", "type": "Power" },
+        { "name": "volumeLevel", "type": "Ratio" },
+        { "name": "activeInput", "type": "ConfigurationState" },
+        { "name": "operationalState", "type": "OperationalState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    },
+    {
+      "entityName": "VoiceAssistantDevice",
+      "entityAttributes": [
+        { "name": "deviceID", "type": "Identifier" },
+        { "name": "platform", "type": "Kind" },
+        { "name": "microphoneState", "type": "ConfigurationState" },
+        { "name": "speakerVolume", "type": "Ratio" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "SmartProjector",
+      "entityAttributes": [
+        { "name": "projectorID", "type": "Identifier" },
+        { "name": "brightness", "type": "LuminousIntensity" },
+        { "name": "resolution", "type": "Kind" },
+        { "name": "throwDistance", "type": "Distance" },
+        { "name": "powerConsumption", "type": "Power" },
+        { "name": "operationalState", "type": "OperationalState" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "associationName": "RoomOnFloor",
+      "associationAttributes": [],
+      "associationParticipants": ["Room", "Floor"]
+    },
+    {
+      "associationName": "FloorInBuilding",
+      "associationAttributes": [],
+      "associationParticipants": ["Floor", "Building"]
+    },
+    {
+      "associationName": "SensorDeployedInRoom",
+      "associationAttributes": [
+        { "name": "mountPosition", "type": "Position" },
+        { "name": "installDate", "type": "CalendarTime" }
+      ],
+      "associationParticipants": ["TemperatureSensor", "Room"]
+    },
+    {
+      "associationName": "MotionSensorCoversRoom",
+      "associationAttributes": [
+        { "name": "coverageArea", "type": "ScalarArea" }
+      ],
+      "associationParticipants": ["MotionSensor", "Room"]
+    },
+    {
+      "associationName": "OccupancySensorInRoom",
+      "associationAttributes": [],
+      "associationParticipants": ["OccupancySensor", "Room"]
+    },
+    {
+      "associationName": "ContactSensorOnOpening",
+      "associationAttributes": [
+        { "name": "openingType", "type": "Kind" }
+      ],
+      "associationParticipants": ["DoorWindowSensor", "Room"]
+    },
+    {
+      "associationName": "WeatherStationServesSite",
+      "associationAttributes": [],
+      "associationParticipants": ["WeatherStation", "OutdoorArea"]
+    },
+    {
+      "associationName": "ThermostatControlsHVAC",
+      "associationAttributes": [
+        { "name": "controlMode", "type": "Mode" }
+      ],
+      "associationParticipants": ["SmartThermostat", "HVACUnit"]
+    },
+    {
+      "associationName": "VentServesRoom",
+      "associationAttributes": [
+        { "name": "targetFlowRatio", "type": "Ratio" }
+      ],
+      "associationParticipants": ["SmartVent", "Room"]
+    },
+    {
+      "associationName": "LightFixtureInRoom",
+      "associationAttributes": [
+        { "name": "fixturePosition", "type": "Position" }
+      ],
+      "associationParticipants": ["SmartLightFixture", "Room"]
+    },
+    {
+      "associationName": "SwitchControlsFixture",
+      "associationAttributes": [],
+      "associationParticipants": ["SmartLightSwitch", "SmartLightFixture"]
+    },
+    {
+      "associationName": "DimmerControlsFixture",
+      "associationAttributes": [],
+      "associationParticipants": ["DimmerSwitch", "SmartLightFixture"]
+    },
+    {
+      "associationName": "MotionSensorTriggersLight",
+      "associationAttributes": [
+        { "name": "triggerDelay", "type": "Duration" },
+        { "name": "timeoutDuration", "type": "Duration" }
+      ],
+      "associationParticipants": ["MotionSensor", "SmartLightFixture"]
+    },
+    {
+      "associationName": "LightSensorControlsBlinds",
+      "associationAttributes": [
+        { "name": "lightThreshold", "type": "Illuminance" }
+      ],
+      "associationParticipants": ["AmbientLightSensor", "MotorizedBlinds"]
+    },
+    {
+      "associationName": "BlindsInRoom",
+      "associationAttributes": [],
+      "associationParticipants": ["MotorizedBlinds", "Room"]
+    },
+    {
+      "associationName": "CameraMonitorsRoom",
+      "associationAttributes": [
+        { "name": "coverageAngle", "type": "Angle" }
+      ],
+      "associationParticipants": ["SecurityCamera", "Room"]
+    },
+    {
+      "associationName": "CameraMonitorsOutdoor",
+      "associationAttributes": [
+        { "name": "coverageAngle", "type": "Angle" }
+      ],
+      "associationParticipants": ["SecurityCamera", "OutdoorArea"]
+    },
+    {
+      "associationName": "LockOnRoomEntry",
+      "associationAttributes": [
+        { "name": "doorLocation", "type": "Kind" }
+      ],
+      "associationParticipants": ["SmartDoorLock", "Room"]
+    },
+    {
+      "associationName": "SecurityPanelManagesSensor",
+      "associationAttributes": [
+        { "name": "sensorZone", "type": "Identifier" }
+      ],
+      "associationParticipants": ["SecurityPanel", "DoorWindowSensor"]
+    },
+    {
+      "associationName": "SecurityPanelControlsSiren",
+      "associationAttributes": [],
+      "associationParticipants": ["SecurityPanel", "SmartSiren"]
+    },
+    {
+      "associationName": "SmokeTriggersSiren",
+      "associationAttributes": [
+        { "name": "triggerDelay", "type": "Duration" }
+      ],
+      "associationParticipants": ["SmokeDetector", "SmartSiren"]
+    },
+    {
+      "associationName": "LeakSensorTriggersValve",
+      "associationAttributes": [
+        { "name": "shutoffDelay", "type": "Duration" }
+      ],
+      "associationParticipants": ["WaterLeakSensor", "SmartWaterValve"]
+    },
+    {
+      "associationName": "IrrigationManagesValve",
+      "associationAttributes": [
+        { "name": "zoneNumber", "type": "Identifier" }
+      ],
+      "associationParticipants": ["SmartIrrigationController", "SmartWaterValve"]
+    },
+    {
+      "associationName": "WeatherStationInformsIrrigation",
+      "associationAttributes": [
+        { "name": "rainfallThreshold", "type": "MassFlowRate" }
+      ],
+      "associationParticipants": ["WeatherStation", "SmartIrrigationController"]
+    },
+    {
+      "associationName": "DeviceConnectedToHub",
+      "associationAttributes": [
+        { "name": "protocol", "type": "Kind" },
+        { "name": "signalStrength", "type": "Ratio" }
+      ],
+      "associationParticipants": ["SmartLightFixture", "SmartHomeHub"]
+    },
+    {
+      "associationName": "HubConnectedToRouter",
+      "associationAttributes": [
+        { "name": "connectionType", "type": "Kind" }
+      ],
+      "associationParticipants": ["SmartHomeHub", "SmartRouter"]
+    },
+    {
+      "associationName": "MeshNodeExtendsRouter",
+      "associationAttributes": [
+        { "name": "backhaulType", "type": "Kind" }
+      ],
+      "associationParticipants": ["MeshWiFiNode", "SmartRouter"]
+    },
+    {
+      "associationName": "CameraRecordsToNAS",
+      "associationAttributes": [
+        { "name": "retentionDays", "type": "Count" }
+      ],
+      "associationParticipants": ["SecurityCamera", "NASDevice"]
+    },
+    {
+      "associationName": "SolarArrayToInverter",
+      "associationAttributes": [
+        { "name": "stringVoltage", "type": "ElectricPotential" }
+      ],
+      "associationParticipants": ["SolarArray", "SolarInverter"]
+    },
+    {
+      "associationName": "InverterChargesBattery",
+      "associationAttributes": [
+        { "name": "chargePower", "type": "Power" }
+      ],
+      "associationParticipants": ["SolarInverter", "HomeBattery"]
+    },
+    {
+      "associationName": "InverterFeedsMeter",
+      "associationAttributes": [
+        { "name": "exportPower", "type": "Power" }
+      ],
+      "associationParticipants": ["SolarInverter", "SmartEnergyMeter"]
+    },
+    {
+      "associationName": "BatteryFeedsMeter",
+      "associationAttributes": [
+        { "name": "dischargePower", "type": "Power" }
+      ],
+      "associationParticipants": ["HomeBattery", "SmartEnergyMeter"]
+    },
+    {
+      "associationName": "MeterMonitorsBreaker",
+      "associationAttributes": [],
+      "associationParticipants": ["SmartEnergyMeter", "SmartCircuitBreaker"]
+    },
+    {
+      "associationName": "OccupancyControlsThermostat",
+      "associationAttributes": [
+        { "name": "unoccupiedSetback", "type": "Temperature" }
+      ],
+      "associationParticipants": ["OccupancySensor", "SmartThermostat"]
+    },
+    {
+      "associationName": "AirQualityControlsPurifier",
+      "associationAttributes": [
+        { "name": "activationThreshold", "type": "Ratio" }
+      ],
+      "associationParticipants": ["AirQualitySensor", "AirPurifier"]
+    },
+    {
+      "associationName": "StreamingDeviceToTV",
+      "associationAttributes": [
+        { "name": "hdmiPort", "type": "Identifier" }
+      ],
+      "associationParticipants": ["StreamingDevice", "SmartTV"]
+    },
+    {
+      "associationName": "SpeakerInAudioGroup",
+      "associationAttributes": [
+        { "name": "groupRole", "type": "Kind" }
+      ],
+      "associationParticipants": ["SmartSpeaker", "AudioReceiver"]
+    },
+    {
+      "associationName": "TVInRoom",
+      "associationAttributes": [],
+      "associationParticipants": ["SmartTV", "Room"]
+    },
+    {
+      "associationName": "SpeakerInRoom",
+      "associationAttributes": [],
+      "associationParticipants": ["SmartSpeaker", "Room"]
+    },
+    {
+      "associationName": "PlugInRoom",
+      "associationAttributes": [],
+      "associationParticipants": ["SmartPlug", "Room"]
+    },
+    {
+      "associationName": "FanInRoom",
+      "associationAttributes": [],
+      "associationParticipants": ["SmartFan", "Room"]
+    },
+    {
+      "associationName": "PowerMonitorOnCircuit",
+      "associationAttributes": [],
+      "associationParticipants": ["PowerMonitor", "SmartCircuitBreaker"]
+    },
+    {
+      "associationName": "FlowSensorOnValve",
+      "associationAttributes": [],
+      "associationParticipants": ["WaterFlowSensor", "SmartWaterValve"]
+    }
+  ]
+}

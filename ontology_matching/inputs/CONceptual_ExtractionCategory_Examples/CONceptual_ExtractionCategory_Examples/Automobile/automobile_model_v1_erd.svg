@@ -1,0 +1,1062 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3605 1962" width="3605" height="1962" style="font-family: Consolas, Monaco, monospace; font-size: 11px;">
+<defs>
+  <marker id="arrowComp" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#4a6fa5"/>
+  </marker>
+  <marker id="arrowAssoc" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#c05746"/>
+  </marker>
+  <marker id="diamond" markerWidth="12" markerHeight="8" refX="0" refY="4" orient="auto">
+    <polygon points="0 4, 6 0, 12 4, 6 8" fill="#4a6fa5"/>
+  </marker>
+</defs>
+<rect width="3605" height="1962" fill="#fafafa" rx="4"/>
+<text x="1802.5" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">Automobile_Model_V1_SystemCentric</text>
+<text x="1802.5" y="50" text-anchor="middle" font-size="10" fill="#7f8c8d" style="font-family: sans-serif;">System-centric decomposition of an automobile. Top-level entities represent major vehicle systems (engine, drivetrain, e</text>
+<rect x="3305" y="10" width="280" height="55" fill="white" stroke="#ddd" rx="4"/>
+<rect x="3315" y="20" width="14" height="14" fill="#34698a" rx="2"/>
+<text x="3335" y="32" font-size="10" fill="#333" style="font-family: sans-serif;">Entity</text>
+<rect x="3405" y="20" width="14" height="14" fill="#8b5e3c" rx="6"/>
+<text x="3425" y="32" font-size="10" fill="#333" style="font-family: sans-serif;">Association</text>
+<line x1="3315" y1="48" x2="3345" y2="48" stroke="#4a6fa5" stroke-width="1.5" marker-start="url(#diamond)"/>
+<text x="3353" y="52" font-size="10" fill="#333" style="font-family: sans-serif;">Composition</text>
+<line x1="3445" y1="48" x2="3475" y2="48" stroke="#c05746" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)"/>
+<text x="3483" y="52" font-size="10" fill="#333" style="font-family: sans-serif;">Association Link</text>
+<line x1="315.0" y1="257.2" x2="355.0" y2="254.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="315.0" y1="333.4" x2="650.0" y2="513.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="315.0" y1="278.1" x2="2993.0" y2="553.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="315.0" y1="323.7" x2="1228.0" y2="743.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="315.0" y1="321.8" x2="2691.0" y2="1380.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="315.0" y1="433.5" x2="975.1" y2="1306.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="315.0" y1="296.7" x2="2993.0" y2="963.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="315.0" y1="363.2" x2="1277.2" y2="1104.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="315.0" y1="309.9" x2="2691.0" y2="1146.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="610.0" y1="197.1" x2="650.0" y2="181.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="610.0" y1="241.4" x2="2383.0" y2="162.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="610.0" y1="242.6" x2="2993.0" y2="161.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="610.0" y1="243.0" x2="3269.0" y2="160.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="458.5" y1="414.0" x2="449.0" y2="480.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="821.0" y1="152.7" x2="939.0" y2="159.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1188.0" y1="166.0" x2="1228.0" y2="166.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1188.0" y1="164.0" x2="2107.0" y2="149.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1438.0" y1="160.9" x2="1812.0" y2="142.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1438.0" y1="156.2" x2="1543.0" y2="146.4" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2651.0" y1="157.0" x2="2691.0" y2="157.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3269.0" y1="170.9" x2="220.0" y2="529.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="847.0" y1="571.7" x2="939.0" y2="577.1" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="847.0" y1="564.2" x2="2107.0" y2="541.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="847.0" y1="564.5" x2="2383.0" y2="540.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="847.0" y1="564.7" x2="2691.0" y2="540.1" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="847.0" y1="564.5" x2="1812.0" y2="549.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1175.0" y1="567.4" x2="1228.0" y2="560.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1175.0" y1="575.2" x2="1543.0" y2="547.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3229.0" y1="561.9" x2="3269.0" y2="560.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2993.0" y1="574.9" x2="296.0" y2="777.1" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2993.0" y1="575.5" x2="604.0" y2="767.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2993.0" y1="576.0" x2="821.0" y2="760.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2993.0" y1="578.0" x2="1136.0" y2="767.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1451.0" y1="791.7" x2="1543.0" y2="789.1" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1451.0" y1="795.0" x2="2691.0" y2="795.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1228.0" y1="819.7" x2="578.0" y2="963.3" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1451.0" y1="817.0" x2="2107.0" y2="946.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1753.0" y1="786.0" x2="1812.0" y2="786.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1753.0" y1="784.3" x2="2107.0" y2="778.4" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1753.0" y1="784.8" x2="2383.0" y2="777.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2914.0" y1="784.3" x2="2993.0" y2="776.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2914.0" y1="789.6" x2="3269.0" y2="772.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2691.0" y1="802.0" x2="237.0" y2="955.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="578.0" y1="972.9" x2="650.0" y2="963.1" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="578.0" y1="982.6" x2="939.0" y2="965.3" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="578.0" y1="985.7" x2="1228.0" y2="972.4" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="578.0" y1="985.4" x2="1543.0" y2="963.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="578.0" y1="985.2" x2="1812.0" y2="954.1" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2343.0" y1="965.5" x2="2383.0" y2="964.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2343.0" y1="971.9" x2="2691.0" y2="977.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3190.0" y1="977.9" x2="3269.0" y2="969.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2993.0" y1="993.9" x2="244.0" y2="1157.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2993.0" y1="994.5" x2="526.0" y2="1157.4" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2993.0" y1="994.9" x2="821.0" y2="1148.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2993.0" y1="996.3" x2="1110.0" y2="1155.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1503.0" y1="1167.6" x2="1543.0" y2="1166.3" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1503.0" y1="1169.8" x2="1812.0" y2="1164.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1503.0" y1="1169.1" x2="2107.0" y2="1156.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1503.0" y1="1170.9" x2="2383.0" y2="1163.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2940.0" y1="1182.2" x2="2993.0" y2="1178.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2940.0" y1="1184.1" x2="3269.0" y2="1168.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2691.0" y1="1197.8" x2="289.0" y2="1348.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2691.0" y1="1198.7" x2="532.0" y2="1349.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2691.0" y1="1200.7" x2="899.0" y2="1354.3" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1155.0" y1="1388.3" x2="1228.0" y2="1379.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1155.0" y1="1394.6" x2="1543.0" y2="1371.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1155.0" y1="1395.3" x2="1812.0" y2="1360.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1155.0" y1="1397.7" x2="2107.0" y2="1368.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1155.0" y1="1398.3" x2="2383.0" y2="1367.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2862.0" y1="1404.2" x2="2993.0" y2="1381.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2862.0" y1="1409.8" x2="3269.0" y2="1365.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2691.0" y1="1425.3" x2="250.0" y2="1605.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2691.0" y1="1426.1" x2="539.0" y2="1604.4" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2691.0" y1="1427.6" x2="899.0" y2="1608.4" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2691.0" y1="1429.1" x2="1188.0" y2="1606.3" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2691.0" y1="1431.6" x2="1464.0" y2="1612.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1602.5" y1="1562.0" x2="610.0" y2="396.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1619.4" y1="1562.0" x2="1116.8" y2="688.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1866.5" y1="1562.0" x2="1143.1" y2="688.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1949.9" y1="1562.0" x2="2469.2" y2="598.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2226.0" y1="1562.0" x2="2485.1" y2="598.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2212.1" y1="1562.0" x2="2214.8" y2="598.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2454.2" y1="1562.0" x2="2228.8" y2="598.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2485.5" y1="1562.0" x2="2754.5" y2="598.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2771.0" y1="1562.0" x2="2771.0" y2="598.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2726.9" y1="1562.0" x2="2282.7" y2="1038.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2993.0" y1="1572.6" x2="1753.0" y2="847.4" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3002.6" y1="1562.0" x2="2314.3" y2="1038.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3269.0" y1="1587.7" x2="1457.0" y2="1006.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3269.0" y1="1567.1" x2="2343.0" y2="1037.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="283.0" y1="1767.6" x2="2691.0" y2="1218.4" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="183.8" y1="1732.0" x2="448.9" y2="414.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="552.0" y1="1762.9" x2="2993.0" y2="1018.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="454.6" y1="1732.0" x2="479.4" y2="414.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="763.0" y1="1732.0" x2="514.0" y2="414.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="832.6" y1="1732.0" x2="1300.8" y2="1240.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1009.4" y1="1732.0" x2="541.7" y2="414.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="979.3" y1="1732.0" x2="235.6" y2="854.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1451.9" y1="1732.0" x2="3269.0" y2="617.4" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1300.1" y1="1732.0" x2="530.2" y2="836.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1587.7" y1="1732.0" x2="548.0" y2="836.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1608.6" y1="1732.0" x2="609.1" y2="414.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1980.4" y1="1732.0" x2="3027.7" y2="818.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1933.8" y1="1732.0" x2="2199.0" y2="1038.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2179.8" y1="1732.0" x2="1912.3" y2="1002.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2157.5" y1="1732.0" x2="1669.0" y2="1020.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2132.9" y1="1732.0" x2="1413.0" y2="1038.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2491.5" y1="1732.0" x2="2494.0" y2="1424.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2523.8" y1="1732.0" x2="2769.2" y2="1276.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<rect x="62" y="82" width="255" height="370" fill="#00000010" rx="4"/>
+<rect x="60" y="80" width="255" height="370" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="80" width="255" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="106" width="255" height="4" fill="#34698a"/>
+<text x="187.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Automobile</text>
+<text x="74" y="130" fill="#555" style="">vin: Identifier</text>
+<text x="74" y="148" fill="#555" style="">make: Kind</text>
+<text x="74" y="166" fill="#555" style="">model: Kind</text>
+<text x="74" y="184" fill="#555" style="">modelYear: Identifier</text>
+<text x="74" y="202" fill="#555" style="">curbWeight: Mass</text>
+<text x="74" y="220" fill="#555" style="">overallLength: Distance</text>
+<text x="74" y="238" fill="#555" style="">overallWidth: Distance</text>
+<text x="74" y="256" fill="#555" style="">overallHeight: Distance</text>
+<text x="74" y="274" fill="#555" style="">operationalStatus: OperationalState</text>
+<text x="74" y="292" fill="#4a6fa5" style="font-weight: bold;">engine: Engine</text>
+<text x="74" y="310" fill="#4a6fa5" style="font-weight: bold;">drivetrain: Drivetrain</text>
+<text x="74" y="328" fill="#4a6fa5" style="font-weight: bold;">electricalSystem: ElectricalSystem</text>
+<text x="74" y="346" fill="#4a6fa5" style="font-weight: bold;">chassisSystem: ChassisSystem</text>
+<text x="74" y="364" fill="#4a6fa5" style="font-weight: bold;">bodyStructure: BodyStructure</text>
+<text x="74" y="382" fill="#4a6fa5" style="font-weight: bold;">hvacSystem: HVACSystem</text>
+<text x="74" y="400" fill="#4a6fa5" style="font-weight: bold;">fuelSystem: FuelSystem</text>
+<text x="74" y="418" fill="#4a6fa5" style="font-weight: bold;">exhaustSystem: ExhaustSystem</text>
+<text x="74" y="436" fill="#4a6fa5" style="font-weight: bold;">coolingSystem: CoolingSystem</text>
+<rect x="357" y="82" width="255" height="334" fill="#00000010" rx="4"/>
+<rect x="355" y="80" width="255" height="334" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="355" y="80" width="255" height="30" fill="#34698a" rx="4"/>
+<rect x="355" y="106" width="255" height="4" fill="#34698a"/>
+<text x="482.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Engine</text>
+<text x="369" y="130" fill="#555" style="">engineID: Identifier</text>
+<text x="369" y="148" fill="#555" style="">engineType: Kind</text>
+<text x="369" y="166" fill="#555" style="">displacement: ScalarVolume</text>
+<text x="369" y="184" fill="#555" style="">horsepower: Power</text>
+<text x="369" y="202" fill="#555" style="">peakTorque: Torque</text>
+<text x="369" y="220" fill="#555" style="">rpm: AngularVelocity</text>
+<text x="369" y="238" fill="#555" style="">oilPressure: Pressure</text>
+<text x="369" y="256" fill="#555" style="">oilTemperature: Temperature</text>
+<text x="369" y="274" fill="#555" style="">cylinderCount: Count</text>
+<text x="369" y="292" fill="#555" style="">compressionRatio: Ratio</text>
+<text x="369" y="310" fill="#555" style="">operationalStatus: OperationalState</text>
+<text x="369" y="328" fill="#4a6fa5" style="font-weight: bold;">cylinderBlock: CylinderBlock</text>
+<text x="369" y="346" fill="#4a6fa5" style="font-weight: bold;">cylinderHead: CylinderHead</text>
+<text x="369" y="364" fill="#4a6fa5" style="font-weight: bold;">crankshaft: Crankshaft</text>
+<text x="369" y="382" fill="#4a6fa5" style="font-weight: bold;">camshaft: Camshaft</text>
+<text x="369" y="400" fill="#4a6fa5" style="font-weight: bold;">timingSystem: TimingSystem</text>
+<rect x="652" y="82" width="171" height="136" fill="#00000010" rx="4"/>
+<rect x="650" y="80" width="171" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="650" y="80" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="650" y="106" width="171" height="4" fill="#34698a"/>
+<text x="735.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CylinderBlock</text>
+<text x="664" y="130" fill="#555" style="">blockID: Identifier</text>
+<text x="664" y="148" fill="#555" style="">material: Kind</text>
+<text x="664" y="166" fill="#555" style="">boreDiameter: Distance</text>
+<text x="664" y="184" fill="#555" style="">cylinderCount: Count</text>
+<text x="664" y="202" fill="#4a6fa5" style="font-weight: bold;">cylinder: Cylinder</text>
+<rect x="941" y="82" width="249" height="172" fill="#00000010" rx="4"/>
+<rect x="939" y="80" width="249" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="939" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="939" y="106" width="249" height="4" fill="#34698a"/>
+<text x="1063.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Cylinder</text>
+<text x="953" y="130" fill="#555" style="">cylinderID: Identifier</text>
+<text x="953" y="148" fill="#555" style="">bore: Distance</text>
+<text x="953" y="166" fill="#555" style="">stroke: Distance</text>
+<text x="953" y="184" fill="#555" style="">combustionPressure: Pressure</text>
+<text x="953" y="202" fill="#555" style="">combustionTemperature: Temperature</text>
+<text x="953" y="220" fill="#4a6fa5" style="font-weight: bold;">piston: Piston</text>
+<text x="953" y="238" fill="#4a6fa5" style="font-weight: bold;">sparkPlug: SparkPlug</text>
+<rect x="1230" y="82" width="210" height="172" fill="#00000010" rx="4"/>
+<rect x="1228" y="80" width="210" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1228" y="80" width="210" height="30" fill="#34698a" rx="4"/>
+<rect x="1228" y="106" width="210" height="4" fill="#34698a"/>
+<text x="1333.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Piston</text>
+<text x="1242" y="130" fill="#555" style="">pistonID: Identifier</text>
+<text x="1242" y="148" fill="#555" style="">diameter: Distance</text>
+<text x="1242" y="166" fill="#555" style="">position: Position</text>
+<text x="1242" y="184" fill="#555" style="">velocity: Velocity</text>
+<text x="1242" y="202" fill="#555" style="">material: Kind</text>
+<text x="1242" y="220" fill="#4a6fa5" style="font-weight: bold;">connectingRod: ConnectingRod</text>
+<text x="1242" y="238" fill="#4a6fa5" style="font-weight: bold;">pistonRing: PistonRing</text>
+<rect x="1545" y="82" width="160" height="118" fill="#00000010" rx="4"/>
+<rect x="1543" y="80" width="160" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1543" y="80" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="1543" y="106" width="160" height="4" fill="#34698a"/>
+<text x="1623.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PistonRing</text>
+<text x="1557" y="130" fill="#555" style="">ringID: Identifier</text>
+<text x="1557" y="148" fill="#555" style="">ringType: Kind</text>
+<text x="1557" y="166" fill="#555" style="">material: Kind</text>
+<text x="1557" y="184" fill="#555" style="">gapSize: Distance</text>
+<rect x="1814" y="82" width="160" height="118" fill="#00000010" rx="4"/>
+<rect x="1812" y="80" width="160" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1812" y="80" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="1812" y="106" width="160" height="4" fill="#34698a"/>
+<text x="1892.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ConnectingRod</text>
+<text x="1826" y="130" fill="#555" style="">rodID: Identifier</text>
+<text x="1826" y="148" fill="#555" style="">length: Distance</text>
+<text x="1826" y="166" fill="#555" style="">material: Kind</text>
+<text x="1826" y="184" fill="#555" style="">mass: Mass</text>
+<rect x="2109" y="82" width="197" height="136" fill="#00000010" rx="4"/>
+<rect x="2107" y="80" width="197" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2107" y="80" width="197" height="30" fill="#34698a" rx="4"/>
+<rect x="2107" y="106" width="197" height="4" fill="#34698a"/>
+<text x="2205.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SparkPlug</text>
+<text x="2121" y="130" fill="#555" style="">sparkPlugID: Identifier</text>
+<text x="2121" y="148" fill="#555" style="">gapSize: Distance</text>
+<text x="2121" y="166" fill="#555" style="">heatRange: Kind</text>
+<text x="2121" y="184" fill="#555" style="">voltage: ElectricPotential</text>
+<text x="2121" y="202" fill="#555" style="">condition: HealthState</text>
+<rect x="2385" y="82" width="268" height="154" fill="#00000010" rx="4"/>
+<rect x="2383" y="80" width="268" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2383" y="80" width="268" height="30" fill="#34698a" rx="4"/>
+<rect x="2383" y="106" width="268" height="4" fill="#34698a"/>
+<text x="2517.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CylinderHead</text>
+<text x="2397" y="130" fill="#555" style="">headID: Identifier</text>
+<text x="2397" y="148" fill="#555" style="">material: Kind</text>
+<text x="2397" y="166" fill="#555" style="">valveConfiguration: Kind</text>
+<text x="2397" y="184" fill="#4a6fa5" style="font-weight: bold;">intakeValve: Valve</text>
+<text x="2397" y="202" fill="#4a6fa5" style="font-weight: bold;">exhaustValve: Valve</text>
+<text x="2397" y="220" fill="#555" style="">combustionChamberVolume: ScalarVolume</text>
+<rect x="2693" y="82" width="262" height="154" fill="#00000010" rx="4"/>
+<rect x="2691" y="80" width="262" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2691" y="80" width="262" height="30" fill="#34698a" rx="4"/>
+<rect x="2691" y="106" width="262" height="4" fill="#34698a"/>
+<text x="2822.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Valve</text>
+<text x="2705" y="130" fill="#555" style="">valveID: Identifier</text>
+<text x="2705" y="148" fill="#555" style="">valveType: Kind</text>
+<text x="2705" y="166" fill="#555" style="">diameter: Distance</text>
+<text x="2705" y="184" fill="#555" style="">liftHeight: Distance</text>
+<text x="2705" y="202" fill="#555" style="">material: Kind</text>
+<text x="2705" y="220" fill="#555" style="">operationalState: ConfigurationState</text>
+<rect x="2995" y="82" width="236" height="154" fill="#00000010" rx="4"/>
+<rect x="2993" y="80" width="236" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2993" y="80" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="2993" y="106" width="236" height="4" fill="#34698a"/>
+<text x="3111.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Crankshaft</text>
+<text x="3007" y="130" fill="#555" style="">crankshaftID: Identifier</text>
+<text x="3007" y="148" fill="#555" style="">rotationalSpeed: AngularVelocity</text>
+<text x="3007" y="166" fill="#555" style="">torqueOutput: Torque</text>
+<text x="3007" y="184" fill="#555" style="">material: Kind</text>
+<text x="3007" y="202" fill="#555" style="">length: Distance</text>
+<text x="3007" y="220" fill="#555" style="">bearingCount: Count</text>
+<rect x="3271" y="82" width="236" height="154" fill="#00000010" rx="4"/>
+<rect x="3269" y="80" width="236" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3269" y="80" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="3269" y="106" width="236" height="4" fill="#34698a"/>
+<text x="3387.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Camshaft</text>
+<text x="3283" y="130" fill="#555" style="">camshaftID: Identifier</text>
+<text x="3283" y="148" fill="#555" style="">camshaftType: Kind</text>
+<text x="3283" y="166" fill="#555" style="">rotationalSpeed: AngularVelocity</text>
+<text x="3283" y="184" fill="#555" style="">lobeCount: Count</text>
+<text x="3283" y="202" fill="#555" style="">material: Kind</text>
+<text x="3283" y="220" fill="#4a6fa5" style="font-weight: bold;">camLobe: CamLobe</text>
+<rect x="62" y="482" width="160" height="118" fill="#00000010" rx="4"/>
+<rect x="60" y="480" width="160" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="480" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="506" width="160" height="4" fill="#34698a"/>
+<text x="140.0" y="500" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CamLobe</text>
+<text x="74" y="530" fill="#555" style="">lobeID: Identifier</text>
+<text x="74" y="548" fill="#555" style="">profile: Kind</text>
+<text x="74" y="566" fill="#555" style="">liftHeight: Distance</text>
+<text x="74" y="584" fill="#555" style="">duration: Angle</text>
+<rect x="357" y="482" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="355" y="480" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="355" y="480" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="355" y="506" width="171" height="4" fill="#34698a"/>
+<text x="440.5" y="500" text-anchor="middle" fill="white" font-weight="bold" font-size="12">TimingSystem</text>
+<text x="369" y="530" fill="#555" style="">timingID: Identifier</text>
+<text x="369" y="548" fill="#555" style="">timingType: Kind</text>
+<text x="369" y="566" fill="#555" style="">tensionerForce: Force</text>
+<text x="369" y="584" fill="#555" style="">condition: HealthState</text>
+<rect x="652" y="482" width="197" height="172" fill="#00000010" rx="4"/>
+<rect x="650" y="480" width="197" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="650" y="480" width="197" height="30" fill="#34698a" rx="4"/>
+<rect x="650" y="506" width="197" height="4" fill="#34698a"/>
+<text x="748.5" y="500" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Drivetrain</text>
+<text x="664" y="530" fill="#555" style="">drivetrainID: Identifier</text>
+<text x="664" y="548" fill="#555" style="">drivetrainLayout: Kind</text>
+<text x="664" y="566" fill="#4a6fa5" style="font-weight: bold;">transmission: Transmission</text>
+<text x="664" y="584" fill="#4a6fa5" style="font-weight: bold;">differential: Differential</text>
+<text x="664" y="602" fill="#4a6fa5" style="font-weight: bold;">driveshaft: Driveshaft</text>
+<text x="664" y="620" fill="#4a6fa5" style="font-weight: bold;">axle: Axle</text>
+<text x="664" y="638" fill="#4a6fa5" style="font-weight: bold;">clutch: Clutch</text>
+<rect x="941" y="482" width="236" height="208" fill="#00000010" rx="4"/>
+<rect x="939" y="480" width="236" height="208" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="939" y="480" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="939" y="506" width="236" height="4" fill="#34698a"/>
+<text x="1057.0" y="500" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Transmission</text>
+<text x="953" y="530" fill="#555" style="">transmissionID: Identifier</text>
+<text x="953" y="548" fill="#555" style="">transmissionType: Kind</text>
+<text x="953" y="566" fill="#555" style="">gearCount: Count</text>
+<text x="953" y="584" fill="#555" style="">currentGear: ConfigurationState</text>
+<text x="953" y="602" fill="#555" style="">inputSpeed: AngularVelocity</text>
+<text x="953" y="620" fill="#555" style="">outputSpeed: AngularVelocity</text>
+<text x="953" y="638" fill="#555" style="">fluidTemperature: Temperature</text>
+<text x="953" y="656" fill="#4a6fa5" style="font-weight: bold;">gear: Gear</text>
+<text x="953" y="674" fill="#4a6fa5" style="font-weight: bold;">torqueConverter: TorqueConverter</text>
+<rect x="1230" y="482" width="171" height="136" fill="#00000010" rx="4"/>
+<rect x="1228" y="480" width="171" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1228" y="480" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1228" y="506" width="171" height="4" fill="#34698a"/>
+<text x="1313.5" y="500" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Gear</text>
+<text x="1242" y="530" fill="#555" style="">gearID: Identifier</text>
+<text x="1242" y="548" fill="#555" style="">gearNumber: Identifier</text>
+<text x="1242" y="566" fill="#555" style="">gearRatio: Ratio</text>
+<text x="1242" y="584" fill="#555" style="">toothCount: Count</text>
+<text x="1242" y="602" fill="#555" style="">material: Kind</text>
+<rect x="1545" y="482" width="229" height="118" fill="#00000010" rx="4"/>
+<rect x="1543" y="480" width="229" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1543" y="480" width="229" height="30" fill="#34698a" rx="4"/>
+<rect x="1543" y="506" width="229" height="4" fill="#34698a"/>
+<text x="1657.5" y="500" text-anchor="middle" fill="white" font-weight="bold" font-size="12">TorqueConverter</text>
+<text x="1557" y="530" fill="#555" style="">converterID: Identifier</text>
+<text x="1557" y="548" fill="#555" style="">stallTorqueRatio: Ratio</text>
+<text x="1557" y="566" fill="#555" style="">fluidTemperature: Temperature</text>
+<text x="1557" y="584" fill="#555" style="">lockupState: ConfigurationState</text>
+<rect x="1814" y="482" width="255" height="136" fill="#00000010" rx="4"/>
+<rect x="1812" y="480" width="255" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1812" y="480" width="255" height="30" fill="#34698a" rx="4"/>
+<rect x="1812" y="506" width="255" height="4" fill="#34698a"/>
+<text x="1939.5" y="500" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Clutch</text>
+<text x="1826" y="530" fill="#555" style="">clutchID: Identifier</text>
+<text x="1826" y="548" fill="#555" style="">clutchType: Kind</text>
+<text x="1826" y="566" fill="#555" style="">engagementState: ConfigurationState</text>
+<text x="1826" y="584" fill="#555" style="">discDiameter: Distance</text>
+<text x="1826" y="602" fill="#555" style="">clampingForce: Force</text>
+<rect x="2109" y="482" width="216" height="118" fill="#00000010" rx="4"/>
+<rect x="2107" y="480" width="216" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2107" y="480" width="216" height="30" fill="#34698a" rx="4"/>
+<rect x="2107" y="506" width="216" height="4" fill="#34698a"/>
+<text x="2215.0" y="500" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Differential</text>
+<text x="2121" y="530" fill="#555" style="">differentialID: Identifier</text>
+<text x="2121" y="548" fill="#555" style="">differentialType: Kind</text>
+<text x="2121" y="566" fill="#555" style="">gearRatio: Ratio</text>
+<text x="2121" y="584" fill="#555" style="">fluidTemperature: Temperature</text>
+<rect x="2385" y="482" width="236" height="118" fill="#00000010" rx="4"/>
+<rect x="2383" y="480" width="236" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2383" y="480" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="2383" y="506" width="236" height="4" fill="#34698a"/>
+<text x="2501.0" y="500" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Driveshaft</text>
+<text x="2397" y="530" fill="#555" style="">driveshaftID: Identifier</text>
+<text x="2397" y="548" fill="#555" style="">length: Distance</text>
+<text x="2397" y="566" fill="#555" style="">rotationalSpeed: AngularVelocity</text>
+<text x="2397" y="584" fill="#555" style="">material: Kind</text>
+<rect x="2693" y="482" width="160" height="118" fill="#00000010" rx="4"/>
+<rect x="2691" y="480" width="160" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2691" y="480" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="2691" y="506" width="160" height="4" fill="#34698a"/>
+<text x="2771.0" y="500" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Axle</text>
+<text x="2705" y="530" fill="#555" style="">axleID: Identifier</text>
+<text x="2705" y="548" fill="#555" style="">axleType: Kind</text>
+<text x="2705" y="566" fill="#555" style="">loadCapacity: Mass</text>
+<text x="2705" y="584" fill="#555" style="">length: Distance</text>
+<rect x="2995" y="482" width="236" height="172" fill="#00000010" rx="4"/>
+<rect x="2993" y="480" width="236" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2993" y="480" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="2993" y="506" width="236" height="4" fill="#34698a"/>
+<text x="3111.0" y="500" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ElectricalSystem</text>
+<text x="3007" y="530" fill="#555" style="">systemID: Identifier</text>
+<text x="3007" y="548" fill="#555" style="">systemVoltage: ElectricPotential</text>
+<text x="3007" y="566" fill="#4a6fa5" style="font-weight: bold;">battery: Battery</text>
+<text x="3007" y="584" fill="#4a6fa5" style="font-weight: bold;">alternator: Alternator</text>
+<text x="3007" y="602" fill="#4a6fa5" style="font-weight: bold;">starterMotor: StarterMotor</text>
+<text x="3007" y="620" fill="#4a6fa5" style="font-weight: bold;">wiringHarness: WiringHarness</text>
+<text x="3007" y="638" fill="#4a6fa5" style="font-weight: bold;">fuse: Fuse</text>
+<rect x="3271" y="482" width="197" height="154" fill="#00000010" rx="4"/>
+<rect x="3269" y="480" width="197" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3269" y="480" width="197" height="30" fill="#34698a" rx="4"/>
+<rect x="3269" y="506" width="197" height="4" fill="#34698a"/>
+<text x="3367.5" y="500" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Battery</text>
+<text x="3283" y="530" fill="#555" style="">batteryID: Identifier</text>
+<text x="3283" y="548" fill="#555" style="">voltage: ElectricPotential</text>
+<text x="3283" y="566" fill="#555" style="">capacity: Energy</text>
+<text x="3283" y="584" fill="#555" style="">current: ElectricCurrent</text>
+<text x="3283" y="602" fill="#555" style="">temperature: Temperature</text>
+<text x="3283" y="620" fill="#555" style="">healthState: HealthState</text>
+<rect x="62" y="720" width="236" height="136" fill="#00000010" rx="4"/>
+<rect x="60" y="718" width="236" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="718" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="744" width="236" height="4" fill="#34698a"/>
+<text x="178.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Alternator</text>
+<text x="74" y="768" fill="#555" style="">alternatorID: Identifier</text>
+<text x="74" y="786" fill="#555" style="">outputVoltage: ElectricPotential</text>
+<text x="74" y="804" fill="#555" style="">outputCurrent: ElectricCurrent</text>
+<text x="74" y="822" fill="#555" style="">rotationalSpeed: AngularVelocity</text>
+<text x="74" y="840" fill="#555" style="">condition: HealthState</text>
+<rect x="357" y="720" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="355" y="718" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="355" y="718" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="355" y="744" width="249" height="4" fill="#34698a"/>
+<text x="479.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">StarterMotor</text>
+<text x="369" y="768" fill="#555" style="">starterID: Identifier</text>
+<text x="369" y="786" fill="#555" style="">powerRating: Power</text>
+<text x="369" y="804" fill="#555" style="">currentDraw: ElectricCurrent</text>
+<text x="369" y="822" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="652" y="720" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="650" y="718" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="650" y="718" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="650" y="744" width="171" height="4" fill="#34698a"/>
+<text x="735.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WiringHarness</text>
+<text x="664" y="768" fill="#555" style="">harnessID: Identifier</text>
+<text x="664" y="786" fill="#555" style="">circuitCount: Count</text>
+<text x="664" y="804" fill="#555" style="">condition: HealthState</text>
+<rect x="941" y="720" width="197" height="118" fill="#00000010" rx="4"/>
+<rect x="939" y="718" width="197" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="939" y="718" width="197" height="30" fill="#34698a" rx="4"/>
+<rect x="939" y="744" width="197" height="4" fill="#34698a"/>
+<text x="1037.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Fuse</text>
+<text x="953" y="768" fill="#555" style="">fuseID: Identifier</text>
+<text x="953" y="786" fill="#555" style="">ampRating: ElectricCurrent</text>
+<text x="953" y="804" fill="#555" style="">fuseType: Kind</text>
+<text x="953" y="822" fill="#555" style="">condition: HealthState</text>
+<rect x="1230" y="720" width="223" height="154" fill="#00000010" rx="4"/>
+<rect x="1228" y="718" width="223" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1228" y="718" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="1228" y="744" width="223" height="4" fill="#34698a"/>
+<text x="1339.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ChassisSystem</text>
+<text x="1242" y="768" fill="#555" style="">chassisID: Identifier</text>
+<text x="1242" y="786" fill="#555" style="">chassisType: Kind</text>
+<text x="1242" y="804" fill="#4a6fa5" style="font-weight: bold;">suspension: Suspension</text>
+<text x="1242" y="822" fill="#4a6fa5" style="font-weight: bold;">steeringSystem: SteeringSystem</text>
+<text x="1242" y="840" fill="#4a6fa5" style="font-weight: bold;">brakingSystem: BrakingSystem</text>
+<text x="1242" y="858" fill="#4a6fa5" style="font-weight: bold;">wheel: Wheel</text>
+<rect x="1545" y="720" width="210" height="136" fill="#00000010" rx="4"/>
+<rect x="1543" y="718" width="210" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1543" y="718" width="210" height="30" fill="#34698a" rx="4"/>
+<rect x="1543" y="744" width="210" height="4" fill="#34698a"/>
+<text x="1648.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Suspension</text>
+<text x="1557" y="768" fill="#555" style="">suspensionID: Identifier</text>
+<text x="1557" y="786" fill="#555" style="">suspensionType: Kind</text>
+<text x="1557" y="804" fill="#4a6fa5" style="font-weight: bold;">spring: Spring</text>
+<text x="1557" y="822" fill="#4a6fa5" style="font-weight: bold;">shockAbsorber: ShockAbsorber</text>
+<text x="1557" y="840" fill="#4a6fa5" style="font-weight: bold;">controlArm: ControlArm</text>
+<rect x="1814" y="720" width="160" height="136" fill="#00000010" rx="4"/>
+<rect x="1812" y="718" width="160" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1812" y="718" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="1812" y="744" width="160" height="4" fill="#34698a"/>
+<text x="1892.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Spring</text>
+<text x="1826" y="768" fill="#555" style="">springID: Identifier</text>
+<text x="1826" y="786" fill="#555" style="">springType: Kind</text>
+<text x="1826" y="804" fill="#555" style="">springRate: Force</text>
+<text x="1826" y="822" fill="#555" style="">freeLength: Distance</text>
+<text x="1826" y="840" fill="#555" style="">material: Kind</text>
+<rect x="2109" y="720" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="2107" y="718" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2107" y="718" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2107" y="744" width="171" height="4" fill="#34698a"/>
+<text x="2192.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ShockAbsorber</text>
+<text x="2121" y="768" fill="#555" style="">shockID: Identifier</text>
+<text x="2121" y="786" fill="#555" style="">dampingRate: Force</text>
+<text x="2121" y="804" fill="#555" style="">strokeLength: Distance</text>
+<text x="2121" y="822" fill="#555" style="">condition: HealthState</text>
+<rect x="2385" y="720" width="160" height="118" fill="#00000010" rx="4"/>
+<rect x="2383" y="718" width="160" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2383" y="718" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="2383" y="744" width="160" height="4" fill="#34698a"/>
+<text x="2463.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ControlArm</text>
+<text x="2397" y="768" fill="#555" style="">armID: Identifier</text>
+<text x="2397" y="786" fill="#555" style="">armType: Kind</text>
+<text x="2397" y="804" fill="#555" style="">material: Kind</text>
+<text x="2397" y="822" fill="#555" style="">length: Distance</text>
+<rect x="2693" y="720" width="223" height="154" fill="#00000010" rx="4"/>
+<rect x="2691" y="718" width="223" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2691" y="718" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="2691" y="744" width="223" height="4" fill="#34698a"/>
+<text x="2802.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SteeringSystem</text>
+<text x="2705" y="768" fill="#555" style="">steeringID: Identifier</text>
+<text x="2705" y="786" fill="#555" style="">steeringType: Kind</text>
+<text x="2705" y="804" fill="#555" style="">steeringAngle: Angle</text>
+<text x="2705" y="822" fill="#4a6fa5" style="font-weight: bold;">steeringRack: SteeringRack</text>
+<text x="2705" y="840" fill="#4a6fa5" style="font-weight: bold;">steeringColumn: SteeringColumn</text>
+<text x="2705" y="858" fill="#4a6fa5" style="font-weight: bold;">powerAssist: PowerSteeringUnit</text>
+<rect x="2995" y="720" width="184" height="100" fill="#00000010" rx="4"/>
+<rect x="2993" y="718" width="184" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2993" y="718" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="2993" y="744" width="184" height="4" fill="#34698a"/>
+<text x="3085.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SteeringRack</text>
+<text x="3007" y="768" fill="#555" style="">rackID: Identifier</text>
+<text x="3007" y="786" fill="#555" style="">rackType: Kind</text>
+<text x="3007" y="804" fill="#555" style="">travelDistance: Distance</text>
+<rect x="3271" y="720" width="190" height="100" fill="#00000010" rx="4"/>
+<rect x="3269" y="718" width="190" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3269" y="718" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="3269" y="744" width="190" height="4" fill="#34698a"/>
+<text x="3364.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SteeringColumn</text>
+<text x="3283" y="768" fill="#555" style="">columnID: Identifier</text>
+<text x="3283" y="786" fill="#555" style="">tiltAngle: Angle</text>
+<text x="3283" y="804" fill="#555" style="">telescopeLength: Distance</text>
+<rect x="62" y="904" width="177" height="118" fill="#00000010" rx="4"/>
+<rect x="60" y="902" width="177" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="902" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="928" width="177" height="4" fill="#34698a"/>
+<text x="148.5" y="922" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PowerSteeringUnit</text>
+<text x="74" y="952" fill="#555" style="">unitID: Identifier</text>
+<text x="74" y="970" fill="#555" style="">assistType: Kind</text>
+<text x="74" y="988" fill="#555" style="">fluidPressure: Pressure</text>
+<text x="74" y="1006" fill="#555" style="">powerConsumption: Power</text>
+<rect x="357" y="904" width="223" height="172" fill="#00000010" rx="4"/>
+<rect x="355" y="902" width="223" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="355" y="902" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="355" y="928" width="223" height="4" fill="#34698a"/>
+<text x="466.5" y="922" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BrakingSystem</text>
+<text x="369" y="952" fill="#555" style="">brakeSystemID: Identifier</text>
+<text x="369" y="970" fill="#555" style="">brakeType: Kind</text>
+<text x="369" y="988" fill="#4a6fa5" style="font-weight: bold;">brakePedal: BrakePedal</text>
+<text x="369" y="1006" fill="#4a6fa5" style="font-weight: bold;">masterCylinder: MasterCylinder</text>
+<text x="369" y="1024" fill="#4a6fa5" style="font-weight: bold;">brakeDisc: BrakeDisc</text>
+<text x="369" y="1042" fill="#4a6fa5" style="font-weight: bold;">brakePad: BrakePad</text>
+<text x="369" y="1060" fill="#4a6fa5" style="font-weight: bold;">brakeCaliper: BrakeCaliper</text>
+<rect x="652" y="904" width="164" height="100" fill="#00000010" rx="4"/>
+<rect x="650" y="902" width="164" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="650" y="902" width="164" height="30" fill="#34698a" rx="4"/>
+<rect x="650" y="928" width="164" height="4" fill="#34698a"/>
+<text x="732.0" y="922" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BrakePedal</text>
+<text x="664" y="952" fill="#555" style="">pedalID: Identifier</text>
+<text x="664" y="970" fill="#555" style="">pedalTravel: Distance</text>
+<text x="664" y="988" fill="#555" style="">appliedForce: Force</text>
+<rect x="941" y="904" width="177" height="118" fill="#00000010" rx="4"/>
+<rect x="939" y="902" width="177" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="939" y="902" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="939" y="928" width="177" height="4" fill="#34698a"/>
+<text x="1027.5" y="922" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MasterCylinder</text>
+<text x="953" y="952" fill="#555" style="">cylinderID: Identifier</text>
+<text x="953" y="970" fill="#555" style="">boreDiameter: Distance</text>
+<text x="953" y="988" fill="#555" style="">fluidPressure: Pressure</text>
+<text x="953" y="1006" fill="#555" style="">fluidLevel: Ratio</text>
+<rect x="1230" y="904" width="229" height="136" fill="#00000010" rx="4"/>
+<rect x="1228" y="902" width="229" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1228" y="902" width="229" height="30" fill="#34698a" rx="4"/>
+<rect x="1228" y="928" width="229" height="4" fill="#34698a"/>
+<text x="1342.5" y="922" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BrakeDisc</text>
+<text x="1242" y="952" fill="#555" style="">discID: Identifier</text>
+<text x="1242" y="970" fill="#555" style="">diameter: Distance</text>
+<text x="1242" y="988" fill="#555" style="">thickness: Distance</text>
+<text x="1242" y="1006" fill="#555" style="">material: Kind</text>
+<text x="1242" y="1024" fill="#555" style="">surfaceTemperature: Temperature</text>
+<rect x="1545" y="904" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="1543" y="902" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1543" y="902" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1543" y="928" width="171" height="4" fill="#34698a"/>
+<text x="1628.5" y="922" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BrakePad</text>
+<text x="1557" y="952" fill="#555" style="">padID: Identifier</text>
+<text x="1557" y="970" fill="#555" style="">material: Kind</text>
+<text x="1557" y="988" fill="#555" style="">thickness: Distance</text>
+<text x="1557" y="1006" fill="#555" style="">condition: HealthState</text>
+<rect x="1814" y="904" width="164" height="100" fill="#00000010" rx="4"/>
+<rect x="1812" y="902" width="164" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1812" y="902" width="164" height="30" fill="#34698a" rx="4"/>
+<rect x="1812" y="928" width="164" height="4" fill="#34698a"/>
+<text x="1894.0" y="922" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BrakeCaliper</text>
+<text x="1826" y="952" fill="#555" style="">caliperID: Identifier</text>
+<text x="1826" y="970" fill="#555" style="">pistonCount: Count</text>
+<text x="1826" y="988" fill="#555" style="">clampingForce: Force</text>
+<rect x="2109" y="904" width="236" height="136" fill="#00000010" rx="4"/>
+<rect x="2107" y="902" width="236" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2107" y="902" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="2107" y="928" width="236" height="4" fill="#34698a"/>
+<text x="2225.0" y="922" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Wheel</text>
+<text x="2121" y="952" fill="#555" style="">wheelID: Identifier</text>
+<text x="2121" y="970" fill="#555" style="">wheelPosition: Position</text>
+<text x="2121" y="988" fill="#555" style="">rotationalSpeed: AngularVelocity</text>
+<text x="2121" y="1006" fill="#4a6fa5" style="font-weight: bold;">rim: Rim</text>
+<text x="2121" y="1024" fill="#4a6fa5" style="font-weight: bold;">tire: Tire</text>
+<rect x="2385" y="904" width="160" height="118" fill="#00000010" rx="4"/>
+<rect x="2383" y="902" width="160" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2383" y="902" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="2383" y="928" width="160" height="4" fill="#34698a"/>
+<text x="2463.0" y="922" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Rim</text>
+<text x="2397" y="952" fill="#555" style="">rimID: Identifier</text>
+<text x="2397" y="970" fill="#555" style="">diameter: Distance</text>
+<text x="2397" y="988" fill="#555" style="">width: Distance</text>
+<text x="2397" y="1006" fill="#555" style="">material: Kind</text>
+<rect x="2693" y="904" width="184" height="154" fill="#00000010" rx="4"/>
+<rect x="2691" y="902" width="184" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2691" y="902" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="2691" y="928" width="184" height="4" fill="#34698a"/>
+<text x="2783.0" y="922" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Tire</text>
+<text x="2705" y="952" fill="#555" style="">tireID: Identifier</text>
+<text x="2705" y="970" fill="#555" style="">tireSize: Kind</text>
+<text x="2705" y="988" fill="#555" style="">treadDepth: Distance</text>
+<text x="2705" y="1006" fill="#555" style="">inflation: Pressure</text>
+<text x="2705" y="1024" fill="#555" style="">temperature: Temperature</text>
+<text x="2705" y="1042" fill="#555" style="">condition: HealthState</text>
+<rect x="2995" y="904" width="197" height="172" fill="#00000010" rx="4"/>
+<rect x="2993" y="902" width="197" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2993" y="902" width="197" height="30" fill="#34698a" rx="4"/>
+<rect x="2993" y="928" width="197" height="4" fill="#34698a"/>
+<text x="3091.5" y="922" text-anchor="middle" fill="white" font-weight="bold" font-size="12">FuelSystem</text>
+<text x="3007" y="952" fill="#555" style="">fuelSystemID: Identifier</text>
+<text x="3007" y="970" fill="#555" style="">fuelType: Kind</text>
+<text x="3007" y="988" fill="#4a6fa5" style="font-weight: bold;">fuelTank: FuelTank</text>
+<text x="3007" y="1006" fill="#4a6fa5" style="font-weight: bold;">fuelPump: FuelPump</text>
+<text x="3007" y="1024" fill="#4a6fa5" style="font-weight: bold;">fuelInjector: FuelInjector</text>
+<text x="3007" y="1042" fill="#4a6fa5" style="font-weight: bold;">fuelFilter: FuelFilter</text>
+<text x="3007" y="1060" fill="#4a6fa5" style="font-weight: bold;">fuelLine: FuelLine</text>
+<rect x="3271" y="904" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="3269" y="902" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3269" y="902" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="3269" y="928" width="171" height="4" fill="#34698a"/>
+<text x="3354.5" y="922" text-anchor="middle" fill="white" font-weight="bold" font-size="12">FuelTank</text>
+<text x="3283" y="952" fill="#555" style="">tankID: Identifier</text>
+<text x="3283" y="970" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="3283" y="988" fill="#555" style="">currentLevel: Ratio</text>
+<text x="3283" y="1006" fill="#555" style="">material: Kind</text>
+<rect x="62" y="1106" width="184" height="118" fill="#00000010" rx="4"/>
+<rect x="60" y="1104" width="184" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="1104" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="1130" width="184" height="4" fill="#34698a"/>
+<text x="152.0" y="1124" text-anchor="middle" fill="white" font-weight="bold" font-size="12">FuelPump</text>
+<text x="74" y="1154" fill="#555" style="">pumpID: Identifier</text>
+<text x="74" y="1172" fill="#555" style="">outputPressure: Pressure</text>
+<text x="74" y="1190" fill="#555" style="">flowRate: MassFlowRate</text>
+<text x="74" y="1208" fill="#555" style="">condition: HealthState</text>
+<rect x="357" y="1106" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="355" y="1104" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="355" y="1104" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="355" y="1130" width="171" height="4" fill="#34698a"/>
+<text x="440.5" y="1124" text-anchor="middle" fill="white" font-weight="bold" font-size="12">FuelInjector</text>
+<text x="369" y="1154" fill="#555" style="">injectorID: Identifier</text>
+<text x="369" y="1172" fill="#555" style="">sprayPattern: Kind</text>
+<text x="369" y="1190" fill="#555" style="">flowRate: MassFlowRate</text>
+<text x="369" y="1208" fill="#555" style="">pulseWidth: Duration</text>
+<rect x="652" y="1106" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="650" y="1104" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="650" y="1104" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="650" y="1130" width="171" height="4" fill="#34698a"/>
+<text x="735.5" y="1124" text-anchor="middle" fill="white" font-weight="bold" font-size="12">FuelFilter</text>
+<text x="664" y="1154" fill="#555" style="">filterID: Identifier</text>
+<text x="664" y="1172" fill="#555" style="">filterSize: Distance</text>
+<text x="664" y="1190" fill="#555" style="">condition: HealthState</text>
+<rect x="941" y="1106" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="939" y="1104" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="939" y="1104" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="939" y="1130" width="171" height="4" fill="#34698a"/>
+<text x="1024.5" y="1124" text-anchor="middle" fill="white" font-weight="bold" font-size="12">FuelLine</text>
+<text x="953" y="1154" fill="#555" style="">lineID: Identifier</text>
+<text x="953" y="1172" fill="#555" style="">diameter: Distance</text>
+<text x="953" y="1190" fill="#555" style="">material: Kind</text>
+<text x="953" y="1208" fill="#555" style="">fuelPressure: Pressure</text>
+<rect x="1230" y="1106" width="275" height="136" fill="#00000010" rx="4"/>
+<rect x="1228" y="1104" width="275" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1228" y="1104" width="275" height="30" fill="#34698a" rx="4"/>
+<rect x="1228" y="1130" width="275" height="4" fill="#34698a"/>
+<text x="1365.5" y="1124" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ExhaustSystem</text>
+<text x="1242" y="1154" fill="#555" style="">exhaustID: Identifier</text>
+<text x="1242" y="1172" fill="#4a6fa5" style="font-weight: bold;">exhaustManifold: ExhaustManifold</text>
+<text x="1242" y="1190" fill="#4a6fa5" style="font-weight: bold;">catalyticConverter: CatalyticConverter</text>
+<text x="1242" y="1208" fill="#4a6fa5" style="font-weight: bold;">muffler: Muffler</text>
+<text x="1242" y="1226" fill="#4a6fa5" style="font-weight: bold;">exhaustPipe: ExhaustPipe</text>
+<rect x="1545" y="1106" width="203" height="118" fill="#00000010" rx="4"/>
+<rect x="1543" y="1104" width="203" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1543" y="1104" width="203" height="30" fill="#34698a" rx="4"/>
+<rect x="1543" y="1130" width="203" height="4" fill="#34698a"/>
+<text x="1644.5" y="1124" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ExhaustManifold</text>
+<text x="1557" y="1154" fill="#555" style="">manifoldID: Identifier</text>
+<text x="1557" y="1172" fill="#555" style="">material: Kind</text>
+<text x="1557" y="1190" fill="#555" style="">gasTemperature: Temperature</text>
+<text x="1557" y="1208" fill="#555" style="">portCount: Count</text>
+<rect x="1814" y="1106" width="242" height="118" fill="#00000010" rx="4"/>
+<rect x="1812" y="1104" width="242" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1812" y="1104" width="242" height="30" fill="#34698a" rx="4"/>
+<rect x="1812" y="1130" width="242" height="4" fill="#34698a"/>
+<text x="1933.0" y="1124" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CatalyticConverter</text>
+<text x="1826" y="1154" fill="#555" style="">converterID: Identifier</text>
+<text x="1826" y="1172" fill="#555" style="">converterType: Kind</text>
+<text x="1826" y="1190" fill="#555" style="">operatingTemperature: Temperature</text>
+<text x="1826" y="1208" fill="#555" style="">condition: HealthState</text>
+<rect x="2109" y="1106" width="210" height="100" fill="#00000010" rx="4"/>
+<rect x="2107" y="1104" width="210" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2107" y="1104" width="210" height="30" fill="#34698a" rx="4"/>
+<rect x="2107" y="1130" width="210" height="4" fill="#34698a"/>
+<text x="2212.0" y="1124" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Muffler</text>
+<text x="2121" y="1154" fill="#555" style="">mufflerID: Identifier</text>
+<text x="2121" y="1172" fill="#555" style="">mufflerType: Kind</text>
+<text x="2121" y="1190" fill="#555" style="">internalVolume: ScalarVolume</text>
+<rect x="2385" y="1106" width="160" height="118" fill="#00000010" rx="4"/>
+<rect x="2383" y="1104" width="160" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2383" y="1104" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="2383" y="1130" width="160" height="4" fill="#34698a"/>
+<text x="2463.0" y="1124" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ExhaustPipe</text>
+<text x="2397" y="1154" fill="#555" style="">pipeID: Identifier</text>
+<text x="2397" y="1172" fill="#555" style="">diameter: Distance</text>
+<text x="2397" y="1190" fill="#555" style="">length: Distance</text>
+<text x="2397" y="1208" fill="#555" style="">material: Kind</text>
+<rect x="2693" y="1106" width="249" height="172" fill="#00000010" rx="4"/>
+<rect x="2691" y="1104" width="249" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2691" y="1104" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2691" y="1130" width="249" height="4" fill="#34698a"/>
+<text x="2815.5" y="1124" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CoolingSystem</text>
+<text x="2705" y="1154" fill="#555" style="">coolingID: Identifier</text>
+<text x="2705" y="1172" fill="#555" style="">coolantTemperature: Temperature</text>
+<text x="2705" y="1190" fill="#4a6fa5" style="font-weight: bold;">radiator: Radiator</text>
+<text x="2705" y="1208" fill="#4a6fa5" style="font-weight: bold;">waterPump: WaterPump</text>
+<text x="2705" y="1226" fill="#4a6fa5" style="font-weight: bold;">thermostat: Thermostat</text>
+<text x="2705" y="1244" fill="#4a6fa5" style="font-weight: bold;">coolantReservoir: CoolantReservoir</text>
+<text x="2705" y="1262" fill="#4a6fa5" style="font-weight: bold;">coolingFan: CoolingFan</text>
+<rect x="2995" y="1106" width="223" height="136" fill="#00000010" rx="4"/>
+<rect x="2993" y="1104" width="223" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2993" y="1104" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="2993" y="1130" width="223" height="4" fill="#34698a"/>
+<text x="3104.5" y="1124" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Radiator</text>
+<text x="3007" y="1154" fill="#555" style="">radiatorID: Identifier</text>
+<text x="3007" y="1172" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="3007" y="1190" fill="#555" style="">surfaceArea: ScalarArea</text>
+<text x="3007" y="1208" fill="#555" style="">inletTemperature: Temperature</text>
+<text x="3007" y="1226" fill="#555" style="">outletTemperature: Temperature</text>
+<rect x="3271" y="1106" width="236" height="118" fill="#00000010" rx="4"/>
+<rect x="3269" y="1104" width="236" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3269" y="1104" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="3269" y="1130" width="236" height="4" fill="#34698a"/>
+<text x="3387.0" y="1124" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WaterPump</text>
+<text x="3283" y="1154" fill="#555" style="">pumpID: Identifier</text>
+<text x="3283" y="1172" fill="#555" style="">flowRate: MassFlowRate</text>
+<text x="3283" y="1190" fill="#555" style="">rotationalSpeed: AngularVelocity</text>
+<text x="3283" y="1208" fill="#555" style="">condition: HealthState</text>
+<rect x="62" y="1308" width="229" height="100" fill="#00000010" rx="4"/>
+<rect x="60" y="1306" width="229" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="1306" width="229" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="1332" width="229" height="4" fill="#34698a"/>
+<text x="174.5" y="1326" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Thermostat</text>
+<text x="74" y="1356" fill="#555" style="">thermostatID: Identifier</text>
+<text x="74" y="1374" fill="#555" style="">openingTemperature: Temperature</text>
+<text x="74" y="1392" fill="#555" style="">state: ConfigurationState</text>
+<rect x="357" y="1308" width="177" height="100" fill="#00000010" rx="4"/>
+<rect x="355" y="1306" width="177" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="355" y="1306" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="355" y="1332" width="177" height="4" fill="#34698a"/>
+<text x="443.5" y="1326" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CoolantReservoir</text>
+<text x="369" y="1356" fill="#555" style="">reservoirID: Identifier</text>
+<text x="369" y="1374" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="369" y="1392" fill="#555" style="">currentLevel: Ratio</text>
+<rect x="652" y="1308" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="650" y="1306" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="650" y="1306" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="650" y="1332" width="249" height="4" fill="#34698a"/>
+<text x="774.5" y="1326" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CoolingFan</text>
+<text x="664" y="1356" fill="#555" style="">fanID: Identifier</text>
+<text x="664" y="1374" fill="#555" style="">fanSpeed: AngularVelocity</text>
+<text x="664" y="1392" fill="#555" style="">powerConsumption: Power</text>
+<text x="664" y="1410" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="941" y="1308" width="216" height="190" fill="#00000010" rx="4"/>
+<rect x="939" y="1306" width="216" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="939" y="1306" width="216" height="30" fill="#34698a" rx="4"/>
+<rect x="939" y="1332" width="216" height="4" fill="#34698a"/>
+<text x="1047.0" y="1326" text-anchor="middle" fill="white" font-weight="bold" font-size="12">HVACSystem</text>
+<text x="953" y="1356" fill="#555" style="">hvacID: Identifier</text>
+<text x="953" y="1374" fill="#555" style="">cabinTemperature: Temperature</text>
+<text x="953" y="1392" fill="#555" style="">cabinHumidity: Humidity</text>
+<text x="953" y="1410" fill="#4a6fa5" style="font-weight: bold;">compressor: ACCompressor</text>
+<text x="953" y="1428" fill="#4a6fa5" style="font-weight: bold;">condenser: Condenser</text>
+<text x="953" y="1446" fill="#4a6fa5" style="font-weight: bold;">evaporator: Evaporator</text>
+<text x="953" y="1464" fill="#4a6fa5" style="font-weight: bold;">blowerMotor: BlowerMotor</text>
+<text x="953" y="1482" fill="#4a6fa5" style="font-weight: bold;">heaterCore: HeaterCore</text>
+<rect x="1230" y="1308" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="1228" y="1306" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1228" y="1306" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1228" y="1332" width="249" height="4" fill="#34698a"/>
+<text x="1352.5" y="1326" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ACCompressor</text>
+<text x="1242" y="1356" fill="#555" style="">compressorID: Identifier</text>
+<text x="1242" y="1374" fill="#555" style="">refrigerantPressure: Pressure</text>
+<text x="1242" y="1392" fill="#555" style="">powerConsumption: Power</text>
+<text x="1242" y="1410" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="1545" y="1308" width="223" height="118" fill="#00000010" rx="4"/>
+<rect x="1543" y="1306" width="223" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1543" y="1306" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="1543" y="1332" width="223" height="4" fill="#34698a"/>
+<text x="1654.5" y="1326" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Condenser</text>
+<text x="1557" y="1356" fill="#555" style="">condenserID: Identifier</text>
+<text x="1557" y="1374" fill="#555" style="">surfaceArea: ScalarArea</text>
+<text x="1557" y="1392" fill="#555" style="">inletTemperature: Temperature</text>
+<text x="1557" y="1410" fill="#555" style="">outletTemperature: Temperature</text>
+<rect x="1814" y="1308" width="184" height="100" fill="#00000010" rx="4"/>
+<rect x="1812" y="1306" width="184" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1812" y="1306" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="1812" y="1332" width="184" height="4" fill="#34698a"/>
+<text x="1904.0" y="1326" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Evaporator</text>
+<text x="1826" y="1356" fill="#555" style="">evaporatorID: Identifier</text>
+<text x="1826" y="1374" fill="#555" style="">surfaceArea: ScalarArea</text>
+<text x="1826" y="1392" fill="#555" style="">temperature: Temperature</text>
+<rect x="2109" y="1308" width="236" height="118" fill="#00000010" rx="4"/>
+<rect x="2107" y="1306" width="236" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2107" y="1306" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="2107" y="1332" width="236" height="4" fill="#34698a"/>
+<text x="2225.0" y="1326" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BlowerMotor</text>
+<text x="2121" y="1356" fill="#555" style="">blowerID: Identifier</text>
+<text x="2121" y="1374" fill="#555" style="">fanSpeed: AngularVelocity</text>
+<text x="2121" y="1392" fill="#555" style="">powerConsumption: Power</text>
+<text x="2121" y="1410" fill="#555" style="">speedSetting: ConfigurationState</text>
+<rect x="2385" y="1308" width="223" height="118" fill="#00000010" rx="4"/>
+<rect x="2383" y="1306" width="223" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2383" y="1306" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="2383" y="1332" width="223" height="4" fill="#34698a"/>
+<text x="2494.5" y="1326" text-anchor="middle" fill="white" font-weight="bold" font-size="12">HeaterCore</text>
+<text x="2397" y="1356" fill="#555" style="">coreID: Identifier</text>
+<text x="2397" y="1374" fill="#555" style="">inletTemperature: Temperature</text>
+<text x="2397" y="1392" fill="#555" style="">outletTemperature: Temperature</text>
+<text x="2397" y="1410" fill="#555" style="">surfaceArea: ScalarArea</text>
+<rect x="2693" y="1308" width="171" height="226" fill="#00000010" rx="4"/>
+<rect x="2691" y="1306" width="171" height="226" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2691" y="1306" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2691" y="1332" width="171" height="4" fill="#34698a"/>
+<text x="2776.5" y="1326" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BodyStructure</text>
+<text x="2705" y="1356" fill="#555" style="">bodyID: Identifier</text>
+<text x="2705" y="1374" fill="#555" style="">bodyType: Kind</text>
+<text x="2705" y="1392" fill="#555" style="">material: Kind</text>
+<text x="2705" y="1410" fill="#4a6fa5" style="font-weight: bold;">door: Door</text>
+<text x="2705" y="1428" fill="#4a6fa5" style="font-weight: bold;">windshield: Windshield</text>
+<text x="2705" y="1446" fill="#4a6fa5" style="font-weight: bold;">sideWindow: SideWindow</text>
+<text x="2705" y="1464" fill="#4a6fa5" style="font-weight: bold;">mirror: Mirror</text>
+<text x="2705" y="1482" fill="#4a6fa5" style="font-weight: bold;">headlight: Headlight</text>
+<text x="2705" y="1500" fill="#4a6fa5" style="font-weight: bold;">taillight: Taillight</text>
+<text x="2705" y="1518" fill="#4a6fa5" style="font-weight: bold;">seat: Seat</text>
+<rect x="2995" y="1308" width="190" height="118" fill="#00000010" rx="4"/>
+<rect x="2993" y="1306" width="190" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2993" y="1306" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="2993" y="1332" width="190" height="4" fill="#34698a"/>
+<text x="3088.0" y="1326" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Door</text>
+<text x="3007" y="1356" fill="#555" style="">doorID: Identifier</text>
+<text x="3007" y="1374" fill="#555" style="">doorPosition: Kind</text>
+<text x="3007" y="1392" fill="#555" style="">state: ConfigurationState</text>
+<text x="3007" y="1410" fill="#555" style="">material: Kind</text>
+<rect x="3271" y="1308" width="184" height="100" fill="#00000010" rx="4"/>
+<rect x="3269" y="1306" width="184" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3269" y="1306" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="3269" y="1332" width="184" height="4" fill="#34698a"/>
+<text x="3361.0" y="1326" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Windshield</text>
+<text x="3283" y="1356" fill="#555" style="">windshieldID: Identifier</text>
+<text x="3283" y="1374" fill="#555" style="">material: Kind</text>
+<text x="3283" y="1392" fill="#555" style="">area: ScalarArea</text>
+<rect x="62" y="1564" width="190" height="100" fill="#00000010" rx="4"/>
+<rect x="60" y="1562" width="190" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="1562" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="1588" width="190" height="4" fill="#34698a"/>
+<text x="155.0" y="1582" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SideWindow</text>
+<text x="74" y="1612" fill="#555" style="">windowID: Identifier</text>
+<text x="74" y="1630" fill="#555" style="">windowPosition: Kind</text>
+<text x="74" y="1648" fill="#555" style="">state: ConfigurationState</text>
+<rect x="357" y="1564" width="184" height="100" fill="#00000010" rx="4"/>
+<rect x="355" y="1562" width="184" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="355" y="1562" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="355" y="1588" width="184" height="4" fill="#34698a"/>
+<text x="447.0" y="1582" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Mirror</text>
+<text x="369" y="1612" fill="#555" style="">mirrorID: Identifier</text>
+<text x="369" y="1630" fill="#555" style="">mirrorType: Kind</text>
+<text x="369" y="1648" fill="#555" style="">orientation: Orientation</text>
+<rect x="652" y="1564" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="650" y="1562" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="650" y="1562" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="650" y="1588" width="249" height="4" fill="#34698a"/>
+<text x="774.5" y="1582" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Headlight</text>
+<text x="664" y="1612" fill="#555" style="">headlightID: Identifier</text>
+<text x="664" y="1630" fill="#555" style="">lightType: Kind</text>
+<text x="664" y="1648" fill="#555" style="">luminousIntensity: Illuminance</text>
+<text x="664" y="1666" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="941" y="1564" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="939" y="1562" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="939" y="1562" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="939" y="1588" width="249" height="4" fill="#34698a"/>
+<text x="1063.5" y="1582" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Taillight</text>
+<text x="953" y="1612" fill="#555" style="">taillightID: Identifier</text>
+<text x="953" y="1630" fill="#555" style="">lightType: Kind</text>
+<text x="953" y="1648" fill="#555" style="">luminousIntensity: Illuminance</text>
+<text x="953" y="1666" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="1230" y="1564" width="236" height="136" fill="#00000010" rx="4"/>
+<rect x="1228" y="1562" width="236" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1228" y="1562" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="1228" y="1588" width="236" height="4" fill="#34698a"/>
+<text x="1346.0" y="1582" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Seat</text>
+<text x="1242" y="1612" fill="#555" style="">seatID: Identifier</text>
+<text x="1242" y="1630" fill="#555" style="">seatPosition: Kind</text>
+<text x="1242" y="1648" fill="#555" style="">material: Kind</text>
+<text x="1242" y="1666" fill="#555" style="">heatingState: ConfigurationState</text>
+<text x="1242" y="1684" fill="#555" style="">reclineAngle: Angle</text>
+<rect x="1545" y="1564" width="223" height="122" fill="#00000010" rx="10"/>
+<rect x="1543" y="1562" width="223" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1543" y="1562" width="223" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1543" y="1586" width="223" height="6" fill="#8b5e3c"/>
+<text x="1654.5" y="1582" text-anchor="middle" fill="white" font-weight="bold" font-size="11">EngineToTransmissionCoupling</text>
+<text x="1557" y="1612" fill="#555">transmittedTorque: Torque</text>
+<text x="1557" y="1630" fill="#555">couplingEfficiency: Efficiency</text>
+<line x1="1551" y1="1642" x2="1758" y2="1642" stroke="#ccc" stroke-width="0.5"/>
+<text x="1557" y="1654" fill="#c05746" font-weight="bold">→ Engine</text>
+<text x="1557" y="1672" fill="#c05746" font-weight="bold">→ Transmission</text>
+<rect x="1814" y="1564" width="210" height="122" fill="#00000010" rx="10"/>
+<rect x="1812" y="1562" width="210" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1812" y="1562" width="210" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1812" y="1586" width="210" height="6" fill="#8b5e3c"/>
+<text x="1917.0" y="1582" text-anchor="middle" fill="white" font-weight="bold" font-size="11">TransmissionToDriveshaftLink</text>
+<text x="1826" y="1612" fill="#555">outputTorque: Torque</text>
+<text x="1826" y="1630" fill="#555">outputSpeed: AngularVelocity</text>
+<line x1="1820" y1="1642" x2="2014" y2="1642" stroke="#ccc" stroke-width="0.5"/>
+<text x="1826" y="1654" fill="#c05746" font-weight="bold">→ Transmission</text>
+<text x="1826" y="1672" fill="#c05746" font-weight="bold">→ Driveshaft</text>
+<rect x="2109" y="1564" width="210" height="104" fill="#00000010" rx="10"/>
+<rect x="2107" y="1562" width="210" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2107" y="1562" width="210" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2107" y="1586" width="210" height="6" fill="#8b5e3c"/>
+<text x="2212.0" y="1582" text-anchor="middle" fill="white" font-weight="bold" font-size="11">DriveshaftToDifferentialLink</text>
+<text x="2121" y="1612" fill="#555">transmittedTorque: Torque</text>
+<line x1="2115" y1="1624" x2="2309" y2="1624" stroke="#ccc" stroke-width="0.5"/>
+<text x="2121" y="1636" fill="#c05746" font-weight="bold">→ Driveshaft</text>
+<text x="2121" y="1654" fill="#c05746" font-weight="bold">→ Differential</text>
+<rect x="2385" y="1564" width="171" height="122" fill="#00000010" rx="10"/>
+<rect x="2383" y="1562" width="171" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2383" y="1562" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2383" y="1586" width="171" height="6" fill="#8b5e3c"/>
+<text x="2468.5" y="1582" text-anchor="middle" fill="white" font-weight="bold" font-size="11">DifferentialToAxleLink</text>
+<text x="2397" y="1612" fill="#555">splitRatio: Ratio</text>
+<text x="2397" y="1630" fill="#555">axleTorque: Torque</text>
+<line x1="2391" y1="1642" x2="2546" y2="1642" stroke="#ccc" stroke-width="0.5"/>
+<text x="2397" y="1654" fill="#c05746" font-weight="bold">→ Differential</text>
+<text x="2397" y="1672" fill="#c05746" font-weight="bold">→ Axle</text>
+<rect x="2693" y="1564" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="2691" y="1562" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2691" y="1562" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2691" y="1586" width="160" height="6" fill="#8b5e3c"/>
+<text x="2771.0" y="1582" text-anchor="middle" fill="white" font-weight="bold" font-size="11">AxleToWheelMount</text>
+<text x="2705" y="1612" fill="#555">wheelTorque: Torque</text>
+<line x1="2699" y1="1624" x2="2843" y2="1624" stroke="#ccc" stroke-width="0.5"/>
+<text x="2705" y="1636" fill="#c05746" font-weight="bold">→ Axle</text>
+<text x="2705" y="1654" fill="#c05746" font-weight="bold">→ Wheel</text>
+<rect x="2995" y="1564" width="203" height="140" fill="#00000010" rx="10"/>
+<rect x="2993" y="1562" width="203" height="140" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2993" y="1562" width="203" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2993" y="1586" width="203" height="6" fill="#8b5e3c"/>
+<text x="3094.5" y="1582" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SuspensionToWheelAttachment</text>
+<text x="3007" y="1612" fill="#555">verticalLoad: Force</text>
+<text x="3007" y="1630" fill="#555">camberAngle: Angle</text>
+<text x="3007" y="1648" fill="#555">toeAngle: Angle</text>
+<line x1="3001" y1="1660" x2="3188" y2="1660" stroke="#ccc" stroke-width="0.5"/>
+<text x="3007" y="1672" fill="#c05746" font-weight="bold">→ Suspension</text>
+<text x="3007" y="1690" fill="#c05746" font-weight="bold">→ Wheel</text>
+<rect x="3271" y="1564" width="164" height="104" fill="#00000010" rx="10"/>
+<rect x="3269" y="1562" width="164" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3269" y="1562" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3269" y="1586" width="164" height="6" fill="#8b5e3c"/>
+<text x="3351.0" y="1582" text-anchor="middle" fill="white" font-weight="bold" font-size="11">BrakeDiscToWheelMount</text>
+<text x="3283" y="1612" fill="#555">brakingForce: Force</text>
+<line x1="3277" y1="1624" x2="3425" y2="1624" stroke="#ccc" stroke-width="0.5"/>
+<text x="3283" y="1636" fill="#c05746" font-weight="bold">→ BrakeDisc</text>
+<text x="3283" y="1654" fill="#c05746" font-weight="bold">→ Wheel</text>
+<rect x="62" y="1734" width="223" height="122" fill="#00000010" rx="10"/>
+<rect x="60" y="1732" width="223" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1732" width="223" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1756" width="223" height="6" fill="#8b5e3c"/>
+<text x="171.5" y="1752" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CoolingSystemToEngineInterface</text>
+<text x="74" y="1782" fill="#555">heatRejected: Power</text>
+<text x="74" y="1800" fill="#555">coolantFlowRate: MassFlowRate</text>
+<line x1="68" y1="1812" x2="275" y2="1812" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1824" fill="#c05746" font-weight="bold">→ CoolingSystem</text>
+<text x="74" y="1842" fill="#c05746" font-weight="bold">→ Engine</text>
+<rect x="357" y="1734" width="197" height="122" fill="#00000010" rx="10"/>
+<rect x="355" y="1732" width="197" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="355" y="1732" width="197" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="355" y="1756" width="197" height="6" fill="#8b5e3c"/>
+<text x="453.5" y="1752" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FuelSystemToEngineSupply</text>
+<text x="369" y="1782" fill="#555">fuelFlowRate: MassFlowRate</text>
+<text x="369" y="1800" fill="#555">fuelPressure: Pressure</text>
+<line x1="363" y1="1812" x2="544" y2="1812" stroke="#ccc" stroke-width="0.5"/>
+<text x="369" y="1824" fill="#c05746" font-weight="bold">→ FuelSystem</text>
+<text x="369" y="1842" fill="#c05746" font-weight="bold">→ Engine</text>
+<rect x="652" y="1734" width="249" height="122" fill="#00000010" rx="10"/>
+<rect x="650" y="1732" width="249" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="650" y="1732" width="249" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="650" y="1756" width="249" height="6" fill="#8b5e3c"/>
+<text x="774.5" y="1752" text-anchor="middle" fill="white" font-weight="bold" font-size="11">EngineToExhaustConnection</text>
+<text x="664" y="1782" fill="#555">exhaustGasTemperature: Temperature</text>
+<text x="664" y="1800" fill="#555">exhaustFlowRate: MassFlowRate</text>
+<line x1="658" y1="1812" x2="891" y2="1812" stroke="#ccc" stroke-width="0.5"/>
+<text x="664" y="1824" fill="#c05746" font-weight="bold">→ Engine</text>
+<text x="664" y="1842" fill="#c05746" font-weight="bold">→ ExhaustSystem</text>
+<rect x="941" y="1734" width="184" height="122" fill="#00000010" rx="10"/>
+<rect x="939" y="1732" width="184" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="939" y="1732" width="184" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="939" y="1756" width="184" height="6" fill="#8b5e3c"/>
+<text x="1031.0" y="1752" text-anchor="middle" fill="white" font-weight="bold" font-size="11">AlternatorToEngineDriver</text>
+<text x="953" y="1782" fill="#555">beltTension: Force</text>
+<text x="953" y="1800" fill="#555">driveRatio: Ratio</text>
+<line x1="947" y1="1812" x2="1115" y2="1812" stroke="#ccc" stroke-width="0.5"/>
+<text x="953" y="1824" fill="#c05746" font-weight="bold">→ Engine</text>
+<text x="953" y="1842" fill="#c05746" font-weight="bold">→ Alternator</text>
+<rect x="1230" y="1734" width="249" height="122" fill="#00000010" rx="10"/>
+<rect x="1228" y="1732" width="249" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1228" y="1732" width="249" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1228" y="1756" width="249" height="6" fill="#8b5e3c"/>
+<text x="1352.5" y="1752" text-anchor="middle" fill="white" font-weight="bold" font-size="11">BatteryToStarterMotorPower</text>
+<text x="1242" y="1782" fill="#555">suppliedCurrent: ElectricCurrent</text>
+<text x="1242" y="1800" fill="#555">suppliedVoltage: ElectricPotential</text>
+<line x1="1236" y1="1812" x2="1469" y2="1812" stroke="#ccc" stroke-width="0.5"/>
+<text x="1242" y="1824" fill="#c05746" font-weight="bold">→ Battery</text>
+<text x="1242" y="1842" fill="#c05746" font-weight="bold">→ StarterMotor</text>
+<rect x="1545" y="1734" width="210" height="104" fill="#00000010" rx="10"/>
+<rect x="1543" y="1732" width="210" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1543" y="1732" width="210" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1543" y="1756" width="210" height="6" fill="#8b5e3c"/>
+<text x="1648.0" y="1752" text-anchor="middle" fill="white" font-weight="bold" font-size="11">StarterMotorToEngineCranking</text>
+<text x="1557" y="1782" fill="#555">crankingTorque: Torque</text>
+<line x1="1551" y1="1794" x2="1745" y2="1794" stroke="#ccc" stroke-width="0.5"/>
+<text x="1557" y="1806" fill="#c05746" font-weight="bold">→ StarterMotor</text>
+<text x="1557" y="1824" fill="#c05746" font-weight="bold">→ Engine</text>
+<rect x="1814" y="1734" width="197" height="122" fill="#00000010" rx="10"/>
+<rect x="1812" y="1732" width="197" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1812" y="1732" width="197" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1812" y="1756" width="197" height="6" fill="#8b5e3c"/>
+<text x="1910.5" y="1752" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SteeringRackToWheelLinkage</text>
+<text x="1826" y="1782" fill="#555">steeringAngle: Angle</text>
+<text x="1826" y="1800" fill="#555">steeringForce: Force</text>
+<line x1="1820" y1="1812" x2="2001" y2="1812" stroke="#ccc" stroke-width="0.5"/>
+<text x="1826" y="1824" fill="#c05746" font-weight="bold">→ SteeringRack</text>
+<text x="1826" y="1842" fill="#c05746" font-weight="bold">→ Wheel</text>
+<rect x="2109" y="1734" width="197" height="140" fill="#00000010" rx="10"/>
+<rect x="2107" y="1732" width="197" height="140" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2107" y="1732" width="197" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2107" y="1756" width="197" height="6" fill="#8b5e3c"/>
+<text x="2205.5" y="1752" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CaliperToPadToDiscClamping</text>
+<text x="2121" y="1782" fill="#555">clampingForce: Force</text>
+<text x="2121" y="1800" fill="#555">frictionCoefficient: Ratio</text>
+<line x1="2115" y1="1812" x2="2296" y2="1812" stroke="#ccc" stroke-width="0.5"/>
+<text x="2121" y="1824" fill="#c05746" font-weight="bold">→ BrakeCaliper</text>
+<text x="2121" y="1842" fill="#c05746" font-weight="bold">→ BrakePad</text>
+<text x="2121" y="1860" fill="#c05746" font-weight="bold">→ BrakeDisc</text>
+<rect x="2385" y="1734" width="216" height="122" fill="#00000010" rx="10"/>
+<rect x="2383" y="1732" width="216" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2383" y="1732" width="216" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2383" y="1756" width="216" height="6" fill="#8b5e3c"/>
+<text x="2491.0" y="1752" text-anchor="middle" fill="white" font-weight="bold" font-size="11">HeaterCoreToCoolingSystemTap</text>
+<text x="2397" y="1782" fill="#555">coolantFlowRate: MassFlowRate</text>
+<text x="2397" y="1800" fill="#555">heatTransferred: Power</text>
+<line x1="2391" y1="1812" x2="2591" y2="1812" stroke="#ccc" stroke-width="0.5"/>
+<text x="2397" y="1824" fill="#c05746" font-weight="bold">→ HeaterCore</text>
+<text x="2397" y="1842" fill="#c05746" font-weight="bold">→ CoolingSystem</text>
+</svg>

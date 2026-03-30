@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rdf:RDF xmlns='http://knowledgeweb.semanticweb.org/heterogeneity/alignment'
+	 xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' 
+	 xmlns:xsd='http://www.w3.org/2001/XMLSchema#' 
+	 alignmentSource='AgreementMakerLight'>
+
+<Alignment>
+	<xml>yes</xml>
+	<level>0</level>
+	<type>11</type>
+	<onto1>http://example.org/concept_instances/Coffee_Environment_Service_Setting_and_Interaction_Model</onto1>
+	<onto2>http://example.org/concept_instances/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model</onto2>
+	<uri1>http://example.org/concept_instances/Coffee_Environment_Service_Setting_and_Interaction_Model</uri1>
+	<uri2>http://example.org/concept_instances/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model</uri2>
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Coffee_Environment_Service_Setting_and_Interaction_Model/Coffee_Environment_Service_Setting_and_Interaction_Model_obs_ScalarVolume"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model_obs_ScalarVolume"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.63</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Coffee_Environment_Service_Setting_and_Interaction_Model/Coffee_Environment_Service_Setting_and_Interaction_Model_attr_AccessoryRole_accessoryOperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model/Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model_attr_BrewAccessorySet_accessoryOperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6104</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+</Alignment>
+</rdf:RDF>

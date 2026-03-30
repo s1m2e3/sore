@@ -1,0 +1,1164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3842 1798" width="3842" height="1798" style="font-family: Consolas, Monaco, monospace; font-size: 11px;">
+<defs>
+  <marker id="arrowComp" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#4a6fa5"/>
+  </marker>
+  <marker id="arrowAssoc" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#c05746"/>
+  </marker>
+  <marker id="diamond" markerWidth="12" markerHeight="8" refX="0" refY="4" orient="auto">
+    <polygon points="0 4, 6 0, 12 4, 6 8" fill="#4a6fa5"/>
+  </marker>
+</defs>
+<rect width="3842" height="1798" fill="#fafafa" rx="4"/>
+<text x="1921.0" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">University_Model_V2_ResourceCentric</text>
+<text x="1921.0" y="50" text-anchor="middle" font-size="10" fill="#7f8c8d" style="font-family: sans-serif;">Resource-centric decomposition of a university system. Every person, physical space, piece of equipment, technology asse</text>
+<rect x="3542" y="10" width="280" height="55" fill="white" stroke="#ddd" rx="4"/>
+<rect x="3552" y="20" width="14" height="14" fill="#34698a" rx="2"/>
+<text x="3572" y="32" font-size="10" fill="#333" style="font-family: sans-serif;">Entity</text>
+<rect x="3642" y="20" width="14" height="14" fill="#8b5e3c" rx="6"/>
+<text x="3662" y="32" font-size="10" fill="#333" style="font-family: sans-serif;">Association</text>
+<line x1="3552" y1="48" x2="3582" y2="48" stroke="#4a6fa5" stroke-width="1.5" marker-start="url(#diamond)"/>
+<text x="3590" y="52" font-size="10" fill="#333" style="font-family: sans-serif;">Composition</text>
+<line x1="3682" y1="48" x2="3712" y2="48" stroke="#c05746" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)"/>
+<text x="3720" y="52" font-size="10" fill="#333" style="font-family: sans-serif;">Association Link</text>
+<line x1="154.4" y1="978.0" x2="427.3" y2="162.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="141.1" y1="978.0" x2="159.6" y2="234.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="444.9" y1="978.0" x2="740.0" y2="180.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="429.6" y1="978.0" x2="440.5" y2="162.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="754.6" y1="978.0" x2="1051.3" y2="252.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="738.0" y1="978.0" x2="757.3" y2="180.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1066.0" y1="978.0" x2="1308.0" y2="234.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1037.8" y1="978.0" x2="775.0" y2="180.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1323.6" y1="978.0" x2="1332.1" y2="234.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1308.8" y1="978.0" x2="1110.0" y2="252.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1593.5" y1="978.0" x2="1357.4" y2="234.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1593.5" y1="978.0" x2="1357.4" y2="234.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1885.8" y1="978.0" x2="1679.2" y2="306.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1870.8" y1="978.0" x2="1383.4" y2="234.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2159.8" y1="978.0" x2="1718.7" y2="306.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2174.2" y1="978.0" x2="1929.3" y2="216.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2467.4" y1="978.0" x2="2263.3" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2397.0" y1="992.4" x2="853.5" y2="180.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2735.1" y1="978.0" x2="2298.3" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2698.2" y1="978.0" x2="1759.0" y2="278.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3069.5" y1="978.0" x2="3069.5" y2="198.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2981.0" y1="978.0" x2="1759.0" y2="260.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3267.8" y1="978.0" x2="3083.4" y2="198.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3238.8" y1="978.0" x2="2609.8" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3525.8" y1="978.0" x2="2633.0" y2="276.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3487.0" y1="993.8" x2="1201.0" y2="205.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="283.0" y1="1143.1" x2="2397.0" y2="234.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="261.5" y1="1130.0" x2="1530.0" y2="270.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="546.0" y1="1145.9" x2="3198.0" y2="175.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="546.0" y1="1134.5" x2="2397.0" y2="241.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="834.0" y1="1145.8" x2="3198.0" y2="179.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="823.0" y1="1130.0" x2="2108.0" y2="267.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1101.1" y1="1130.0" x2="1579.0" y2="306.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1008.5" y1="1130.0" x2="546.8" y2="508.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1352.2" y1="1130.0" x2="1609.3" y2="306.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1299.4" y1="1130.0" x2="848.7" y2="490.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1611.5" y1="1130.0" x2="1640.5" y2="306.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1578.9" y1="1130.0" x2="1116.2" y2="490.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1819.0" y1="1130.6" x2="617.0" y2="493.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1819.0" y1="1139.3" x2="257.0" y2="481.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2109.2" y1="1130.0" x2="932.0" y2="488.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2108.0" y1="1144.1" x2="257.0" y2="475.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2397.0" y1="1130.1" x2="1149.0" y2="460.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2397.0" y1="1147.7" x2="257.0" y2="471.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2686.0" y1="1157.7" x2="257.0" y2="468.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2815.4" y1="1130.0" x2="3526.7" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2981.0" y1="1146.6" x2="1490.0" y2="486.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2981.0" y1="1151.2" x2="1149.0" y2="447.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3198.0" y1="1135.1" x2="1740.0" y2="444.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3198.0" y1="1145.6" x2="1149.0" y2="443.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3487.0" y1="1135.9" x2="1996.0" y2="445.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3487.0" y1="1153.5" x2="617.0" y2="454.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="220.0" y1="1310.6" x2="2397.0" y2="429.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="156.0" y1="1300.0" x2="451.0" y2="508.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="509.0" y1="1300.0" x2="2108.0" y2="440.9" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="431.5" y1="1300.0" x2="478.0" y2="508.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="817.0" y1="1310.1" x2="2981.0" y2="421.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="725.1" y1="1300.0" x2="506.7" y2="508.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1136.0" y1="1309.1" x2="3198.0" y2="455.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1011.4" y1="1300.0" x2="257.0" y2="539.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1401.0" y1="1309.9" x2="3487.0" y2="446.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1265.6" y1="1300.0" x2="257.0" y2="516.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1530.0" y1="1304.7" x2="309.0" y2="719.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1540.9" y1="1300.0" x2="257.0" y2="501.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1819.0" y1="1303.7" x2="598.0" y2="703.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1819.0" y1="1301.5" x2="257.0" y2="491.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2132.1" y1="1300.0" x2="1456.5" y2="728.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2256.8" y1="1300.0" x2="3488.0" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2417.5" y1="1300.0" x2="1722.0" y2="692.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2527.6" y1="1300.0" x2="3513.2" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2753.0" y1="1300.0" x2="2549.0" y2="728.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2728.6" y1="1300.0" x2="2257.0" y2="728.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3040.8" y1="1300.0" x2="2564.0" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3022.4" y1="1300.0" x2="2580.9" y2="728.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3244.0" y1="1300.0" x2="2582.9" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3262.5" y1="1300.0" x2="3080.6" y2="692.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3537.8" y1="1300.0" x2="2610.3" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3487.0" y1="1330.1" x2="1451.0" y2="876.4" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="231.0" y1="1465.0" x2="2397.0" y2="250.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="229.3" y1="1452.0" x2="972.0" y2="911.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="509.0" y1="1453.4" x2="2397.0" y2="258.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="454.1" y1="1452.0" x2="706.2" y2="930.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="803.5" y1="1452.0" x2="2397.0" y2="271.4" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="834.0" y1="1463.2" x2="2397.0" y2="902.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1132.0" y1="1460.2" x2="2397.0" y2="910.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1130.2" y1="1452.0" x2="2108.0" y2="914.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1273.9" y1="1452.0" x2="800.6" y2="930.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1241.0" y1="1460.6" x2="250.0" y2="922.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1634.5" y1="1452.0" x2="2183.5" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1610.7" y1="1452.0" x2="1617.5" y2="948.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1879.7" y1="1452.0" x2="1653.1" y2="948.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1899.6" y1="1452.0" x2="1906.8" y2="894.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2197.9" y1="1452.0" x2="2229.7" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2173.7" y1="1452.0" x2="1929.4" y2="894.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2533.4" y1="1452.0" x2="3530.6" y2="692.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2517.8" y1="1452.0" x2="3222.0" y2="710.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2792.2" y1="1452.0" x2="3245.0" y2="710.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2793.8" y1="1452.0" x2="3547.2" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3041.7" y1="1452.0" x2="2815.6" y2="948.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3061.4" y1="1452.0" x2="3065.9" y2="930.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3281.6" y1="1452.0" x2="3318.5" y2="912.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3260.9" y1="1452.0" x2="3088.9" y2="930.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3542.7" y1="1452.0" x2="2854.0" y2="234.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3487.0" y1="1456.1" x2="860.0" y2="179.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="169.3" y1="1604.0" x2="738.5" y2="180.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="237.0" y1="1618.4" x2="3487.0" y2="238.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="509.0" y1="1626.8" x2="3487.0" y2="874.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="509.0" y1="1610.3" x2="3487.0" y2="242.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="817.0" y1="1607.9" x2="2692.7" y2="692.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="817.0" y1="1606.3" x2="3487.0" y2="248.8" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1132.0" y1="1606.7" x2="2981.0" y2="674.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1126.7" y1="1604.0" x2="2711.0" y2="692.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1347.8" y1="1604.0" x2="2167.7" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1279.6" y1="1604.0" x2="257.0" y2="542.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<rect x="62" y="82" width="203" height="154" fill="#00000010" rx="4"/>
+<rect x="60" y="80" width="203" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="80" width="203" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="106" width="203" height="4" fill="#34698a"/>
+<text x="161.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">University</text>
+<text x="74" y="130" fill="#555" style="">universityID: Identifier</text>
+<text x="74" y="148" fill="#555" style="">universityName: Description</text>
+<text x="74" y="166" fill="#555" style="">location: Position</text>
+<text x="74" y="184" fill="#555" style="">campusArea: ScalarArea</text>
+<text x="74" y="202" fill="#555" style="">foundingDate: CalendarTime</text>
+<text x="74" y="220" fill="#555" style="">accreditationStatus: Kind</text>
+<rect x="351" y="82" width="184" height="82" fill="#00000010" rx="4"/>
+<rect x="349" y="80" width="184" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="349" y="80" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="349" y="106" width="184" height="4" fill="#34698a"/>
+<text x="441.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">College</text>
+<text x="363" y="130" fill="#555" style="">collegeID: Identifier</text>
+<text x="363" y="148" fill="#555" style="">collegeName: Description</text>
+<rect x="659" y="82" width="203" height="100" fill="#00000010" rx="4"/>
+<rect x="657" y="80" width="203" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="657" y="80" width="203" height="30" fill="#34698a" rx="4"/>
+<rect x="657" y="106" width="203" height="4" fill="#34698a"/>
+<text x="758.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Department</text>
+<text x="671" y="130" fill="#555" style="">departmentID: Identifier</text>
+<text x="671" y="148" fill="#555" style="">departmentName: Description</text>
+<text x="671" y="166" fill="#555" style="">discipline: Kind</text>
+<rect x="974" y="82" width="229" height="172" fill="#00000010" rx="4"/>
+<rect x="972" y="80" width="229" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="972" y="80" width="229" height="30" fill="#34698a" rx="4"/>
+<rect x="972" y="106" width="229" height="4" fill="#34698a"/>
+<text x="1086.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AcademicProgram</text>
+<text x="986" y="130" fill="#555" style="">programID: Identifier</text>
+<text x="986" y="148" fill="#555" style="">programName: Description</text>
+<text x="986" y="166" fill="#555" style="">degreeLevel: Kind</text>
+<text x="986" y="184" fill="#555" style="">degreeType: Kind</text>
+<text x="986" y="202" fill="#555" style="">creditRequirement: Count</text>
+<text x="986" y="220" fill="#555" style="">accreditationStatus: Kind</text>
+<text x="986" y="238" fill="#555" style="">programStatus: OperationalState</text>
+<rect x="1243" y="82" width="184" height="154" fill="#00000010" rx="4"/>
+<rect x="1241" y="80" width="184" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1241" y="80" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="1241" y="106" width="184" height="4" fill="#34698a"/>
+<text x="1333.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Course</text>
+<text x="1255" y="130" fill="#555" style="">courseID: Identifier</text>
+<text x="1255" y="148" fill="#555" style="">courseTitle: Description</text>
+<text x="1255" y="166" fill="#555" style="">courseNumber: Identifier</text>
+<text x="1255" y="184" fill="#555" style="">creditHours: Count</text>
+<text x="1255" y="202" fill="#555" style="">courseLevel: Kind</text>
+<text x="1255" y="220" fill="#555" style="">deliveryMode: Kind</text>
+<rect x="1532" y="82" width="229" height="226" fill="#00000010" rx="4"/>
+<rect x="1530" y="80" width="229" height="226" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1530" y="80" width="229" height="30" fill="#34698a" rx="4"/>
+<rect x="1530" y="106" width="229" height="4" fill="#34698a"/>
+<text x="1644.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CourseSection</text>
+<text x="1544" y="130" fill="#555" style="">sectionID: Identifier</text>
+<text x="1544" y="148" fill="#555" style="">sectionNumber: Identifier</text>
+<text x="1544" y="166" fill="#555" style="">meetingDays: Kind</text>
+<text x="1544" y="184" fill="#555" style="">startTime: CalendarTime</text>
+<text x="1544" y="202" fill="#555" style="">endTime: CalendarTime</text>
+<text x="1544" y="220" fill="#555" style="">maxSeats: Count</text>
+<text x="1544" y="238" fill="#555" style="">enrolledCount: Count</text>
+<text x="1544" y="256" fill="#555" style="">waitlistCount: Count</text>
+<text x="1544" y="274" fill="#555" style="">deliveryMode: Kind</text>
+<text x="1544" y="292" fill="#555" style="">sectionStatus: OperationalState</text>
+<rect x="1821" y="82" width="177" height="136" fill="#00000010" rx="4"/>
+<rect x="1819" y="80" width="177" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1819" y="80" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="1819" y="106" width="177" height="4" fill="#34698a"/>
+<text x="1907.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AcademicTerm</text>
+<text x="1833" y="130" fill="#555" style="">termID: Identifier</text>
+<text x="1833" y="148" fill="#555" style="">termName: Description</text>
+<text x="1833" y="166" fill="#555" style="">termType: Kind</text>
+<text x="1833" y="184" fill="#555" style="">startDate: CalendarTime</text>
+<text x="1833" y="202" fill="#555" style="">endDate: CalendarTime</text>
+<rect x="2110" y="82" width="249" height="208" fill="#00000010" rx="4"/>
+<rect x="2108" y="80" width="249" height="208" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2108" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2108" y="106" width="249" height="4" fill="#34698a"/>
+<text x="2232.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">FacultyMember</text>
+<text x="2122" y="130" fill="#555" style="">facultyID: Identifier</text>
+<text x="2122" y="148" fill="#555" style="">name: Description</text>
+<text x="2122" y="166" fill="#555" style="">rank: Kind</text>
+<text x="2122" y="184" fill="#555" style="">tenureStatus: Kind</text>
+<text x="2122" y="202" fill="#555" style="">employmentType: Kind</text>
+<text x="2122" y="220" fill="#555" style="">specialization: Kind</text>
+<text x="2122" y="238" fill="#555" style="">contactEmail: NonPhysicalAddress</text>
+<text x="2122" y="256" fill="#555" style="">phoneExtension: NonPhysicalAddress</text>
+<text x="2122" y="274" fill="#555" style="">employmentStatus: OperationalState</text>
+<rect x="2399" y="82" width="236" height="208" fill="#00000010" rx="4"/>
+<rect x="2397" y="80" width="236" height="208" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2397" y="80" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="2397" y="106" width="236" height="4" fill="#34698a"/>
+<text x="2515.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Student</text>
+<text x="2411" y="130" fill="#555" style="">studentID: Identifier</text>
+<text x="2411" y="148" fill="#555" style="">name: Description</text>
+<text x="2411" y="166" fill="#555" style="">classStanding: Kind</text>
+<text x="2411" y="184" fill="#555" style="">enrollmentStatus: Kind</text>
+<text x="2411" y="202" fill="#555" style="">creditsCompleted: Count</text>
+<text x="2411" y="220" fill="#555" style="">gpa: Ratio</text>
+<text x="2411" y="238" fill="#555" style="">contactEmail: NonPhysicalAddress</text>
+<text x="2411" y="256" fill="#555" style="">admissionDate: CalendarTime</text>
+<text x="2411" y="274" fill="#555" style="">expectedGraduation: CalendarTime</text>
+<rect x="2688" y="82" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="2686" y="80" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2686" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2686" y="106" width="249" height="4" fill="#34698a"/>
+<text x="2810.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">StaffMember</text>
+<text x="2700" y="130" fill="#555" style="">staffID: Identifier</text>
+<text x="2700" y="148" fill="#555" style="">name: Description</text>
+<text x="2700" y="166" fill="#555" style="">jobTitle: Kind</text>
+<text x="2700" y="184" fill="#555" style="">employmentType: Kind</text>
+<text x="2700" y="202" fill="#555" style="">contactEmail: NonPhysicalAddress</text>
+<text x="2700" y="220" fill="#555" style="">employmentStatus: OperationalState</text>
+<rect x="2983" y="82" width="177" height="118" fill="#00000010" rx="4"/>
+<rect x="2981" y="80" width="177" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2981" y="80" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="2981" y="106" width="177" height="4" fill="#34698a"/>
+<text x="3069.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">TeachingAssistant</text>
+<text x="2995" y="130" fill="#555" style="">taID: Identifier</text>
+<text x="2995" y="148" fill="#555" style="">taName: Description</text>
+<text x="2995" y="166" fill="#555" style="">assignedHours: Duration</text>
+<text x="2995" y="184" fill="#555" style="">taType: Kind</text>
+<rect x="3200" y="82" width="197" height="118" fill="#00000010" rx="4"/>
+<rect x="3198" y="80" width="197" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3198" y="80" width="197" height="30" fill="#34698a" rx="4"/>
+<rect x="3198" y="106" width="197" height="4" fill="#34698a"/>
+<text x="3296.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Advisor</text>
+<text x="3212" y="130" fill="#555" style="">advisorID: Identifier</text>
+<text x="3212" y="148" fill="#555" style="">advisorType: Kind</text>
+<text x="3212" y="166" fill="#555" style="">maxAdviseeCount: Count</text>
+<text x="3212" y="184" fill="#555" style="">currentAdviseeCount: Count</text>
+<rect x="3489" y="82" width="255" height="208" fill="#00000010" rx="4"/>
+<rect x="3487" y="80" width="255" height="208" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3487" y="80" width="255" height="30" fill="#34698a" rx="4"/>
+<rect x="3487" y="106" width="255" height="4" fill="#34698a"/>
+<text x="3614.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Building</text>
+<text x="3501" y="130" fill="#555" style="">buildingID: Identifier</text>
+<text x="3501" y="148" fill="#555" style="">buildingName: Description</text>
+<text x="3501" y="166" fill="#555" style="">buildingType: Kind</text>
+<text x="3501" y="184" fill="#555" style="">location: Position</text>
+<text x="3501" y="202" fill="#555" style="">grossArea: ScalarArea</text>
+<text x="3501" y="220" fill="#555" style="">floorCount: Count</text>
+<text x="3501" y="238" fill="#555" style="">yearBuilt: CalendarTime</text>
+<text x="3501" y="256" fill="#555" style="">condition: HealthState</text>
+<text x="3501" y="274" fill="#555" style="">operationalStatus: OperationalState</text>
+<rect x="62" y="338" width="197" height="208" fill="#00000010" rx="4"/>
+<rect x="60" y="336" width="197" height="208" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="336" width="197" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="362" width="197" height="4" fill="#34698a"/>
+<text x="158.5" y="356" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Room</text>
+<text x="74" y="386" fill="#555" style="">roomID: Identifier</text>
+<text x="74" y="404" fill="#555" style="">roomNumber: Identifier</text>
+<text x="74" y="422" fill="#555" style="">roomType: Kind</text>
+<text x="74" y="440" fill="#555" style="">floorArea: ScalarArea</text>
+<text x="74" y="458" fill="#555" style="">seatingCapacity: Count</text>
+<text x="74" y="476" fill="#555" style="">temperature: Temperature</text>
+<text x="74" y="494" fill="#555" style="">humidity: Humidity</text>
+<text x="74" y="512" fill="#555" style="">lightingLevel: Illuminance</text>
+<text x="74" y="530" fill="#555" style="">condition: HealthState</text>
+<rect x="351" y="338" width="268" height="172" fill="#00000010" rx="4"/>
+<rect x="349" y="336" width="268" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="349" y="336" width="268" height="30" fill="#34698a" rx="4"/>
+<rect x="349" y="362" width="268" height="4" fill="#34698a"/>
+<text x="483.0" y="356" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Classroom</text>
+<text x="363" y="386" fill="#555" style="">classroomID: Identifier</text>
+<text x="363" y="404" fill="#555" style="">classroomType: Kind</text>
+<text x="363" y="422" fill="#555" style="">seatingCapacity: Count</text>
+<text x="363" y="440" fill="#555" style="">deskType: Kind</text>
+<text x="363" y="458" fill="#555" style="">hasProjector: ConfigurationState</text>
+<text x="363" y="476" fill="#555" style="">hasDocumentCamera: ConfigurationState</text>
+<text x="363" y="494" fill="#555" style="">hasAudioSystem: ConfigurationState</text>
+<rect x="659" y="338" width="275" height="154" fill="#00000010" rx="4"/>
+<rect x="657" y="336" width="275" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="657" y="336" width="275" height="30" fill="#34698a" rx="4"/>
+<rect x="657" y="362" width="275" height="4" fill="#34698a"/>
+<text x="794.5" y="356" text-anchor="middle" fill="white" font-weight="bold" font-size="12">LectureHall</text>
+<text x="671" y="386" fill="#555" style="">hallID: Identifier</text>
+<text x="671" y="404" fill="#555" style="">hallName: Description</text>
+<text x="671" y="422" fill="#555" style="">seatingCapacity: Count</text>
+<text x="671" y="440" fill="#555" style="">stageArea: ScalarArea</text>
+<text x="671" y="458" fill="#555" style="">hasPodium: ConfigurationState</text>
+<text x="671" y="476" fill="#555" style="">hasRecordingSystem: ConfigurationState</text>
+<rect x="974" y="338" width="177" height="154" fill="#00000010" rx="4"/>
+<rect x="972" y="336" width="177" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="972" y="336" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="972" y="362" width="177" height="4" fill="#34698a"/>
+<text x="1060.5" y="356" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Laboratory</text>
+<text x="986" y="386" fill="#555" style="">labID: Identifier</text>
+<text x="986" y="404" fill="#555" style="">labType: Kind</text>
+<text x="986" y="422" fill="#555" style="">labName: Description</text>
+<text x="986" y="440" fill="#555" style="">safetyRating: Kind</text>
+<text x="986" y="458" fill="#555" style="">workstationCount: Count</text>
+<text x="986" y="476" fill="#555" style="">condition: HealthState</text>
+<rect x="1243" y="338" width="249" height="190" fill="#00000010" rx="4"/>
+<rect x="1241" y="336" width="249" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1241" y="336" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1241" y="362" width="249" height="4" fill="#34698a"/>
+<text x="1365.5" y="356" text-anchor="middle" fill="white" font-weight="bold" font-size="12">LabEquipment</text>
+<text x="1255" y="386" fill="#555" style="">equipmentID: Identifier</text>
+<text x="1255" y="404" fill="#555" style="">equipmentName: Description</text>
+<text x="1255" y="422" fill="#555" style="">equipmentType: Kind</text>
+<text x="1255" y="440" fill="#555" style="">serialNumber: Identifier</text>
+<text x="1255" y="458" fill="#555" style="">acquisitionDate: CalendarTime</text>
+<text x="1255" y="476" fill="#555" style="">powerRequirement: Power</text>
+<text x="1255" y="494" fill="#555" style="">condition: HealthState</text>
+<text x="1255" y="512" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="1532" y="338" width="210" height="118" fill="#00000010" rx="4"/>
+<rect x="1530" y="336" width="210" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1530" y="336" width="210" height="30" fill="#34698a" rx="4"/>
+<rect x="1530" y="362" width="210" height="4" fill="#34698a"/>
+<text x="1635.0" y="356" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SafetyEquipment</text>
+<text x="1544" y="386" fill="#555" style="">equipmentID: Identifier</text>
+<text x="1544" y="404" fill="#555" style="">equipmentType: Kind</text>
+<text x="1544" y="422" fill="#555" style="">lastInspection: CalendarTime</text>
+<text x="1544" y="440" fill="#555" style="">condition: HealthState</text>
+<rect x="1821" y="338" width="177" height="136" fill="#00000010" rx="4"/>
+<rect x="1819" y="336" width="177" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1819" y="336" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="1819" y="362" width="177" height="4" fill="#34698a"/>
+<text x="1907.5" y="356" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Projector</text>
+<text x="1833" y="386" fill="#555" style="">projectorID: Identifier</text>
+<text x="1833" y="404" fill="#555" style="">projectorType: Kind</text>
+<text x="1833" y="422" fill="#555" style="">brightness: Illuminance</text>
+<text x="1833" y="440" fill="#555" style="">resolution: Kind</text>
+<text x="1833" y="458" fill="#555" style="">condition: HealthState</text>
+<rect x="2110" y="338" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="2108" y="336" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2108" y="336" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2108" y="362" width="171" height="4" fill="#34698a"/>
+<text x="2193.5" y="356" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AudioSystem</text>
+<text x="2122" y="386" fill="#555" style="">systemID: Identifier</text>
+<text x="2122" y="404" fill="#555" style="">speakerCount: Count</text>
+<text x="2122" y="422" fill="#555" style="">microphoneCount: Count</text>
+<text x="2122" y="440" fill="#555" style="">condition: HealthState</text>
+<rect x="2399" y="338" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="2397" y="336" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2397" y="336" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2397" y="362" width="171" height="4" fill="#34698a"/>
+<text x="2482.5" y="356" text-anchor="middle" fill="white" font-weight="bold" font-size="12">DisplayScreen</text>
+<text x="2411" y="386" fill="#555" style="">screenID: Identifier</text>
+<text x="2411" y="404" fill="#555" style="">screenSize: Distance</text>
+<text x="2411" y="422" fill="#555" style="">resolution: Kind</text>
+<text x="2411" y="440" fill="#555" style="">condition: HealthState</text>
+<rect x="2688" y="338" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="2686" y="336" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2686" y="336" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="2686" y="362" width="160" height="4" fill="#34698a"/>
+<text x="2766.0" y="356" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Whiteboard</text>
+<text x="2700" y="386" fill="#555" style="">boardID: Identifier</text>
+<text x="2700" y="404" fill="#555" style="">boardType: Kind</text>
+<text x="2700" y="422" fill="#555" style="">dimensions: Extent</text>
+<rect x="2983" y="338" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="2981" y="336" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2981" y="336" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2981" y="362" width="171" height="4" fill="#34698a"/>
+<text x="3066.5" y="356" text-anchor="middle" fill="white" font-weight="bold" font-size="12">DocumentCamera</text>
+<text x="2995" y="386" fill="#555" style="">cameraID: Identifier</text>
+<text x="2995" y="404" fill="#555" style="">resolution: Kind</text>
+<text x="2995" y="422" fill="#555" style="">condition: HealthState</text>
+<rect x="3200" y="338" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="3198" y="336" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3198" y="336" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3198" y="362" width="249" height="4" fill="#34698a"/>
+<text x="3322.5" y="356" text-anchor="middle" fill="white" font-weight="bold" font-size="12">VideoConferenceUnit</text>
+<text x="3212" y="386" fill="#555" style="">unitID: Identifier</text>
+<text x="3212" y="404" fill="#555" style="">unitType: Kind</text>
+<text x="3212" y="422" fill="#555" style="">cameraResolution: Kind</text>
+<text x="3212" y="440" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="3212" y="458" fill="#555" style="">condition: HealthState</text>
+<rect x="3489" y="338" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="3487" y="336" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3487" y="336" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3487" y="362" width="249" height="4" fill="#34698a"/>
+<text x="3611.5" y="356" text-anchor="middle" fill="white" font-weight="bold" font-size="12">LectureCapture</text>
+<text x="3501" y="386" fill="#555" style="">systemID: Identifier</text>
+<text x="3501" y="404" fill="#555" style="">recordingResolution: Kind</text>
+<text x="3501" y="422" fill="#555" style="">storageUsed: Size</text>
+<text x="3501" y="440" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="62" y="576" width="249" height="172" fill="#00000010" rx="4"/>
+<rect x="60" y="574" width="249" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="574" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="600" width="249" height="4" fill="#34698a"/>
+<text x="184.5" y="594" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Workstation</text>
+<text x="74" y="624" fill="#555" style="">workstationID: Identifier</text>
+<text x="74" y="642" fill="#555" style="">workstationType: Kind</text>
+<text x="74" y="660" fill="#555" style="">operatingSystem: Kind</text>
+<text x="74" y="678" fill="#555" style="">memorySize: Size</text>
+<text x="74" y="696" fill="#555" style="">storageSize: Size</text>
+<text x="74" y="714" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="74" y="732" fill="#555" style="">condition: HealthState</text>
+<rect x="351" y="576" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="349" y="574" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="349" y="574" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="349" y="600" width="249" height="4" fill="#34698a"/>
+<text x="473.5" y="594" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Printer</text>
+<text x="363" y="624" fill="#555" style="">printerID: Identifier</text>
+<text x="363" y="642" fill="#555" style="">printerType: Kind</text>
+<text x="363" y="660" fill="#555" style="">printSpeed: CountRate</text>
+<text x="363" y="678" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="363" y="696" fill="#555" style="">condition: HealthState</text>
+<rect x="659" y="576" width="249" height="190" fill="#00000010" rx="4"/>
+<rect x="657" y="574" width="249" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="657" y="574" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="657" y="600" width="249" height="4" fill="#34698a"/>
+<text x="781.5" y="594" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Server</text>
+<text x="671" y="624" fill="#555" style="">serverID: Identifier</text>
+<text x="671" y="642" fill="#555" style="">serverType: Kind</text>
+<text x="671" y="660" fill="#555" style="">cpuCoreCount: Count</text>
+<text x="671" y="678" fill="#555" style="">memorySize: Size</text>
+<text x="671" y="696" fill="#555" style="">storageSize: Size</text>
+<text x="671" y="714" fill="#555" style="">powerConsumption: Power</text>
+<text x="671" y="732" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="671" y="750" fill="#555" style="">condition: HealthState</text>
+<rect x="974" y="576" width="160" height="136" fill="#00000010" rx="4"/>
+<rect x="972" y="574" width="160" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="972" y="574" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="972" y="600" width="160" height="4" fill="#34698a"/>
+<text x="1052.0" y="594" text-anchor="middle" fill="white" font-weight="bold" font-size="12">StorageArray</text>
+<text x="986" y="624" fill="#555" style="">arrayID: Identifier</text>
+<text x="986" y="642" fill="#555" style="">totalCapacity: Size</text>
+<text x="986" y="660" fill="#555" style="">usedCapacity: Size</text>
+<text x="986" y="678" fill="#555" style="">driveCount: Count</text>
+<text x="986" y="696" fill="#555" style="">raidLevel: Kind</text>
+<rect x="1243" y="576" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="1241" y="574" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1241" y="574" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1241" y="600" width="249" height="4" fill="#34698a"/>
+<text x="1365.5" y="594" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WiFiAccessPoint</text>
+<text x="1255" y="624" fill="#555" style="">apID: Identifier</text>
+<text x="1255" y="642" fill="#555" style="">band: Kind</text>
+<text x="1255" y="660" fill="#555" style="">connectedClients: Count</text>
+<text x="1255" y="678" fill="#555" style="">dataRate: DataRate</text>
+<text x="1255" y="696" fill="#555" style="">signalStrength: Ratio</text>
+<text x="1255" y="714" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="1532" y="576" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="1530" y="574" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1530" y="574" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1530" y="600" width="249" height="4" fill="#34698a"/>
+<text x="1654.5" y="594" text-anchor="middle" fill="white" font-weight="bold" font-size="12">NetworkSwitch</text>
+<text x="1544" y="624" fill="#555" style="">switchID: Identifier</text>
+<text x="1544" y="642" fill="#555" style="">portCount: Count</text>
+<text x="1544" y="660" fill="#555" style="">speed: DataRate</text>
+<text x="1544" y="678" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="1821" y="576" width="249" height="100" fill="#00000010" rx="4"/>
+<rect x="1819" y="574" width="249" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1819" y="574" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1819" y="600" width="249" height="4" fill="#34698a"/>
+<text x="1943.5" y="594" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Firewall</text>
+<text x="1833" y="624" fill="#555" style="">firewallID: Identifier</text>
+<text x="1833" y="642" fill="#555" style="">throughput: DataRate</text>
+<text x="1833" y="660" fill="#555" style="">operationalState: OperationalState</text>
+<rect x="2110" y="576" width="171" height="154" fill="#00000010" rx="4"/>
+<rect x="2108" y="574" width="171" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2108" y="574" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2108" y="600" width="171" height="4" fill="#34698a"/>
+<text x="2193.5" y="594" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ResidenceHall</text>
+<text x="2122" y="624" fill="#555" style="">hallID: Identifier</text>
+<text x="2122" y="642" fill="#555" style="">hallName: Description</text>
+<text x="2122" y="660" fill="#555" style="">roomCount: Count</text>
+<text x="2122" y="678" fill="#555" style="">bedCount: Count</text>
+<text x="2122" y="696" fill="#555" style="">floorCount: Count</text>
+<text x="2122" y="714" fill="#555" style="">condition: HealthState</text>
+<rect x="2399" y="576" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="2397" y="574" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2397" y="574" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2397" y="600" width="249" height="4" fill="#34698a"/>
+<text x="2521.5" y="594" text-anchor="middle" fill="white" font-weight="bold" font-size="12">DormRoom</text>
+<text x="2411" y="624" fill="#555" style="">roomID: Identifier</text>
+<text x="2411" y="642" fill="#555" style="">roomNumber: Identifier</text>
+<text x="2411" y="660" fill="#555" style="">roomType: Kind</text>
+<text x="2411" y="678" fill="#555" style="">bedCount: Count</text>
+<text x="2411" y="696" fill="#555" style="">floorArea: ScalarArea</text>
+<text x="2411" y="714" fill="#555" style="">occupancyState: ConfigurationState</text>
+<rect x="2688" y="576" width="255" height="118" fill="#00000010" rx="4"/>
+<rect x="2686" y="574" width="255" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2686" y="574" width="255" height="30" fill="#34698a" rx="4"/>
+<rect x="2686" y="600" width="255" height="4" fill="#34698a"/>
+<text x="2813.5" y="594" text-anchor="middle" fill="white" font-weight="bold" font-size="12">DiningHall</text>
+<text x="2700" y="624" fill="#555" style="">hallID: Identifier</text>
+<text x="2700" y="642" fill="#555" style="">hallName: Description</text>
+<text x="2700" y="660" fill="#555" style="">seatingCapacity: Count</text>
+<text x="2700" y="678" fill="#555" style="">operationalStatus: OperationalState</text>
+<rect x="2983" y="576" width="164" height="118" fill="#00000010" rx="4"/>
+<rect x="2981" y="574" width="164" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2981" y="574" width="164" height="30" fill="#34698a" rx="4"/>
+<rect x="2981" y="600" width="164" height="4" fill="#34698a"/>
+<text x="3063.0" y="594" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MealPlan</text>
+<text x="2995" y="624" fill="#555" style="">planID: Identifier</text>
+<text x="2995" y="642" fill="#555" style="">planName: Description</text>
+<text x="2995" y="660" fill="#555" style="">planType: Kind</text>
+<text x="2995" y="678" fill="#555" style="">mealsPerWeek: Count</text>
+<rect x="3200" y="576" width="177" height="136" fill="#00000010" rx="4"/>
+<rect x="3198" y="574" width="177" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3198" y="574" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="3198" y="600" width="177" height="4" fill="#34698a"/>
+<text x="3286.5" y="594" text-anchor="middle" fill="white" font-weight="bold" font-size="12">LibraryBranch</text>
+<text x="3212" y="624" fill="#555" style="">branchID: Identifier</text>
+<text x="3212" y="642" fill="#555" style="">branchName: Description</text>
+<text x="3212" y="660" fill="#555" style="">seatingCapacity: Count</text>
+<text x="3212" y="678" fill="#555" style="">collectionSize: Count</text>
+<text x="3212" y="696" fill="#555" style="">staffCount: Count</text>
+<rect x="3489" y="576" width="242" height="118" fill="#00000010" rx="4"/>
+<rect x="3487" y="574" width="242" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3487" y="574" width="242" height="30" fill="#34698a" rx="4"/>
+<rect x="3487" y="600" width="242" height="4" fill="#34698a"/>
+<text x="3608.0" y="594" text-anchor="middle" fill="white" font-weight="bold" font-size="12">StudyRoom</text>
+<text x="3501" y="624" fill="#555" style="">roomID: Identifier</text>
+<text x="3501" y="642" fill="#555" style="">roomCapacity: Count</text>
+<text x="3501" y="660" fill="#555" style="">hasWhiteboard: ConfigurationState</text>
+<text x="3501" y="678" fill="#555" style="">hasDisplay: ConfigurationState</text>
+<rect x="62" y="796" width="190" height="154" fill="#00000010" rx="4"/>
+<rect x="60" y="794" width="190" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="794" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="820" width="190" height="4" fill="#34698a"/>
+<text x="155.0" y="814" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AthleticFacility</text>
+<text x="74" y="844" fill="#555" style="">facilityID: Identifier</text>
+<text x="74" y="862" fill="#555" style="">facilityName: Description</text>
+<text x="74" y="880" fill="#555" style="">facilityType: Kind</text>
+<text x="74" y="898" fill="#555" style="">seatingCapacity: Count</text>
+<text x="74" y="916" fill="#555" style="">fieldArea: ScalarArea</text>
+<text x="74" y="934" fill="#555" style="">condition: HealthState</text>
+<rect x="351" y="796" width="184" height="136" fill="#00000010" rx="4"/>
+<rect x="349" y="794" width="184" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="349" y="794" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="349" y="820" width="184" height="4" fill="#34698a"/>
+<text x="441.0" y="814" text-anchor="middle" fill="white" font-weight="bold" font-size="12">RecreationCenter</text>
+<text x="363" y="844" fill="#555" style="">centerID: Identifier</text>
+<text x="363" y="862" fill="#555" style="">centerName: Description</text>
+<text x="363" y="880" fill="#555" style="">buildingArea: ScalarArea</text>
+<text x="363" y="898" fill="#555" style="">equipmentCount: Count</text>
+<text x="363" y="916" fill="#555" style="">courtCount: Count</text>
+<rect x="659" y="796" width="164" height="136" fill="#00000010" rx="4"/>
+<rect x="657" y="794" width="164" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="657" y="794" width="164" height="30" fill="#34698a" rx="4"/>
+<rect x="657" y="820" width="164" height="4" fill="#34698a"/>
+<text x="739.0" y="814" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SportsTeam</text>
+<text x="671" y="844" fill="#555" style="">teamID: Identifier</text>
+<text x="671" y="862" fill="#555" style="">teamName: Description</text>
+<text x="671" y="880" fill="#555" style="">sport: Kind</text>
+<text x="671" y="898" fill="#555" style="">division: Kind</text>
+<text x="671" y="916" fill="#555" style="">rosterSize: Count</text>
+<rect x="974" y="796" width="160" height="118" fill="#00000010" rx="4"/>
+<rect x="972" y="794" width="160" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="972" y="794" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="972" y="820" width="160" height="4" fill="#34698a"/>
+<text x="1052.0" y="814" text-anchor="middle" fill="white" font-weight="bold" font-size="12">StudentOrganization</text>
+<text x="986" y="844" fill="#555" style="">orgID: Identifier</text>
+<text x="986" y="862" fill="#555" style="">orgName: Description</text>
+<text x="986" y="880" fill="#555" style="">orgType: Kind</text>
+<text x="986" y="898" fill="#555" style="">memberCount: Count</text>
+<rect x="1243" y="796" width="210" height="118" fill="#00000010" rx="4"/>
+<rect x="1241" y="794" width="210" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1241" y="794" width="210" height="30" fill="#34698a" rx="4"/>
+<rect x="1241" y="820" width="210" height="4" fill="#34698a"/>
+<text x="1346.0" y="814" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Scholarship</text>
+<text x="1255" y="844" fill="#555" style="">scholarshipID: Identifier</text>
+<text x="1255" y="862" fill="#555" style="">scholarshipName: Description</text>
+<text x="1255" y="880" fill="#555" style="">awardType: Kind</text>
+<text x="1255" y="898" fill="#555" style="">eligibilityCriteria: Kind</text>
+<rect x="1532" y="796" width="177" height="154" fill="#00000010" rx="4"/>
+<rect x="1530" y="794" width="177" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1530" y="794" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="1530" y="820" width="177" height="4" fill="#34698a"/>
+<text x="1618.5" y="814" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Grant</text>
+<text x="1544" y="844" fill="#555" style="">grantID: Identifier</text>
+<text x="1544" y="862" fill="#555" style="">grantName: Description</text>
+<text x="1544" y="880" fill="#555" style="">grantType: Kind</text>
+<text x="1544" y="898" fill="#555" style="">fundingSource: Kind</text>
+<text x="1544" y="916" fill="#555" style="">startDate: CalendarTime</text>
+<text x="1544" y="934" fill="#555" style="">endDate: CalendarTime</text>
+<rect x="1821" y="796" width="177" height="100" fill="#00000010" rx="4"/>
+<rect x="1819" y="794" width="177" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1819" y="794" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="1819" y="820" width="177" height="4" fill="#34698a"/>
+<text x="1907.5" y="814" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ResearchCenter</text>
+<text x="1833" y="844" fill="#555" style="">centerID: Identifier</text>
+<text x="1833" y="862" fill="#555" style="">centerName: Description</text>
+<text x="1833" y="880" fill="#555" style="">researchFocus: Kind</text>
+<rect x="2110" y="796" width="190" height="136" fill="#00000010" rx="4"/>
+<rect x="2108" y="794" width="190" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2108" y="794" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="2108" y="820" width="190" height="4" fill="#34698a"/>
+<text x="2203.0" y="814" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ParkingFacility</text>
+<text x="2122" y="844" fill="#555" style="">facilityID: Identifier</text>
+<text x="2122" y="862" fill="#555" style="">facilityName: Description</text>
+<text x="2122" y="880" fill="#555" style="">facilityType: Kind</text>
+<text x="2122" y="898" fill="#555" style="">totalSpaces: Count</text>
+<text x="2122" y="916" fill="#555" style="">availableSpaces: Count</text>
+<rect x="2399" y="796" width="223" height="136" fill="#00000010" rx="4"/>
+<rect x="2397" y="794" width="223" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2397" y="794" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="2397" y="820" width="223" height="4" fill="#34698a"/>
+<text x="2508.5" y="814" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ParkingPermit</text>
+<text x="2411" y="844" fill="#555" style="">permitID: Identifier</text>
+<text x="2411" y="862" fill="#555" style="">permitType: Kind</text>
+<text x="2411" y="880" fill="#555" style="">validFrom: CalendarTime</text>
+<text x="2411" y="898" fill="#555" style="">validTo: CalendarTime</text>
+<text x="2411" y="916" fill="#555" style="">permitStatus: OperationalState</text>
+<rect x="2688" y="796" width="190" height="154" fill="#00000010" rx="4"/>
+<rect x="2686" y="794" width="190" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2686" y="794" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="2686" y="820" width="190" height="4" fill="#34698a"/>
+<text x="2781.0" y="814" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ShuttleVehicle</text>
+<text x="2700" y="844" fill="#555" style="">vehicleID: Identifier</text>
+<text x="2700" y="862" fill="#555" style="">vehicleType: Kind</text>
+<text x="2700" y="880" fill="#555" style="">passengerCapacity: Count</text>
+<text x="2700" y="898" fill="#555" style="">currentPosition: Position</text>
+<text x="2700" y="916" fill="#555" style="">speed: Speed</text>
+<text x="2700" y="934" fill="#555" style="">condition: HealthState</text>
+<rect x="2983" y="796" width="171" height="136" fill="#00000010" rx="4"/>
+<rect x="2981" y="794" width="171" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2981" y="794" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2981" y="820" width="171" height="4" fill="#34698a"/>
+<text x="3066.5" y="814" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ShuttleRoute</text>
+<text x="2995" y="844" fill="#555" style="">routeID: Identifier</text>
+<text x="2995" y="862" fill="#555" style="">routeName: Description</text>
+<text x="2995" y="880" fill="#555" style="">stopCount: Count</text>
+<text x="2995" y="898" fill="#555" style="">routeLength: Distance</text>
+<text x="2995" y="916" fill="#555" style="">frequency: Duration</text>
+<rect x="3200" y="796" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="3198" y="794" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3198" y="794" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3198" y="820" width="249" height="4" fill="#34698a"/>
+<text x="3322.5" y="814" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ShuttleStop</text>
+<text x="3212" y="844" fill="#555" style="">stopID: Identifier</text>
+<text x="3212" y="862" fill="#555" style="">stopName: Description</text>
+<text x="3212" y="880" fill="#555" style="">location: Position</text>
+<text x="3212" y="898" fill="#555" style="">shelterPresent: ConfigurationState</text>
+<rect x="3489" y="796" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="3487" y="794" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3487" y="794" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="3487" y="820" width="171" height="4" fill="#34698a"/>
+<text x="3572.5" y="814" text-anchor="middle" fill="white" font-weight="bold" font-size="12">UtilityMeter</text>
+<text x="3501" y="844" fill="#555" style="">meterID: Identifier</text>
+<text x="3501" y="862" fill="#555" style="">meterType: Kind</text>
+<text x="3501" y="880" fill="#555" style="">currentReading: Energy</text>
+<text x="3501" y="898" fill="#555" style="">currentDemand: Power</text>
+<rect x="62" y="980" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="60" y="978" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="978" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1002" width="160" height="6" fill="#8b5e3c"/>
+<text x="140.0" y="998" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CollegeInUniversity</text>
+<line x1="68" y1="1022" x2="212" y2="1022" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1034" fill="#c05746" font-weight="bold">→ College</text>
+<text x="74" y="1052" fill="#c05746" font-weight="bold">→ University</text>
+<rect x="351" y="980" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="349" y="978" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="349" y="978" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="349" y="1002" width="160" height="6" fill="#8b5e3c"/>
+<text x="429.0" y="998" text-anchor="middle" fill="white" font-weight="bold" font-size="11">DepartmentInCollege</text>
+<line x1="357" y1="1022" x2="501" y2="1022" stroke="#ccc" stroke-width="0.5"/>
+<text x="363" y="1034" fill="#c05746" font-weight="bold">→ Department</text>
+<text x="363" y="1052" fill="#c05746" font-weight="bold">→ College</text>
+<rect x="659" y="980" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="657" y="978" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="657" y="978" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="657" y="1002" width="160" height="6" fill="#8b5e3c"/>
+<text x="737.0" y="998" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ProgramInDepartment</text>
+<line x1="665" y1="1022" x2="809" y2="1022" stroke="#ccc" stroke-width="0.5"/>
+<text x="671" y="1034" fill="#c05746" font-weight="bold">→ AcademicProgram</text>
+<text x="671" y="1052" fill="#c05746" font-weight="bold">→ Department</text>
+<rect x="974" y="980" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="972" y="978" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="972" y="978" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="972" y="1002" width="160" height="6" fill="#8b5e3c"/>
+<text x="1052.0" y="998" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CourseInDepartment</text>
+<line x1="980" y1="1022" x2="1124" y2="1022" stroke="#ccc" stroke-width="0.5"/>
+<text x="986" y="1034" fill="#c05746" font-weight="bold">→ Course</text>
+<text x="986" y="1052" fill="#c05746" font-weight="bold">→ Department</text>
+<rect x="1243" y="980" width="164" height="104" fill="#00000010" rx="10"/>
+<rect x="1241" y="978" width="164" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1241" y="978" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1241" y="1002" width="164" height="6" fill="#8b5e3c"/>
+<text x="1323.0" y="998" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CourseInProgram</text>
+<text x="1255" y="1028" fill="#555">requirementType: Kind</text>
+<line x1="1249" y1="1040" x2="1397" y2="1040" stroke="#ccc" stroke-width="0.5"/>
+<text x="1255" y="1052" fill="#c05746" font-weight="bold">→ Course</text>
+<text x="1255" y="1070" fill="#c05746" font-weight="bold">→ AcademicProgram</text>
+<rect x="1532" y="980" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="1530" y="978" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1530" y="978" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1530" y="1002" width="160" height="6" fill="#8b5e3c"/>
+<text x="1610.0" y="998" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CoursePrerequisite</text>
+<text x="1544" y="1028" fill="#555">minimumGrade: Kind</text>
+<line x1="1538" y1="1040" x2="1682" y2="1040" stroke="#ccc" stroke-width="0.5"/>
+<text x="1544" y="1052" fill="#c05746" font-weight="bold">→ Course</text>
+<text x="1544" y="1070" fill="#c05746" font-weight="bold">→ Course</text>
+<rect x="1821" y="980" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1819" y="978" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1819" y="978" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1819" y="1002" width="160" height="6" fill="#8b5e3c"/>
+<text x="1899.0" y="998" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SectionOfCourse</text>
+<line x1="1827" y1="1022" x2="1971" y2="1022" stroke="#ccc" stroke-width="0.5"/>
+<text x="1833" y="1034" fill="#c05746" font-weight="bold">→ CourseSection</text>
+<text x="1833" y="1052" fill="#c05746" font-weight="bold">→ Course</text>
+<rect x="2110" y="980" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2108" y="978" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2108" y="978" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2108" y="1002" width="160" height="6" fill="#8b5e3c"/>
+<text x="2188.0" y="998" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SectionInTerm</text>
+<line x1="2116" y1="1022" x2="2260" y2="1022" stroke="#ccc" stroke-width="0.5"/>
+<text x="2122" y="1034" fill="#c05746" font-weight="bold">→ CourseSection</text>
+<text x="2122" y="1052" fill="#c05746" font-weight="bold">→ AcademicTerm</text>
+<rect x="2399" y="980" width="177" height="122" fill="#00000010" rx="10"/>
+<rect x="2397" y="978" width="177" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2397" y="978" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2397" y="1002" width="177" height="6" fill="#8b5e3c"/>
+<text x="2485.5" y="998" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FacultyInDepartment</text>
+<text x="2411" y="1028" fill="#555">appointmentType: Kind</text>
+<text x="2411" y="1046" fill="#555">startDate: CalendarTime</text>
+<line x1="2405" y1="1058" x2="2566" y2="1058" stroke="#ccc" stroke-width="0.5"/>
+<text x="2411" y="1070" fill="#c05746" font-weight="bold">→ FacultyMember</text>
+<text x="2411" y="1088" fill="#c05746" font-weight="bold">→ Department</text>
+<rect x="2688" y="980" width="164" height="104" fill="#00000010" rx="10"/>
+<rect x="2686" y="978" width="164" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2686" y="978" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2686" y="1002" width="164" height="6" fill="#8b5e3c"/>
+<text x="2768.0" y="998" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FacultyTeachesSection</text>
+<text x="2700" y="1028" fill="#555">instructorRole: Kind</text>
+<line x1="2694" y1="1040" x2="2842" y2="1040" stroke="#ccc" stroke-width="0.5"/>
+<text x="2700" y="1052" fill="#c05746" font-weight="bold">→ FacultyMember</text>
+<text x="2700" y="1070" fill="#c05746" font-weight="bold">→ CourseSection</text>
+<rect x="2983" y="980" width="177" height="104" fill="#00000010" rx="10"/>
+<rect x="2981" y="978" width="177" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2981" y="978" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2981" y="1002" width="177" height="6" fill="#8b5e3c"/>
+<text x="3069.5" y="998" text-anchor="middle" fill="white" font-weight="bold" font-size="11">TAAssistsSection</text>
+<text x="2995" y="1028" fill="#555">assignedHours: Duration</text>
+<line x1="2989" y1="1040" x2="3150" y2="1040" stroke="#ccc" stroke-width="0.5"/>
+<text x="2995" y="1052" fill="#c05746" font-weight="bold">→ TeachingAssistant</text>
+<text x="2995" y="1070" fill="#c05746" font-weight="bold">→ CourseSection</text>
+<rect x="3200" y="980" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3198" y="978" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3198" y="978" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3198" y="1002" width="160" height="6" fill="#8b5e3c"/>
+<text x="3278.0" y="998" text-anchor="middle" fill="white" font-weight="bold" font-size="11">TAIsStudent</text>
+<line x1="3206" y1="1022" x2="3350" y2="1022" stroke="#ccc" stroke-width="0.5"/>
+<text x="3212" y="1034" fill="#c05746" font-weight="bold">→ TeachingAssistant</text>
+<text x="3212" y="1052" fill="#c05746" font-weight="bold">→ Student</text>
+<rect x="3489" y="980" width="210" height="104" fill="#00000010" rx="10"/>
+<rect x="3487" y="978" width="210" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3487" y="978" width="210" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3487" y="1002" width="210" height="6" fill="#8b5e3c"/>
+<text x="3592.0" y="998" text-anchor="middle" fill="white" font-weight="bold" font-size="11">StudentEnrolledInProgram</text>
+<text x="3501" y="1028" fill="#555">enrollmentDate: CalendarTime</text>
+<line x1="3495" y1="1040" x2="3689" y2="1040" stroke="#ccc" stroke-width="0.5"/>
+<text x="3501" y="1052" fill="#c05746" font-weight="bold">→ Student</text>
+<text x="3501" y="1070" fill="#c05746" font-weight="bold">→ AcademicProgram</text>
+<rect x="62" y="1132" width="223" height="122" fill="#00000010" rx="10"/>
+<rect x="60" y="1130" width="223" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1130" width="223" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1154" width="223" height="6" fill="#8b5e3c"/>
+<text x="171.5" y="1150" text-anchor="middle" fill="white" font-weight="bold" font-size="11">StudentRegisteredInSection</text>
+<text x="74" y="1180" fill="#555">registrationDate: CalendarTime</text>
+<text x="74" y="1198" fill="#555">status: Kind</text>
+<line x1="68" y1="1210" x2="275" y2="1210" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1222" fill="#c05746" font-weight="bold">→ Student</text>
+<text x="74" y="1240" fill="#c05746" font-weight="bold">→ CourseSection</text>
+<rect x="351" y="1132" width="197" height="104" fill="#00000010" rx="10"/>
+<rect x="349" y="1130" width="197" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="349" y="1130" width="197" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="349" y="1154" width="197" height="6" fill="#8b5e3c"/>
+<text x="447.5" y="1150" text-anchor="middle" fill="white" font-weight="bold" font-size="11">AdvisorAdvisesStudent</text>
+<text x="363" y="1180" fill="#555">assignedDate: CalendarTime</text>
+<line x1="357" y1="1192" x2="538" y2="1192" stroke="#ccc" stroke-width="0.5"/>
+<text x="363" y="1204" fill="#c05746" font-weight="bold">→ Advisor</text>
+<text x="363" y="1222" fill="#c05746" font-weight="bold">→ Student</text>
+<rect x="659" y="1132" width="177" height="104" fill="#00000010" rx="10"/>
+<rect x="657" y="1130" width="177" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="657" y="1130" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="657" y="1154" width="177" height="6" fill="#8b5e3c"/>
+<text x="745.5" y="1150" text-anchor="middle" fill="white" font-weight="bold" font-size="11">AdvisorIsFacultyOrStaff</text>
+<text x="671" y="1180" fill="#555">advisorRole: Kind</text>
+<line x1="665" y1="1192" x2="826" y2="1192" stroke="#ccc" stroke-width="0.5"/>
+<text x="671" y="1204" fill="#c05746" font-weight="bold">→ Advisor</text>
+<text x="671" y="1222" fill="#c05746" font-weight="bold">→ FacultyMember</text>
+<rect x="974" y="1132" width="177" height="140" fill="#00000010" rx="10"/>
+<rect x="972" y="1130" width="177" height="140" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="972" y="1130" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="972" y="1154" width="177" height="6" fill="#8b5e3c"/>
+<text x="1060.5" y="1150" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SectionMeetsInClassroom</text>
+<text x="986" y="1180" fill="#555">meetingDays: Kind</text>
+<text x="986" y="1198" fill="#555">startTime: CalendarTime</text>
+<text x="986" y="1216" fill="#555">endTime: CalendarTime</text>
+<line x1="980" y1="1228" x2="1141" y2="1228" stroke="#ccc" stroke-width="0.5"/>
+<text x="986" y="1240" fill="#c05746" font-weight="bold">→ CourseSection</text>
+<text x="986" y="1258" fill="#c05746" font-weight="bold">→ Classroom</text>
+<rect x="1243" y="1132" width="190" height="104" fill="#00000010" rx="10"/>
+<rect x="1241" y="1130" width="190" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1241" y="1130" width="190" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1241" y="1154" width="190" height="6" fill="#8b5e3c"/>
+<text x="1336.0" y="1150" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SectionMeetsInLectureHall</text>
+<text x="1255" y="1180" fill="#555">meetingDays: Kind</text>
+<line x1="1249" y1="1192" x2="1423" y2="1192" stroke="#ccc" stroke-width="0.5"/>
+<text x="1255" y="1204" fill="#c05746" font-weight="bold">→ CourseSection</text>
+<text x="1255" y="1222" fill="#c05746" font-weight="bold">→ LectureHall</text>
+<rect x="1532" y="1132" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1530" y="1130" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1530" y="1130" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1530" y="1154" width="160" height="6" fill="#8b5e3c"/>
+<text x="1610.0" y="1150" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SectionMeetsInLab</text>
+<line x1="1538" y1="1174" x2="1682" y2="1174" stroke="#ccc" stroke-width="0.5"/>
+<text x="1544" y="1186" fill="#c05746" font-weight="bold">→ CourseSection</text>
+<text x="1544" y="1204" fill="#c05746" font-weight="bold">→ Laboratory</text>
+<rect x="1821" y="1132" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1819" y="1130" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1819" y="1130" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1819" y="1154" width="160" height="6" fill="#8b5e3c"/>
+<text x="1899.0" y="1150" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ClassroomInRoom</text>
+<line x1="1827" y1="1174" x2="1971" y2="1174" stroke="#ccc" stroke-width="0.5"/>
+<text x="1833" y="1186" fill="#c05746" font-weight="bold">→ Classroom</text>
+<text x="1833" y="1204" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="2110" y="1132" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2108" y="1130" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2108" y="1130" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2108" y="1154" width="160" height="6" fill="#8b5e3c"/>
+<text x="2188.0" y="1150" text-anchor="middle" fill="white" font-weight="bold" font-size="11">LectureHallInRoom</text>
+<line x1="2116" y1="1174" x2="2260" y2="1174" stroke="#ccc" stroke-width="0.5"/>
+<text x="2122" y="1186" fill="#c05746" font-weight="bold">→ LectureHall</text>
+<text x="2122" y="1204" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="2399" y="1132" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2397" y="1130" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2397" y="1130" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2397" y="1154" width="160" height="6" fill="#8b5e3c"/>
+<text x="2477.0" y="1150" text-anchor="middle" fill="white" font-weight="bold" font-size="11">LabInRoom</text>
+<line x1="2405" y1="1174" x2="2549" y2="1174" stroke="#ccc" stroke-width="0.5"/>
+<text x="2411" y="1186" fill="#c05746" font-weight="bold">→ Laboratory</text>
+<text x="2411" y="1204" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="2688" y="1132" width="171" height="104" fill="#00000010" rx="10"/>
+<rect x="2686" y="1130" width="171" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2686" y="1130" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2686" y="1154" width="171" height="6" fill="#8b5e3c"/>
+<text x="2771.5" y="1150" text-anchor="middle" fill="white" font-weight="bold" font-size="11">RoomInBuilding</text>
+<text x="2700" y="1180" fill="#555">floorLevel: Identifier</text>
+<line x1="2694" y1="1192" x2="2849" y2="1192" stroke="#ccc" stroke-width="0.5"/>
+<text x="2700" y="1204" fill="#c05746" font-weight="bold">→ Room</text>
+<text x="2700" y="1222" fill="#c05746" font-weight="bold">→ Building</text>
+<rect x="2983" y="1132" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="2981" y="1130" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2981" y="1130" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2981" y="1154" width="160" height="6" fill="#8b5e3c"/>
+<text x="3061.0" y="1150" text-anchor="middle" fill="white" font-weight="bold" font-size="11">EquipmentInLab</text>
+<text x="2995" y="1180" fill="#555">benchLocation: Kind</text>
+<line x1="2989" y1="1192" x2="3133" y2="1192" stroke="#ccc" stroke-width="0.5"/>
+<text x="2995" y="1204" fill="#c05746" font-weight="bold">→ LabEquipment</text>
+<text x="2995" y="1222" fill="#c05746" font-weight="bold">→ Laboratory</text>
+<rect x="3200" y="1132" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3198" y="1130" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3198" y="1130" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3198" y="1154" width="160" height="6" fill="#8b5e3c"/>
+<text x="3278.0" y="1150" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SafetyEquipmentInLab</text>
+<line x1="3206" y1="1174" x2="3350" y2="1174" stroke="#ccc" stroke-width="0.5"/>
+<text x="3212" y="1186" fill="#c05746" font-weight="bold">→ SafetyEquipment</text>
+<text x="3212" y="1204" fill="#c05746" font-weight="bold">→ Laboratory</text>
+<rect x="3489" y="1132" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3487" y="1130" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3487" y="1130" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3487" y="1154" width="160" height="6" fill="#8b5e3c"/>
+<text x="3567.0" y="1150" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ProjectorInClassroom</text>
+<line x1="3495" y1="1174" x2="3639" y2="1174" stroke="#ccc" stroke-width="0.5"/>
+<text x="3501" y="1186" fill="#c05746" font-weight="bold">→ Projector</text>
+<text x="3501" y="1204" fill="#c05746" font-weight="bold">→ Classroom</text>
+<rect x="62" y="1302" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="60" y="1300" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1300" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1324" width="160" height="6" fill="#8b5e3c"/>
+<text x="140.0" y="1320" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ScreenInClassroom</text>
+<line x1="68" y1="1344" x2="212" y2="1344" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1356" fill="#c05746" font-weight="bold">→ DisplayScreen</text>
+<text x="74" y="1374" fill="#c05746" font-weight="bold">→ Classroom</text>
+<rect x="351" y="1302" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="349" y="1300" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="349" y="1300" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="349" y="1324" width="160" height="6" fill="#8b5e3c"/>
+<text x="429.0" y="1320" text-anchor="middle" fill="white" font-weight="bold" font-size="11">AudioInClassroom</text>
+<line x1="357" y1="1344" x2="501" y2="1344" stroke="#ccc" stroke-width="0.5"/>
+<text x="363" y="1356" fill="#c05746" font-weight="bold">→ AudioSystem</text>
+<text x="363" y="1374" fill="#c05746" font-weight="bold">→ Classroom</text>
+<rect x="659" y="1302" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="657" y="1300" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="657" y="1300" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="657" y="1324" width="160" height="6" fill="#8b5e3c"/>
+<text x="737.0" y="1320" text-anchor="middle" fill="white" font-weight="bold" font-size="11">DocCameraInClassroom</text>
+<line x1="665" y1="1344" x2="809" y2="1344" stroke="#ccc" stroke-width="0.5"/>
+<text x="671" y="1356" fill="#c05746" font-weight="bold">→ DocumentCamera</text>
+<text x="671" y="1374" fill="#c05746" font-weight="bold">→ Classroom</text>
+<rect x="974" y="1302" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="972" y="1300" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="972" y="1300" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="972" y="1324" width="164" height="6" fill="#8b5e3c"/>
+<text x="1054.0" y="1320" text-anchor="middle" fill="white" font-weight="bold" font-size="11">VideoConfInRoom</text>
+<line x1="980" y1="1344" x2="1128" y2="1344" stroke="#ccc" stroke-width="0.5"/>
+<text x="986" y="1356" fill="#c05746" font-weight="bold">→ VideoConferenceUnit</text>
+<text x="986" y="1374" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="1243" y="1302" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1241" y="1300" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1241" y="1300" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1241" y="1324" width="160" height="6" fill="#8b5e3c"/>
+<text x="1321.0" y="1320" text-anchor="middle" fill="white" font-weight="bold" font-size="11">LectureCaptureInRoom</text>
+<line x1="1249" y1="1344" x2="1393" y2="1344" stroke="#ccc" stroke-width="0.5"/>
+<text x="1255" y="1356" fill="#c05746" font-weight="bold">→ LectureCapture</text>
+<text x="1255" y="1374" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="1532" y="1302" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1530" y="1300" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1530" y="1300" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1530" y="1324" width="160" height="6" fill="#8b5e3c"/>
+<text x="1610.0" y="1320" text-anchor="middle" fill="white" font-weight="bold" font-size="11">WorkstationInRoom</text>
+<line x1="1538" y1="1344" x2="1682" y2="1344" stroke="#ccc" stroke-width="0.5"/>
+<text x="1544" y="1356" fill="#c05746" font-weight="bold">→ Workstation</text>
+<text x="1544" y="1374" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="1821" y="1302" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1819" y="1300" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1819" y="1300" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1819" y="1324" width="160" height="6" fill="#8b5e3c"/>
+<text x="1899.0" y="1320" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PrinterInRoom</text>
+<line x1="1827" y1="1344" x2="1971" y2="1344" stroke="#ccc" stroke-width="0.5"/>
+<text x="1833" y="1356" fill="#c05746" font-weight="bold">→ Printer</text>
+<text x="1833" y="1374" fill="#c05746" font-weight="bold">→ Room</text>
+<rect x="2110" y="1302" width="171" height="104" fill="#00000010" rx="10"/>
+<rect x="2108" y="1300" width="171" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2108" y="1300" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2108" y="1324" width="171" height="6" fill="#8b5e3c"/>
+<text x="2193.5" y="1320" text-anchor="middle" fill="white" font-weight="bold" font-size="11">WiFiAPInBuilding</text>
+<text x="2122" y="1350" fill="#555">floorLevel: Identifier</text>
+<line x1="2116" y1="1362" x2="2271" y2="1362" stroke="#ccc" stroke-width="0.5"/>
+<text x="2122" y="1374" fill="#c05746" font-weight="bold">→ WiFiAccessPoint</text>
+<text x="2122" y="1392" fill="#c05746" font-weight="bold">→ Building</text>
+<rect x="2399" y="1302" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="2397" y="1300" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2397" y="1300" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2397" y="1324" width="160" height="6" fill="#8b5e3c"/>
+<text x="2477.0" y="1320" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SwitchInBuilding</text>
+<text x="2411" y="1350" fill="#555">closetLocation: Kind</text>
+<line x1="2405" y1="1362" x2="2549" y2="1362" stroke="#ccc" stroke-width="0.5"/>
+<text x="2411" y="1374" fill="#c05746" font-weight="bold">→ NetworkSwitch</text>
+<text x="2411" y="1392" fill="#c05746" font-weight="bold">→ Building</text>
+<rect x="2688" y="1302" width="171" height="104" fill="#00000010" rx="10"/>
+<rect x="2686" y="1300" width="171" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2686" y="1300" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2686" y="1324" width="171" height="6" fill="#8b5e3c"/>
+<text x="2771.5" y="1320" text-anchor="middle" fill="white" font-weight="bold" font-size="11">DormRoomInHall</text>
+<text x="2700" y="1350" fill="#555">floorLevel: Identifier</text>
+<line x1="2694" y1="1362" x2="2849" y2="1362" stroke="#ccc" stroke-width="0.5"/>
+<text x="2700" y="1374" fill="#c05746" font-weight="bold">→ DormRoom</text>
+<text x="2700" y="1392" fill="#c05746" font-weight="bold">→ ResidenceHall</text>
+<rect x="2983" y="1302" width="177" height="122" fill="#00000010" rx="10"/>
+<rect x="2981" y="1300" width="177" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2981" y="1300" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2981" y="1324" width="177" height="6" fill="#8b5e3c"/>
+<text x="3069.5" y="1320" text-anchor="middle" fill="white" font-weight="bold" font-size="11">StudentResidingInDorm</text>
+<text x="2995" y="1350" fill="#555">startDate: CalendarTime</text>
+<text x="2995" y="1368" fill="#555">endDate: CalendarTime</text>
+<line x1="2989" y1="1380" x2="3150" y2="1380" stroke="#ccc" stroke-width="0.5"/>
+<text x="2995" y="1392" fill="#c05746" font-weight="bold">→ Student</text>
+<text x="2995" y="1410" fill="#c05746" font-weight="bold">→ DormRoom</text>
+<rect x="3200" y="1302" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="3198" y="1300" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3198" y="1300" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3198" y="1324" width="160" height="6" fill="#8b5e3c"/>
+<text x="3278.0" y="1320" text-anchor="middle" fill="white" font-weight="bold" font-size="11">StudentHasMealPlan</text>
+<text x="3212" y="1350" fill="#555">termID: Identifier</text>
+<line x1="3206" y1="1362" x2="3350" y2="1362" stroke="#ccc" stroke-width="0.5"/>
+<text x="3212" y="1374" fill="#c05746" font-weight="bold">→ Student</text>
+<text x="3212" y="1392" fill="#c05746" font-weight="bold">→ MealPlan</text>
+<rect x="3489" y="1302" width="197" height="104" fill="#00000010" rx="10"/>
+<rect x="3487" y="1300" width="197" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3487" y="1300" width="197" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3487" y="1324" width="197" height="6" fill="#8b5e3c"/>
+<text x="3585.5" y="1320" text-anchor="middle" fill="white" font-weight="bold" font-size="11">StudentReceivesScholarship</text>
+<text x="3501" y="1350" fill="#555">awardDate: CalendarTime</text>
+<line x1="3495" y1="1362" x2="3676" y2="1362" stroke="#ccc" stroke-width="0.5"/>
+<text x="3501" y="1374" fill="#c05746" font-weight="bold">→ Student</text>
+<text x="3501" y="1392" fill="#c05746" font-weight="bold">→ Scholarship</text>
+<rect x="62" y="1454" width="171" height="122" fill="#00000010" rx="10"/>
+<rect x="60" y="1452" width="171" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1452" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1476" width="171" height="6" fill="#8b5e3c"/>
+<text x="145.5" y="1472" text-anchor="middle" fill="white" font-weight="bold" font-size="11">StudentInOrganization</text>
+<text x="74" y="1502" fill="#555">memberRole: Kind</text>
+<text x="74" y="1520" fill="#555">joinDate: CalendarTime</text>
+<line x1="68" y1="1532" x2="223" y2="1532" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1544" fill="#c05746" font-weight="bold">→ Student</text>
+<text x="74" y="1562" fill="#c05746" font-weight="bold">→ StudentOrganization</text>
+<rect x="351" y="1454" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="349" y="1452" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="349" y="1452" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="349" y="1476" width="160" height="6" fill="#8b5e3c"/>
+<text x="429.0" y="1472" text-anchor="middle" fill="white" font-weight="bold" font-size="11">StudentOnTeam</text>
+<text x="363" y="1502" fill="#555">position: Kind</text>
+<line x1="357" y1="1514" x2="501" y2="1514" stroke="#ccc" stroke-width="0.5"/>
+<text x="363" y="1526" fill="#c05746" font-weight="bold">→ Student</text>
+<text x="363" y="1544" fill="#c05746" font-weight="bold">→ SportsTeam</text>
+<rect x="659" y="1454" width="177" height="86" fill="#00000010" rx="10"/>
+<rect x="657" y="1452" width="177" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="657" y="1452" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="657" y="1476" width="177" height="6" fill="#8b5e3c"/>
+<text x="745.5" y="1472" text-anchor="middle" fill="white" font-weight="bold" font-size="11">StudentHasParkingPermit</text>
+<line x1="665" y1="1496" x2="826" y2="1496" stroke="#ccc" stroke-width="0.5"/>
+<text x="671" y="1508" fill="#c05746" font-weight="bold">→ Student</text>
+<text x="671" y="1526" fill="#c05746" font-weight="bold">→ ParkingPermit</text>
+<rect x="974" y="1454" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="972" y="1452" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="972" y="1452" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="972" y="1476" width="160" height="6" fill="#8b5e3c"/>
+<text x="1052.0" y="1472" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PermitForFacility</text>
+<line x1="980" y1="1496" x2="1124" y2="1496" stroke="#ccc" stroke-width="0.5"/>
+<text x="986" y="1508" fill="#c05746" font-weight="bold">→ ParkingPermit</text>
+<text x="986" y="1526" fill="#c05746" font-weight="bold">→ ParkingFacility</text>
+<rect x="1243" y="1454" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="1241" y="1452" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1241" y="1452" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1241" y="1476" width="160" height="6" fill="#8b5e3c"/>
+<text x="1321.0" y="1472" text-anchor="middle" fill="white" font-weight="bold" font-size="11">TeamUseFacility</text>
+<text x="1255" y="1502" fill="#555">usageType: Kind</text>
+<line x1="1249" y1="1514" x2="1393" y2="1514" stroke="#ccc" stroke-width="0.5"/>
+<text x="1255" y="1526" fill="#c05746" font-weight="bold">→ SportsTeam</text>
+<text x="1255" y="1544" fill="#c05746" font-weight="bold">→ AthleticFacility</text>
+<rect x="1532" y="1454" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="1530" y="1452" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1530" y="1452" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1530" y="1476" width="160" height="6" fill="#8b5e3c"/>
+<text x="1610.0" y="1472" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FacultyPIOnGrant</text>
+<text x="1544" y="1502" fill="#555">piRole: Kind</text>
+<line x1="1538" y1="1514" x2="1682" y2="1514" stroke="#ccc" stroke-width="0.5"/>
+<text x="1544" y="1526" fill="#c05746" font-weight="bold">→ FacultyMember</text>
+<text x="1544" y="1544" fill="#c05746" font-weight="bold">→ Grant</text>
+<rect x="1821" y="1454" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1819" y="1452" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1819" y="1452" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1819" y="1476" width="160" height="6" fill="#8b5e3c"/>
+<text x="1899.0" y="1472" text-anchor="middle" fill="white" font-weight="bold" font-size="11">GrantFundsCenter</text>
+<line x1="1827" y1="1496" x2="1971" y2="1496" stroke="#ccc" stroke-width="0.5"/>
+<text x="1833" y="1508" fill="#c05746" font-weight="bold">→ Grant</text>
+<text x="1833" y="1526" fill="#c05746" font-weight="bold">→ ResearchCenter</text>
+<rect x="2110" y="1454" width="177" height="104" fill="#00000010" rx="10"/>
+<rect x="2108" y="1452" width="177" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2108" y="1452" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2108" y="1476" width="177" height="6" fill="#8b5e3c"/>
+<text x="2196.5" y="1472" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FacultyInResearchCenter</text>
+<text x="2122" y="1502" fill="#555">role: Kind</text>
+<line x1="2116" y1="1514" x2="2277" y2="1514" stroke="#ccc" stroke-width="0.5"/>
+<text x="2122" y="1526" fill="#c05746" font-weight="bold">→ FacultyMember</text>
+<text x="2122" y="1544" fill="#c05746" font-weight="bold">→ ResearchCenter</text>
+<rect x="2399" y="1454" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2397" y="1452" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2397" y="1452" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2397" y="1476" width="160" height="6" fill="#8b5e3c"/>
+<text x="2477.0" y="1472" text-anchor="middle" fill="white" font-weight="bold" font-size="11">StudyRoomInLibrary</text>
+<line x1="2405" y1="1496" x2="2549" y2="1496" stroke="#ccc" stroke-width="0.5"/>
+<text x="2411" y="1508" fill="#c05746" font-weight="bold">→ StudyRoom</text>
+<text x="2411" y="1526" fill="#c05746" font-weight="bold">→ LibraryBranch</text>
+<rect x="2688" y="1454" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2686" y="1452" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2686" y="1452" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2686" y="1476" width="160" height="6" fill="#8b5e3c"/>
+<text x="2766.0" y="1472" text-anchor="middle" fill="white" font-weight="bold" font-size="11">LibraryInBuilding</text>
+<line x1="2694" y1="1496" x2="2838" y2="1496" stroke="#ccc" stroke-width="0.5"/>
+<text x="2700" y="1508" fill="#c05746" font-weight="bold">→ LibraryBranch</text>
+<text x="2700" y="1526" fill="#c05746" font-weight="bold">→ Building</text>
+<rect x="2983" y="1454" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2981" y="1452" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2981" y="1452" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2981" y="1476" width="160" height="6" fill="#8b5e3c"/>
+<text x="3061.0" y="1472" text-anchor="middle" fill="white" font-weight="bold" font-size="11">VehicleOnRoute</text>
+<line x1="2989" y1="1496" x2="3133" y2="1496" stroke="#ccc" stroke-width="0.5"/>
+<text x="2995" y="1508" fill="#c05746" font-weight="bold">→ ShuttleVehicle</text>
+<text x="2995" y="1526" fill="#c05746" font-weight="bold">→ ShuttleRoute</text>
+<rect x="3200" y="1454" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="3198" y="1452" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3198" y="1452" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3198" y="1476" width="160" height="6" fill="#8b5e3c"/>
+<text x="3278.0" y="1472" text-anchor="middle" fill="white" font-weight="bold" font-size="11">StopOnRoute</text>
+<text x="3212" y="1502" fill="#555">stopOrder: Count</text>
+<line x1="3206" y1="1514" x2="3350" y2="1514" stroke="#ccc" stroke-width="0.5"/>
+<text x="3212" y="1526" fill="#c05746" font-weight="bold">→ ShuttleStop</text>
+<text x="3212" y="1544" fill="#c05746" font-weight="bold">→ ShuttleRoute</text>
+<rect x="3489" y="1454" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3487" y="1452" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3487" y="1452" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3487" y="1476" width="160" height="6" fill="#8b5e3c"/>
+<text x="3567.0" y="1472" text-anchor="middle" fill="white" font-weight="bold" font-size="11">StaffInDepartment</text>
+<line x1="3495" y1="1496" x2="3639" y2="1496" stroke="#ccc" stroke-width="0.5"/>
+<text x="3501" y="1508" fill="#c05746" font-weight="bold">→ StaffMember</text>
+<text x="3501" y="1526" fill="#c05746" font-weight="bold">→ Department</text>
+<rect x="62" y="1606" width="177" height="104" fill="#00000010" rx="10"/>
+<rect x="60" y="1604" width="177" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1604" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1628" width="177" height="6" fill="#8b5e3c"/>
+<text x="148.5" y="1624" text-anchor="middle" fill="white" font-weight="bold" font-size="11">DepartmentInBuilding</text>
+<text x="74" y="1654" fill="#555">officeFloor: Identifier</text>
+<line x1="68" y1="1666" x2="229" y2="1666" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1678" fill="#c05746" font-weight="bold">→ Department</text>
+<text x="74" y="1696" fill="#c05746" font-weight="bold">→ Building</text>
+<rect x="351" y="1606" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="349" y="1604" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="349" y="1604" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="349" y="1628" width="160" height="6" fill="#8b5e3c"/>
+<text x="429.0" y="1624" text-anchor="middle" fill="white" font-weight="bold" font-size="11">MeterOnBuilding</text>
+<line x1="357" y1="1648" x2="501" y2="1648" stroke="#ccc" stroke-width="0.5"/>
+<text x="363" y="1660" fill="#c05746" font-weight="bold">→ UtilityMeter</text>
+<text x="363" y="1678" fill="#c05746" font-weight="bold">→ Building</text>
+<rect x="659" y="1606" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="657" y="1604" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="657" y="1604" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="657" y="1628" width="160" height="6" fill="#8b5e3c"/>
+<text x="737.0" y="1624" text-anchor="middle" fill="white" font-weight="bold" font-size="11">DiningHallInBuilding</text>
+<line x1="665" y1="1648" x2="809" y2="1648" stroke="#ccc" stroke-width="0.5"/>
+<text x="671" y="1660" fill="#c05746" font-weight="bold">→ DiningHall</text>
+<text x="671" y="1678" fill="#c05746" font-weight="bold">→ Building</text>
+<rect x="974" y="1606" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="972" y="1604" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="972" y="1604" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="972" y="1628" width="160" height="6" fill="#8b5e3c"/>
+<text x="1052.0" y="1624" text-anchor="middle" fill="white" font-weight="bold" font-size="11">MealPlanAtDiningHall</text>
+<line x1="980" y1="1648" x2="1124" y2="1648" stroke="#ccc" stroke-width="0.5"/>
+<text x="986" y="1660" fill="#c05746" font-weight="bold">→ MealPlan</text>
+<text x="986" y="1678" fill="#c05746" font-weight="bold">→ DiningHall</text>
+<rect x="1243" y="1606" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1241" y="1604" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1241" y="1604" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1241" y="1628" width="160" height="6" fill="#8b5e3c"/>
+<text x="1321.0" y="1624" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FacultyHasOffice</text>
+<line x1="1249" y1="1648" x2="1393" y2="1648" stroke="#ccc" stroke-width="0.5"/>
+<text x="1255" y="1660" fill="#c05746" font-weight="bold">→ FacultyMember</text>
+<text x="1255" y="1678" fill="#c05746" font-weight="bold">→ Room</text>
+</svg>

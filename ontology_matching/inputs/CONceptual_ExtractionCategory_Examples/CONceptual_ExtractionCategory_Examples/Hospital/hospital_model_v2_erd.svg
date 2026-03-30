@@ -1,0 +1,1232 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4184 1668" width="4184" height="1668" style="font-family: Consolas, Monaco, monospace; font-size: 11px;">
+<defs>
+  <marker id="arrowComp" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#4a6fa5"/>
+  </marker>
+  <marker id="arrowAssoc" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#c05746"/>
+  </marker>
+  <marker id="diamond" markerWidth="12" markerHeight="8" refX="0" refY="4" orient="auto">
+    <polygon points="0 4, 6 0, 12 4, 6 8" fill="#4a6fa5"/>
+  </marker>
+</defs>
+<rect width="4184" height="1668" fill="#fafafa" rx="4"/>
+<text x="2092.0" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">Hospital_Model_V2_EquipmentAndSpaceCentric</text>
+<text x="2092.0" y="50" text-anchor="middle" font-size="10" fill="#7f8c8d" style="font-family: sans-serif;">Equipment-and-space-centric decomposition of a hospital system. Every piece of medical equipment, clinical space, infras</text>
+<rect x="3884" y="10" width="280" height="55" fill="white" stroke="#ddd" rx="4"/>
+<rect x="3894" y="20" width="14" height="14" fill="#34698a" rx="2"/>
+<text x="3914" y="32" font-size="10" fill="#333" style="font-family: sans-serif;">Entity</text>
+<rect x="3984" y="20" width="14" height="14" fill="#8b5e3c" rx="6"/>
+<text x="4004" y="32" font-size="10" fill="#333" style="font-family: sans-serif;">Association</text>
+<line x1="3894" y1="48" x2="3924" y2="48" stroke="#4a6fa5" stroke-width="1.5" marker-start="url(#diamond)"/>
+<text x="3932" y="52" font-size="10" fill="#333" style="font-family: sans-serif;">Composition</text>
+<line x1="4024" y1="48" x2="4054" y2="48" stroke="#c05746" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)"/>
+<text x="4062" y="52" font-size="10" fill="#333" style="font-family: sans-serif;">Association Link</text>
+<line x1="2365.0" y1="928.1" x2="809.0" y2="171.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2365.0" y1="934.3" x2="539.0" y2="186.9" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2673.0" y1="930.5" x2="1163.0" y2="240.9" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2673.0" y1="934.0" x2="809.0" y2="165.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2962.0" y1="928.4" x2="1449.7" y2="198.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2962.0" y1="938.1" x2="809.0" y2="160.9" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3251.0" y1="930.0" x2="1747.0" y2="234.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3251.0" y1="941.3" x2="809.0" y2="157.4" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3611.5" y1="924.0" x2="3899.4" y2="216.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3514.0" y1="943.7" x2="809.0" y2="154.9" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3835.0" y1="954.5" x2="224.0" y2="389.8" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3835.0" y1="946.0" x2="809.0" y2="152.4" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="158.6" y1="1090.0" x2="441.5" y2="436.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="165.0" y1="1090.0" x2="694.4" y2="180.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="509.0" y1="1091.1" x2="1509.7" y2="454.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="462.1" y1="1090.0" x2="972.3" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="769.7" y1="1090.0" x2="1534.7" y2="454.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="744.4" y1="1090.0" x2="1291.3" y2="198.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1047.5" y1="1090.0" x2="1815.8" y2="472.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="996.0" y1="1090.0" x2="1033.6" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1319.6" y1="1090.0" x2="1845.9" y2="472.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1284.9" y1="1090.0" x2="1324.9" y2="198.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1591.8" y1="1090.0" x2="1876.1" y2="472.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1636.4" y1="1090.0" x2="3025.1" y2="162.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1887.2" y1="1090.0" x2="2151.7" y2="526.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1843.7" y1="1090.0" x2="1359.5" y2="198.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2160.6" y1="1090.0" x2="2194.3" y2="526.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2147.4" y1="1090.0" x2="1923.8" y2="180.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2449.5" y1="1090.0" x2="2483.9" y2="508.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2399.2" y1="1090.0" x2="1692.1" y2="454.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2754.5" y1="1090.0" x2="2772.6" y2="454.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2709.8" y1="1090.0" x2="1953.1" y2="180.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3042.3" y1="1090.0" x2="3047.1" y2="436.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2978.2" y1="1090.0" x2="1747.0" y2="260.9" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3332.6" y1="1090.0" x2="3356.8" y2="436.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3254.2" y1="1090.0" x2="1747.0" y2="246.4" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3599.4" y1="1090.0" x2="3648.4" y2="472.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3514.0" y1="1093.3" x2="1747.0" y2="236.8" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3923.3" y1="1090.0" x2="3920.7" y2="418.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3835.0" y1="1096.2" x2="1747.0" y2="228.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="140.4" y1="1224.0" x2="144.9" y2="692.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="198.3" y1="1224.0" x2="1492.0" y2="269.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="429.6" y1="1224.0" x2="436.5" y2="710.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="415.1" y1="1224.0" x2="161.0" y2="436.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="718.8" y1="1224.0" x2="728.7" y2="692.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="690.2" y1="1224.0" x2="180.2" y2="436.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="994.4" y1="1224.0" x2="999.1" y2="656.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="952.8" y1="1224.0" x2="198.5" y2="436.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1283.4" y1="1224.0" x2="1288.1" y2="656.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1227.9" y1="1224.0" x2="217.6" y2="436.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1575.0" y1="1224.0" x2="1611.8" y2="692.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1652.0" y1="1229.0" x2="3835.0" y2="191.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1867.8" y1="1224.0" x2="1878.1" y2="656.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1946.2" y1="1224.0" x2="3835.0" y2="198.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2156.8" y1="1224.0" x2="2167.1" y2="656.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2224.1" y1="1224.0" x2="3835.0" y2="206.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2506.4" y1="1224.0" x2="3265.5" y2="692.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2501.9" y1="1224.0" x2="3836.9" y2="216.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2743.9" y1="1224.0" x2="2526.8" y2="692.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2673.0" y1="1227.6" x2="802.0" y2="395.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3055.0" y1="1224.0" x2="2826.7" y2="692.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3093.5" y1="1224.0" x2="3586.9" y2="162.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3324.7" y1="1224.0" x2="2857.3" y2="692.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3251.0" y1="1232.7" x2="585.0" y2="413.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3570.4" y1="1224.0" x2="3129.8" y2="692.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3606.0" y1="1224.0" x2="3606.0" y2="162.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3895.8" y1="1224.0" x2="3658.8" y2="692.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3835.0" y1="1246.4" x2="585.0" y2="407.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="204.3" y1="1340.0" x2="914.0" y2="865.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="172.2" y1="1340.0" x2="960.6" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="471.7" y1="1340.0" x2="932.0" y2="876.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="471.4" y1="1340.0" x2="1525.9" y2="270.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="739.1" y1="1340.0" x2="966.2" y2="876.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="739.1" y1="1340.0" x2="1298.6" y2="198.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1045.4" y1="1340.0" x2="1521.3" y2="894.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="999.5" y1="1340.0" x2="999.5" y2="876.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1243.5" y1="1340.0" x2="800.3" y2="858.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1274.2" y1="1340.0" x2="1059.7" y2="288.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1562.2" y1="1340.0" x2="1348.8" y2="840.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1640.4" y1="1340.0" x2="3282.4" y2="162.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1835.8" y1="1340.0" x2="1373.7" y2="840.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1815.3" y1="1340.0" x2="549.6" y2="436.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2103.8" y1="1340.0" x2="1398.1" y2="840.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2225.9" y1="1340.0" x2="3835.0" y2="212.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2464.1" y1="1340.0" x2="2469.4" y2="858.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2391.8" y1="1340.0" x2="792.4" y2="180.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2698.5" y1="1340.0" x2="1964.0" y2="865.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2684.2" y1="1340.0" x2="539.0" y2="198.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2976.6" y1="1340.0" x2="2260.0" y2="868.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3111.7" y1="1340.0" x2="3835.0" y2="893.8" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3331.4" y1="1340.0" x2="3335.9" y2="858.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3251.0" y1="1348.8" x2="539.0" y2="188.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3594.6" y1="1340.0" x2="3601.6" y2="858.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3514.0" y1="1348.1" x2="809.0" y2="167.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3835.0" y1="1374.2" x2="309.0" y2="996.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3897.3" y1="1340.0" x2="3358.3" y2="162.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="145.4" y1="1474.0" x2="179.8" y2="1042.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="206.7" y1="1474.0" x2="2098.3" y2="216.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="432.6" y1="1474.0" x2="468.6" y2="1042.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="418.2" y1="1474.0" x2="156.9" y2="436.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="726.7" y1="1474.0" x2="751.9" y2="1060.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="701.9" y1="1474.0" x2="187.0" y2="234.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="995.5" y1="1474.0" x2="1007.1" y2="1060.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="983.9" y1="1474.0" x2="733.2" y2="180.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1284.0" y1="1474.0" x2="1293.7" y2="1042.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1363.0" y1="1475.6" x2="3835.0" y2="195.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1549.7" y1="1474.0" x2="1325.6" y2="1042.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1518.1" y1="1474.0" x2="216.0" y2="436.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1844.8" y1="1474.0" x2="1612.8" y2="1024.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1814.2" y1="1474.0" x2="539.5" y2="436.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2133.9" y1="1474.0" x2="1912.3" y2="1042.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2138.8" y1="1474.0" x2="1657.5" y2="270.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2424.6" y1="1474.0" x2="2211.2" y2="1024.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2418.5" y1="1474.0" x2="1677.9" y2="270.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2782.9" y1="1474.0" x2="3322.6" y2="162.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2694.7" y1="1474.0" x2="1163.0" y2="281.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3059.4" y1="1474.0" x2="3589.4" y2="162.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3051.2" y1="1474.0" x2="3330.8" y2="162.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3361.1" y1="1474.0" x2="3895.6" y2="710.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3257.0" y1="1474.0" x2="1163.0" y2="256.4" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<rect x="62" y="82" width="190" height="154" fill="#00000010" rx="4"/>
+<rect x="60" y="80" width="190" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="80" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="106" width="190" height="4" fill="#34698a"/>
+<text x="155.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Hospital</text>
+<text x="74" y="130" fill="#555" style="">hospitalID: Identifier</text>
+<text x="74" y="148" fill="#555" style="">hospitalName: Description</text>
+<text x="74" y="166" fill="#555" style="">location: Position</text>
+<text x="74" y="184" fill="#555" style="">totalBedCount: Count</text>
+<text x="74" y="202" fill="#555" style="">traumaLevel: Kind</text>
+<text x="74" y="220" fill="#555" style="">accreditationStatus: Kind</text>
+<rect x="351" y="82" width="190" height="136" fill="#00000010" rx="4"/>
+<rect x="349" y="80" width="190" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="349" y="80" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="349" y="106" width="190" height="4" fill="#34698a"/>
+<text x="444.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Building</text>
+<text x="363" y="130" fill="#555" style="">buildingID: Identifier</text>
+<text x="363" y="148" fill="#555" style="">buildingName: Description</text>
+<text x="363" y="166" fill="#555" style="">grossArea: ScalarArea</text>
+<text x="363" y="184" fill="#555" style="">floorCount: Count</text>
+<text x="363" y="202" fill="#555" style="">condition: HealthState</text>
+<rect x="640" y="82" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="638" y="80" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="638" y="80" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="638" y="106" width="171" height="4" fill="#34698a"/>
+<text x="723.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Floor</text>
+<text x="652" y="130" fill="#555" style="">floorID: Identifier</text>
+<text x="652" y="148" fill="#555" style="">floorLevel: Identifier</text>
+<text x="652" y="166" fill="#555" style="">floorArea: ScalarArea</text>
+<rect x="916" y="82" width="249" height="208" fill="#00000010" rx="4"/>
+<rect x="914" y="80" width="249" height="208" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="914" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="914" y="106" width="249" height="4" fill="#34698a"/>
+<text x="1038.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PatientRoom</text>
+<text x="928" y="130" fill="#555" style="">roomID: Identifier</text>
+<text x="928" y="148" fill="#555" style="">roomNumber: Identifier</text>
+<text x="928" y="166" fill="#555" style="">roomType: Kind</text>
+<text x="928" y="184" fill="#555" style="">bedCount: Count</text>
+<text x="928" y="202" fill="#555" style="">floorArea: ScalarArea</text>
+<text x="928" y="220" fill="#555" style="">temperature: Temperature</text>
+<text x="928" y="238" fill="#555" style="">humidity: Humidity</text>
+<text x="928" y="256" fill="#555" style="">isolationState: ConfigurationState</text>
+<text x="928" y="274" fill="#555" style="">occupancyState: ConfigurationState</text>
+<rect x="1205" y="82" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="1203" y="80" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1203" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1203" y="106" width="249" height="4" fill="#34698a"/>
+<text x="1327.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ICUBay</text>
+<text x="1217" y="130" fill="#555" style="">bayID: Identifier</text>
+<text x="1217" y="148" fill="#555" style="">bayType: Kind</text>
+<text x="1217" y="166" fill="#555" style="">floorArea: ScalarArea</text>
+<text x="1217" y="184" fill="#555" style="">occupancyState: ConfigurationState</text>
+<rect x="1494" y="82" width="255" height="190" fill="#00000010" rx="4"/>
+<rect x="1492" y="80" width="255" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1492" y="80" width="255" height="30" fill="#34698a" rx="4"/>
+<rect x="1492" y="106" width="255" height="4" fill="#34698a"/>
+<text x="1619.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">OperatingRoom</text>
+<text x="1506" y="130" fill="#555" style="">orID: Identifier</text>
+<text x="1506" y="148" fill="#555" style="">orNumber: Identifier</text>
+<text x="1506" y="166" fill="#555" style="">orType: Kind</text>
+<text x="1506" y="184" fill="#555" style="">floorArea: ScalarArea</text>
+<text x="1506" y="202" fill="#555" style="">temperature: Temperature</text>
+<text x="1506" y="220" fill="#555" style="">humidity: Humidity</text>
+<text x="1506" y="238" fill="#555" style="">airExchangeRate: CountRate</text>
+<text x="1506" y="256" fill="#555" style="">operationalStatus: OperationalState</text>
+<rect x="1789" y="82" width="249" height="100" fill="#00000010" rx="4"/>
+<rect x="1787" y="80" width="249" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1787" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1787" y="106" width="249" height="4" fill="#34698a"/>
+<text x="1911.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">EmergencyBay</text>
+<text x="1801" y="130" fill="#555" style="">bayID: Identifier</text>
+<text x="1801" y="148" fill="#555" style="">bayType: Kind</text>
+<text x="1801" y="166" fill="#555" style="">occupancyState: ConfigurationState</text>
+<rect x="2078" y="82" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="2076" y="80" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2076" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2076" y="106" width="249" height="4" fill="#34698a"/>
+<text x="2200.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ExamRoom</text>
+<text x="2090" y="130" fill="#555" style="">roomID: Identifier</text>
+<text x="2090" y="148" fill="#555" style="">roomNumber: Identifier</text>
+<text x="2090" y="166" fill="#555" style="">specialty: Kind</text>
+<text x="2090" y="184" fill="#555" style="">floorArea: ScalarArea</text>
+<text x="2090" y="202" fill="#555" style="">occupancyState: ConfigurationState</text>
+<rect x="2367" y="82" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="2365" y="80" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2365" y="80" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2365" y="106" width="171" height="4" fill="#34698a"/>
+<text x="2450.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">TriageArea</text>
+<text x="2379" y="130" fill="#555" style="">areaID: Identifier</text>
+<text x="2379" y="148" fill="#555" style="">stationCount: Count</text>
+<text x="2379" y="166" fill="#555" style="">waitingCapacity: Count</text>
+<rect x="2675" y="82" width="249" height="82" fill="#00000010" rx="4"/>
+<rect x="2673" y="80" width="249" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2673" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2673" y="106" width="249" height="4" fill="#34698a"/>
+<text x="2797.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PreOpBay</text>
+<text x="2687" y="130" fill="#555" style="">bayID: Identifier</text>
+<text x="2687" y="148" fill="#555" style="">occupancyState: ConfigurationState</text>
+<rect x="2964" y="82" width="249" height="82" fill="#00000010" rx="4"/>
+<rect x="2962" y="80" width="249" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2962" y="80" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2962" y="106" width="249" height="4" fill="#34698a"/>
+<text x="3086.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">RecoveryBay</text>
+<text x="2976" y="130" fill="#555" style="">bayID: Identifier</text>
+<text x="2976" y="148" fill="#555" style="">occupancyState: ConfigurationState</text>
+<rect x="3253" y="82" width="177" height="82" fill="#00000010" rx="4"/>
+<rect x="3251" y="80" width="177" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3251" y="80" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="3251" y="106" width="177" height="4" fill="#34698a"/>
+<text x="3339.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">NurseStation</text>
+<text x="3265" y="130" fill="#555" style="">stationID: Identifier</text>
+<text x="3265" y="148" fill="#555" style="">workstationCount: Count</text>
+<rect x="3516" y="82" width="184" height="82" fill="#00000010" rx="4"/>
+<rect x="3514" y="80" width="184" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3514" y="80" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="3514" y="106" width="184" height="4" fill="#34698a"/>
+<text x="3606.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MedicationRoom</text>
+<text x="3528" y="130" fill="#555" style="">roomID: Identifier</text>
+<text x="3528" y="148" fill="#555" style="">temperature: Temperature</text>
+<rect x="3837" y="82" width="184" height="136" fill="#00000010" rx="4"/>
+<rect x="3835" y="80" width="184" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3835" y="80" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="3835" y="106" width="184" height="4" fill="#34698a"/>
+<text x="3927.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ClinicalLaboratory</text>
+<text x="3849" y="130" fill="#555" style="">labID: Identifier</text>
+<text x="3849" y="148" fill="#555" style="">labType: Kind</text>
+<text x="3849" y="166" fill="#555" style="">labName: Description</text>
+<text x="3849" y="184" fill="#555" style="">biosafety: Kind</text>
+<text x="3849" y="202" fill="#555" style="">temperature: Temperature</text>
+<rect x="62" y="320" width="164" height="118" fill="#00000010" rx="4"/>
+<rect x="60" y="318" width="164" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="318" width="164" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="344" width="164" height="4" fill="#34698a"/>
+<text x="142.0" y="338" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ImagingSuite</text>
+<text x="74" y="368" fill="#555" style="">suiteID: Identifier</text>
+<text x="74" y="386" fill="#555" style="">suiteType: Kind</text>
+<text x="74" y="404" fill="#555" style="">floorArea: ScalarArea</text>
+<text x="74" y="422" fill="#555" style="">shielding: Kind</text>
+<rect x="351" y="320" width="236" height="118" fill="#00000010" rx="4"/>
+<rect x="349" y="318" width="236" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="349" y="318" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="349" y="344" width="236" height="4" fill="#34698a"/>
+<text x="467.0" y="338" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PharmacySpace</text>
+<text x="363" y="368" fill="#555" style="">pharmacyID: Identifier</text>
+<text x="363" y="386" fill="#555" style="">pharmacyType: Kind</text>
+<text x="363" y="404" fill="#555" style="">floorArea: ScalarArea</text>
+<text x="363" y="422" fill="#555" style="">hasCleanRoom: ConfigurationState</text>
+<rect x="640" y="320" width="164" height="82" fill="#00000010" rx="4"/>
+<rect x="638" y="318" width="164" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="638" y="318" width="164" height="30" fill="#34698a" rx="4"/>
+<rect x="638" y="344" width="164" height="4" fill="#34698a"/>
+<text x="720.0" y="338" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SterileProcessingArea</text>
+<text x="652" y="368" fill="#555" style="">areaID: Identifier</text>
+<text x="652" y="386" fill="#555" style="">floorArea: ScalarArea</text>
+<rect x="916" y="320" width="197" height="100" fill="#00000010" rx="4"/>
+<rect x="914" y="318" width="197" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="914" y="318" width="197" height="30" fill="#34698a" rx="4"/>
+<rect x="914" y="344" width="197" height="4" fill="#34698a"/>
+<text x="1012.5" y="338" text-anchor="middle" fill="white" font-weight="bold" font-size="12">DecontaminationRoom</text>
+<text x="928" y="368" fill="#555" style="">roomID: Identifier</text>
+<text x="928" y="386" fill="#555" style="">showerCount: Count</text>
+<text x="928" y="404" fill="#555" style="">ventilationRate: CountRate</text>
+<rect x="1205" y="320" width="249" height="100" fill="#00000010" rx="4"/>
+<rect x="1203" y="318" width="249" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1203" y="318" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1203" y="344" width="249" height="4" fill="#34698a"/>
+<text x="1327.5" y="338" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AmbulanceBay</text>
+<text x="1217" y="368" fill="#555" style="">bayID: Identifier</text>
+<text x="1217" y="386" fill="#555" style="">vehicleCapacity: Count</text>
+<text x="1217" y="404" fill="#555" style="">helipadPresent: ConfigurationState</text>
+<rect x="1494" y="320" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="1492" y="318" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1492" y="318" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1492" y="344" width="249" height="4" fill="#34698a"/>
+<text x="1616.5" y="338" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PatientBed</text>
+<text x="1506" y="368" fill="#555" style="">bedID: Identifier</text>
+<text x="1506" y="386" fill="#555" style="">bedType: Kind</text>
+<text x="1506" y="404" fill="#555" style="">weightCapacity: Mass</text>
+<text x="1506" y="422" fill="#555" style="">condition: HealthState</text>
+<text x="1506" y="440" fill="#555" style="">occupancyState: ConfigurationState</text>
+<rect x="1789" y="320" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="1787" y="318" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1787" y="318" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1787" y="344" width="249" height="4" fill="#34698a"/>
+<text x="1911.5" y="338" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BedsideMonitor</text>
+<text x="1801" y="368" fill="#555" style="">monitorID: Identifier</text>
+<text x="1801" y="386" fill="#555" style="">monitorType: Kind</text>
+<text x="1801" y="404" fill="#555" style="">parameterCount: Count</text>
+<text x="1801" y="422" fill="#555" style="">alarmState: ConfigurationState</text>
+<text x="1801" y="440" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="1801" y="458" fill="#555" style="">condition: HealthState</text>
+<rect x="2078" y="320" width="249" height="208" fill="#00000010" rx="4"/>
+<rect x="2076" y="318" width="249" height="208" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2076" y="318" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2076" y="344" width="249" height="4" fill="#34698a"/>
+<text x="2200.5" y="338" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Ventilator</text>
+<text x="2090" y="368" fill="#555" style="">ventilatorID: Identifier</text>
+<text x="2090" y="386" fill="#555" style="">ventilatorType: Kind</text>
+<text x="2090" y="404" fill="#555" style="">ventilationMode: Mode</text>
+<text x="2090" y="422" fill="#555" style="">tidalVolume: ScalarVolume</text>
+<text x="2090" y="440" fill="#555" style="">respiratoryRate: TemporalFrequency</text>
+<text x="2090" y="458" fill="#555" style="">peep: Pressure</text>
+<text x="2090" y="476" fill="#555" style="">fio2: Ratio</text>
+<text x="2090" y="494" fill="#555" style="">alarmState: ConfigurationState</text>
+<text x="2090" y="512" fill="#555" style="">condition: HealthState</text>
+<rect x="2367" y="320" width="249" height="190" fill="#00000010" rx="4"/>
+<rect x="2365" y="318" width="249" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2365" y="318" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2365" y="344" width="249" height="4" fill="#34698a"/>
+<text x="2489.5" y="338" text-anchor="middle" fill="white" font-weight="bold" font-size="12">InfusionPump</text>
+<text x="2379" y="368" fill="#555" style="">pumpID: Identifier</text>
+<text x="2379" y="386" fill="#555" style="">pumpType: Kind</text>
+<text x="2379" y="404" fill="#555" style="">channelCount: Count</text>
+<text x="2379" y="422" fill="#555" style="">infusionRate: MassFlowRate</text>
+<text x="2379" y="440" fill="#555" style="">alarmState: ConfigurationState</text>
+<text x="2379" y="458" fill="#555" style="">batteryLevel: Ratio</text>
+<text x="2379" y="476" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="2379" y="494" fill="#555" style="">condition: HealthState</text>
+<rect x="2675" y="320" width="203" height="136" fill="#00000010" rx="4"/>
+<rect x="2673" y="318" width="203" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2673" y="318" width="203" height="30" fill="#34698a" rx="4"/>
+<rect x="2673" y="344" width="203" height="4" fill="#34698a"/>
+<text x="2774.5" y="338" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Defibrillator</text>
+<text x="2687" y="368" fill="#555" style="">defibID: Identifier</text>
+<text x="2687" y="386" fill="#555" style="">defibType: Kind</text>
+<text x="2687" y="404" fill="#555" style="">batteryLevel: Ratio</text>
+<text x="2687" y="422" fill="#555" style="">padExpiration: CalendarTime</text>
+<text x="2687" y="440" fill="#555" style="">condition: HealthState</text>
+<rect x="2964" y="320" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="2962" y="318" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2962" y="318" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2962" y="344" width="171" height="4" fill="#34698a"/>
+<text x="3047.5" y="338" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SurgicalTable</text>
+<text x="2976" y="368" fill="#555" style="">tableID: Identifier</text>
+<text x="2976" y="386" fill="#555" style="">tableType: Kind</text>
+<text x="2976" y="404" fill="#555" style="">weightCapacity: Mass</text>
+<text x="2976" y="422" fill="#555" style="">condition: HealthState</text>
+<rect x="3253" y="320" width="216" height="118" fill="#00000010" rx="4"/>
+<rect x="3251" y="318" width="216" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3251" y="318" width="216" height="30" fill="#34698a" rx="4"/>
+<rect x="3251" y="344" width="216" height="4" fill="#34698a"/>
+<text x="3359.0" y="338" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SurgicalLight</text>
+<text x="3265" y="368" fill="#555" style="">lightID: Identifier</text>
+<text x="3265" y="386" fill="#555" style="">lightIntensity: Illuminance</text>
+<text x="3265" y="404" fill="#555" style="">colorTemperature: Temperature</text>
+<text x="3265" y="422" fill="#555" style="">condition: HealthState</text>
+<rect x="3516" y="320" width="281" height="154" fill="#00000010" rx="4"/>
+<rect x="3514" y="318" width="281" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3514" y="318" width="281" height="30" fill="#34698a" rx="4"/>
+<rect x="3514" y="344" width="281" height="4" fill="#34698a"/>
+<text x="3654.5" y="338" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AnesthesiaMachine</text>
+<text x="3528" y="368" fill="#555" style="">machineID: Identifier</text>
+<text x="3528" y="386" fill="#555" style="">ventilatoryMode: Mode</text>
+<text x="3528" y="404" fill="#555" style="">oxygenFlowRate: MassFlowRate</text>
+<text x="3528" y="422" fill="#555" style="">gasConcentration: ChemicalConcentration</text>
+<text x="3528" y="440" fill="#555" style="">alarmState: ConfigurationState</text>
+<text x="3528" y="458" fill="#555" style="">condition: HealthState</text>
+<rect x="3837" y="320" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="3835" y="318" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3835" y="318" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="3835" y="344" width="171" height="4" fill="#34698a"/>
+<text x="3920.5" y="338" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ElectrosurgicalUnit</text>
+<text x="3849" y="368" fill="#555" style="">unitID: Identifier</text>
+<text x="3849" y="386" fill="#555" style="">powerSetting: Power</text>
+<text x="3849" y="404" fill="#555" style="">condition: HealthState</text>
+<rect x="62" y="558" width="171" height="136" fill="#00000010" rx="4"/>
+<rect x="60" y="556" width="171" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="556" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="582" width="171" height="4" fill="#34698a"/>
+<text x="145.5" y="576" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SurgicalBoom</text>
+<text x="74" y="606" fill="#555" style="">boomID: Identifier</text>
+<text x="74" y="624" fill="#555" style="">boomType: Kind</text>
+<text x="74" y="642" fill="#555" style="">loadCapacity: Mass</text>
+<text x="74" y="660" fill="#555" style="">outletCount: Count</text>
+<text x="74" y="678" fill="#555" style="">condition: HealthState</text>
+<rect x="351" y="558" width="177" height="154" fill="#00000010" rx="4"/>
+<rect x="349" y="556" width="177" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="349" y="556" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="349" y="582" width="177" height="4" fill="#34698a"/>
+<text x="437.5" y="576" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MRIScanner</text>
+<text x="363" y="606" fill="#555" style="">scannerID: Identifier</text>
+<text x="363" y="624" fill="#555" style="">fieldStrength: Kind</text>
+<text x="363" y="642" fill="#555" style="">boreSize: Distance</text>
+<text x="363" y="660" fill="#555" style="">heliumLevel: Ratio</text>
+<text x="363" y="678" fill="#555" style="">powerRequirement: Power</text>
+<text x="363" y="696" fill="#555" style="">condition: HealthState</text>
+<rect x="640" y="558" width="184" height="136" fill="#00000010" rx="4"/>
+<rect x="638" y="556" width="184" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="638" y="556" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="638" y="582" width="184" height="4" fill="#34698a"/>
+<text x="730.0" y="576" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CTScanner</text>
+<text x="652" y="606" fill="#555" style="">scannerID: Identifier</text>
+<text x="652" y="624" fill="#555" style="">sliceCount: Count</text>
+<text x="652" y="642" fill="#555" style="">gantryAperture: Distance</text>
+<text x="652" y="660" fill="#555" style="">powerRequirement: Power</text>
+<text x="652" y="678" fill="#555" style="">condition: HealthState</text>
+<rect x="916" y="558" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="914" y="556" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="914" y="556" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="914" y="582" width="171" height="4" fill="#34698a"/>
+<text x="999.5" y="576" text-anchor="middle" fill="white" font-weight="bold" font-size="12">XRayMachine</text>
+<text x="928" y="606" fill="#555" style="">machineID: Identifier</text>
+<text x="928" y="624" fill="#555" style="">machineType: Kind</text>
+<text x="928" y="642" fill="#555" style="">condition: HealthState</text>
+<rect x="1205" y="558" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="1203" y="556" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1203" y="556" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1203" y="582" width="171" height="4" fill="#34698a"/>
+<text x="1288.5" y="576" text-anchor="middle" fill="white" font-weight="bold" font-size="12">UltrasoundMachine</text>
+<text x="1217" y="606" fill="#555" style="">machineID: Identifier</text>
+<text x="1217" y="624" fill="#555" style="">probeCount: Count</text>
+<text x="1217" y="642" fill="#555" style="">condition: HealthState</text>
+<rect x="1494" y="558" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="1492" y="556" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1492" y="556" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1492" y="582" width="249" height="4" fill="#34698a"/>
+<text x="1616.5" y="576" text-anchor="middle" fill="white" font-weight="bold" font-size="12">LabAnalyzer</text>
+<text x="1506" y="606" fill="#555" style="">analyzerID: Identifier</text>
+<text x="1506" y="624" fill="#555" style="">analyzerType: Kind</text>
+<text x="1506" y="642" fill="#555" style="">throughput: CountRate</text>
+<text x="1506" y="660" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="1506" y="678" fill="#555" style="">condition: HealthState</text>
+<rect x="1789" y="558" width="184" height="100" fill="#00000010" rx="4"/>
+<rect x="1787" y="556" width="184" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1787" y="556" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="1787" y="582" width="184" height="4" fill="#34698a"/>
+<text x="1879.0" y="576" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Centrifuge</text>
+<text x="1801" y="606" fill="#555" style="">centrifugeID: Identifier</text>
+<text x="1801" y="624" fill="#555" style="">maxSpeed: Speed</text>
+<text x="1801" y="642" fill="#555" style="">condition: HealthState</text>
+<rect x="2078" y="558" width="184" height="100" fill="#00000010" rx="4"/>
+<rect x="2076" y="556" width="184" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2076" y="556" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="2076" y="582" width="184" height="4" fill="#34698a"/>
+<text x="2168.0" y="576" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Microscope</text>
+<text x="2090" y="606" fill="#555" style="">microscopeID: Identifier</text>
+<text x="2090" y="624" fill="#555" style="">microscopeType: Kind</text>
+<text x="2090" y="642" fill="#555" style="">condition: HealthState</text>
+<rect x="2367" y="558" width="268" height="136" fill="#00000010" rx="4"/>
+<rect x="2365" y="556" width="268" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2365" y="556" width="268" height="30" fill="#34698a" rx="4"/>
+<rect x="2365" y="582" width="268" height="4" fill="#34698a"/>
+<text x="2499.0" y="576" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Autoclave</text>
+<text x="2379" y="606" fill="#555" style="">autoclaveID: Identifier</text>
+<text x="2379" y="624" fill="#555" style="">chamberVolume: ScalarVolume</text>
+<text x="2379" y="642" fill="#555" style="">sterilizationTemperature: Temperature</text>
+<text x="2379" y="660" fill="#555" style="">sterilizationPressure: Pressure</text>
+<text x="2379" y="678" fill="#555" style="">condition: HealthState</text>
+<rect x="2675" y="558" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="2673" y="556" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2673" y="556" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2673" y="582" width="249" height="4" fill="#34698a"/>
+<text x="2797.5" y="576" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AutomatedMedicationDispenser</text>
+<text x="2687" y="606" fill="#555" style="">dispenserID: Identifier</text>
+<text x="2687" y="624" fill="#555" style="">dispenserType: Kind</text>
+<text x="2687" y="642" fill="#555" style="">drawerCount: Count</text>
+<text x="2687" y="660" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="2687" y="678" fill="#555" style="">condition: HealthState</text>
+<rect x="2964" y="558" width="223" height="136" fill="#00000010" rx="4"/>
+<rect x="2962" y="556" width="223" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2962" y="556" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="2962" y="582" width="223" height="4" fill="#34698a"/>
+<text x="3073.5" y="576" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MedicationRefrigerator</text>
+<text x="2976" y="606" fill="#555" style="">fridgeID: Identifier</text>
+<text x="2976" y="624" fill="#555" style="">temperature: Temperature</text>
+<text x="2976" y="642" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="2976" y="660" fill="#555" style="">alarmState: ConfigurationState</text>
+<text x="2976" y="678" fill="#555" style="">condition: HealthState</text>
+<rect x="3253" y="558" width="223" height="136" fill="#00000010" rx="4"/>
+<rect x="3251" y="556" width="223" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3251" y="556" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="3251" y="582" width="223" height="4" fill="#34698a"/>
+<text x="3362.5" y="576" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BloodBankFreezer</text>
+<text x="3265" y="606" fill="#555" style="">freezerID: Identifier</text>
+<text x="3265" y="624" fill="#555" style="">temperature: Temperature</text>
+<text x="3265" y="642" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="3265" y="660" fill="#555" style="">alarmState: ConfigurationState</text>
+<text x="3265" y="678" fill="#555" style="">condition: HealthState</text>
+<rect x="3516" y="558" width="229" height="136" fill="#00000010" rx="4"/>
+<rect x="3514" y="556" width="229" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3514" y="556" width="229" height="30" fill="#34698a" rx="4"/>
+<rect x="3514" y="582" width="229" height="4" fill="#34698a"/>
+<text x="3628.5" y="576" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CompoundingHood</text>
+<text x="3528" y="606" fill="#555" style="">hoodID: Identifier</text>
+<text x="3528" y="624" fill="#555" style="">hoodType: Kind</text>
+<text x="3528" y="642" fill="#555" style="">airFlowRate: MassFlowRate</text>
+<text x="3528" y="660" fill="#555" style="">lastCertification: CalendarTime</text>
+<text x="3528" y="678" fill="#555" style="">condition: HealthState</text>
+<rect x="3837" y="558" width="229" height="154" fill="#00000010" rx="4"/>
+<rect x="3835" y="556" width="229" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3835" y="556" width="229" height="30" fill="#34698a" rx="4"/>
+<rect x="3835" y="582" width="229" height="4" fill="#34698a"/>
+<text x="3949.5" y="576" text-anchor="middle" fill="white" font-weight="bold" font-size="12">IncubatorUnit</text>
+<text x="3849" y="606" fill="#555" style="">incubatorID: Identifier</text>
+<text x="3849" y="624" fill="#555" style="">setTemperature: Temperature</text>
+<text x="3849" y="642" fill="#555" style="">currentTemperature: Temperature</text>
+<text x="3849" y="660" fill="#555" style="">humidity: Humidity</text>
+<text x="3849" y="678" fill="#555" style="">oxygenConcentration: Ratio</text>
+<text x="3849" y="696" fill="#555" style="">condition: HealthState</text>
+<rect x="62" y="742" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="60" y="740" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="740" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="766" width="249" height="4" fill="#34698a"/>
+<text x="184.5" y="760" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ECGMachine</text>
+<text x="74" y="790" fill="#555" style="">machineID: Identifier</text>
+<text x="74" y="808" fill="#555" style="">leadCount: Count</text>
+<text x="74" y="826" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="74" y="844" fill="#555" style="">condition: HealthState</text>
+<rect x="351" y="742" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="349" y="740" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="349" y="740" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="349" y="766" width="171" height="4" fill="#34698a"/>
+<text x="434.5" y="760" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PulseOximeter</text>
+<text x="363" y="790" fill="#555" style="">oximeterID: Identifier</text>
+<text x="363" y="808" fill="#555" style="">oximeterType: Kind</text>
+<text x="363" y="826" fill="#555" style="">condition: HealthState</text>
+<rect x="640" y="742" width="216" height="118" fill="#00000010" rx="4"/>
+<rect x="638" y="740" width="216" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="638" y="740" width="216" height="30" fill="#34698a" rx="4"/>
+<rect x="638" y="766" width="216" height="4" fill="#34698a"/>
+<text x="746.0" y="760" text-anchor="middle" fill="white" font-weight="bold" font-size="12">NurseCallUnit</text>
+<text x="652" y="790" fill="#555" style="">unitID: Identifier</text>
+<text x="652" y="808" fill="#555" style="">callState: ConfigurationState</text>
+<text x="652" y="826" fill="#555" style="">priorityLevel: Kind</text>
+<text x="652" y="844" fill="#555" style="">condition: HealthState</text>
+<rect x="916" y="742" width="171" height="136" fill="#00000010" rx="4"/>
+<rect x="914" y="740" width="171" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="914" y="740" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="914" y="766" width="171" height="4" fill="#34698a"/>
+<text x="999.5" y="760" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MedicalGasOutlet</text>
+<text x="928" y="790" fill="#555" style="">outletID: Identifier</text>
+<text x="928" y="808" fill="#555" style="">gasType: Kind</text>
+<text x="928" y="826" fill="#555" style="">pressure: Pressure</text>
+<text x="928" y="844" fill="#555" style="">flowRate: MassFlowRate</text>
+<text x="928" y="862" fill="#555" style="">condition: HealthState</text>
+<rect x="1205" y="742" width="249" height="100" fill="#00000010" rx="4"/>
+<rect x="1203" y="740" width="249" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1203" y="740" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1203" y="766" width="249" height="4" fill="#34698a"/>
+<text x="1327.5" y="760" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PneumaticTubeTerminal</text>
+<text x="1217" y="790" fill="#555" style="">terminalID: Identifier</text>
+<text x="1217" y="808" fill="#555" style="">operationalState: OperationalState</text>
+<text x="1217" y="826" fill="#555" style="">condition: HealthState</text>
+<rect x="1494" y="742" width="223" height="154" fill="#00000010" rx="4"/>
+<rect x="1492" y="740" width="223" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1492" y="740" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="1492" y="766" width="223" height="4" fill="#34698a"/>
+<text x="1603.5" y="760" text-anchor="middle" fill="white" font-weight="bold" font-size="12">GasManifold</text>
+<text x="1506" y="790" fill="#555" style="">manifoldID: Identifier</text>
+<text x="1506" y="808" fill="#555" style="">gasType: Kind</text>
+<text x="1506" y="826" fill="#555" style="">supplyPressure: Pressure</text>
+<text x="1506" y="844" fill="#555" style="">tankLevel: Ratio</text>
+<text x="1506" y="862" fill="#555" style="">alarmState: ConfigurationState</text>
+<text x="1506" y="880" fill="#555" style="">condition: HealthState</text>
+<rect x="1789" y="742" width="177" height="136" fill="#00000010" rx="4"/>
+<rect x="1787" y="740" width="177" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1787" y="740" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="1787" y="766" width="177" height="4" fill="#34698a"/>
+<text x="1875.5" y="760" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Generator</text>
+<text x="1801" y="790" fill="#555" style="">generatorID: Identifier</text>
+<text x="1801" y="808" fill="#555" style="">ratedPower: Power</text>
+<text x="1801" y="826" fill="#555" style="">fuelType: Kind</text>
+<text x="1801" y="844" fill="#555" style="">fuelLevel: Ratio</text>
+<text x="1801" y="862" fill="#555" style="">condition: HealthState</text>
+<rect x="2078" y="742" width="184" height="136" fill="#00000010" rx="4"/>
+<rect x="2076" y="740" width="184" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2076" y="740" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="2076" y="766" width="184" height="4" fill="#34698a"/>
+<text x="2168.0" y="760" text-anchor="middle" fill="white" font-weight="bold" font-size="12">UPS</text>
+<text x="2090" y="790" fill="#555" style="">upsID: Identifier</text>
+<text x="2090" y="808" fill="#555" style="">ratedPower: Power</text>
+<text x="2090" y="826" fill="#555" style="">batteryRuntime: Duration</text>
+<text x="2090" y="844" fill="#555" style="">batteryLevel: Ratio</text>
+<text x="2090" y="862" fill="#555" style="">condition: HealthState</text>
+<rect x="2367" y="742" width="210" height="118" fill="#00000010" rx="4"/>
+<rect x="2365" y="740" width="210" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2365" y="740" width="210" height="30" fill="#34698a" rx="4"/>
+<rect x="2365" y="766" width="210" height="4" fill="#34698a"/>
+<text x="2470.0" y="760" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AirHandlingUnit</text>
+<text x="2379" y="790" fill="#555" style="">ahuID: Identifier</text>
+<text x="2379" y="808" fill="#555" style="">airFlowRate: MassFlowRate</text>
+<text x="2379" y="826" fill="#555" style="">supplyTemp: Temperature</text>
+<text x="2379" y="844" fill="#555" style="">filterCondition: HealthState</text>
+<rect x="2675" y="742" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="2673" y="740" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2673" y="740" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2673" y="766" width="171" height="4" fill="#34698a"/>
+<text x="2758.5" y="760" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Chiller</text>
+<text x="2687" y="790" fill="#555" style="">chillerID: Identifier</text>
+<text x="2687" y="808" fill="#555" style="">coolingCapacity: Power</text>
+<text x="2687" y="826" fill="#555" style="">condition: HealthState</text>
+<rect x="2964" y="742" width="177" height="118" fill="#00000010" rx="4"/>
+<rect x="2962" y="740" width="177" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2962" y="740" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="2962" y="766" width="177" height="4" fill="#34698a"/>
+<text x="3050.5" y="760" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Boiler</text>
+<text x="2976" y="790" fill="#555" style="">boilerID: Identifier</text>
+<text x="2976" y="808" fill="#555" style="">heatingCapacity: Power</text>
+<text x="2976" y="826" fill="#555" style="">steamPressure: Pressure</text>
+<text x="2976" y="844" fill="#555" style="">condition: HealthState</text>
+<rect x="3253" y="742" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="3251" y="740" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3251" y="740" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="3251" y="766" width="171" height="4" fill="#34698a"/>
+<text x="3336.5" y="760" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Elevator</text>
+<text x="3265" y="790" fill="#555" style="">elevatorID: Identifier</text>
+<text x="3265" y="808" fill="#555" style="">elevatorType: Kind</text>
+<text x="3265" y="826" fill="#555" style="">weightCapacity: Mass</text>
+<text x="3265" y="844" fill="#555" style="">condition: HealthState</text>
+<rect x="3516" y="742" width="177" height="118" fill="#00000010" rx="4"/>
+<rect x="3514" y="740" width="177" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3514" y="740" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="3514" y="766" width="177" height="4" fill="#34698a"/>
+<text x="3602.5" y="760" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WiFiAccessPoint</text>
+<text x="3528" y="790" fill="#555" style="">apID: Identifier</text>
+<text x="3528" y="808" fill="#555" style="">band: Kind</text>
+<text x="3528" y="826" fill="#555" style="">connectedClients: Count</text>
+<text x="3528" y="844" fill="#555" style="">dataRate: DataRate</text>
+<rect x="3837" y="742" width="249" height="154" fill="#00000010" rx="4"/>
+<rect x="3835" y="740" width="249" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3835" y="740" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3835" y="766" width="249" height="4" fill="#34698a"/>
+<text x="3959.5" y="760" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Server</text>
+<text x="3849" y="790" fill="#555" style="">serverID: Identifier</text>
+<text x="3849" y="808" fill="#555" style="">serverType: Kind</text>
+<text x="3849" y="826" fill="#555" style="">memorySize: Size</text>
+<text x="3849" y="844" fill="#555" style="">storageSize: Size</text>
+<text x="3849" y="862" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="3849" y="880" fill="#555" style="">condition: HealthState</text>
+<rect x="62" y="926" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="60" y="924" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="924" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="950" width="249" height="4" fill="#34698a"/>
+<text x="184.5" y="944" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ClinicalWorkstation</text>
+<text x="74" y="974" fill="#555" style="">workstationID: Identifier</text>
+<text x="74" y="992" fill="#555" style="">workstationType: Kind</text>
+<text x="74" y="1010" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<text x="74" y="1028" fill="#555" style="">condition: HealthState</text>
+<rect x="351" y="926" width="249" height="118" fill="#00000010" rx="4"/>
+<rect x="349" y="924" width="249" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="349" y="924" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="349" y="950" width="249" height="4" fill="#34698a"/>
+<text x="473.5" y="944" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PACSServer</text>
+<text x="363" y="974" fill="#555" style="">serverID: Identifier</text>
+<text x="363" y="992" fill="#555" style="">storageCapacity: Size</text>
+<text x="363" y="1010" fill="#555" style="">usedStorage: Size</text>
+<text x="363" y="1028" fill="#555" style="">networkAddress: NonPhysicalAddress</text>
+<rect x="640" y="926" width="236" height="136" fill="#00000010" rx="4"/>
+<rect x="638" y="924" width="236" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="638" y="924" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="638" y="950" width="236" height="4" fill="#34698a"/>
+<text x="756.0" y="944" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Physician</text>
+<text x="652" y="974" fill="#555" style="">physicianID: Identifier</text>
+<text x="652" y="992" fill="#555" style="">name: Description</text>
+<text x="652" y="1010" fill="#555" style="">specialty: Kind</text>
+<text x="652" y="1028" fill="#555" style="">licenseNumber: Identifier</text>
+<text x="652" y="1046" fill="#555" style="">contactPager: NonPhysicalAddress</text>
+<rect x="916" y="926" width="190" height="136" fill="#00000010" rx="4"/>
+<rect x="914" y="924" width="190" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="914" y="924" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="914" y="950" width="190" height="4" fill="#34698a"/>
+<text x="1009.0" y="944" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Nurse</text>
+<text x="928" y="974" fill="#555" style="">nurseID: Identifier</text>
+<text x="928" y="992" fill="#555" style="">name: Description</text>
+<text x="928" y="1010" fill="#555" style="">nurseType: Kind</text>
+<text x="928" y="1028" fill="#555" style="">licenseNumber: Identifier</text>
+<text x="928" y="1046" fill="#555" style="">certifications: Kind</text>
+<rect x="1205" y="926" width="184" height="118" fill="#00000010" rx="4"/>
+<rect x="1203" y="924" width="184" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1203" y="924" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="1203" y="950" width="184" height="4" fill="#34698a"/>
+<text x="1295.0" y="944" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Technician</text>
+<text x="1217" y="974" fill="#555" style="">technicianID: Identifier</text>
+<text x="1217" y="992" fill="#555" style="">name: Description</text>
+<text x="1217" y="1010" fill="#555" style="">technicianType: Kind</text>
+<text x="1217" y="1028" fill="#555" style="">certifications: Kind</text>
+<rect x="1494" y="926" width="190" height="100" fill="#00000010" rx="4"/>
+<rect x="1492" y="924" width="190" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1492" y="924" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="1492" y="950" width="190" height="4" fill="#34698a"/>
+<text x="1587.0" y="944" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Pharmacist</text>
+<text x="1506" y="974" fill="#555" style="">pharmacistID: Identifier</text>
+<text x="1506" y="992" fill="#555" style="">name: Description</text>
+<text x="1506" y="1010" fill="#555" style="">licenseNumber: Identifier</text>
+<rect x="1789" y="926" width="190" height="118" fill="#00000010" rx="4"/>
+<rect x="1787" y="924" width="190" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1787" y="924" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="1787" y="950" width="190" height="4" fill="#34698a"/>
+<text x="1882.0" y="944" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Surgeon</text>
+<text x="1801" y="974" fill="#555" style="">surgeonID: Identifier</text>
+<text x="1801" y="992" fill="#555" style="">name: Description</text>
+<text x="1801" y="1010" fill="#555" style="">surgicalSpecialty: Kind</text>
+<text x="1801" y="1028" fill="#555" style="">licenseNumber: Identifier</text>
+<rect x="2078" y="926" width="223" height="100" fill="#00000010" rx="4"/>
+<rect x="2076" y="924" width="223" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2076" y="924" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="2076" y="950" width="223" height="4" fill="#34698a"/>
+<text x="2187.5" y="944" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Anesthesiologist</text>
+<text x="2090" y="974" fill="#555" style="">anesthesiologistID: Identifier</text>
+<text x="2090" y="992" fill="#555" style="">name: Description</text>
+<text x="2090" y="1010" fill="#555" style="">licenseNumber: Identifier</text>
+<rect x="2367" y="926" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2365" y="924" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2365" y="924" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2365" y="948" width="160" height="6" fill="#8b5e3c"/>
+<text x="2445.0" y="944" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FloorInBuilding</text>
+<line x1="2373" y1="968" x2="2517" y2="968" stroke="#ccc" stroke-width="0.5"/>
+<text x="2379" y="980" fill="#c05746" font-weight="bold">→ Floor</text>
+<text x="2379" y="998" fill="#c05746" font-weight="bold">→ Building</text>
+<rect x="2675" y="926" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2673" y="924" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2673" y="924" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2673" y="948" width="160" height="6" fill="#8b5e3c"/>
+<text x="2753.0" y="944" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PatientRoomOnFloor</text>
+<line x1="2681" y1="968" x2="2825" y2="968" stroke="#ccc" stroke-width="0.5"/>
+<text x="2687" y="980" fill="#c05746" font-weight="bold">→ PatientRoom</text>
+<text x="2687" y="998" fill="#c05746" font-weight="bold">→ Floor</text>
+<rect x="2964" y="926" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2962" y="924" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2962" y="924" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2962" y="948" width="160" height="6" fill="#8b5e3c"/>
+<text x="3042.0" y="944" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ICUBayOnFloor</text>
+<line x1="2970" y1="968" x2="3114" y2="968" stroke="#ccc" stroke-width="0.5"/>
+<text x="2976" y="980" fill="#c05746" font-weight="bold">→ ICUBay</text>
+<text x="2976" y="998" fill="#c05746" font-weight="bold">→ Floor</text>
+<rect x="3253" y="926" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3251" y="924" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3251" y="924" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3251" y="948" width="160" height="6" fill="#8b5e3c"/>
+<text x="3331.0" y="944" text-anchor="middle" fill="white" font-weight="bold" font-size="11">OROnFloor</text>
+<line x1="3259" y1="968" x2="3403" y2="968" stroke="#ccc" stroke-width="0.5"/>
+<text x="3265" y="980" fill="#c05746" font-weight="bold">→ OperatingRoom</text>
+<text x="3265" y="998" fill="#c05746" font-weight="bold">→ Floor</text>
+<rect x="3516" y="926" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3514" y="924" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3514" y="924" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3514" y="948" width="160" height="6" fill="#8b5e3c"/>
+<text x="3594.0" y="944" text-anchor="middle" fill="white" font-weight="bold" font-size="11">LabOnFloor</text>
+<line x1="3522" y1="968" x2="3666" y2="968" stroke="#ccc" stroke-width="0.5"/>
+<text x="3528" y="980" fill="#c05746" font-weight="bold">→ ClinicalLaboratory</text>
+<text x="3528" y="998" fill="#c05746" font-weight="bold">→ Floor</text>
+<rect x="3837" y="926" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3835" y="924" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3835" y="924" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3835" y="948" width="160" height="6" fill="#8b5e3c"/>
+<text x="3915.0" y="944" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ImagingSuiteOnFloor</text>
+<line x1="3843" y1="968" x2="3987" y2="968" stroke="#ccc" stroke-width="0.5"/>
+<text x="3849" y="980" fill="#c05746" font-weight="bold">→ ImagingSuite</text>
+<text x="3849" y="998" fill="#c05746" font-weight="bold">→ Floor</text>
+<rect x="62" y="1092" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="60" y="1090" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1090" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1114" width="160" height="6" fill="#8b5e3c"/>
+<text x="140.0" y="1110" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PharmacyOnFloor</text>
+<line x1="68" y1="1134" x2="212" y2="1134" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1146" fill="#c05746" font-weight="bold">→ PharmacySpace</text>
+<text x="74" y="1164" fill="#c05746" font-weight="bold">→ Floor</text>
+<rect x="351" y="1092" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="349" y="1090" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="349" y="1090" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="349" y="1114" width="160" height="6" fill="#8b5e3c"/>
+<text x="429.0" y="1110" text-anchor="middle" fill="white" font-weight="bold" font-size="11">BedInPatientRoom</text>
+<text x="363" y="1140" fill="#555">bedPosition: Kind</text>
+<line x1="357" y1="1152" x2="501" y2="1152" stroke="#ccc" stroke-width="0.5"/>
+<text x="363" y="1164" fill="#c05746" font-weight="bold">→ PatientBed</text>
+<text x="363" y="1182" fill="#c05746" font-weight="bold">→ PatientRoom</text>
+<rect x="640" y="1092" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="638" y="1090" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="638" y="1090" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="638" y="1114" width="160" height="6" fill="#8b5e3c"/>
+<text x="718.0" y="1110" text-anchor="middle" fill="white" font-weight="bold" font-size="11">BedInICUBay</text>
+<line x1="646" y1="1134" x2="790" y2="1134" stroke="#ccc" stroke-width="0.5"/>
+<text x="652" y="1146" fill="#c05746" font-weight="bold">→ PatientBed</text>
+<text x="652" y="1164" fill="#c05746" font-weight="bold">→ ICUBay</text>
+<rect x="916" y="1092" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="914" y="1090" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="914" y="1090" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="914" y="1114" width="160" height="6" fill="#8b5e3c"/>
+<text x="994.0" y="1110" text-anchor="middle" fill="white" font-weight="bold" font-size="11">MonitorInRoom</text>
+<line x1="922" y1="1134" x2="1066" y2="1134" stroke="#ccc" stroke-width="0.5"/>
+<text x="928" y="1146" fill="#c05746" font-weight="bold">→ BedsideMonitor</text>
+<text x="928" y="1164" fill="#c05746" font-weight="bold">→ PatientRoom</text>
+<rect x="1205" y="1092" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1203" y="1090" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1203" y="1090" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1203" y="1114" width="160" height="6" fill="#8b5e3c"/>
+<text x="1283.0" y="1110" text-anchor="middle" fill="white" font-weight="bold" font-size="11">MonitorInICU</text>
+<line x1="1211" y1="1134" x2="1355" y2="1134" stroke="#ccc" stroke-width="0.5"/>
+<text x="1217" y="1146" fill="#c05746" font-weight="bold">→ BedsideMonitor</text>
+<text x="1217" y="1164" fill="#c05746" font-weight="bold">→ ICUBay</text>
+<rect x="1494" y="1092" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1492" y="1090" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1492" y="1090" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1492" y="1114" width="160" height="6" fill="#8b5e3c"/>
+<text x="1572.0" y="1110" text-anchor="middle" fill="white" font-weight="bold" font-size="11">MonitorInRecovery</text>
+<line x1="1500" y1="1134" x2="1644" y2="1134" stroke="#ccc" stroke-width="0.5"/>
+<text x="1506" y="1146" fill="#c05746" font-weight="bold">→ BedsideMonitor</text>
+<text x="1506" y="1164" fill="#c05746" font-weight="bold">→ RecoveryBay</text>
+<rect x="1789" y="1092" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1787" y="1090" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1787" y="1090" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1787" y="1114" width="160" height="6" fill="#8b5e3c"/>
+<text x="1867.0" y="1110" text-anchor="middle" fill="white" font-weight="bold" font-size="11">VentilatorInICU</text>
+<line x1="1795" y1="1134" x2="1939" y2="1134" stroke="#ccc" stroke-width="0.5"/>
+<text x="1801" y="1146" fill="#c05746" font-weight="bold">→ Ventilator</text>
+<text x="1801" y="1164" fill="#c05746" font-weight="bold">→ ICUBay</text>
+<rect x="2078" y="1092" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="2076" y="1090" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2076" y="1090" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2076" y="1114" width="164" height="6" fill="#8b5e3c"/>
+<text x="2158.0" y="1110" text-anchor="middle" fill="white" font-weight="bold" font-size="11">VentilatorInEmergency</text>
+<line x1="2084" y1="1134" x2="2232" y2="1134" stroke="#ccc" stroke-width="0.5"/>
+<text x="2090" y="1146" fill="#c05746" font-weight="bold">→ Ventilator</text>
+<text x="2090" y="1164" fill="#c05746" font-weight="bold">→ EmergencyBay</text>
+<rect x="2367" y="1092" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="2365" y="1090" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2365" y="1090" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2365" y="1114" width="164" height="6" fill="#8b5e3c"/>
+<text x="2447.0" y="1110" text-anchor="middle" fill="white" font-weight="bold" font-size="11">InfusionPumpAtBedside</text>
+<line x1="2373" y1="1134" x2="2521" y2="1134" stroke="#ccc" stroke-width="0.5"/>
+<text x="2379" y="1146" fill="#c05746" font-weight="bold">→ InfusionPump</text>
+<text x="2379" y="1164" fill="#c05746" font-weight="bold">→ PatientBed</text>
+<rect x="2675" y="1092" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="2673" y="1090" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2673" y="1090" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2673" y="1114" width="160" height="6" fill="#8b5e3c"/>
+<text x="2753.0" y="1110" text-anchor="middle" fill="white" font-weight="bold" font-size="11">DefibrillatorInArea</text>
+<text x="2687" y="1140" fill="#555">mountLocation: Kind</text>
+<line x1="2681" y1="1152" x2="2825" y2="1152" stroke="#ccc" stroke-width="0.5"/>
+<text x="2687" y="1164" fill="#c05746" font-weight="bold">→ Defibrillator</text>
+<text x="2687" y="1182" fill="#c05746" font-weight="bold">→ EmergencyBay</text>
+<rect x="2964" y="1092" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2962" y="1090" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2962" y="1090" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2962" y="1114" width="160" height="6" fill="#8b5e3c"/>
+<text x="3042.0" y="1110" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SurgicalTableInOR</text>
+<line x1="2970" y1="1134" x2="3114" y2="1134" stroke="#ccc" stroke-width="0.5"/>
+<text x="2976" y="1146" fill="#c05746" font-weight="bold">→ SurgicalTable</text>
+<text x="2976" y="1164" fill="#c05746" font-weight="bold">→ OperatingRoom</text>
+<rect x="3253" y="1092" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3251" y="1090" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3251" y="1090" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3251" y="1114" width="160" height="6" fill="#8b5e3c"/>
+<text x="3331.0" y="1110" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SurgicalLightInOR</text>
+<line x1="3259" y1="1134" x2="3403" y2="1134" stroke="#ccc" stroke-width="0.5"/>
+<text x="3265" y="1146" fill="#c05746" font-weight="bold">→ SurgicalLight</text>
+<text x="3265" y="1164" fill="#c05746" font-weight="bold">→ OperatingRoom</text>
+<rect x="3516" y="1092" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="3514" y="1090" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3514" y="1090" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3514" y="1114" width="164" height="6" fill="#8b5e3c"/>
+<text x="3596.0" y="1110" text-anchor="middle" fill="white" font-weight="bold" font-size="11">AnesthesiaMachineInOR</text>
+<line x1="3522" y1="1134" x2="3670" y2="1134" stroke="#ccc" stroke-width="0.5"/>
+<text x="3528" y="1146" fill="#c05746" font-weight="bold">→ AnesthesiaMachine</text>
+<text x="3528" y="1164" fill="#c05746" font-weight="bold">→ OperatingRoom</text>
+<rect x="3837" y="1092" width="177" height="86" fill="#00000010" rx="10"/>
+<rect x="3835" y="1090" width="177" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3835" y="1090" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3835" y="1114" width="177" height="6" fill="#8b5e3c"/>
+<text x="3923.5" y="1110" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ElectrosurgicalUnitInOR</text>
+<line x1="3843" y1="1134" x2="4004" y2="1134" stroke="#ccc" stroke-width="0.5"/>
+<text x="3849" y="1146" fill="#c05746" font-weight="bold">→ ElectrosurgicalUnit</text>
+<text x="3849" y="1164" fill="#c05746" font-weight="bold">→ OperatingRoom</text>
+<rect x="62" y="1226" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="60" y="1224" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1224" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1248" width="160" height="6" fill="#8b5e3c"/>
+<text x="140.0" y="1244" text-anchor="middle" fill="white" font-weight="bold" font-size="11">BoomInOR</text>
+<line x1="68" y1="1268" x2="212" y2="1268" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1280" fill="#c05746" font-weight="bold">→ SurgicalBoom</text>
+<text x="74" y="1298" fill="#c05746" font-weight="bold">→ OperatingRoom</text>
+<rect x="351" y="1226" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="349" y="1224" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="349" y="1224" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="349" y="1248" width="160" height="6" fill="#8b5e3c"/>
+<text x="429.0" y="1244" text-anchor="middle" fill="white" font-weight="bold" font-size="11">MRIInSuite</text>
+<line x1="357" y1="1268" x2="501" y2="1268" stroke="#ccc" stroke-width="0.5"/>
+<text x="363" y="1280" fill="#c05746" font-weight="bold">→ MRIScanner</text>
+<text x="363" y="1298" fill="#c05746" font-weight="bold">→ ImagingSuite</text>
+<rect x="640" y="1226" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="638" y="1224" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="638" y="1224" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="638" y="1248" width="160" height="6" fill="#8b5e3c"/>
+<text x="718.0" y="1244" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CTInSuite</text>
+<line x1="646" y1="1268" x2="790" y2="1268" stroke="#ccc" stroke-width="0.5"/>
+<text x="652" y="1280" fill="#c05746" font-weight="bold">→ CTScanner</text>
+<text x="652" y="1298" fill="#c05746" font-weight="bold">→ ImagingSuite</text>
+<rect x="916" y="1226" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="914" y="1224" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="914" y="1224" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="914" y="1248" width="160" height="6" fill="#8b5e3c"/>
+<text x="994.0" y="1244" text-anchor="middle" fill="white" font-weight="bold" font-size="11">XRayInSuite</text>
+<line x1="922" y1="1268" x2="1066" y2="1268" stroke="#ccc" stroke-width="0.5"/>
+<text x="928" y="1280" fill="#c05746" font-weight="bold">→ XRayMachine</text>
+<text x="928" y="1298" fill="#c05746" font-weight="bold">→ ImagingSuite</text>
+<rect x="1205" y="1226" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1203" y="1224" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1203" y="1224" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1203" y="1248" width="160" height="6" fill="#8b5e3c"/>
+<text x="1283.0" y="1244" text-anchor="middle" fill="white" font-weight="bold" font-size="11">UltrasoundInSuite</text>
+<line x1="1211" y1="1268" x2="1355" y2="1268" stroke="#ccc" stroke-width="0.5"/>
+<text x="1217" y="1280" fill="#c05746" font-weight="bold">→ UltrasoundMachine</text>
+<text x="1217" y="1298" fill="#c05746" font-weight="bold">→ ImagingSuite</text>
+<rect x="1494" y="1226" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1492" y="1224" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1492" y="1224" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1492" y="1248" width="160" height="6" fill="#8b5e3c"/>
+<text x="1572.0" y="1244" text-anchor="middle" fill="white" font-weight="bold" font-size="11">AnalyzerInLab</text>
+<line x1="1500" y1="1268" x2="1644" y2="1268" stroke="#ccc" stroke-width="0.5"/>
+<text x="1506" y="1280" fill="#c05746" font-weight="bold">→ LabAnalyzer</text>
+<text x="1506" y="1298" fill="#c05746" font-weight="bold">→ ClinicalLaboratory</text>
+<rect x="1789" y="1226" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1787" y="1224" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1787" y="1224" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1787" y="1248" width="160" height="6" fill="#8b5e3c"/>
+<text x="1867.0" y="1244" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CentrifugeInLab</text>
+<line x1="1795" y1="1268" x2="1939" y2="1268" stroke="#ccc" stroke-width="0.5"/>
+<text x="1801" y="1280" fill="#c05746" font-weight="bold">→ Centrifuge</text>
+<text x="1801" y="1298" fill="#c05746" font-weight="bold">→ ClinicalLaboratory</text>
+<rect x="2078" y="1226" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2076" y="1224" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2076" y="1224" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2076" y="1248" width="160" height="6" fill="#8b5e3c"/>
+<text x="2156.0" y="1244" text-anchor="middle" fill="white" font-weight="bold" font-size="11">MicroscopeInLab</text>
+<line x1="2084" y1="1268" x2="2228" y2="1268" stroke="#ccc" stroke-width="0.5"/>
+<text x="2090" y="1280" fill="#c05746" font-weight="bold">→ Microscope</text>
+<text x="2090" y="1298" fill="#c05746" font-weight="bold">→ ClinicalLaboratory</text>
+<rect x="2367" y="1226" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2365" y="1224" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2365" y="1224" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2365" y="1248" width="160" height="6" fill="#8b5e3c"/>
+<text x="2445.0" y="1244" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FreezerInLab</text>
+<line x1="2373" y1="1268" x2="2517" y2="1268" stroke="#ccc" stroke-width="0.5"/>
+<text x="2379" y="1280" fill="#c05746" font-weight="bold">→ BloodBankFreezer</text>
+<text x="2379" y="1298" fill="#c05746" font-weight="bold">→ ClinicalLaboratory</text>
+<rect x="2675" y="1226" width="177" height="86" fill="#00000010" rx="10"/>
+<rect x="2673" y="1224" width="177" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2673" y="1224" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2673" y="1248" width="177" height="6" fill="#8b5e3c"/>
+<text x="2761.5" y="1244" text-anchor="middle" fill="white" font-weight="bold" font-size="11">AutoclaveInSterile</text>
+<line x1="2681" y1="1268" x2="2842" y2="1268" stroke="#ccc" stroke-width="0.5"/>
+<text x="2687" y="1280" fill="#c05746" font-weight="bold">→ Autoclave</text>
+<text x="2687" y="1298" fill="#c05746" font-weight="bold">→ SterileProcessingArea</text>
+<rect x="2964" y="1226" width="223" height="86" fill="#00000010" rx="10"/>
+<rect x="2962" y="1224" width="223" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2962" y="1224" width="223" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2962" y="1248" width="223" height="6" fill="#8b5e3c"/>
+<text x="3073.5" y="1244" text-anchor="middle" fill="white" font-weight="bold" font-size="11">DispenserInMedRoom</text>
+<line x1="2970" y1="1268" x2="3177" y2="1268" stroke="#ccc" stroke-width="0.5"/>
+<text x="2976" y="1280" fill="#c05746" font-weight="bold">→ AutomatedMedicationDispenser</text>
+<text x="2976" y="1298" fill="#c05746" font-weight="bold">→ MedicationRoom</text>
+<rect x="3253" y="1226" width="223" height="86" fill="#00000010" rx="10"/>
+<rect x="3251" y="1224" width="223" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3251" y="1224" width="223" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3251" y="1248" width="223" height="6" fill="#8b5e3c"/>
+<text x="3362.5" y="1244" text-anchor="middle" fill="white" font-weight="bold" font-size="11">DispenserInPharmacy</text>
+<line x1="3259" y1="1268" x2="3466" y2="1268" stroke="#ccc" stroke-width="0.5"/>
+<text x="3265" y="1280" fill="#c05746" font-weight="bold">→ AutomatedMedicationDispenser</text>
+<text x="3265" y="1298" fill="#c05746" font-weight="bold">→ PharmacySpace</text>
+<rect x="3516" y="1226" width="184" height="86" fill="#00000010" rx="10"/>
+<rect x="3514" y="1224" width="184" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3514" y="1224" width="184" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3514" y="1248" width="184" height="6" fill="#8b5e3c"/>
+<text x="3606.0" y="1244" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FridgeInMedRoom</text>
+<line x1="3522" y1="1268" x2="3690" y2="1268" stroke="#ccc" stroke-width="0.5"/>
+<text x="3528" y="1280" fill="#c05746" font-weight="bold">→ MedicationRefrigerator</text>
+<text x="3528" y="1298" fill="#c05746" font-weight="bold">→ MedicationRoom</text>
+<rect x="3837" y="1226" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3835" y="1224" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3835" y="1224" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3835" y="1248" width="160" height="6" fill="#8b5e3c"/>
+<text x="3915.0" y="1244" text-anchor="middle" fill="white" font-weight="bold" font-size="11">HoodInPharmacy</text>
+<line x1="3843" y1="1268" x2="3987" y2="1268" stroke="#ccc" stroke-width="0.5"/>
+<text x="3849" y="1280" fill="#c05746" font-weight="bold">→ CompoundingHood</text>
+<text x="3849" y="1298" fill="#c05746" font-weight="bold">→ PharmacySpace</text>
+<rect x="62" y="1342" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="60" y="1340" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1340" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1364" width="160" height="6" fill="#8b5e3c"/>
+<text x="140.0" y="1360" text-anchor="middle" fill="white" font-weight="bold" font-size="11">GasOutletInRoom</text>
+<line x1="68" y1="1384" x2="212" y2="1384" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1396" fill="#c05746" font-weight="bold">→ MedicalGasOutlet</text>
+<text x="74" y="1414" fill="#c05746" font-weight="bold">→ PatientRoom</text>
+<rect x="351" y="1342" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="349" y="1340" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="349" y="1340" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="349" y="1364" width="160" height="6" fill="#8b5e3c"/>
+<text x="429.0" y="1360" text-anchor="middle" fill="white" font-weight="bold" font-size="11">GasOutletInOR</text>
+<line x1="357" y1="1384" x2="501" y2="1384" stroke="#ccc" stroke-width="0.5"/>
+<text x="363" y="1396" fill="#c05746" font-weight="bold">→ MedicalGasOutlet</text>
+<text x="363" y="1414" fill="#c05746" font-weight="bold">→ OperatingRoom</text>
+<rect x="640" y="1342" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="638" y="1340" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="638" y="1340" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="638" y="1364" width="160" height="6" fill="#8b5e3c"/>
+<text x="718.0" y="1360" text-anchor="middle" fill="white" font-weight="bold" font-size="11">GasOutletInICU</text>
+<line x1="646" y1="1384" x2="790" y2="1384" stroke="#ccc" stroke-width="0.5"/>
+<text x="652" y="1396" fill="#c05746" font-weight="bold">→ MedicalGasOutlet</text>
+<text x="652" y="1414" fill="#c05746" font-weight="bold">→ ICUBay</text>
+<rect x="916" y="1342" width="171" height="86" fill="#00000010" rx="10"/>
+<rect x="914" y="1340" width="171" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="914" y="1340" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="914" y="1364" width="171" height="6" fill="#8b5e3c"/>
+<text x="999.5" y="1360" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ManifoldSuppliesOutlet</text>
+<line x1="922" y1="1384" x2="1077" y2="1384" stroke="#ccc" stroke-width="0.5"/>
+<text x="928" y="1396" fill="#c05746" font-weight="bold">→ GasManifold</text>
+<text x="928" y="1414" fill="#c05746" font-weight="bold">→ MedicalGasOutlet</text>
+<rect x="1205" y="1342" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1203" y="1340" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1203" y="1340" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1203" y="1364" width="160" height="6" fill="#8b5e3c"/>
+<text x="1283.0" y="1360" text-anchor="middle" fill="white" font-weight="bold" font-size="11">NurseCallInRoom</text>
+<line x1="1211" y1="1384" x2="1355" y2="1384" stroke="#ccc" stroke-width="0.5"/>
+<text x="1217" y="1396" fill="#c05746" font-weight="bold">→ NurseCallUnit</text>
+<text x="1217" y="1414" fill="#c05746" font-weight="bold">→ PatientRoom</text>
+<rect x="1494" y="1342" width="177" height="86" fill="#00000010" rx="10"/>
+<rect x="1492" y="1340" width="177" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1492" y="1340" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1492" y="1364" width="177" height="6" fill="#8b5e3c"/>
+<text x="1580.5" y="1360" text-anchor="middle" fill="white" font-weight="bold" font-size="11">TubeTerminalAtStation</text>
+<line x1="1500" y1="1384" x2="1661" y2="1384" stroke="#ccc" stroke-width="0.5"/>
+<text x="1506" y="1396" fill="#c05746" font-weight="bold">→ PneumaticTubeTerminal</text>
+<text x="1506" y="1414" fill="#c05746" font-weight="bold">→ NurseStation</text>
+<rect x="1789" y="1342" width="177" height="86" fill="#00000010" rx="10"/>
+<rect x="1787" y="1340" width="177" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1787" y="1340" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1787" y="1364" width="177" height="6" fill="#8b5e3c"/>
+<text x="1875.5" y="1360" text-anchor="middle" fill="white" font-weight="bold" font-size="11">TubeTerminalAtPharmacy</text>
+<line x1="1795" y1="1384" x2="1956" y2="1384" stroke="#ccc" stroke-width="0.5"/>
+<text x="1801" y="1396" fill="#c05746" font-weight="bold">→ PneumaticTubeTerminal</text>
+<text x="1801" y="1414" fill="#c05746" font-weight="bold">→ PharmacySpace</text>
+<rect x="2078" y="1342" width="177" height="86" fill="#00000010" rx="10"/>
+<rect x="2076" y="1340" width="177" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2076" y="1340" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2076" y="1364" width="177" height="6" fill="#8b5e3c"/>
+<text x="2164.5" y="1360" text-anchor="middle" fill="white" font-weight="bold" font-size="11">TubeTerminalAtLab</text>
+<line x1="2084" y1="1384" x2="2245" y2="1384" stroke="#ccc" stroke-width="0.5"/>
+<text x="2090" y="1396" fill="#c05746" font-weight="bold">→ PneumaticTubeTerminal</text>
+<text x="2090" y="1414" fill="#c05746" font-weight="bold">→ ClinicalLaboratory</text>
+<rect x="2367" y="1342" width="197" height="104" fill="#00000010" rx="10"/>
+<rect x="2365" y="1340" width="197" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2365" y="1340" width="197" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2365" y="1364" width="197" height="6" fill="#8b5e3c"/>
+<text x="2463.5" y="1360" text-anchor="middle" fill="white" font-weight="bold" font-size="11">AHUServesFloor</text>
+<text x="2379" y="1390" fill="#555">airExchangeRate: CountRate</text>
+<line x1="2373" y1="1402" x2="2554" y2="1402" stroke="#ccc" stroke-width="0.5"/>
+<text x="2379" y="1414" fill="#c05746" font-weight="bold">→ AirHandlingUnit</text>
+<text x="2379" y="1432" fill="#c05746" font-weight="bold">→ Floor</text>
+<rect x="2675" y="1342" width="184" height="86" fill="#00000010" rx="10"/>
+<rect x="2673" y="1340" width="184" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2673" y="1340" width="184" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2673" y="1364" width="184" height="6" fill="#8b5e3c"/>
+<text x="2765.0" y="1360" text-anchor="middle" fill="white" font-weight="bold" font-size="11">GeneratorBacksUpBuilding</text>
+<line x1="2681" y1="1384" x2="2849" y2="1384" stroke="#ccc" stroke-width="0.5"/>
+<text x="2687" y="1396" fill="#c05746" font-weight="bold">→ Generator</text>
+<text x="2687" y="1414" fill="#c05746" font-weight="bold">→ Building</text>
+<rect x="2964" y="1342" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2962" y="1340" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2962" y="1340" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2962" y="1364" width="160" height="6" fill="#8b5e3c"/>
+<text x="3042.0" y="1360" text-anchor="middle" fill="white" font-weight="bold" font-size="11">UPSProtectsEquipment</text>
+<line x1="2970" y1="1384" x2="3114" y2="1384" stroke="#ccc" stroke-width="0.5"/>
+<text x="2976" y="1396" fill="#c05746" font-weight="bold">→ UPS</text>
+<text x="2976" y="1414" fill="#c05746" font-weight="bold">→ Server</text>
+<rect x="3253" y="1342" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3251" y="1340" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3251" y="1340" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3251" y="1364" width="160" height="6" fill="#8b5e3c"/>
+<text x="3331.0" y="1360" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ElevatorInBuilding</text>
+<line x1="3259" y1="1384" x2="3403" y2="1384" stroke="#ccc" stroke-width="0.5"/>
+<text x="3265" y="1396" fill="#c05746" font-weight="bold">→ Elevator</text>
+<text x="3265" y="1414" fill="#c05746" font-weight="bold">→ Building</text>
+<rect x="3516" y="1342" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3514" y="1340" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3514" y="1340" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3514" y="1364" width="160" height="6" fill="#8b5e3c"/>
+<text x="3594.0" y="1360" text-anchor="middle" fill="white" font-weight="bold" font-size="11">WiFiOnFloor</text>
+<line x1="3522" y1="1384" x2="3666" y2="1384" stroke="#ccc" stroke-width="0.5"/>
+<text x="3528" y="1396" fill="#c05746" font-weight="bold">→ WiFiAccessPoint</text>
+<text x="3528" y="1414" fill="#c05746" font-weight="bold">→ Floor</text>
+<rect x="3837" y="1342" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="3835" y="1340" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3835" y="1340" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3835" y="1364" width="164" height="6" fill="#8b5e3c"/>
+<text x="3917.0" y="1360" text-anchor="middle" fill="white" font-weight="bold" font-size="11">WorkstationAtStation</text>
+<line x1="3843" y1="1384" x2="3991" y2="1384" stroke="#ccc" stroke-width="0.5"/>
+<text x="3849" y="1396" fill="#c05746" font-weight="bold">→ ClinicalWorkstation</text>
+<text x="3849" y="1414" fill="#c05746" font-weight="bold">→ NurseStation</text>
+<rect x="62" y="1476" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="60" y="1474" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1474" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1498" width="164" height="6" fill="#8b5e3c"/>
+<text x="142.0" y="1494" text-anchor="middle" fill="white" font-weight="bold" font-size="11">WorkstationInExamRoom</text>
+<line x1="68" y1="1518" x2="216" y2="1518" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1530" fill="#c05746" font-weight="bold">→ ClinicalWorkstation</text>
+<text x="74" y="1548" fill="#c05746" font-weight="bold">→ ExamRoom</text>
+<rect x="351" y="1476" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="349" y="1474" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="349" y="1474" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="349" y="1498" width="160" height="6" fill="#8b5e3c"/>
+<text x="429.0" y="1494" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PACSStoresFromSuite</text>
+<line x1="357" y1="1518" x2="501" y2="1518" stroke="#ccc" stroke-width="0.5"/>
+<text x="363" y="1530" fill="#c05746" font-weight="bold">→ PACSServer</text>
+<text x="363" y="1548" fill="#c05746" font-weight="bold">→ ImagingSuite</text>
+<rect x="640" y="1476" width="171" height="104" fill="#00000010" rx="10"/>
+<rect x="638" y="1474" width="171" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="638" y="1474" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="638" y="1498" width="171" height="6" fill="#8b5e3c"/>
+<text x="723.5" y="1494" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PhysicianHasPrivileges</text>
+<text x="652" y="1524" fill="#555">privilegeType: Kind</text>
+<line x1="646" y1="1536" x2="801" y2="1536" stroke="#ccc" stroke-width="0.5"/>
+<text x="652" y="1548" fill="#c05746" font-weight="bold">→ Physician</text>
+<text x="652" y="1566" fill="#c05746" font-weight="bold">→ Hospital</text>
+<rect x="916" y="1476" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="914" y="1474" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="914" y="1474" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="914" y="1498" width="160" height="6" fill="#8b5e3c"/>
+<text x="994.0" y="1494" text-anchor="middle" fill="white" font-weight="bold" font-size="11">NurseAssignedToFloor</text>
+<text x="928" y="1524" fill="#555">shiftType: Kind</text>
+<line x1="922" y1="1536" x2="1066" y2="1536" stroke="#ccc" stroke-width="0.5"/>
+<text x="928" y="1548" fill="#c05746" font-weight="bold">→ Nurse</text>
+<text x="928" y="1566" fill="#c05746" font-weight="bold">→ Floor</text>
+<rect x="1205" y="1476" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1203" y="1474" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1203" y="1474" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1203" y="1498" width="160" height="6" fill="#8b5e3c"/>
+<text x="1283.0" y="1494" text-anchor="middle" fill="white" font-weight="bold" font-size="11">TechnicianInLab</text>
+<line x1="1211" y1="1518" x2="1355" y2="1518" stroke="#ccc" stroke-width="0.5"/>
+<text x="1217" y="1530" fill="#c05746" font-weight="bold">→ Technician</text>
+<text x="1217" y="1548" fill="#c05746" font-weight="bold">→ ClinicalLaboratory</text>
+<rect x="1494" y="1476" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1492" y="1474" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1492" y="1474" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1492" y="1498" width="160" height="6" fill="#8b5e3c"/>
+<text x="1572.0" y="1494" text-anchor="middle" fill="white" font-weight="bold" font-size="11">TechnicianInImaging</text>
+<line x1="1500" y1="1518" x2="1644" y2="1518" stroke="#ccc" stroke-width="0.5"/>
+<text x="1506" y="1530" fill="#c05746" font-weight="bold">→ Technician</text>
+<text x="1506" y="1548" fill="#c05746" font-weight="bold">→ ImagingSuite</text>
+<rect x="1789" y="1476" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1787" y="1474" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1787" y="1474" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1787" y="1498" width="160" height="6" fill="#8b5e3c"/>
+<text x="1867.0" y="1494" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PharmacistInPharmacy</text>
+<line x1="1795" y1="1518" x2="1939" y2="1518" stroke="#ccc" stroke-width="0.5"/>
+<text x="1801" y="1530" fill="#c05746" font-weight="bold">→ Pharmacist</text>
+<text x="1801" y="1548" fill="#c05746" font-weight="bold">→ PharmacySpace</text>
+<rect x="2078" y="1476" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2076" y="1474" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2076" y="1474" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2076" y="1498" width="160" height="6" fill="#8b5e3c"/>
+<text x="2156.0" y="1494" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SurgeonOperatesInOR</text>
+<line x1="2084" y1="1518" x2="2228" y2="1518" stroke="#ccc" stroke-width="0.5"/>
+<text x="2090" y="1530" fill="#c05746" font-weight="bold">→ Surgeon</text>
+<text x="2090" y="1548" fill="#c05746" font-weight="bold">→ OperatingRoom</text>
+<rect x="2367" y="1476" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2365" y="1474" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2365" y="1474" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2365" y="1498" width="160" height="6" fill="#8b5e3c"/>
+<text x="2445.0" y="1494" text-anchor="middle" fill="white" font-weight="bold" font-size="11">AnesthesiologistInOR</text>
+<line x1="2373" y1="1518" x2="2517" y2="1518" stroke="#ccc" stroke-width="0.5"/>
+<text x="2379" y="1530" fill="#c05746" font-weight="bold">→ Anesthesiologist</text>
+<text x="2379" y="1548" fill="#c05746" font-weight="bold">→ OperatingRoom</text>
+<rect x="2675" y="1476" width="177" height="104" fill="#00000010" rx="10"/>
+<rect x="2673" y="1474" width="177" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2673" y="1474" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2673" y="1498" width="177" height="6" fill="#8b5e3c"/>
+<text x="2761.5" y="1494" text-anchor="middle" fill="white" font-weight="bold" font-size="11">NurseStationServesRooms</text>
+<text x="2687" y="1524" fill="#555">roomCount: Count</text>
+<line x1="2681" y1="1536" x2="2842" y2="1536" stroke="#ccc" stroke-width="0.5"/>
+<text x="2687" y="1548" fill="#c05746" font-weight="bold">→ NurseStation</text>
+<text x="2687" y="1566" fill="#c05746" font-weight="bold">→ PatientRoom</text>
+<rect x="2964" y="1476" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2962" y="1474" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2962" y="1474" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2962" y="1498" width="160" height="6" fill="#8b5e3c"/>
+<text x="3042.0" y="1494" text-anchor="middle" fill="white" font-weight="bold" font-size="11">MedRoomServesUnit</text>
+<line x1="2970" y1="1518" x2="3114" y2="1518" stroke="#ccc" stroke-width="0.5"/>
+<text x="2976" y="1530" fill="#c05746" font-weight="bold">→ MedicationRoom</text>
+<text x="2976" y="1548" fill="#c05746" font-weight="bold">→ NurseStation</text>
+<rect x="3253" y="1476" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3251" y="1474" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3251" y="1474" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3251" y="1498" width="160" height="6" fill="#8b5e3c"/>
+<text x="3331.0" y="1494" text-anchor="middle" fill="white" font-weight="bold" font-size="11">IncubatorInNursery</text>
+<line x1="3259" y1="1518" x2="3403" y2="1518" stroke="#ccc" stroke-width="0.5"/>
+<text x="3265" y="1530" fill="#c05746" font-weight="bold">→ IncubatorUnit</text>
+<text x="3265" y="1548" fill="#c05746" font-weight="bold">→ PatientRoom</text>
+</svg>

@@ -1,0 +1,520 @@
+{
+  "topicDomain": "How to make and consume coffee (including how the coffee maker works)",
+  "modelName": "Coffee Environment Workspace and Equipment Hierarchy Model",
+  "methodBasis": "Entities represent the environment, equipment assemblies, serving context, and consumption context in which coffee preparation and consumption occur; Associations represent containment, support, supply, monitoring, and use relationships.",
+  "entities": [
+    {
+      "name": "CoffeeEnvironment",
+      "attributes": [
+        {
+          "name": "coffeeEnvironmentID",
+          "type": "Identifier"
+        },
+        {
+          "name": "environmentOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "environmentPosition",
+          "type": "Position"
+        },
+        {
+          "name": "environmentExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "workspace",
+          "type": "Workspace"
+        },
+        {
+          "name": "coffeeStation",
+          "type": "CoffeeStation"
+        },
+        {
+          "name": "waterSupplySystem",
+          "type": "WaterSupplySystem"
+        },
+        {
+          "name": "powerSupplySystem",
+          "type": "PowerSupplySystem"
+        },
+        {
+          "name": "storageSystem",
+          "type": "StorageSystem"
+        },
+        {
+          "name": "servingContext",
+          "type": "ServingContext"
+        },
+        {
+          "name": "consumptionContext",
+          "type": "ConsumptionContext"
+        }
+      ]
+    },
+    {
+      "name": "Workspace",
+      "attributes": [
+        {
+          "name": "workspaceID",
+          "type": "Identifier"
+        },
+        {
+          "name": "workspaceName",
+          "type": "Name"
+        },
+        {
+          "name": "workspaceOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "workspacePosition",
+          "type": "Position"
+        },
+        {
+          "name": "workspaceExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "CoffeeStation",
+      "attributes": [
+        {
+          "name": "coffeeStationID",
+          "type": "Identifier"
+        },
+        {
+          "name": "stationOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "stationPosition",
+          "type": "Position"
+        },
+        {
+          "name": "stationExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "coffeeMakerAssembly",
+          "type": "CoffeeMakerAssembly"
+        },
+        {
+          "name": "brewAccessorySet",
+          "type": "BrewAccessorySet"
+        }
+      ]
+    },
+    {
+      "name": "CoffeeMakerAssembly",
+      "attributes": [
+        {
+          "name": "coffeeMakerAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "machineOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "machinePowerState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "machineTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "reservoirVolume",
+          "type": "ScalarVolume"
+        }
+      ]
+    },
+    {
+      "name": "BrewAccessorySet",
+      "attributes": [
+        {
+          "name": "brewAccessorySetID",
+          "type": "Identifier"
+        },
+        {
+          "name": "accessoryCount",
+          "type": "Count"
+        },
+        {
+          "name": "accessoryOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "WaterSupplySystem",
+      "attributes": [
+        {
+          "name": "waterSupplySystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "waterOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "availableWaterVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "waterTemperature",
+          "type": "Temperature"
+        }
+      ]
+    },
+    {
+      "name": "PowerSupplySystem",
+      "attributes": [
+        {
+          "name": "powerSupplySystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "powerOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        },
+        {
+          "name": "supplyDuration",
+          "type": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "StorageSystem",
+      "attributes": [
+        {
+          "name": "storageSystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "storageOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "storedContainerCount",
+          "type": "Count"
+        },
+        {
+          "name": "storageExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "BeanContainer",
+      "attributes": [
+        {
+          "name": "beanContainerID",
+          "type": "Identifier"
+        },
+        {
+          "name": "beanMass",
+          "type": "Mass"
+        },
+        {
+          "name": "containerOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "containerExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "FilterContainer",
+      "attributes": [
+        {
+          "name": "filterContainerID",
+          "type": "Identifier"
+        },
+        {
+          "name": "filterCount",
+          "type": "Count"
+        },
+        {
+          "name": "containerOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "containerExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "ServingContext",
+      "attributes": [
+        {
+          "name": "servingContextID",
+          "type": "Identifier"
+        },
+        {
+          "name": "servingOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "servingSurfacePosition",
+          "type": "Position"
+        },
+        {
+          "name": "servingCapacityCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "ConsumptionContext",
+      "attributes": [
+        {
+          "name": "consumptionContextID",
+          "type": "Identifier"
+        },
+        {
+          "name": "consumptionOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "ambientTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "occupancyCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "Cup",
+      "attributes": [
+        {
+          "name": "cupID",
+          "type": "Identifier"
+        },
+        {
+          "name": "cupVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "cupTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "cupOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Carafe",
+      "attributes": [
+        {
+          "name": "carafeID",
+          "type": "Identifier"
+        },
+        {
+          "name": "carafeVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "carafeTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "carafeOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Consumer",
+      "attributes": [
+        {
+          "name": "consumerID",
+          "type": "Identifier"
+        },
+        {
+          "name": "consumerOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "temperaturePreferenceState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "servingCount",
+          "type": "Count"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "CoffeeEnvironmentContainsWorkspace",
+      "participants": [
+        "CoffeeEnvironment",
+        "Workspace"
+      ],
+      "attributes": [
+        {
+          "name": "relativePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "WorkspaceContainsCoffeeStation",
+      "participants": [
+        "Workspace",
+        "CoffeeStation"
+      ],
+      "attributes": [
+        {
+          "name": "stationPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "CoffeeStationContainsCoffeeMakerAssembly",
+      "participants": [
+        "CoffeeStation",
+        "CoffeeMakerAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "assemblyPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "CoffeeStationContainsBrewAccessorySet",
+      "participants": [
+        "CoffeeStation",
+        "BrewAccessorySet"
+      ],
+      "attributes": [
+        {
+          "name": "accessoryPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "StorageSystemContainsBeanContainer",
+      "participants": [
+        "StorageSystem",
+        "BeanContainer"
+      ],
+      "attributes": [
+        {
+          "name": "containerPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "StorageSystemContainsFilterContainer",
+      "participants": [
+        "StorageSystem",
+        "FilterContainer"
+      ],
+      "attributes": [
+        {
+          "name": "containerPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "WaterSupplySystemSuppliesCoffeeMakerAssembly",
+      "participants": [
+        "WaterSupplySystem",
+        "CoffeeMakerAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedWaterVolume",
+          "type": "ScalarVolume"
+        }
+      ]
+    },
+    {
+      "name": "PowerSupplySystemPowersCoffeeMakerAssembly",
+      "participants": [
+        "PowerSupplySystem",
+        "CoffeeMakerAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "ServingContextContainsCup",
+      "participants": [
+        "ServingContext",
+        "Cup"
+      ],
+      "attributes": [
+        {
+          "name": "cupPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "ServingContextContainsCarafe",
+      "participants": [
+        "ServingContext",
+        "Carafe"
+      ],
+      "attributes": [
+        {
+          "name": "carafePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "ConsumptionContextAccommodatesConsumer",
+      "participants": [
+        "ConsumptionContext",
+        "Consumer"
+      ],
+      "attributes": [
+        {
+          "name": "occupancyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ConsumerUsesCup",
+      "participants": [
+        "Consumer",
+        "Cup"
+      ],
+      "attributes": [
+        {
+          "name": "useState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ]
+}

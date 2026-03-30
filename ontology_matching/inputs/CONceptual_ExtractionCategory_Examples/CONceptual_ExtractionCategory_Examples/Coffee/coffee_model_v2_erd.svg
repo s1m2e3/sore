@@ -1,0 +1,1100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3863 1560" width="3863" height="1560" style="font-family: Consolas, Monaco, monospace; font-size: 11px;">
+<defs>
+  <marker id="arrowComp" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#4a6fa5"/>
+  </marker>
+  <marker id="arrowAssoc" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#c05746"/>
+  </marker>
+  <marker id="diamond" markerWidth="12" markerHeight="8" refX="0" refY="4" orient="auto">
+    <polygon points="0 4, 6 0, 12 4, 6 8" fill="#4a6fa5"/>
+  </marker>
+</defs>
+<rect width="3863" height="1560" fill="#fafafa" rx="4"/>
+<text x="1931.5" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">Coffee_Model_V2_ComponentCentric</text>
+<text x="1931.5" y="50" text-anchor="middle" font-size="10" fill="#7f8c8d" style="font-family: sans-serif;">Component-centric decomposition of coffee making and consumption. Every vessel, brewing device, internal machine part, t</text>
+<rect x="3563" y="10" width="280" height="55" fill="white" stroke="#ddd" rx="4"/>
+<rect x="3573" y="20" width="14" height="14" fill="#34698a" rx="2"/>
+<text x="3593" y="32" font-size="10" fill="#333" style="font-family: sans-serif;">Entity</text>
+<rect x="3663" y="20" width="14" height="14" fill="#8b5e3c" rx="6"/>
+<text x="3683" y="32" font-size="10" fill="#333" style="font-family: sans-serif;">Association</text>
+<line x1="3573" y1="48" x2="3603" y2="48" stroke="#4a6fa5" stroke-width="1.5" marker-start="url(#diamond)"/>
+<text x="3611" y="52" font-size="10" fill="#333" style="font-family: sans-serif;">Composition</text>
+<line x1="3703" y1="48" x2="3733" y2="48" stroke="#c05746" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)"/>
+<text x="3741" y="52" font-size="10" fill="#333" style="font-family: sans-serif;">Association Link</text>
+<line x1="2522.0" y1="835.6" x2="231.0" y2="164.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2522.0" y1="832.6" x2="552.0" y2="183.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2752.0" y1="835.2" x2="552.0" y2="180.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2785.9" y1="816.0" x2="2200.4" y2="270.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3041.0" y1="833.9" x2="552.0" y2="176.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3104.6" y1="816.0" x2="2666.6" y2="216.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3314.5" y1="816.0" x2="2423.6" y2="198.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3296.2" y1="816.0" x2="2213.0" y2="236.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3579.3" y1="816.0" x2="2913.0" y2="216.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3547.0" y1="823.2" x2="2213.0" y2="226.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="231.0" y1="1005.9" x2="2752.0" y2="176.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="231.0" y1="1012.3" x2="3547.0" y2="171.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="496.0" y1="998.6" x2="3041.0" y2="158.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="496.0" y1="1003.2" x2="3547.0" y2="173.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="756.0" y1="997.8" x2="3291.0" y2="158.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="756.0" y1="1000.7" x2="3547.0" y2="175.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="950.4" y1="982.0" x2="221.7" y2="418.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1086.0" y1="998.4" x2="3547.0" y2="178.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1165.6" y1="982.0" x2="492.0" y2="418.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1297.0" y1="996.0" x2="3547.0" y2="181.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1611.1" y1="982.0" x2="2525.4" y2="400.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1629.0" y1="989.2" x2="3547.0" y2="186.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1736.0" y1="982.0" x2="782.0" y2="423.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1898.0" y1="982.6" x2="3547.0" y2="192.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1994.2" y1="982.0" x2="1097.0" y2="429.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1984.0" y1="986.8" x2="782.0" y2="413.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2262.8" y1="982.0" x2="1283.9" y2="382.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2253.0" y1="993.1" x2="782.0" y2="405.9" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2550.6" y1="982.0" x2="1877.0" y2="418.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2533.7" y1="982.0" x2="1629.0" y2="412.8" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2795.6" y1="982.0" x2="2180.6" y2="270.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2752.0" y1="987.9" x2="1629.0" y2="403.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3073.0" y1="982.0" x2="2423.3" y2="400.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3069.3" y1="982.0" x2="2212.8" y2="270.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3291.0" y1="983.5" x2="2155.0" y2="394.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3306.6" y1="982.0" x2="2213.0" y2="251.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3547.0" y1="991.3" x2="1629.0" y2="184.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3547.0" y1="996.1" x2="1418.0" y2="225.8" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="211.4" y1="1116.0" x2="1734.6" y2="198.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="189.7" y1="1116.0" x2="1167.7" y2="270.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="461.1" y1="1116.0" x2="1195.1" y2="270.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="433.6" y1="1116.0" x2="664.0" y2="436.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="698.5" y1="1116.0" x2="1219.0" y2="270.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="752.0" y1="1135.3" x2="3291.0" y2="382.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1064.8" y1="1116.0" x2="1496.3" y2="768.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1011.5" y1="1116.0" x2="1011.5" y2="454.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1280.8" y1="1116.0" x2="1751.7" y2="750.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1213.7" y1="1116.0" x2="1032.6" y2="454.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1588.4" y1="1116.0" x2="2017.4" y2="750.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1509.0" y1="1116.0" x2="1063.3" y2="454.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1854.9" y1="1116.0" x2="2286.9" y2="732.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1745.6" y1="1116.0" x2="782.0" y2="435.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2113.4" y1="1116.0" x2="2554.9" y2="732.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1989.1" y1="1116.0" x2="782.0" y2="422.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2253.0" y1="1128.9" x2="802.0" y2="582.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2253.0" y1="1133.6" x2="500.0" y2="578.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2522.0" y1="1126.9" x2="1086.0" y2="565.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2522.0" y1="1136.2" x2="500.0" y2="574.8" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2752.0" y1="1138.9" x2="500.0" y2="572.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2752.0" y1="1127.4" x2="1405.0" y2="595.9" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3041.0" y1="1124.7" x2="886.0" y2="235.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3041.0" y1="1144.3" x2="500.0" y2="570.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3359.6" y1="1116.0" x2="3136.6" y2="400.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3372.9" y1="1116.0" x2="3371.1" y2="418.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3547.0" y1="1144.6" x2="244.0" y2="550.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3628.5" y1="1116.0" x2="3652.6" y2="436.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="220.0" y1="1257.0" x2="1721.0" y2="581.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="220.0" y1="1250.2" x2="1458.0" y2="588.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="496.0" y1="1261.4" x2="2253.0" y2="567.8" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="496.0" y1="1255.8" x2="1984.0" y2="564.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="752.0" y1="1261.2" x2="2522.0" y2="556.8" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="750.2" y1="1250.0" x2="1994.9" y2="566.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1086.0" y1="1264.0" x2="3041.0" y2="554.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1086.0" y1="1259.8" x2="2752.0" y2="569.4" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1297.0" y1="1276.6" x2="3547.0" y2="561.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1297.0" y1="1264.1" x2="2752.0" y2="574.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1297.0" y1="1273.5" x2="3291.0" y2="564.4" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1458.0" y1="1258.2" x2="249.2" y2="732.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1611.6" y1="1250.0" x2="2752.0" y2="583.9" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1789.1" y1="1250.0" x2="1559.8" y2="418.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1742.9" y1="1250.0" x2="1091.3" y2="768.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2025.7" y1="1250.0" x2="1253.5" y2="382.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2141.0" y1="1250.0" x2="3041.0" y2="747.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2272.1" y1="1250.0" x2="1354.5" y2="602.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2411.5" y1="1250.0" x2="3291.3" y2="768.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2651.0" y1="1250.0" x2="3577.6" y2="436.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2660.7" y1="1250.0" x2="3318.5" y2="768.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2760.0" y1="1250.0" x2="1629.0" y2="592.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2875.6" y1="1250.0" x2="3341.9" y2="768.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3121.4" y1="1250.0" x2="3126.0" y2="750.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3041.0" y1="1280.4" x2="496.0" y2="878.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3291.0" y1="1280.7" x2="841.0" y2="903.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3313.7" y1="1250.0" x2="1911.2" y2="198.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3547.0" y1="1277.6" x2="1297.0" y2="871.4" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3547.0" y1="1266.1" x2="782.0" y2="397.8" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="162.2" y1="1384.0" x2="651.9" y2="436.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="206.8" y1="1384.0" x2="933.8" y2="916.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="496.0" y1="1403.9" x2="2752.0" y2="753.9" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="496.0" y1="1405.5" x2="3041.0" y2="722.9" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="752.0" y1="1401.3" x2="2752.0" y2="758.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="701.1" y1="1384.0" x2="1231.0" y2="602.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<rect x="62" y="82" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="60" y="80" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="80" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="106" width="171" height="4" fill="#34698a"/>
+<text x="145.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WaterFilter</text>
+<text x="74" y="130" fill="#555" style="">filterID: Identifier</text>
+<text x="74" y="148" fill="#555" style="">filterType: Kind</text>
+<text x="74" y="166" fill="#555" style="">micronRating: Distance</text>
+<text x="74" y="184" fill="#555" style="">condition: HealthState</text>
+<rect x="338" y="82" width="216" height="136" fill="#00000010" rx="4"/>
+<rect x="336" y="80" width="216" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="336" y="80" width="216" height="30" fill="#34698a" rx="4"/>
+<rect x="336" y="106" width="216" height="4" fill="#34698a"/>
+<text x="444.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WaterReservoir</text>
+<text x="350" y="130" fill="#555" style="">reservoirID: Identifier</text>
+<text x="350" y="148" fill="#555" style="">material: Kind</text>
+<text x="350" y="166" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="350" y="184" fill="#555" style="">currentLevel: Ratio</text>
+<text x="350" y="202" fill="#555" style="">removable: ConfigurationState</text>
+<rect x="594" y="82" width="294" height="190" fill="#00000010" rx="4"/>
+<rect x="592" y="80" width="294" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="592" y="80" width="294" height="30" fill="#34698a" rx="4"/>
+<rect x="592" y="106" width="294" height="4" fill="#34698a"/>
+<text x="739.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">GooseneckKettle</text>
+<text x="606" y="130" fill="#555" style="">kettleID: Identifier</text>
+<text x="606" y="148" fill="#555" style="">material: Kind</text>
+<text x="606" y="166" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="606" y="184" fill="#555" style="">powerRating: Power</text>
+<text x="606" y="202" fill="#555" style="">hasTemperatureControl: ConfigurationState</text>
+<text x="606" y="220" fill="#555" style="">targetTemperature: Temperature</text>
+<text x="606" y="238" fill="#555" style="">spoutDiameter: Distance</text>
+<text x="606" y="256" fill="#555" style="">condition: HealthState</text>
+<rect x="928" y="82" width="171" height="136" fill="#00000010" rx="4"/>
+<rect x="926" y="80" width="171" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="926" y="80" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="926" y="106" width="171" height="4" fill="#34698a"/>
+<text x="1011.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">StandardKettle</text>
+<text x="940" y="130" fill="#555" style="">kettleID: Identifier</text>
+<text x="940" y="148" fill="#555" style="">material: Kind</text>
+<text x="940" y="166" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="940" y="184" fill="#555" style="">powerRating: Power</text>
+<text x="940" y="202" fill="#555" style="">condition: HealthState</text>
+<rect x="1139" y="82" width="281" height="190" fill="#00000010" rx="4"/>
+<rect x="1137" y="80" width="281" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1137" y="80" width="281" height="30" fill="#34698a" rx="4"/>
+<rect x="1137" y="106" width="281" height="4" fill="#34698a"/>
+<text x="1277.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CoffeeGrinder</text>
+<text x="1151" y="130" fill="#555" style="">grinderID: Identifier</text>
+<text x="1151" y="148" fill="#555" style="">grinderType: Kind</text>
+<text x="1151" y="166" fill="#555" style="">motorPower: Power</text>
+<text x="1151" y="184" fill="#555" style="">grindSettingCount: Count</text>
+<text x="1151" y="202" fill="#555" style="">currentGrindSetting: ConfigurationState</text>
+<text x="1151" y="220" fill="#555" style="">dosingType: Kind</text>
+<text x="1151" y="238" fill="#555" style="">retentionAmount: Mass</text>
+<text x="1151" y="256" fill="#555" style="">condition: HealthState</text>
+<rect x="1460" y="82" width="171" height="136" fill="#00000010" rx="4"/>
+<rect x="1458" y="80" width="171" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1458" y="80" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1458" y="106" width="171" height="4" fill="#34698a"/>
+<text x="1543.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BurrSet</text>
+<text x="1472" y="130" fill="#555" style="">burrID: Identifier</text>
+<text x="1472" y="148" fill="#555" style="">burrType: Kind</text>
+<text x="1472" y="166" fill="#555" style="">burrMaterial: Kind</text>
+<text x="1472" y="184" fill="#555" style="">diameter: Distance</text>
+<text x="1472" y="202" fill="#555" style="">condition: HealthState</text>
+<rect x="1723" y="82" width="223" height="118" fill="#00000010" rx="4"/>
+<rect x="1721" y="80" width="223" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1721" y="80" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="1721" y="106" width="223" height="4" fill="#34698a"/>
+<text x="1832.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">GrinderHopper</text>
+<text x="1735" y="130" fill="#555" style="">hopperID: Identifier</text>
+<text x="1735" y="148" fill="#555" style="">material: Kind</text>
+<text x="1735" y="166" fill="#555" style="">capacity: Mass</text>
+<text x="1735" y="184" fill="#555" style="">hasLidSeal: ConfigurationState</text>
+<rect x="1986" y="82" width="229" height="190" fill="#00000010" rx="4"/>
+<rect x="1984" y="80" width="229" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1984" y="80" width="229" height="30" fill="#34698a" rx="4"/>
+<rect x="1984" y="106" width="229" height="4" fill="#34698a"/>
+<text x="2098.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Boiler</text>
+<text x="1998" y="130" fill="#555" style="">boilerID: Identifier</text>
+<text x="1998" y="148" fill="#555" style="">boilerType: Kind</text>
+<text x="1998" y="166" fill="#555" style="">material: Kind</text>
+<text x="1998" y="184" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="1998" y="202" fill="#555" style="">setTemperature: Temperature</text>
+<text x="1998" y="220" fill="#555" style="">currentTemperature: Temperature</text>
+<text x="1998" y="238" fill="#555" style="">pressure: Pressure</text>
+<text x="1998" y="256" fill="#555" style="">condition: HealthState</text>
+<rect x="2255" y="82" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="2253" y="80" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2253" y="80" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2253" y="106" width="171" height="4" fill="#34698a"/>
+<text x="2338.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BoilerHeatingElement</text>
+<text x="2267" y="130" fill="#555" style="">elementID: Identifier</text>
+<text x="2267" y="148" fill="#555" style="">elementType: Kind</text>
+<text x="2267" y="166" fill="#555" style="">powerRating: Power</text>
+<text x="2267" y="184" fill="#555" style="">condition: HealthState</text>
+<rect x="2524" y="82" width="190" height="136" fill="#00000010" rx="4"/>
+<rect x="2522" y="80" width="190" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2522" y="80" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="2522" y="106" width="190" height="4" fill="#34698a"/>
+<text x="2617.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Thermoblock</text>
+<text x="2536" y="130" fill="#555" style="">thermoblockID: Identifier</text>
+<text x="2536" y="148" fill="#555" style="">material: Kind</text>
+<text x="2536" y="166" fill="#555" style="">powerRating: Power</text>
+<text x="2536" y="184" fill="#555" style="">flowRate: MassFlowRate</text>
+<text x="2536" y="202" fill="#555" style="">condition: HealthState</text>
+<rect x="2754" y="82" width="171" height="136" fill="#00000010" rx="4"/>
+<rect x="2752" y="80" width="171" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2752" y="80" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2752" y="106" width="171" height="4" fill="#34698a"/>
+<text x="2837.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PumpAssembly</text>
+<text x="2766" y="130" fill="#555" style="">pumpID: Identifier</text>
+<text x="2766" y="148" fill="#555" style="">pumpType: Kind</text>
+<text x="2766" y="166" fill="#555" style="">maxPressure: Pressure</text>
+<text x="2766" y="184" fill="#555" style="">flowRate: MassFlowRate</text>
+<text x="2766" y="202" fill="#555" style="">condition: HealthState</text>
+<rect x="3043" y="82" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="3041" y="80" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3041" y="80" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="3041" y="106" width="171" height="4" fill="#34698a"/>
+<text x="3126.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Solenoid</text>
+<text x="3055" y="130" fill="#555" style="">solenoidID: Identifier</text>
+<text x="3055" y="148" fill="#555" style="">solenoidType: Kind</text>
+<text x="3055" y="166" fill="#555" style="">condition: HealthState</text>
+<rect x="3293" y="82" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="3291" y="80" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3291" y="80" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="3291" y="106" width="171" height="4" fill="#34698a"/>
+<text x="3376.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">FlowMeter</text>
+<text x="3305" y="130" fill="#555" style="">meterID: Identifier</text>
+<text x="3305" y="148" fill="#555" style="">flowRate: MassFlowRate</text>
+<text x="3305" y="166" fill="#555" style="">condition: HealthState</text>
+<rect x="3549" y="82" width="184" height="136" fill="#00000010" rx="4"/>
+<rect x="3547" y="80" width="184" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3547" y="80" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="3547" y="106" width="184" height="4" fill="#34698a"/>
+<text x="3639.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">GroupHead</text>
+<text x="3561" y="130" fill="#555" style="">groupID: Identifier</text>
+<text x="3561" y="148" fill="#555" style="">groupType: Kind</text>
+<text x="3561" y="166" fill="#555" style="">material: Kind</text>
+<text x="3561" y="184" fill="#555" style="">temperature: Temperature</text>
+<text x="3561" y="202" fill="#555" style="">condition: HealthState</text>
+<rect x="62" y="302" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="60" y="300" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="300" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="326" width="171" height="4" fill="#34698a"/>
+<text x="145.5" y="320" text-anchor="middle" fill="white" font-weight="bold" font-size="12">DispersionScreen</text>
+<text x="74" y="350" fill="#555" style="">screenID: Identifier</text>
+<text x="74" y="368" fill="#555" style="">material: Kind</text>
+<text x="74" y="386" fill="#555" style="">holePattern: Kind</text>
+<text x="74" y="404" fill="#555" style="">condition: HealthState</text>
+<rect x="338" y="302" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="336" y="300" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="336" y="300" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="336" y="326" width="171" height="4" fill="#34698a"/>
+<text x="421.5" y="320" text-anchor="middle" fill="white" font-weight="bold" font-size="12">GroupGasket</text>
+<text x="350" y="350" fill="#555" style="">gasketID: Identifier</text>
+<text x="350" y="368" fill="#555" style="">material: Kind</text>
+<text x="350" y="386" fill="#555" style="">diameter: Distance</text>
+<text x="350" y="404" fill="#555" style="">condition: HealthState</text>
+<rect x="594" y="302" width="190" height="136" fill="#00000010" rx="4"/>
+<rect x="592" y="300" width="190" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="592" y="300" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="592" y="326" width="190" height="4" fill="#34698a"/>
+<text x="687.0" y="320" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Portafilter</text>
+<text x="606" y="350" fill="#555" style="">portafilterID: Identifier</text>
+<text x="606" y="368" fill="#555" style="">portafilterType: Kind</text>
+<text x="606" y="386" fill="#555" style="">material: Kind</text>
+<text x="606" y="404" fill="#555" style="">diameter: Distance</text>
+<text x="606" y="422" fill="#555" style="">condition: HealthState</text>
+<rect x="928" y="302" width="171" height="154" fill="#00000010" rx="4"/>
+<rect x="926" y="300" width="171" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="926" y="300" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="926" y="326" width="171" height="4" fill="#34698a"/>
+<text x="1011.5" y="320" text-anchor="middle" fill="white" font-weight="bold" font-size="12">FilterBasket</text>
+<text x="940" y="350" fill="#555" style="">basketID: Identifier</text>
+<text x="940" y="368" fill="#555" style="">basketType: Kind</text>
+<text x="940" y="386" fill="#555" style="">doseCapacity: Mass</text>
+<text x="940" y="404" fill="#555" style="">diameter: Distance</text>
+<text x="940" y="422" fill="#555" style="">holeCount: Count</text>
+<text x="940" y="440" fill="#555" style="">condition: HealthState</text>
+<rect x="1139" y="302" width="160" height="82" fill="#00000010" rx="4"/>
+<rect x="1137" y="300" width="160" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1137" y="300" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="1137" y="326" width="160" height="4" fill="#34698a"/>
+<text x="1217.0" y="320" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PortafilterSpout</text>
+<text x="1151" y="350" fill="#555" style="">spoutID: Identifier</text>
+<text x="1151" y="368" fill="#555" style="">spoutType: Kind</text>
+<rect x="1460" y="302" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="1458" y="300" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1458" y="300" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1458" y="326" width="171" height="4" fill="#34698a"/>
+<text x="1543.5" y="320" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SteamWand</text>
+<text x="1472" y="350" fill="#555" style="">wandID: Identifier</text>
+<text x="1472" y="368" fill="#555" style="">wandType: Kind</text>
+<text x="1472" y="386" fill="#555" style="">material: Kind</text>
+<text x="1472" y="404" fill="#555" style="">condition: HealthState</text>
+<rect x="1723" y="302" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="1721" y="300" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1721" y="300" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1721" y="326" width="171" height="4" fill="#34698a"/>
+<text x="1806.5" y="320" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SteamTip</text>
+<text x="1735" y="350" fill="#555" style="">tipID: Identifier</text>
+<text x="1735" y="368" fill="#555" style="">holeCount: Count</text>
+<text x="1735" y="386" fill="#555" style="">holePattern: Kind</text>
+<text x="1735" y="404" fill="#555" style="">condition: HealthState</text>
+<rect x="1986" y="302" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="1984" y="300" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1984" y="300" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1984" y="326" width="171" height="4" fill="#34698a"/>
+<text x="2069.5" y="320" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PressureGauge</text>
+<text x="1998" y="350" fill="#555" style="">gaugeID: Identifier</text>
+<text x="1998" y="368" fill="#555" style="">maxReading: Pressure</text>
+<text x="1998" y="386" fill="#555" style="">condition: HealthState</text>
+<rect x="2255" y="302" width="229" height="100" fill="#00000010" rx="4"/>
+<rect x="2253" y="300" width="229" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2253" y="300" width="229" height="30" fill="#34698a" rx="4"/>
+<rect x="2253" y="326" width="229" height="4" fill="#34698a"/>
+<text x="2367.5" y="320" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PIDController</text>
+<text x="2267" y="350" fill="#555" style="">controllerID: Identifier</text>
+<text x="2267" y="368" fill="#555" style="">setTemperature: Temperature</text>
+<text x="2267" y="386" fill="#555" style="">currentTemperature: Temperature</text>
+<rect x="2524" y="302" width="164" height="100" fill="#00000010" rx="4"/>
+<rect x="2522" y="300" width="164" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2522" y="300" width="164" height="30" fill="#34698a" rx="4"/>
+<rect x="2522" y="326" width="164" height="4" fill="#34698a"/>
+<text x="2604.0" y="320" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PreInfusionChamber</text>
+<text x="2536" y="350" fill="#555" style="">chamberID: Identifier</text>
+<text x="2536" y="368" fill="#555" style="">volume: ScalarVolume</text>
+<text x="2536" y="386" fill="#555" style="">material: Kind</text>
+<rect x="2754" y="302" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="2752" y="300" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2752" y="300" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2752" y="326" width="171" height="4" fill="#34698a"/>
+<text x="2837.5" y="320" text-anchor="middle" fill="white" font-weight="bold" font-size="12">DripTray</text>
+<text x="2766" y="350" fill="#555" style="">trayID: Identifier</text>
+<text x="2766" y="368" fill="#555" style="">material: Kind</text>
+<text x="2766" y="386" fill="#555" style="">capacity: ScalarVolume</text>
+<rect x="3043" y="302" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="3041" y="300" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3041" y="300" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="3041" y="326" width="160" height="4" fill="#34698a"/>
+<text x="3121.0" y="320" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ShowerHead</text>
+<text x="3055" y="350" fill="#555" style="">headID: Identifier</text>
+<text x="3055" y="368" fill="#555" style="">holeCount: Count</text>
+<text x="3055" y="386" fill="#555" style="">material: Kind</text>
+<rect x="3293" y="302" width="160" height="118" fill="#00000010" rx="4"/>
+<rect x="3291" y="300" width="160" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3291" y="300" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="3291" y="326" width="160" height="4" fill="#34698a"/>
+<text x="3371.0" y="320" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BrewBasket</text>
+<text x="3305" y="350" fill="#555" style="">basketID: Identifier</text>
+<text x="3305" y="368" fill="#555" style="">basketType: Kind</text>
+<text x="3305" y="386" fill="#555" style="">material: Kind</text>
+<text x="3305" y="404" fill="#555" style="">filterType: Kind</text>
+<rect x="3549" y="302" width="216" height="136" fill="#00000010" rx="4"/>
+<rect x="3547" y="300" width="216" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3547" y="300" width="216" height="30" fill="#34698a" rx="4"/>
+<rect x="3547" y="326" width="216" height="4" fill="#34698a"/>
+<text x="3655.0" y="320" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Carafe</text>
+<text x="3561" y="350" fill="#555" style="">carafeID: Identifier</text>
+<text x="3561" y="368" fill="#555" style="">carafeType: Kind</text>
+<text x="3561" y="386" fill="#555" style="">material: Kind</text>
+<text x="3561" y="404" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="3561" y="422" fill="#555" style="">insulated: ConfigurationState</text>
+<rect x="62" y="486" width="184" height="100" fill="#00000010" rx="4"/>
+<rect x="60" y="484" width="184" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="484" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="510" width="184" height="4" fill="#34698a"/>
+<text x="152.0" y="504" text-anchor="middle" fill="white" font-weight="bold" font-size="12">HotPlate</text>
+<text x="74" y="534" fill="#555" style="">plateID: Identifier</text>
+<text x="74" y="552" fill="#555" style="">powerRating: Power</text>
+<text x="74" y="570" fill="#555" style="">temperature: Temperature</text>
+<rect x="338" y="486" width="164" height="136" fill="#00000010" rx="4"/>
+<rect x="336" y="484" width="164" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="336" y="484" width="164" height="30" fill="#34698a" rx="4"/>
+<rect x="336" y="510" width="164" height="4" fill="#34698a"/>
+<text x="418.0" y="504" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PourOverDripper</text>
+<text x="350" y="534" fill="#555" style="">dripperID: Identifier</text>
+<text x="350" y="552" fill="#555" style="">dripperType: Kind</text>
+<text x="350" y="570" fill="#555" style="">material: Kind</text>
+<text x="350" y="588" fill="#555" style="">ribPattern: Kind</text>
+<text x="350" y="606" fill="#555" style="">drainHoleCount: Count</text>
+<rect x="594" y="486" width="210" height="118" fill="#00000010" rx="4"/>
+<rect x="592" y="484" width="210" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="592" y="484" width="210" height="30" fill="#34698a" rx="4"/>
+<rect x="592" y="510" width="210" height="4" fill="#34698a"/>
+<text x="697.0" y="504" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PaperFilter</text>
+<text x="606" y="534" fill="#555" style="">filterID: Identifier</text>
+<text x="606" y="552" fill="#555" style="">filterShape: Kind</text>
+<text x="606" y="570" fill="#555" style="">filterSize: Kind</text>
+<text x="606" y="588" fill="#555" style="">bleached: ConfigurationState</text>
+<rect x="928" y="486" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="926" y="484" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="926" y="484" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="926" y="510" width="160" height="4" fill="#34698a"/>
+<text x="1006.0" y="504" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MetalPourOverFilter</text>
+<text x="940" y="534" fill="#555" style="">filterID: Identifier</text>
+<text x="940" y="552" fill="#555" style="">material: Kind</text>
+<text x="940" y="570" fill="#555" style="">meshSize: Distance</text>
+<rect x="1139" y="486" width="268" height="118" fill="#00000010" rx="4"/>
+<rect x="1137" y="484" width="268" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1137" y="484" width="268" height="30" fill="#34698a" rx="4"/>
+<rect x="1137" y="510" width="268" height="4" fill="#34698a"/>
+<text x="1271.0" y="504" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CoffeeServer</text>
+<text x="1151" y="534" fill="#555" style="">serverID: Identifier</text>
+<text x="1151" y="552" fill="#555" style="">material: Kind</text>
+<text x="1151" y="570" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="1151" y="588" fill="#555" style="">hasVolumeMarkings: ConfigurationState</text>
+<rect x="1460" y="486" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="1458" y="484" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1458" y="484" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1458" y="510" width="171" height="4" fill="#34698a"/>
+<text x="1543.5" y="504" text-anchor="middle" fill="white" font-weight="bold" font-size="12">FrenchPress</text>
+<text x="1472" y="534" fill="#555" style="">pressID: Identifier</text>
+<text x="1472" y="552" fill="#555" style="">material: Kind</text>
+<text x="1472" y="570" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="1472" y="588" fill="#555" style="">condition: HealthState</text>
+<rect x="1723" y="486" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="1721" y="484" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1721" y="484" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1721" y="510" width="171" height="4" fill="#34698a"/>
+<text x="1806.5" y="504" text-anchor="middle" fill="white" font-weight="bold" font-size="12">FrenchPressPlunger</text>
+<text x="1735" y="534" fill="#555" style="">plungerID: Identifier</text>
+<text x="1735" y="552" fill="#555" style="">meshScreenCount: Count</text>
+<text x="1735" y="570" fill="#555" style="">meshMaterial: Kind</text>
+<text x="1735" y="588" fill="#555" style="">condition: HealthState</text>
+<rect x="1986" y="486" width="171" height="82" fill="#00000010" rx="4"/>
+<rect x="1984" y="484" width="171" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1984" y="484" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1984" y="510" width="171" height="4" fill="#34698a"/>
+<text x="2069.5" y="504" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AeropressChamber</text>
+<text x="1998" y="534" fill="#555" style="">chamberID: Identifier</text>
+<text x="1998" y="552" fill="#555" style="">capacity: ScalarVolume</text>
+<rect x="2255" y="486" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="2253" y="484" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2253" y="484" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2253" y="510" width="171" height="4" fill="#34698a"/>
+<text x="2338.5" y="504" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AeropressPlunger</text>
+<text x="2267" y="534" fill="#555" style="">plungerID: Identifier</text>
+<text x="2267" y="552" fill="#555" style="">sealMaterial: Kind</text>
+<text x="2267" y="570" fill="#555" style="">condition: HealthState</text>
+<rect x="2524" y="486" width="160" height="82" fill="#00000010" rx="4"/>
+<rect x="2522" y="484" width="160" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2522" y="484" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="2522" y="510" width="160" height="4" fill="#34698a"/>
+<text x="2602.0" y="504" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AeropressFilterCap</text>
+<text x="2536" y="534" fill="#555" style="">capID: Identifier</text>
+<text x="2536" y="552" fill="#555" style="">capType: Kind</text>
+<rect x="2754" y="486" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="2752" y="484" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2752" y="484" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2752" y="510" width="171" height="4" fill="#34698a"/>
+<text x="2837.5" y="504" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MokaBottomChamber</text>
+<text x="2766" y="534" fill="#555" style="">chamberID: Identifier</text>
+<text x="2766" y="552" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="2766" y="570" fill="#555" style="">material: Kind</text>
+<rect x="3043" y="486" width="160" height="82" fill="#00000010" rx="4"/>
+<rect x="3041" y="484" width="160" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3041" y="484" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="3041" y="510" width="160" height="4" fill="#34698a"/>
+<text x="3121.0" y="504" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MokaFilterFunnel</text>
+<text x="3055" y="534" fill="#555" style="">funnelID: Identifier</text>
+<text x="3055" y="552" fill="#555" style="">material: Kind</text>
+<rect x="3293" y="486" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="3291" y="484" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3291" y="484" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="3291" y="510" width="171" height="4" fill="#34698a"/>
+<text x="3376.5" y="504" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MokaTopChamber</text>
+<text x="3305" y="534" fill="#555" style="">chamberID: Identifier</text>
+<text x="3305" y="552" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="3305" y="570" fill="#555" style="">material: Kind</text>
+<rect x="3549" y="486" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="3547" y="484" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3547" y="484" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="3547" y="510" width="171" height="4" fill="#34698a"/>
+<text x="3632.5" y="504" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MokaGasket</text>
+<text x="3561" y="534" fill="#555" style="">gasketID: Identifier</text>
+<text x="3561" y="552" fill="#555" style="">material: Kind</text>
+<text x="3561" y="570" fill="#555" style="">condition: HealthState</text>
+<rect x="62" y="652" width="190" height="82" fill="#00000010" rx="4"/>
+<rect x="60" y="650" width="190" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="650" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="676" width="190" height="4" fill="#34698a"/>
+<text x="155.0" y="670" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MokaSafetyValve</text>
+<text x="74" y="700" fill="#555" style="">valveID: Identifier</text>
+<text x="74" y="718" fill="#555" style="">releasePressure: Pressure</text>
+<rect x="338" y="652" width="177" height="118" fill="#00000010" rx="4"/>
+<rect x="336" y="650" width="177" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="336" y="650" width="177" height="30" fill="#34698a" rx="4"/>
+<rect x="336" y="676" width="177" height="4" fill="#34698a"/>
+<text x="424.5" y="670" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ColdBrewContainer</text>
+<text x="350" y="700" fill="#555" style="">containerID: Identifier</text>
+<text x="350" y="718" fill="#555" style="">material: Kind</text>
+<text x="350" y="736" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="350" y="754" fill="#555" style="">filterType: Kind</text>
+<rect x="594" y="652" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="592" y="650" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="592" y="650" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="592" y="676" width="171" height="4" fill="#34698a"/>
+<text x="677.5" y="670" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SiphonBrewer</text>
+<text x="606" y="700" fill="#555" style="">brewerID: Identifier</text>
+<text x="606" y="718" fill="#555" style="">material: Kind</text>
+<text x="606" y="736" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="606" y="754" fill="#555" style="">filterType: Kind</text>
+<rect x="928" y="652" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="926" y="650" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="926" y="650" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="926" y="676" width="171" height="4" fill="#34698a"/>
+<text x="1011.5" y="670" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MilkPitcher</text>
+<text x="940" y="700" fill="#555" style="">pitcherID: Identifier</text>
+<text x="940" y="718" fill="#555" style="">material: Kind</text>
+<text x="940" y="736" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="940" y="754" fill="#555" style="">spoutType: Kind</text>
+<rect x="1139" y="652" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="1137" y="650" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1137" y="650" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1137" y="676" width="171" height="4" fill="#34698a"/>
+<text x="1222.5" y="670" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MilkFrother</text>
+<text x="1151" y="700" fill="#555" style="">frotherID: Identifier</text>
+<text x="1151" y="718" fill="#555" style="">frotherType: Kind</text>
+<text x="1151" y="736" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="1151" y="754" fill="#555" style="">powerRating: Power</text>
+<rect x="1460" y="652" width="223" height="118" fill="#00000010" rx="4"/>
+<rect x="1458" y="650" width="223" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1458" y="650" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="1458" y="676" width="223" height="4" fill="#34698a"/>
+<text x="1569.5" y="670" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Tamper</text>
+<text x="1472" y="700" fill="#555" style="">tamperID: Identifier</text>
+<text x="1472" y="718" fill="#555" style="">tamperType: Kind</text>
+<text x="1472" y="736" fill="#555" style="">baseDiameter: Distance</text>
+<text x="1472" y="754" fill="#555" style="">calibrated: ConfigurationState</text>
+<rect x="1723" y="652" width="190" height="100" fill="#00000010" rx="4"/>
+<rect x="1721" y="650" width="190" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1721" y="650" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="1721" y="676" width="190" height="4" fill="#34698a"/>
+<text x="1816.0" y="670" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Distributor</text>
+<text x="1735" y="700" fill="#555" style="">distributorID: Identifier</text>
+<text x="1735" y="718" fill="#555" style="">diameter: Distance</text>
+<text x="1735" y="736" fill="#555" style="">bladeCount: Count</text>
+<rect x="1986" y="652" width="184" height="100" fill="#00000010" rx="4"/>
+<rect x="1984" y="650" width="184" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1984" y="650" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="1984" y="676" width="184" height="4" fill="#34698a"/>
+<text x="2076.0" y="670" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WDTTool</text>
+<text x="1998" y="700" fill="#555" style="">toolID: Identifier</text>
+<text x="1998" y="718" fill="#555" style="">needleCount: Count</text>
+<text x="1998" y="736" fill="#555" style="">needleDiameter: Distance</text>
+<rect x="2255" y="652" width="160" height="82" fill="#00000010" rx="4"/>
+<rect x="2253" y="650" width="160" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2253" y="650" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="2253" y="676" width="160" height="4" fill="#34698a"/>
+<text x="2333.0" y="670" text-anchor="middle" fill="white" font-weight="bold" font-size="12">DosingCup</text>
+<text x="2267" y="700" fill="#555" style="">cupID: Identifier</text>
+<text x="2267" y="718" fill="#555" style="">diameter: Distance</text>
+<rect x="2524" y="652" width="160" height="82" fill="#00000010" rx="4"/>
+<rect x="2522" y="650" width="160" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2522" y="650" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="2522" y="676" width="160" height="4" fill="#34698a"/>
+<text x="2602.0" y="670" text-anchor="middle" fill="white" font-weight="bold" font-size="12">DosingFunnel</text>
+<text x="2536" y="700" fill="#555" style="">funnelID: Identifier</text>
+<text x="2536" y="718" fill="#555" style="">diameter: Distance</text>
+<rect x="2754" y="652" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="2752" y="650" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2752" y="650" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="2752" y="676" width="249" height="4" fill="#34698a"/>
+<text x="2876.5" y="670" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CoffeeScale</text>
+<text x="2766" y="700" fill="#555" style="">scaleID: Identifier</text>
+<text x="2766" y="718" fill="#555" style="">maxCapacity: Mass</text>
+<text x="2766" y="736" fill="#555" style="">resolution: Mass</text>
+<text x="2766" y="754" fill="#555" style="">hasTimer: ConfigurationState</text>
+<text x="2766" y="772" fill="#555" style="">waterResistant: ConfigurationState</text>
+<rect x="3043" y="652" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="3041" y="650" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3041" y="650" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="3041" y="676" width="171" height="4" fill="#34698a"/>
+<text x="3126.5" y="670" text-anchor="middle" fill="white" font-weight="bold" font-size="12">EspressoCup</text>
+<text x="3055" y="700" fill="#555" style="">cupID: Identifier</text>
+<text x="3055" y="718" fill="#555" style="">material: Kind</text>
+<text x="3055" y="736" fill="#555" style="">capacity: ScalarVolume</text>
+<rect x="3293" y="652" width="216" height="118" fill="#00000010" rx="4"/>
+<rect x="3291" y="650" width="216" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3291" y="650" width="216" height="30" fill="#34698a" rx="4"/>
+<rect x="3291" y="676" width="216" height="4" fill="#34698a"/>
+<text x="3399.0" y="670" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CoffeeMug</text>
+<text x="3305" y="700" fill="#555" style="">mugID: Identifier</text>
+<text x="3305" y="718" fill="#555" style="">material: Kind</text>
+<text x="3305" y="736" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="3305" y="754" fill="#555" style="">insulated: ConfigurationState</text>
+<rect x="3549" y="652" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="3547" y="650" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3547" y="650" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="3547" y="676" width="171" height="4" fill="#34698a"/>
+<text x="3632.5" y="670" text-anchor="middle" fill="white" font-weight="bold" font-size="12">TravelMug</text>
+<text x="3561" y="700" fill="#555" style="">mugID: Identifier</text>
+<text x="3561" y="718" fill="#555" style="">material: Kind</text>
+<text x="3561" y="736" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="3561" y="754" fill="#555" style="">lidType: Kind</text>
+<rect x="62" y="818" width="236" height="100" fill="#00000010" rx="4"/>
+<rect x="60" y="816" width="236" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="816" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="842" width="236" height="4" fill="#34698a"/>
+<text x="178.0" y="836" text-anchor="middle" fill="white" font-weight="bold" font-size="12">LatteGlass</text>
+<text x="74" y="866" fill="#555" style="">glassID: Identifier</text>
+<text x="74" y="884" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="74" y="902" fill="#555" style="">doubleWalled: ConfigurationState</text>
+<rect x="338" y="818" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="336" y="816" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="336" y="816" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="336" y="842" width="160" height="4" fill="#34698a"/>
+<text x="416.0" y="836" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Saucer</text>
+<text x="350" y="866" fill="#555" style="">saucerID: Identifier</text>
+<text x="350" y="884" fill="#555" style="">material: Kind</text>
+<text x="350" y="902" fill="#555" style="">diameter: Distance</text>
+<rect x="594" y="818" width="249" height="136" fill="#00000010" rx="4"/>
+<rect x="592" y="816" width="249" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="592" y="816" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="592" y="842" width="249" height="4" fill="#34698a"/>
+<text x="716.5" y="836" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BeanCanister</text>
+<text x="606" y="866" fill="#555" style="">canisterID: Identifier</text>
+<text x="606" y="884" fill="#555" style="">material: Kind</text>
+<text x="606" y="902" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="606" y="920" fill="#555" style="">airtightSeal: ConfigurationState</text>
+<text x="606" y="938" fill="#555" style="">hasOneWayValve: ConfigurationState</text>
+<rect x="928" y="818" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="926" y="816" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="926" y="816" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="926" y="842" width="171" height="4" fill="#34698a"/>
+<text x="1011.5" y="836" text-anchor="middle" fill="white" font-weight="bold" font-size="12">KnockBox</text>
+<text x="940" y="866" fill="#555" style="">boxID: Identifier</text>
+<text x="940" y="884" fill="#555" style="">material: Kind</text>
+<text x="940" y="902" fill="#555" style="">capacity: ScalarVolume</text>
+<rect x="1139" y="818" width="160" height="82" fill="#00000010" rx="4"/>
+<rect x="1137" y="816" width="160" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1137" y="816" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="1137" y="842" width="160" height="4" fill="#34698a"/>
+<text x="1217.0" y="836" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BlindFilter</text>
+<text x="1151" y="866" fill="#555" style="">filterID: Identifier</text>
+<text x="1151" y="884" fill="#555" style="">diameter: Distance</text>
+<rect x="1460" y="818" width="171" height="82" fill="#00000010" rx="4"/>
+<rect x="1458" y="816" width="171" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1458" y="816" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1458" y="842" width="171" height="4" fill="#34698a"/>
+<text x="1543.5" y="836" text-anchor="middle" fill="white" font-weight="bold" font-size="12">GroupHeadBrush</text>
+<text x="1472" y="866" fill="#555" style="">brushID: Identifier</text>
+<text x="1472" y="884" fill="#555" style="">condition: HealthState</text>
+<rect x="1723" y="818" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="1721" y="816" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1721" y="816" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1721" y="842" width="171" height="4" fill="#34698a"/>
+<text x="1806.5" y="836" text-anchor="middle" fill="white" font-weight="bold" font-size="12">TDSMeter</text>
+<text x="1735" y="866" fill="#555" style="">meterID: Identifier</text>
+<text x="1735" y="884" fill="#555" style="">resolution: Ratio</text>
+<text x="1735" y="902" fill="#555" style="">condition: HealthState</text>
+<rect x="1986" y="818" width="190" height="100" fill="#00000010" rx="4"/>
+<rect x="1984" y="816" width="190" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1984" y="816" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="1984" y="842" width="190" height="4" fill="#34698a"/>
+<text x="2079.0" y="836" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BrewThermometer</text>
+<text x="1998" y="866" fill="#555" style="">thermometerID: Identifier</text>
+<text x="1998" y="884" fill="#555" style="">thermometerType: Kind</text>
+<text x="1998" y="902" fill="#555" style="">accuracy: Temperature</text>
+<rect x="2255" y="818" width="160" height="82" fill="#00000010" rx="4"/>
+<rect x="2253" y="816" width="160" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2253" y="816" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="2253" y="842" width="160" height="4" fill="#34698a"/>
+<text x="2333.0" y="836" text-anchor="middle" fill="white" font-weight="bold" font-size="12">LatteArtPen</text>
+<text x="2267" y="866" fill="#555" style="">penID: Identifier</text>
+<text x="2267" y="884" fill="#555" style="">material: Kind</text>
+<rect x="2524" y="818" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2522" y="816" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2522" y="816" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2522" y="840" width="160" height="6" fill="#8b5e3c"/>
+<text x="2602.0" y="836" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FilterFeedsReservoir</text>
+<line x1="2530" y1="860" x2="2674" y2="860" stroke="#ccc" stroke-width="0.5"/>
+<text x="2536" y="872" fill="#c05746" font-weight="bold">→ WaterFilter</text>
+<text x="2536" y="890" fill="#c05746" font-weight="bold">→ WaterReservoir</text>
+<rect x="2754" y="818" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2752" y="816" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2752" y="816" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2752" y="840" width="160" height="6" fill="#8b5e3c"/>
+<text x="2832.0" y="836" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ReservoirFeedsBoiler</text>
+<line x1="2760" y1="860" x2="2904" y2="860" stroke="#ccc" stroke-width="0.5"/>
+<text x="2766" y="872" fill="#c05746" font-weight="bold">→ WaterReservoir</text>
+<text x="2766" y="890" fill="#c05746" font-weight="bold">→ Boiler</text>
+<rect x="3043" y="818" width="190" height="86" fill="#00000010" rx="10"/>
+<rect x="3041" y="816" width="190" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3041" y="816" width="190" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3041" y="840" width="190" height="6" fill="#8b5e3c"/>
+<text x="3136.0" y="836" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ReservoirFeedsThermoblock</text>
+<line x1="3049" y1="860" x2="3223" y2="860" stroke="#ccc" stroke-width="0.5"/>
+<text x="3055" y="872" fill="#c05746" font-weight="bold">→ WaterReservoir</text>
+<text x="3055" y="890" fill="#c05746" font-weight="bold">→ Thermoblock</text>
+<rect x="3293" y="818" width="171" height="86" fill="#00000010" rx="10"/>
+<rect x="3291" y="816" width="171" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3291" y="816" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3291" y="840" width="171" height="6" fill="#8b5e3c"/>
+<text x="3376.5" y="836" text-anchor="middle" fill="white" font-weight="bold" font-size="11">HeatingElementInBoiler</text>
+<line x1="3299" y1="860" x2="3454" y2="860" stroke="#ccc" stroke-width="0.5"/>
+<text x="3305" y="872" fill="#c05746" font-weight="bold">→ BoilerHeatingElement</text>
+<text x="3305" y="890" fill="#c05746" font-weight="bold">→ Boiler</text>
+<rect x="3549" y="818" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3547" y="816" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3547" y="816" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3547" y="840" width="160" height="6" fill="#8b5e3c"/>
+<text x="3627.0" y="836" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PumpDrawsFromBoiler</text>
+<line x1="3555" y1="860" x2="3699" y2="860" stroke="#ccc" stroke-width="0.5"/>
+<text x="3561" y="872" fill="#c05746" font-weight="bold">→ PumpAssembly</text>
+<text x="3561" y="890" fill="#c05746" font-weight="bold">→ Boiler</text>
+<rect x="62" y="984" width="171" height="104" fill="#00000010" rx="10"/>
+<rect x="60" y="982" width="171" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="982" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1006" width="171" height="6" fill="#8b5e3c"/>
+<text x="145.5" y="1002" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PumpPressuresGroupHead</text>
+<text x="74" y="1032" fill="#555">brewPressure: Pressure</text>
+<line x1="68" y1="1044" x2="223" y2="1044" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1056" fill="#c05746" font-weight="bold">→ PumpAssembly</text>
+<text x="74" y="1074" fill="#c05746" font-weight="bold">→ GroupHead</text>
+<rect x="338" y="984" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="336" y="982" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="336" y="982" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="336" y="1006" width="160" height="6" fill="#8b5e3c"/>
+<text x="416.0" y="1002" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SolenoidControlsFlow</text>
+<line x1="344" y1="1026" x2="488" y2="1026" stroke="#ccc" stroke-width="0.5"/>
+<text x="350" y="1038" fill="#c05746" font-weight="bold">→ Solenoid</text>
+<text x="350" y="1056" fill="#c05746" font-weight="bold">→ GroupHead</text>
+<rect x="594" y="984" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="592" y="982" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="592" y="982" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="592" y="1006" width="164" height="6" fill="#8b5e3c"/>
+<text x="674.0" y="1002" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FlowMeterMeasuresFlow</text>
+<line x1="600" y1="1026" x2="748" y2="1026" stroke="#ccc" stroke-width="0.5"/>
+<text x="606" y="1038" fill="#c05746" font-weight="bold">→ FlowMeter</text>
+<text x="606" y="1056" fill="#c05746" font-weight="bold">→ GroupHead</text>
+<rect x="928" y="984" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="926" y="982" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="926" y="982" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="926" y="1006" width="160" height="6" fill="#8b5e3c"/>
+<text x="1006.0" y="1002" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ScreenInGroupHead</text>
+<line x1="934" y1="1026" x2="1078" y2="1026" stroke="#ccc" stroke-width="0.5"/>
+<text x="940" y="1038" fill="#c05746" font-weight="bold">→ DispersionScreen</text>
+<text x="940" y="1056" fill="#c05746" font-weight="bold">→ GroupHead</text>
+<rect x="1139" y="984" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1137" y="982" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1137" y="982" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1137" y="1006" width="160" height="6" fill="#8b5e3c"/>
+<text x="1217.0" y="1002" text-anchor="middle" fill="white" font-weight="bold" font-size="11">GasketInGroupHead</text>
+<line x1="1145" y1="1026" x2="1289" y2="1026" stroke="#ccc" stroke-width="0.5"/>
+<text x="1151" y="1038" fill="#c05746" font-weight="bold">→ GroupGasket</text>
+<text x="1151" y="1056" fill="#c05746" font-weight="bold">→ GroupHead</text>
+<rect x="1460" y="984" width="171" height="86" fill="#00000010" rx="10"/>
+<rect x="1458" y="982" width="171" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1458" y="982" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1458" y="1006" width="171" height="6" fill="#8b5e3c"/>
+<text x="1543.5" y="1002" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PreInfusionInGroupHead</text>
+<line x1="1466" y1="1026" x2="1621" y2="1026" stroke="#ccc" stroke-width="0.5"/>
+<text x="1472" y="1038" fill="#c05746" font-weight="bold">→ PreInfusionChamber</text>
+<text x="1472" y="1056" fill="#c05746" font-weight="bold">→ GroupHead</text>
+<rect x="1723" y="984" width="177" height="86" fill="#00000010" rx="10"/>
+<rect x="1721" y="982" width="177" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1721" y="982" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1721" y="1006" width="177" height="6" fill="#8b5e3c"/>
+<text x="1809.5" y="1002" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PortafilterLocksInGroup</text>
+<line x1="1729" y1="1026" x2="1890" y2="1026" stroke="#ccc" stroke-width="0.5"/>
+<text x="1735" y="1038" fill="#c05746" font-weight="bold">→ Portafilter</text>
+<text x="1735" y="1056" fill="#c05746" font-weight="bold">→ GroupHead</text>
+<rect x="1986" y="984" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1984" y="982" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1984" y="982" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1984" y="1006" width="160" height="6" fill="#8b5e3c"/>
+<text x="2064.0" y="1002" text-anchor="middle" fill="white" font-weight="bold" font-size="11">BasketInPortafilter</text>
+<line x1="1992" y1="1026" x2="2136" y2="1026" stroke="#ccc" stroke-width="0.5"/>
+<text x="1998" y="1038" fill="#c05746" font-weight="bold">→ FilterBasket</text>
+<text x="1998" y="1056" fill="#c05746" font-weight="bold">→ Portafilter</text>
+<rect x="2255" y="984" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2253" y="982" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2253" y="982" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2253" y="1006" width="160" height="6" fill="#8b5e3c"/>
+<text x="2333.0" y="1002" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SpoutOnPortafilter</text>
+<line x1="2261" y1="1026" x2="2405" y2="1026" stroke="#ccc" stroke-width="0.5"/>
+<text x="2267" y="1038" fill="#c05746" font-weight="bold">→ PortafilterSpout</text>
+<text x="2267" y="1056" fill="#c05746" font-weight="bold">→ Portafilter</text>
+<rect x="2524" y="984" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2522" y="982" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2522" y="982" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2522" y="1006" width="160" height="6" fill="#8b5e3c"/>
+<text x="2602.0" y="1002" text-anchor="middle" fill="white" font-weight="bold" font-size="11">TipOnSteamWand</text>
+<line x1="2530" y1="1026" x2="2674" y2="1026" stroke="#ccc" stroke-width="0.5"/>
+<text x="2536" y="1038" fill="#c05746" font-weight="bold">→ SteamTip</text>
+<text x="2536" y="1056" fill="#c05746" font-weight="bold">→ SteamWand</text>
+<rect x="2754" y="984" width="177" height="104" fill="#00000010" rx="10"/>
+<rect x="2752" y="982" width="177" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2752" y="982" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2752" y="1006" width="177" height="6" fill="#8b5e3c"/>
+<text x="2840.5" y="1002" text-anchor="middle" fill="white" font-weight="bold" font-size="11">BoilerFeedsSteam</text>
+<text x="2766" y="1032" fill="#555">steamPressure: Pressure</text>
+<line x1="2760" y1="1044" x2="2921" y2="1044" stroke="#ccc" stroke-width="0.5"/>
+<text x="2766" y="1056" fill="#c05746" font-weight="bold">→ Boiler</text>
+<text x="2766" y="1074" fill="#c05746" font-weight="bold">→ SteamWand</text>
+<rect x="3043" y="984" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3041" y="982" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3041" y="982" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3041" y="1006" width="160" height="6" fill="#8b5e3c"/>
+<text x="3121.0" y="1002" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PIDControlsBoiler</text>
+<line x1="3049" y1="1026" x2="3193" y2="1026" stroke="#ccc" stroke-width="0.5"/>
+<text x="3055" y="1038" fill="#c05746" font-weight="bold">→ PIDController</text>
+<text x="3055" y="1056" fill="#c05746" font-weight="bold">→ Boiler</text>
+<rect x="3293" y="984" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3291" y="982" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3291" y="982" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3291" y="1006" width="160" height="6" fill="#8b5e3c"/>
+<text x="3371.0" y="1002" text-anchor="middle" fill="white" font-weight="bold" font-size="11">GaugeReadsBoiler</text>
+<line x1="3299" y1="1026" x2="3443" y2="1026" stroke="#ccc" stroke-width="0.5"/>
+<text x="3305" y="1038" fill="#c05746" font-weight="bold">→ PressureGauge</text>
+<text x="3305" y="1056" fill="#c05746" font-weight="bold">→ Boiler</text>
+<rect x="3549" y="984" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3547" y="982" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3547" y="982" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3547" y="1006" width="160" height="6" fill="#8b5e3c"/>
+<text x="3627.0" y="1002" text-anchor="middle" fill="white" font-weight="bold" font-size="11">BurrInGrinder</text>
+<line x1="3555" y1="1026" x2="3699" y2="1026" stroke="#ccc" stroke-width="0.5"/>
+<text x="3561" y="1038" fill="#c05746" font-weight="bold">→ BurrSet</text>
+<text x="3561" y="1056" fill="#c05746" font-weight="bold">→ CoffeeGrinder</text>
+<rect x="62" y="1118" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="60" y="1116" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1116" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1140" width="160" height="6" fill="#8b5e3c"/>
+<text x="140.0" y="1136" text-anchor="middle" fill="white" font-weight="bold" font-size="11">HopperOnGrinder</text>
+<line x1="68" y1="1160" x2="212" y2="1160" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1172" fill="#c05746" font-weight="bold">→ GrinderHopper</text>
+<text x="74" y="1190" fill="#c05746" font-weight="bold">→ CoffeeGrinder</text>
+<rect x="338" y="1118" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="336" y="1116" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="336" y="1116" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="336" y="1140" width="160" height="6" fill="#8b5e3c"/>
+<text x="416.0" y="1136" text-anchor="middle" fill="white" font-weight="bold" font-size="11">GrinderToPortafilter</text>
+<text x="350" y="1166" fill="#555">grindSize: Kind</text>
+<line x1="344" y1="1178" x2="488" y2="1178" stroke="#ccc" stroke-width="0.5"/>
+<text x="350" y="1190" fill="#c05746" font-weight="bold">→ CoffeeGrinder</text>
+<text x="350" y="1208" fill="#c05746" font-weight="bold">→ Portafilter</text>
+<rect x="594" y="1118" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="592" y="1116" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="592" y="1116" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="592" y="1140" width="160" height="6" fill="#8b5e3c"/>
+<text x="672.0" y="1136" text-anchor="middle" fill="white" font-weight="bold" font-size="11">GrinderToBrewBasket</text>
+<line x1="600" y1="1160" x2="744" y2="1160" stroke="#ccc" stroke-width="0.5"/>
+<text x="606" y="1172" fill="#c05746" font-weight="bold">→ CoffeeGrinder</text>
+<text x="606" y="1190" fill="#c05746" font-weight="bold">→ BrewBasket</text>
+<rect x="928" y="1118" width="171" height="86" fill="#00000010" rx="10"/>
+<rect x="926" y="1116" width="171" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="926" y="1116" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="926" y="1140" width="171" height="6" fill="#8b5e3c"/>
+<text x="1011.5" y="1136" text-anchor="middle" fill="white" font-weight="bold" font-size="11">TamperCompressesBasket</text>
+<line x1="934" y1="1160" x2="1089" y2="1160" stroke="#ccc" stroke-width="0.5"/>
+<text x="940" y="1172" fill="#c05746" font-weight="bold">→ Tamper</text>
+<text x="940" y="1190" fill="#c05746" font-weight="bold">→ FilterBasket</text>
+<rect x="1139" y="1118" width="177" height="86" fill="#00000010" rx="10"/>
+<rect x="1137" y="1116" width="177" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1137" y="1116" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1137" y="1140" width="177" height="6" fill="#8b5e3c"/>
+<text x="1225.5" y="1136" text-anchor="middle" fill="white" font-weight="bold" font-size="11">DistributorLevelsBasket</text>
+<line x1="1145" y1="1160" x2="1306" y2="1160" stroke="#ccc" stroke-width="0.5"/>
+<text x="1151" y="1172" fill="#c05746" font-weight="bold">→ Distributor</text>
+<text x="1151" y="1190" fill="#c05746" font-weight="bold">→ FilterBasket</text>
+<rect x="1460" y="1118" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1458" y="1116" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1458" y="1116" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1458" y="1140" width="160" height="6" fill="#8b5e3c"/>
+<text x="1538.0" y="1136" text-anchor="middle" fill="white" font-weight="bold" font-size="11">WDTBreaksClumps</text>
+<line x1="1466" y1="1160" x2="1610" y2="1160" stroke="#ccc" stroke-width="0.5"/>
+<text x="1472" y="1172" fill="#c05746" font-weight="bold">→ WDTTool</text>
+<text x="1472" y="1190" fill="#c05746" font-weight="bold">→ FilterBasket</text>
+<rect x="1723" y="1118" width="171" height="86" fill="#00000010" rx="10"/>
+<rect x="1721" y="1116" width="171" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1721" y="1116" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1721" y="1140" width="171" height="6" fill="#8b5e3c"/>
+<text x="1806.5" y="1136" text-anchor="middle" fill="white" font-weight="bold" font-size="11">DosingCupOnPortafilter</text>
+<line x1="1729" y1="1160" x2="1884" y2="1160" stroke="#ccc" stroke-width="0.5"/>
+<text x="1735" y="1172" fill="#c05746" font-weight="bold">→ DosingCup</text>
+<text x="1735" y="1190" fill="#c05746" font-weight="bold">→ Portafilter</text>
+<rect x="1986" y="1118" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1984" y="1116" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1984" y="1116" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1984" y="1140" width="160" height="6" fill="#8b5e3c"/>
+<text x="2064.0" y="1136" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FunnelOnPortafilter</text>
+<line x1="1992" y1="1160" x2="2136" y2="1160" stroke="#ccc" stroke-width="0.5"/>
+<text x="1998" y="1172" fill="#c05746" font-weight="bold">→ DosingFunnel</text>
+<text x="1998" y="1190" fill="#c05746" font-weight="bold">→ Portafilter</text>
+<rect x="2255" y="1118" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2253" y="1116" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2253" y="1116" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2253" y="1140" width="160" height="6" fill="#8b5e3c"/>
+<text x="2333.0" y="1136" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FilterInDripper</text>
+<line x1="2261" y1="1160" x2="2405" y2="1160" stroke="#ccc" stroke-width="0.5"/>
+<text x="2267" y="1172" fill="#c05746" font-weight="bold">→ PaperFilter</text>
+<text x="2267" y="1190" fill="#c05746" font-weight="bold">→ PourOverDripper</text>
+<rect x="2524" y="1118" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="2522" y="1116" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2522" y="1116" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2522" y="1140" width="164" height="6" fill="#8b5e3c"/>
+<text x="2604.0" y="1136" text-anchor="middle" fill="white" font-weight="bold" font-size="11">MetalFilterInDripper</text>
+<line x1="2530" y1="1160" x2="2678" y2="1160" stroke="#ccc" stroke-width="0.5"/>
+<text x="2536" y="1172" fill="#c05746" font-weight="bold">→ MetalPourOverFilter</text>
+<text x="2536" y="1190" fill="#c05746" font-weight="bold">→ PourOverDripper</text>
+<rect x="2754" y="1118" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2752" y="1116" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2752" y="1116" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2752" y="1140" width="160" height="6" fill="#8b5e3c"/>
+<text x="2832.0" y="1136" text-anchor="middle" fill="white" font-weight="bold" font-size="11">DripperOnServer</text>
+<line x1="2760" y1="1160" x2="2904" y2="1160" stroke="#ccc" stroke-width="0.5"/>
+<text x="2766" y="1172" fill="#c05746" font-weight="bold">→ PourOverDripper</text>
+<text x="2766" y="1190" fill="#c05746" font-weight="bold">→ CoffeeServer</text>
+<rect x="3043" y="1118" width="210" height="104" fill="#00000010" rx="10"/>
+<rect x="3041" y="1116" width="210" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3041" y="1116" width="210" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3041" y="1140" width="210" height="6" fill="#8b5e3c"/>
+<text x="3146.0" y="1136" text-anchor="middle" fill="white" font-weight="bold" font-size="11">KettlePoursToDripper</text>
+<text x="3055" y="1166" fill="#555">pourTemperature: Temperature</text>
+<line x1="3049" y1="1178" x2="3243" y2="1178" stroke="#ccc" stroke-width="0.5"/>
+<text x="3055" y="1190" fill="#c05746" font-weight="bold">→ GooseneckKettle</text>
+<text x="3055" y="1208" fill="#c05746" font-weight="bold">→ PourOverDripper</text>
+<rect x="3293" y="1118" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="3291" y="1116" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3291" y="1116" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3291" y="1140" width="164" height="6" fill="#8b5e3c"/>
+<text x="3373.0" y="1136" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ShowerHeadDistributes</text>
+<line x1="3299" y1="1160" x2="3447" y2="1160" stroke="#ccc" stroke-width="0.5"/>
+<text x="3305" y="1172" fill="#c05746" font-weight="bold">→ ShowerHead</text>
+<text x="3305" y="1190" fill="#c05746" font-weight="bold">→ BrewBasket</text>
+<rect x="3549" y="1118" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3547" y="1116" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3547" y="1116" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3547" y="1140" width="160" height="6" fill="#8b5e3c"/>
+<text x="3627.0" y="1136" text-anchor="middle" fill="white" font-weight="bold" font-size="11">HotPlateWarmsCarafe</text>
+<line x1="3555" y1="1160" x2="3699" y2="1160" stroke="#ccc" stroke-width="0.5"/>
+<text x="3561" y="1172" fill="#c05746" font-weight="bold">→ HotPlate</text>
+<text x="3561" y="1190" fill="#c05746" font-weight="bold">→ Carafe</text>
+<rect x="62" y="1252" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="60" y="1250" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1250" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1274" width="160" height="6" fill="#8b5e3c"/>
+<text x="140.0" y="1270" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PlungerInFrenchPress</text>
+<line x1="68" y1="1294" x2="212" y2="1294" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1306" fill="#c05746" font-weight="bold">→ FrenchPressPlunger</text>
+<text x="74" y="1324" fill="#c05746" font-weight="bold">→ FrenchPress</text>
+<rect x="338" y="1252" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="336" y="1250" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="336" y="1250" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="336" y="1274" width="160" height="6" fill="#8b5e3c"/>
+<text x="416.0" y="1270" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PlungerInAeropress</text>
+<line x1="344" y1="1294" x2="488" y2="1294" stroke="#ccc" stroke-width="0.5"/>
+<text x="350" y="1306" fill="#c05746" font-weight="bold">→ AeropressPlunger</text>
+<text x="350" y="1324" fill="#c05746" font-weight="bold">→ AeropressChamber</text>
+<rect x="594" y="1252" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="592" y="1250" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="592" y="1250" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="592" y="1274" width="160" height="6" fill="#8b5e3c"/>
+<text x="672.0" y="1270" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FilterCapOnAeropress</text>
+<line x1="600" y1="1294" x2="744" y2="1294" stroke="#ccc" stroke-width="0.5"/>
+<text x="606" y="1306" fill="#c05746" font-weight="bold">→ AeropressFilterCap</text>
+<text x="606" y="1324" fill="#c05746" font-weight="bold">→ AeropressChamber</text>
+<rect x="928" y="1252" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="926" y="1250" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="926" y="1250" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="926" y="1274" width="160" height="6" fill="#8b5e3c"/>
+<text x="1006.0" y="1270" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FunnelInMokaBottom</text>
+<line x1="934" y1="1294" x2="1078" y2="1294" stroke="#ccc" stroke-width="0.5"/>
+<text x="940" y="1306" fill="#c05746" font-weight="bold">→ MokaFilterFunnel</text>
+<text x="940" y="1324" fill="#c05746" font-weight="bold">→ MokaBottomChamber</text>
+<rect x="1139" y="1252" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="1137" y="1250" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1137" y="1250" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1137" y="1274" width="160" height="6" fill="#8b5e3c"/>
+<text x="1217.0" y="1270" text-anchor="middle" fill="white" font-weight="bold" font-size="11">GasketSealsMoka</text>
+<line x1="1145" y1="1294" x2="1289" y2="1294" stroke="#ccc" stroke-width="0.5"/>
+<text x="1151" y="1306" fill="#c05746" font-weight="bold">→ MokaGasket</text>
+<text x="1151" y="1324" fill="#c05746" font-weight="bold">→ MokaBottomChamber</text>
+<text x="1151" y="1342" fill="#c05746" font-weight="bold">→ MokaTopChamber</text>
+<rect x="1460" y="1252" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1458" y="1250" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1458" y="1250" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1458" y="1274" width="160" height="6" fill="#8b5e3c"/>
+<text x="1538.0" y="1270" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SafetyValveOnMoka</text>
+<line x1="1466" y1="1294" x2="1610" y2="1294" stroke="#ccc" stroke-width="0.5"/>
+<text x="1472" y="1306" fill="#c05746" font-weight="bold">→ MokaSafetyValve</text>
+<text x="1472" y="1324" fill="#c05746" font-weight="bold">→ MokaBottomChamber</text>
+<rect x="1723" y="1252" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1721" y="1250" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1721" y="1250" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1721" y="1274" width="160" height="6" fill="#8b5e3c"/>
+<text x="1801.0" y="1270" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SteamWandFrothsMilk</text>
+<line x1="1729" y1="1294" x2="1873" y2="1294" stroke="#ccc" stroke-width="0.5"/>
+<text x="1735" y="1306" fill="#c05746" font-weight="bold">→ SteamWand</text>
+<text x="1735" y="1324" fill="#c05746" font-weight="bold">→ MilkPitcher</text>
+<rect x="1986" y="1252" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1984" y="1250" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1984" y="1250" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1984" y="1274" width="160" height="6" fill="#8b5e3c"/>
+<text x="2064.0" y="1270" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SpoutDispensesToCup</text>
+<line x1="1992" y1="1294" x2="2136" y2="1294" stroke="#ccc" stroke-width="0.5"/>
+<text x="1998" y="1306" fill="#c05746" font-weight="bold">→ PortafilterSpout</text>
+<text x="1998" y="1324" fill="#c05746" font-weight="bold">→ EspressoCup</text>
+<rect x="2255" y="1252" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2253" y="1250" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2253" y="1250" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2253" y="1274" width="160" height="6" fill="#8b5e3c"/>
+<text x="2333.0" y="1270" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ServerPoursToCup</text>
+<line x1="2261" y1="1294" x2="2405" y2="1294" stroke="#ccc" stroke-width="0.5"/>
+<text x="2267" y="1306" fill="#c05746" font-weight="bold">→ CoffeeServer</text>
+<text x="2267" y="1324" fill="#c05746" font-weight="bold">→ CoffeeMug</text>
+<rect x="2524" y="1252" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2522" y="1250" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2522" y="1250" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2522" y="1274" width="160" height="6" fill="#8b5e3c"/>
+<text x="2602.0" y="1270" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CarafePoursToCup</text>
+<line x1="2530" y1="1294" x2="2674" y2="1294" stroke="#ccc" stroke-width="0.5"/>
+<text x="2536" y="1306" fill="#c05746" font-weight="bold">→ Carafe</text>
+<text x="2536" y="1324" fill="#c05746" font-weight="bold">→ CoffeeMug</text>
+<rect x="2754" y="1252" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="2752" y="1250" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2752" y="1250" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2752" y="1274" width="164" height="6" fill="#8b5e3c"/>
+<text x="2834.0" y="1270" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FrenchPressPoursToCup</text>
+<line x1="2760" y1="1294" x2="2908" y2="1294" stroke="#ccc" stroke-width="0.5"/>
+<text x="2766" y="1306" fill="#c05746" font-weight="bold">→ FrenchPress</text>
+<text x="2766" y="1324" fill="#c05746" font-weight="bold">→ CoffeeMug</text>
+<rect x="3043" y="1252" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3041" y="1250" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3041" y="1250" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3041" y="1274" width="160" height="6" fill="#8b5e3c"/>
+<text x="3121.0" y="1270" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CupOnSaucer</text>
+<line x1="3049" y1="1294" x2="3193" y2="1294" stroke="#ccc" stroke-width="0.5"/>
+<text x="3055" y="1306" fill="#c05746" font-weight="bold">→ EspressoCup</text>
+<text x="3055" y="1324" fill="#c05746" font-weight="bold">→ Saucer</text>
+<rect x="3293" y="1252" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3291" y="1250" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3291" y="1250" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3291" y="1274" width="160" height="6" fill="#8b5e3c"/>
+<text x="3371.0" y="1270" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CanisterFeedsHopper</text>
+<line x1="3299" y1="1294" x2="3443" y2="1294" stroke="#ccc" stroke-width="0.5"/>
+<text x="3305" y="1306" fill="#c05746" font-weight="bold">→ BeanCanister</text>
+<text x="3305" y="1324" fill="#c05746" font-weight="bold">→ GrinderHopper</text>
+<rect x="3549" y="1252" width="171" height="86" fill="#00000010" rx="10"/>
+<rect x="3547" y="1250" width="171" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3547" y="1250" width="171" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3547" y="1274" width="171" height="6" fill="#8b5e3c"/>
+<text x="3632.5" y="1270" text-anchor="middle" fill="white" font-weight="bold" font-size="11">BlindFilterBackflushes</text>
+<line x1="3555" y1="1294" x2="3710" y2="1294" stroke="#ccc" stroke-width="0.5"/>
+<text x="3561" y="1306" fill="#c05746" font-weight="bold">→ BlindFilter</text>
+<text x="3561" y="1324" fill="#c05746" font-weight="bold">→ Portafilter</text>
+<rect x="62" y="1386" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="60" y="1384" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1384" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1408" width="160" height="6" fill="#8b5e3c"/>
+<text x="140.0" y="1404" text-anchor="middle" fill="white" font-weight="bold" font-size="11">GroundsToKnockBox</text>
+<line x1="68" y1="1428" x2="212" y2="1428" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1440" fill="#c05746" font-weight="bold">→ Portafilter</text>
+<text x="74" y="1458" fill="#c05746" font-weight="bold">→ KnockBox</text>
+<rect x="338" y="1386" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="336" y="1384" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="336" y="1384" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="336" y="1408" width="160" height="6" fill="#8b5e3c"/>
+<text x="416.0" y="1404" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ScaleUnderCup</text>
+<line x1="344" y1="1428" x2="488" y2="1428" stroke="#ccc" stroke-width="0.5"/>
+<text x="350" y="1440" fill="#c05746" font-weight="bold">→ CoffeeScale</text>
+<text x="350" y="1458" fill="#c05746" font-weight="bold">→ EspressoCup</text>
+<rect x="594" y="1386" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="592" y="1384" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="592" y="1384" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="592" y="1408" width="160" height="6" fill="#8b5e3c"/>
+<text x="672.0" y="1404" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ScaleUnderDripper</text>
+<line x1="600" y1="1428" x2="744" y2="1428" stroke="#ccc" stroke-width="0.5"/>
+<text x="606" y="1440" fill="#c05746" font-weight="bold">→ CoffeeScale</text>
+<text x="606" y="1458" fill="#c05746" font-weight="bold">→ CoffeeServer</text>
+</svg>

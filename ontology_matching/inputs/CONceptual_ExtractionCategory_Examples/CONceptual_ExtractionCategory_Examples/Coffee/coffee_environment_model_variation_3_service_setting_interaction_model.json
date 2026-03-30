@@ -1,0 +1,417 @@
+{
+  "topicDomain": "How to make and consume coffee (including how the coffee maker works)",
+  "modelName": "Coffee Environment Service Setting and Interaction Model",
+  "methodBasis": "Entities represent service settings, equipment roles, storage roles, serving roles, ambient roles, and consumer roles; Associations emphasize setting-based interactions and role-oriented composition.",
+  "entities": [
+    {
+      "name": "CoffeeSetting",
+      "attributes": [
+        {
+          "name": "coffeeSettingID",
+          "type": "Identifier"
+        },
+        {
+          "name": "settingOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "settingName",
+          "type": "Name"
+        },
+        {
+          "name": "settingExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "PreparationZone",
+      "attributes": [
+        {
+          "name": "preparationZoneID",
+          "type": "Identifier"
+        },
+        {
+          "name": "zoneOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "zonePosition",
+          "type": "Position"
+        },
+        {
+          "name": "zoneExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "EquipmentRole",
+      "attributes": [
+        {
+          "name": "equipmentRoleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "equipmentOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "equipmentCount",
+          "type": "Count"
+        },
+        {
+          "name": "equipmentAvailabilityState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "MachineRole",
+      "attributes": [
+        {
+          "name": "machineRoleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "machineOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "machineTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "machinePowerState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "StorageRole",
+      "attributes": [
+        {
+          "name": "storageRoleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "storageOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "storageCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "storageExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "ServiceRole",
+      "attributes": [
+        {
+          "name": "serviceRoleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "serviceOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "serviceCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "serviceTemperature",
+          "type": "Temperature"
+        }
+      ]
+    },
+    {
+      "name": "AmbientRole",
+      "attributes": [
+        {
+          "name": "ambientRoleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "ambientOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "ambientTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "ambientNoiseState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SeatingRole",
+      "attributes": [
+        {
+          "name": "seatingRoleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "seatingOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "seatCount",
+          "type": "Count"
+        },
+        {
+          "name": "seatExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "ConsumerRole",
+      "attributes": [
+        {
+          "name": "consumerRoleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "consumerOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "preferenceState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "participationCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "ServingVesselRole",
+      "attributes": [
+        {
+          "name": "servingVesselRoleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "vesselOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "vesselCapacity",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "vesselTemperature",
+          "type": "Temperature"
+        }
+      ]
+    },
+    {
+      "name": "AccessoryRole",
+      "attributes": [
+        {
+          "name": "accessoryRoleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "accessoryOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "accessoryCount",
+          "type": "Count"
+        },
+        {
+          "name": "accessoryExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "SupplyRole",
+      "attributes": [
+        {
+          "name": "supplyRoleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "supplyOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "supplyVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "supplyMass",
+          "type": "Mass"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "CoffeeSettingContainsPreparationZone",
+      "participants": [
+        "CoffeeSetting",
+        "PreparationZone"
+      ],
+      "attributes": [
+        {
+          "name": "relativePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "PreparationZoneIncludesEquipmentRole",
+      "participants": [
+        "PreparationZone",
+        "EquipmentRole"
+      ],
+      "attributes": [
+        {
+          "name": "equipmentPlacementState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "EquipmentRoleIncludesMachineRole",
+      "participants": [
+        "EquipmentRole",
+        "MachineRole"
+      ],
+      "attributes": [
+        {
+          "name": "machineAvailabilityState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "PreparationZoneIncludesStorageRole",
+      "participants": [
+        "PreparationZone",
+        "StorageRole"
+      ],
+      "attributes": [
+        {
+          "name": "storagePlacementState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "PreparationZoneIncludesAccessoryRole",
+      "participants": [
+        "PreparationZone",
+        "AccessoryRole"
+      ],
+      "attributes": [
+        {
+          "name": "accessoryPlacementState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "StorageRoleHoldsSupplyRole",
+      "participants": [
+        "StorageRole",
+        "SupplyRole"
+      ],
+      "attributes": [
+        {
+          "name": "storedQuantityState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "CoffeeSettingIncludesServiceRole",
+      "participants": [
+        "CoffeeSetting",
+        "ServiceRole"
+      ],
+      "attributes": [
+        {
+          "name": "servicePlacementState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ServiceRoleIncludesServingVesselRole",
+      "participants": [
+        "ServiceRole",
+        "ServingVesselRole"
+      ],
+      "attributes": [
+        {
+          "name": "vesselAvailabilityState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "CoffeeSettingIncludesAmbientRole",
+      "participants": [
+        "CoffeeSetting",
+        "AmbientRole"
+      ],
+      "attributes": [
+        {
+          "name": "ambientState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "CoffeeSettingIncludesSeatingRole",
+      "participants": [
+        "CoffeeSetting",
+        "SeatingRole"
+      ],
+      "attributes": [
+        {
+          "name": "seatingPlacementState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SeatingRoleAccommodatesConsumerRole",
+      "participants": [
+        "SeatingRole",
+        "ConsumerRole"
+      ],
+      "attributes": [
+        {
+          "name": "occupancyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ConsumerRoleUsesServingVesselRole",
+      "participants": [
+        "ConsumerRole",
+        "ServingVesselRole"
+      ],
+      "attributes": [
+        {
+          "name": "useState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ]
+}

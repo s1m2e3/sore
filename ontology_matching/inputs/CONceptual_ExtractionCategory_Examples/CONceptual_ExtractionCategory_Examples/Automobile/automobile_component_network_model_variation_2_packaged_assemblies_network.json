@@ -1,0 +1,579 @@
+{
+  "topicDomain": "How an automobile works (including the engine)",
+  "modelName": "Automobile Component Network Model - Packaged Assemblies Network",
+  "methodBasis": "All entities represent physical component packages and modules in an automobile. Variations differ by packaging strategy and component adjacency/coupling relationships.",
+  "entities": [
+    {
+      "name": "Automobile",
+      "attributes": [
+        {
+          "name": "automobileID",
+          "type": "Identifier"
+        },
+        {
+          "name": "automobileExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "automobileMass",
+          "type": "Mass"
+        },
+        {
+          "name": "automobileOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "EngineAssembly",
+      "attributes": [
+        {
+          "name": "engineAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "assemblyTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "assemblyMass",
+          "type": "Mass"
+        },
+        {
+          "name": "assemblyOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "AirIntakeAssembly",
+      "attributes": [
+        {
+          "name": "airIntakeAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "airPressure",
+          "type": "Pressure"
+        },
+        {
+          "name": "airTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "assemblyOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "FuelDeliveryAssembly",
+      "attributes": [
+        {
+          "name": "fuelDeliveryAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "fuelPressure",
+          "type": "Pressure"
+        },
+        {
+          "name": "fuelTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "assemblyOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "IgnitionAssembly",
+      "attributes": [
+        {
+          "name": "ignitionAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "electricalPotential",
+          "type": "ElectricPotential"
+        },
+        {
+          "name": "electricalCurrent",
+          "type": "ElectricCurrent"
+        },
+        {
+          "name": "assemblyOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "CoolingAssembly",
+      "attributes": [
+        {
+          "name": "coolingAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "coolantTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "coolantPressure",
+          "type": "Pressure"
+        },
+        {
+          "name": "assemblyOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ExhaustAssembly",
+      "attributes": [
+        {
+          "name": "exhaustAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "exhaustTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "exhaustPressure",
+          "type": "Pressure"
+        },
+        {
+          "name": "assemblyOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "TransmissionAssembly",
+      "attributes": [
+        {
+          "name": "transmissionAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "inputSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "outputSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "assemblyOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "DriveAxleAssembly",
+      "attributes": [
+        {
+          "name": "driveAxleAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "axleTorque",
+          "type": "Torque"
+        },
+        {
+          "name": "axleSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "assemblyOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "FrontCornerModule",
+      "attributes": [
+        {
+          "name": "frontCornerModuleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "modulePosition",
+          "type": "Position"
+        },
+        {
+          "name": "moduleExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "moduleOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "RearCornerModule",
+      "attributes": [
+        {
+          "name": "rearCornerModuleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "modulePosition",
+          "type": "Position"
+        },
+        {
+          "name": "moduleExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "moduleOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "WheelTireModule",
+      "attributes": [
+        {
+          "name": "wheelTireModuleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "moduleSpeed",
+          "type": "AngularVelocity"
+        },
+        {
+          "name": "modulePosition",
+          "type": "Position"
+        },
+        {
+          "name": "moduleOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "BrakeModule",
+      "attributes": [
+        {
+          "name": "brakeModuleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "brakeForce",
+          "type": "Force"
+        },
+        {
+          "name": "brakeTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "moduleOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SteeringModule",
+      "attributes": [
+        {
+          "name": "steeringModuleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "steeringAngle",
+          "type": "Angle"
+        },
+        {
+          "name": "steeringForce",
+          "type": "Force"
+        },
+        {
+          "name": "moduleOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SuspensionModule",
+      "attributes": [
+        {
+          "name": "suspensionModuleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "travelExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "supportForce",
+          "type": "Force"
+        },
+        {
+          "name": "moduleOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ElectricalPowerAssembly",
+      "attributes": [
+        {
+          "name": "electricalPowerAssemblyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "systemVoltage",
+          "type": "ElectricPotential"
+        },
+        {
+          "name": "systemCurrent",
+          "type": "ElectricCurrent"
+        },
+        {
+          "name": "assemblyOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "AutomobilePackagedWithEngineAssembly",
+      "participants": [
+        "Automobile",
+        "EngineAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "packagePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "EngineAssemblyAdjacentToAirIntakeAssembly",
+      "participants": [
+        "EngineAssembly",
+        "AirIntakeAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "adjacencyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "EngineAssemblyAdjacentToFuelDeliveryAssembly",
+      "participants": [
+        "EngineAssembly",
+        "FuelDeliveryAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "adjacencyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "EngineAssemblyAdjacentToIgnitionAssembly",
+      "participants": [
+        "EngineAssembly",
+        "IgnitionAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "adjacencyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "EngineAssemblyAdjacentToCoolingAssembly",
+      "participants": [
+        "EngineAssembly",
+        "CoolingAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "adjacencyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "EngineAssemblyAdjacentToExhaustAssembly",
+      "participants": [
+        "EngineAssembly",
+        "ExhaustAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "adjacencyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "EngineAssemblyCoupledToTransmissionAssembly",
+      "participants": [
+        "EngineAssembly",
+        "TransmissionAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "couplingTorque",
+          "type": "Torque"
+        }
+      ]
+    },
+    {
+      "name": "TransmissionAssemblyCoupledToDriveAxleAssembly",
+      "participants": [
+        "TransmissionAssembly",
+        "DriveAxleAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "couplingTorque",
+          "type": "Torque"
+        }
+      ]
+    },
+    {
+      "name": "AutomobilePackagedWithFrontCornerModule",
+      "participants": [
+        "Automobile",
+        "FrontCornerModule"
+      ],
+      "attributes": [
+        {
+          "name": "modulePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "AutomobilePackagedWithRearCornerModule",
+      "participants": [
+        "Automobile",
+        "RearCornerModule"
+      ],
+      "attributes": [
+        {
+          "name": "modulePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "FrontCornerModuleContainsWheelTireModule",
+      "participants": [
+        "FrontCornerModule",
+        "WheelTireModule"
+      ],
+      "attributes": [
+        {
+          "name": "containedPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "RearCornerModuleContainsWheelTireModule",
+      "participants": [
+        "RearCornerModule",
+        "WheelTireModule"
+      ],
+      "attributes": [
+        {
+          "name": "containedPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "FrontCornerModuleContainsBrakeModule",
+      "participants": [
+        "FrontCornerModule",
+        "BrakeModule"
+      ],
+      "attributes": [
+        {
+          "name": "containedPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "FrontCornerModuleContainsSteeringModule",
+      "participants": [
+        "FrontCornerModule",
+        "SteeringModule"
+      ],
+      "attributes": [
+        {
+          "name": "containedPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "FrontCornerModuleContainsSuspensionModule",
+      "participants": [
+        "FrontCornerModule",
+        "SuspensionModule"
+      ],
+      "attributes": [
+        {
+          "name": "containedPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "RearCornerModuleContainsBrakeModule",
+      "participants": [
+        "RearCornerModule",
+        "BrakeModule"
+      ],
+      "attributes": [
+        {
+          "name": "containedPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "RearCornerModuleContainsSuspensionModule",
+      "participants": [
+        "RearCornerModule",
+        "SuspensionModule"
+      ],
+      "attributes": [
+        {
+          "name": "containedPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "ElectricalPowerAssemblySupportsIgnitionAssembly",
+      "participants": [
+        "ElectricalPowerAssembly",
+        "IgnitionAssembly"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedVoltage",
+          "type": "ElectricPotential"
+        }
+      ]
+    }
+  ]
+}

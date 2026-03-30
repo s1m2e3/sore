@@ -1,0 +1,1295 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4313 2218" width="4313" height="2218" style="font-family: Consolas, Monaco, monospace; font-size: 11px;">
+<defs>
+  <marker id="arrowComp" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#4a6fa5"/>
+  </marker>
+  <marker id="arrowAssoc" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#c05746"/>
+  </marker>
+  <marker id="diamond" markerWidth="12" markerHeight="8" refX="0" refY="4" orient="auto">
+    <polygon points="0 4, 6 0, 12 4, 6 8" fill="#4a6fa5"/>
+  </marker>
+</defs>
+<rect width="4313" height="2218" fill="#fafafa" rx="4"/>
+<text x="2156.5" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">HomeBrewing_Model_V3_FunctionalDomain</text>
+<text x="2156.5" y="50" text-anchor="middle" font-size="10" fill="#7f8c8d" style="font-family: sans-serif;">Functional-domain decomposition of a home beer brewing setup. Entities are organized into ten functional domains: Ingred</text>
+<rect x="4013" y="10" width="280" height="55" fill="white" stroke="#ddd" rx="4"/>
+<rect x="4023" y="20" width="14" height="14" fill="#34698a" rx="2"/>
+<text x="4043" y="32" font-size="10" fill="#333" style="font-family: sans-serif;">Entity</text>
+<rect x="4113" y="20" width="14" height="14" fill="#8b5e3c" rx="6"/>
+<text x="4133" y="32" font-size="10" fill="#333" style="font-family: sans-serif;">Association</text>
+<line x1="4023" y1="48" x2="4053" y2="48" stroke="#4a6fa5" stroke-width="1.5" marker-start="url(#diamond)"/>
+<text x="4061" y="52" font-size="10" fill="#333" style="font-family: sans-serif;">Composition</text>
+<line x1="4153" y1="48" x2="4183" y2="48" stroke="#c05746" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)"/>
+<text x="4191" y="52" font-size="10" fill="#333" style="font-family: sans-serif;">Association Link</text>
+<line x1="413.0" y1="189.7" x2="453.0" y2="184.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="413.0" y1="206.5" x2="2598.0" y2="150.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="413.0" y1="207.7" x2="4023.0" y2="140.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="413.0" y1="269.4" x2="1096.0" y2="495.3" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="413.0" y1="267.4" x2="1936.0" y2="753.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="382.2" y1="342.0" x2="1096.0" y2="984.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="227.5" y1="342.0" x2="165.6" y2="1248.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="413.0" y1="282.6" x2="2874.0" y2="1280.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="303.4" y1="342.0" x2="887.6" y2="1486.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="413.0" y1="298.9" x2="2874.0" y2="1524.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="767.0" y1="161.4" x2="807.0" y2="160.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="767.0" y1="161.3" x2="1096.0" y2="151.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="767.0" y1="161.2" x2="1385.0" y2="142.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="767.0" y1="162.4" x2="1680.0" y2="141.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="767.0" y1="162.1" x2="1936.0" y2="132.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="767.0" y1="162.8" x2="2290.0" y2="131.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2795.0" y1="148.0" x2="2874.0" y2="148.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2795.0" y1="149.5" x2="3176.0" y2="155.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2795.0" y1="144.9" x2="3471.0" y2="123.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2795.0" y1="147.2" x2="3734.0" y2="139.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="4023.0" y1="146.1" x2="276.0" y2="458.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="4023.0" y1="146.0" x2="624.0" y2="424.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="4023.0" y1="146.5" x2="978.0" y2="414.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1306.0" y1="504.1" x2="1385.0" y2="484.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1306.0" y1="518.8" x2="1936.0" y2="451.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1306.0" y1="523.0" x2="2290.0" y2="457.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1306.0" y1="523.6" x2="2598.0" y2="445.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1306.0" y1="524.5" x2="3176.0" y2="426.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1306.0" y1="525.2" x2="3471.0" y2="425.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1306.0" y1="525.7" x2="3734.0" y2="425.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1306.0" y1="526.1" x2="4023.0" y2="425.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1096.0" y1="552.7" x2="220.0" y2="741.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1096.0" y1="572.0" x2="624.0" y2="760.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1096.0" y1="617.1" x2="974.4" y2="718.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1185.0" y1="688.0" x2="1182.0" y2="718.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1306.0" y1="621.1" x2="1417.7" y2="718.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1306.0" y1="574.7" x2="1680.0" y2="733.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1601.0" y1="447.1" x2="1680.0" y2="439.1" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2159.0" y1="438.9" x2="2874.0" y2="431.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2250.0" y1="817.1" x2="2290.0" y2="820.4" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2250.0" y1="802.8" x2="3176.0" y2="795.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2250.0" y1="804.0" x2="3734.0" y2="804.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1936.0" y1="821.7" x2="231.0" y2="1014.3" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1936.0" y1="826.2" x2="624.0" y2="1011.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2545.0" y1="796.0" x2="2598.0" y2="781.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2545.0" y1="816.0" x2="2874.0" y2="777.4" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3399.0" y1="787.5" x2="3471.0" y2="782.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3218.1" y1="718.0" x2="3012.7" y2="490.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3983.0" y1="785.8" x2="4023.0" y2="780.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1345.0" y1="1071.9" x2="1385.0" y2="1064.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1345.0" y1="1083.8" x2="1680.0" y2="1051.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1345.0" y1="1084.8" x2="1936.0" y2="1031.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1345.0" y1="1088.2" x2="2290.0" y2="1029.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1345.0" y1="1093.7" x2="2598.0" y2="1070.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1345.0" y1="1092.2" x2="2874.0" y2="1045.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1345.0" y1="1091.6" x2="3176.0" y2="1026.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1345.0" y1="1092.7" x2="3471.0" y2="1035.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1345.0" y1="1092.5" x2="3734.0" y2="1026.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1345.0" y1="1092.9" x2="4023.0" y2="1026.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="257.0" y1="1340.3" x2="453.0" y2="1317.1" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="257.0" y1="1344.8" x2="807.0" y2="1304.3" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="257.0" y1="1348.5" x2="1096.0" y2="1319.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="257.0" y1="1348.1" x2="1385.0" y2="1303.1" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="257.0" y1="1348.7" x2="1680.0" y2="1301.3" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="257.0" y1="1348.7" x2="1936.0" y2="1291.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="257.0" y1="1350.0" x2="2290.0" y2="1308.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="257.0" y1="1349.9" x2="2598.0" y2="1299.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3136.0" y1="1322.2" x2="3176.0" y2="1318.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3136.0" y1="1325.8" x2="3471.0" y2="1305.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3136.0" y1="1329.7" x2="3734.0" y2="1310.1" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3136.0" y1="1328.7" x2="4023.0" y2="1292.5" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2874.0" y1="1343.3" x2="231.0" y2="1530.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2874.0" y1="1344.7" x2="624.0" y2="1529.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1056.0" y1="1554.1" x2="1096.0" y2="1548.3" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1056.0" y1="1561.6" x2="1385.0" y2="1534.1" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1056.0" y1="1566.6" x2="1680.0" y2="1539.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1056.0" y1="1567.9" x2="1936.0" y2="1538.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1056.0" y1="1568.1" x2="2290.0" y2="1529.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1056.0" y1="1569.4" x2="2598.0" y2="1537.8" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3136.0" y1="1573.3" x2="3176.0" y2="1568.2" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3136.0" y1="1579.3" x2="3471.0" y2="1552.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3136.0" y1="1582.7" x2="3734.0" y2="1549.4" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="3136.0" y1="1583.6" x2="4023.0" y2="1539.9" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2874.0" y1="1598.8" x2="220.0" y2="1777.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2874.0" y1="1599.8" x2="624.0" y2="1767.6" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2874.0" y1="1601.5" x2="997.0" y2="1765.7" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="2874.0" y1="1603.2" x2="1256.0" y2="1766.0" stroke="#4a6fa5" stroke-width="1.2" marker-start="url(#diamond)" opacity="0.6"/>
+<line x1="1517.9" y1="1724.0" x2="2019.5" y2="508.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1496.4" y1="1724.0" x2="1493.2" y2="544.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1753.2" y1="1724.0" x2="1510.7" y2="544.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1783.6" y1="1724.0" x2="2385.3" y2="526.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2039.6" y1="1724.0" x2="2649.4" y2="508.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2031.2" y1="1724.0" x2="2400.3" y2="526.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2396.1" y1="1724.0" x2="2422.3" y2="526.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2296.6" y1="1724.0" x2="624.0" y2="840.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2600.6" y1="1724.0" x2="624.0" y2="833.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2699.6" y1="1724.0" x2="2453.2" y2="944.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2931.3" y1="1724.0" x2="2482.5" y2="944.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2970.7" y1="1724.0" x2="3261.2" y2="872.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3300.6" y1="1724.0" x2="3806.3" y2="890.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3275.1" y1="1724.0" x2="3286.5" y2="872.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3471.0" y1="1745.2" x2="624.0" y2="1045.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3471.0" y1="1742.3" x2="978.0" y2="1047.8" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3734.0" y1="1741.9" x2="1614.0" y2="1077.9" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3734.0" y1="1738.6" x2="1864.0" y2="1074.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="4023.0" y1="1742.1" x2="1864.0" y2="1070.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="4023.0" y1="1738.4" x2="2107.0" y2="1054.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="250.0" y1="1878.2" x2="1936.0" y2="1065.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="250.0" y1="1892.0" x2="2598.0" y2="1101.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="613.0" y1="1883.7" x2="2598.0" y2="1106.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="613.0" y1="1886.6" x2="2874.0" y2="1083.9" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="971.0" y1="1905.5" x2="3471.0" y2="1066.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="971.0" y1="1893.7" x2="2598.0" y2="1114.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="971.0" y1="1901.5" x2="3176.0" y2="1054.7" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1256.0" y1="1890.6" x2="4023.0" y2="1048.4" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1256.0" y1="1880.7" x2="3176.0" y2="1058.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1443.2" y1="1872.0" x2="927.0" y2="854.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1465.8" y1="1872.0" x2="1491.3" y2="544.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1727.0" y1="1872.0" x2="944.7" y2="854.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1779.5" y1="1872.0" x2="2389.1" y2="526.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1936.0" y1="1907.4" x2="624.0" y2="1782.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2031.9" y1="1872.0" x2="2375.6" y2="944.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2450.0" y1="1898.4" x2="3471.0" y2="1572.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2338.9" y1="1872.0" x2="1544.4" y2="544.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2761.2" y1="1872.0" x2="3176.0" y2="1621.4" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2782.0" y1="1884.7" x2="3734.0" y2="1571.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2874.0" y1="1894.9" x2="624.0" y2="1328.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2874.0" y1="1888.0" x2="1267.0" y2="1344.9" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3176.0" y1="1902.8" x2="978.0" y2="1320.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3176.0" y1="1900.6" x2="1267.0" y2="1341.1" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3176.0" y1="1895.3" x2="1640.0" y2="1343.8" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3471.0" y1="1887.2" x2="1877.0" y2="1332.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3471.0" y1="1882.3" x2="2100.0" y2="1322.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3734.8" y1="1872.0" x2="2758.0" y2="1341.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="3734.0" y1="1896.8" x2="1267.0" y2="1335.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="4090.0" y1="1872.0" x2="3010.3" y2="216.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="4057.6" y1="1872.0" x2="2143.0" y2="508.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="210.6" y1="2024.0" x2="3176.0" y2="217.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="190.4" y1="2024.0" x2="1967.8" y2="508.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="523.2" y1="2024.0" x2="189.7" y2="562.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="558.7" y1="2024.0" x2="1441.7" y2="544.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="887.6" y1="2024.0" x2="913.9" y2="234.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="867.7" y1="2024.0" x2="210.7" y2="562.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1227.1" y1="2024.0" x2="2312.9" y2="1074.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1243.3" y1="2024.0" x2="2598.0" y2="1131.6" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1545.0" y1="2032.1" x2="2598.0" y2="1573.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1517.9" y1="2024.0" x2="2598.0" y2="1146.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1792.2" y1="2024.0" x2="1998.0" y2="1586.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1738.2" y1="2024.0" x2="1235.0" y2="1384.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="1982.4" y1="2024.0" x2="1214.2" y2="836.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2029.0" y1="2024.0" x2="2404.7" y2="526.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2422.8" y1="2024.0" x2="3231.0" y2="1366.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2450.0" y1="2031.2" x2="4023.0" y2="1327.3" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2598.0" y1="2051.5" x2="997.0" y2="1789.5" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2742.8" y1="2024.0" x2="3208.7" y2="1622.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2874.0" y1="2053.8" x2="1256.0" y2="1787.2" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<line x1="2982.0" y1="2024.0" x2="3243.3" y2="1622.0" stroke="#c05746" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowAssoc)" opacity="0.45"/>
+<rect x="62" y="82" width="353" height="262" fill="#00000010" rx="4"/>
+<rect x="60" y="80" width="353" height="262" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="80" width="353" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="106" width="353" height="4" fill="#34698a"/>
+<text x="236.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">HomeBrewery</text>
+<text x="74" y="130" fill="#555" style="">breweryID: Identifier</text>
+<text x="74" y="148" fill="#555" style="">breweryName: Description</text>
+<text x="74" y="166" fill="#4a6fa5" style="font-weight: bold;">ingredientStorage: IngredientStorageDomain</text>
+<text x="74" y="184" fill="#4a6fa5" style="font-weight: bold;">waterTreatment: WaterTreatmentDomain</text>
+<text x="74" y="202" fill="#4a6fa5" style="font-weight: bold;">grainProcessing: GrainProcessingDomain</text>
+<text x="74" y="220" fill="#4a6fa5" style="font-weight: bold;">wortProduction: WortProductionDomain</text>
+<text x="74" y="238" fill="#4a6fa5" style="font-weight: bold;">fermentation: FermentationDomain</text>
+<text x="74" y="256" fill="#4a6fa5" style="font-weight: bold;">carbonationAndServing: CarbonationAndServingDomain</text>
+<text x="74" y="274" fill="#4a6fa5" style="font-weight: bold;">packaging: PackagingDomain</text>
+<text x="74" y="292" fill="#4a6fa5" style="font-weight: bold;">qualityControl: QualityControlDomain</text>
+<text x="74" y="310" fill="#4a6fa5" style="font-weight: bold;">sanitation: SanitationDomain</text>
+<text x="74" y="328" fill="#4a6fa5" style="font-weight: bold;">plumbingAndFittings: PlumbingAndFittingsDomain</text>
+<rect x="455" y="82" width="314" height="172" fill="#00000010" rx="4"/>
+<rect x="453" y="80" width="314" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="453" y="80" width="314" height="30" fill="#34698a" rx="4"/>
+<rect x="453" y="106" width="314" height="4" fill="#34698a"/>
+<text x="610.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">IngredientStorageDomain</text>
+<text x="467" y="130" fill="#555" style="">domainID: Identifier</text>
+<text x="467" y="148" fill="#4a6fa5" style="font-weight: bold;">grainBin: GrainBin</text>
+<text x="467" y="166" fill="#4a6fa5" style="font-weight: bold;">hopStorage: HopStorage</text>
+<text x="467" y="184" fill="#4a6fa5" style="font-weight: bold;">yeastStorage: YeastStorage</text>
+<text x="467" y="202" fill="#4a6fa5" style="font-weight: bold;">adjunctContainer: AdjunctContainer</text>
+<text x="467" y="220" fill="#4a6fa5" style="font-weight: bold;">primingSugarContainer: PrimingSugarContainer</text>
+<text x="467" y="238" fill="#4a6fa5" style="font-weight: bold;">waterChemistryKit: WaterChemistryKit</text>
+<rect x="809" y="82" width="216" height="154" fill="#00000010" rx="4"/>
+<rect x="807" y="80" width="216" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="807" y="80" width="216" height="30" fill="#34698a" rx="4"/>
+<rect x="807" y="106" width="216" height="4" fill="#34698a"/>
+<text x="915.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">GrainBin</text>
+<text x="821" y="130" fill="#555" style="">binID: Identifier</text>
+<text x="821" y="148" fill="#555" style="">binType: Kind</text>
+<text x="821" y="166" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="821" y="184" fill="#555" style="">sealState: ConfigurationState</text>
+<text x="821" y="202" fill="#555" style="">currentFillLevel: Ratio</text>
+<text x="821" y="220" fill="#555" style="">condition: HealthState</text>
+<rect x="1098" y="82" width="236" height="136" fill="#00000010" rx="4"/>
+<rect x="1096" y="80" width="236" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1096" y="80" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="1096" y="106" width="236" height="4" fill="#34698a"/>
+<text x="1214.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">HopStorage</text>
+<text x="1110" y="130" fill="#555" style="">storageID: Identifier</text>
+<text x="1110" y="148" fill="#555" style="">storageType: Kind</text>
+<text x="1110" y="166" fill="#555" style="">storageTemperature: Temperature</text>
+<text x="1110" y="184" fill="#555" style="">vacuumSealed: ConfigurationState</text>
+<text x="1110" y="202" fill="#555" style="">condition: HealthState</text>
+<rect x="1387" y="82" width="229" height="118" fill="#00000010" rx="4"/>
+<rect x="1385" y="80" width="229" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1385" y="80" width="229" height="30" fill="#34698a" rx="4"/>
+<rect x="1385" y="106" width="229" height="4" fill="#34698a"/>
+<text x="1499.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">YeastStorage</text>
+<text x="1399" y="130" fill="#555" style="">storageID: Identifier</text>
+<text x="1399" y="148" fill="#555" style="">storageType: Kind</text>
+<text x="1399" y="166" fill="#555" style="">storageTemperature: Temperature</text>
+<text x="1399" y="184" fill="#555" style="">condition: HealthState</text>
+<rect x="1682" y="82" width="216" height="118" fill="#00000010" rx="4"/>
+<rect x="1680" y="80" width="216" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1680" y="80" width="216" height="30" fill="#34698a" rx="4"/>
+<rect x="1680" y="106" width="216" height="4" fill="#34698a"/>
+<text x="1788.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AdjunctContainer</text>
+<text x="1694" y="130" fill="#555" style="">containerID: Identifier</text>
+<text x="1694" y="148" fill="#555" style="">containerType: Kind</text>
+<text x="1694" y="166" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="1694" y="184" fill="#555" style="">sealState: ConfigurationState</text>
+<rect x="1938" y="82" width="216" height="100" fill="#00000010" rx="4"/>
+<rect x="1936" y="80" width="216" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1936" y="80" width="216" height="30" fill="#34698a" rx="4"/>
+<rect x="1936" y="106" width="216" height="4" fill="#34698a"/>
+<text x="2044.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PrimingSugarContainer</text>
+<text x="1950" y="130" fill="#555" style="">containerID: Identifier</text>
+<text x="1950" y="148" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="1950" y="166" fill="#555" style="">sealState: ConfigurationState</text>
+<rect x="2292" y="82" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="2290" y="80" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2290" y="80" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="2290" y="106" width="160" height="4" fill="#34698a"/>
+<text x="2370.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WaterChemistryKit</text>
+<text x="2304" y="130" fill="#555" style="">kitID: Identifier</text>
+<text x="2304" y="148" fill="#555" style="">mineralCount: Count</text>
+<text x="2304" y="166" fill="#555" style="">acidType: Kind</text>
+<rect x="2600" y="82" width="197" height="136" fill="#00000010" rx="4"/>
+<rect x="2598" y="80" width="197" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2598" y="80" width="197" height="30" fill="#34698a" rx="4"/>
+<rect x="2598" y="106" width="197" height="4" fill="#34698a"/>
+<text x="2696.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WaterTreatmentDomain</text>
+<text x="2612" y="130" fill="#555" style="">domainID: Identifier</text>
+<text x="2612" y="148" fill="#4a6fa5" style="font-weight: bold;">carbonFilter: CarbonFilter</text>
+<text x="2612" y="166" fill="#4a6fa5" style="font-weight: bold;">roSystem: ROSystem</text>
+<text x="2612" y="184" fill="#4a6fa5" style="font-weight: bold;">waterTestKit: WaterTestKit</text>
+<text x="2612" y="202" fill="#4a6fa5" style="font-weight: bold;">phMeter: PHMeter</text>
+<rect x="2876" y="82" width="184" height="136" fill="#00000010" rx="4"/>
+<rect x="2874" y="80" width="184" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2874" y="80" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="2874" y="106" width="184" height="4" fill="#34698a"/>
+<text x="2966.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CarbonFilter</text>
+<text x="2888" y="130" fill="#555" style="">filterID: Identifier</text>
+<text x="2888" y="148" fill="#555" style="">filterType: Kind</text>
+<text x="2888" y="166" fill="#555" style="">flowRate: MassFlowRate</text>
+<text x="2888" y="184" fill="#555" style="">filterLife: ScalarVolume</text>
+<text x="2888" y="202" fill="#555" style="">condition: HealthState</text>
+<rect x="3178" y="82" width="197" height="154" fill="#00000010" rx="4"/>
+<rect x="3176" y="80" width="197" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3176" y="80" width="197" height="30" fill="#34698a" rx="4"/>
+<rect x="3176" y="106" width="197" height="4" fill="#34698a"/>
+<text x="3274.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ROSystem</text>
+<text x="3190" y="130" fill="#555" style="">systemID: Identifier</text>
+<text x="3190" y="148" fill="#555" style="">membraneCount: Count</text>
+<text x="3190" y="166" fill="#555" style="">rejectionRate: Ratio</text>
+<text x="3190" y="184" fill="#555" style="">flowRate: MassFlowRate</text>
+<text x="3190" y="202" fill="#555" style="">tankCapacity: ScalarVolume</text>
+<text x="3190" y="220" fill="#555" style="">condition: HealthState</text>
+<rect x="3473" y="82" width="160" height="82" fill="#00000010" rx="4"/>
+<rect x="3471" y="80" width="160" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3471" y="80" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="3471" y="106" width="160" height="4" fill="#34698a"/>
+<text x="3551.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WaterTestKit</text>
+<text x="3485" y="130" fill="#555" style="">kitID: Identifier</text>
+<text x="3485" y="148" fill="#555" style="">testsIncluded: Kind</text>
+<rect x="3736" y="82" width="216" height="118" fill="#00000010" rx="4"/>
+<rect x="3734" y="80" width="216" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3734" y="80" width="216" height="30" fill="#34698a" rx="4"/>
+<rect x="3734" y="106" width="216" height="4" fill="#34698a"/>
+<text x="3842.0" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PHMeter</text>
+<text x="3748" y="130" fill="#555" style="">meterID: Identifier</text>
+<text x="3748" y="148" fill="#555" style="">resolution: Ratio</text>
+<text x="3748" y="166" fill="#555" style="">lastCalibration: CalendarTime</text>
+<text x="3748" y="184" fill="#555" style="">condition: HealthState</text>
+<rect x="4025" y="82" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="4023" y="80" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="4023" y="80" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="4023" y="106" width="171" height="4" fill="#34698a"/>
+<text x="4108.5" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="12">GrainProcessingDomain</text>
+<text x="4037" y="130" fill="#555" style="">domainID: Identifier</text>
+<text x="4037" y="148" fill="#4a6fa5" style="font-weight: bold;">grainMill: GrainMill</text>
+<text x="4037" y="166" fill="#4a6fa5" style="font-weight: bold;">grainScale: GrainScale</text>
+<text x="4037" y="184" fill="#4a6fa5" style="font-weight: bold;">grainScoop: GrainScoop</text>
+<rect x="62" y="374" width="216" height="190" fill="#00000010" rx="4"/>
+<rect x="60" y="372" width="216" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="372" width="216" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="398" width="216" height="4" fill="#34698a"/>
+<text x="168.0" y="392" text-anchor="middle" fill="white" font-weight="bold" font-size="12">GrainMill</text>
+<text x="74" y="422" fill="#555" style="">millID: Identifier</text>
+<text x="74" y="440" fill="#555" style="">millType: Kind</text>
+<text x="74" y="458" fill="#555" style="">rollerCount: Count</text>
+<text x="74" y="476" fill="#555" style="">gapSetting: Distance</text>
+<text x="74" y="494" fill="#555" style="">motorized: ConfigurationState</text>
+<text x="74" y="512" fill="#555" style="">motorPower: Power</text>
+<text x="74" y="530" fill="#555" style="">hopperCapacity: ScalarVolume</text>
+<text x="74" y="548" fill="#555" style="">condition: HealthState</text>
+<rect x="455" y="374" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="453" y="372" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="453" y="372" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="453" y="398" width="171" height="4" fill="#34698a"/>
+<text x="538.5" y="392" text-anchor="middle" fill="white" font-weight="bold" font-size="12">GrainScale</text>
+<text x="467" y="422" fill="#555" style="">scaleID: Identifier</text>
+<text x="467" y="440" fill="#555" style="">maxCapacity: Mass</text>
+<text x="467" y="458" fill="#555" style="">resolution: Mass</text>
+<text x="467" y="476" fill="#555" style="">condition: HealthState</text>
+<rect x="809" y="374" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="807" y="372" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="807" y="372" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="807" y="398" width="171" height="4" fill="#34698a"/>
+<text x="892.5" y="392" text-anchor="middle" fill="white" font-weight="bold" font-size="12">GrainScoop</text>
+<text x="821" y="422" fill="#555" style="">scoopID: Identifier</text>
+<text x="821" y="440" fill="#555" style="">material: Kind</text>
+<text x="821" y="458" fill="#555" style="">capacity: ScalarVolume</text>
+<rect x="1098" y="374" width="210" height="316" fill="#00000010" rx="4"/>
+<rect x="1096" y="372" width="210" height="316" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1096" y="372" width="210" height="30" fill="#34698a" rx="4"/>
+<rect x="1096" y="398" width="210" height="4" fill="#34698a"/>
+<text x="1201.0" y="392" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WortProductionDomain</text>
+<text x="1110" y="422" fill="#555" style="">domainID: Identifier</text>
+<text x="1110" y="440" fill="#4a6fa5" style="font-weight: bold;">mashTun: MashTun</text>
+<text x="1110" y="458" fill="#4a6fa5" style="font-weight: bold;">hotLiquorTank: HotLiquorTank</text>
+<text x="1110" y="476" fill="#4a6fa5" style="font-weight: bold;">brewKettle: BrewKettle</text>
+<text x="1110" y="494" fill="#4a6fa5" style="font-weight: bold;">heatSource: HeatSource</text>
+<text x="1110" y="512" fill="#4a6fa5" style="font-weight: bold;">spargeArm: SpargeArm</text>
+<text x="1110" y="530" fill="#4a6fa5" style="font-weight: bold;">mashPaddle: MashPaddle</text>
+<text x="1110" y="548" fill="#4a6fa5" style="font-weight: bold;">grainBag: GrainBag</text>
+<text x="1110" y="566" fill="#4a6fa5" style="font-weight: bold;">hopSpider: HopSpider</text>
+<text x="1110" y="584" fill="#4a6fa5" style="font-weight: bold;">whirlpoolArm: WhirlpoolArm</text>
+<text x="1110" y="602" fill="#4a6fa5" style="font-weight: bold;">wortChiller: WortChiller</text>
+<text x="1110" y="620" fill="#4a6fa5" style="font-weight: bold;">brewPump: BrewPump</text>
+<text x="1110" y="638" fill="#4a6fa5" style="font-weight: bold;">brewStand: BrewStand</text>
+<text x="1110" y="656" fill="#4a6fa5" style="font-weight: bold;">brewTimer: BrewTimer</text>
+<text x="1110" y="674" fill="#4a6fa5" style="font-weight: bold;">hopScale: HopScale</text>
+<rect x="1387" y="374" width="216" height="172" fill="#00000010" rx="4"/>
+<rect x="1385" y="372" width="216" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1385" y="372" width="216" height="30" fill="#34698a" rx="4"/>
+<rect x="1385" y="398" width="216" height="4" fill="#34698a"/>
+<text x="1493.0" y="392" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MashTun</text>
+<text x="1399" y="422" fill="#555" style="">tunID: Identifier</text>
+<text x="1399" y="440" fill="#555" style="">tunType: Kind</text>
+<text x="1399" y="458" fill="#555" style="">material: Kind</text>
+<text x="1399" y="476" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="1399" y="494" fill="#555" style="">insulated: ConfigurationState</text>
+<text x="1399" y="512" fill="#4a6fa5" style="font-weight: bold;">falseBottom: FalseBottom</text>
+<text x="1399" y="530" fill="#555" style="">condition: HealthState</text>
+<rect x="1682" y="374" width="160" height="118" fill="#00000010" rx="4"/>
+<rect x="1680" y="372" width="160" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1680" y="372" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="1680" y="398" width="160" height="4" fill="#34698a"/>
+<text x="1760.0" y="392" text-anchor="middle" fill="white" font-weight="bold" font-size="12">FalseBottom</text>
+<text x="1694" y="422" fill="#555" style="">bottomID: Identifier</text>
+<text x="1694" y="440" fill="#555" style="">material: Kind</text>
+<text x="1694" y="458" fill="#555" style="">diameter: Distance</text>
+<text x="1694" y="476" fill="#555" style="">slotWidth: Distance</text>
+<rect x="1938" y="374" width="223" height="136" fill="#00000010" rx="4"/>
+<rect x="1936" y="372" width="223" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1936" y="372" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="1936" y="398" width="223" height="4" fill="#34698a"/>
+<text x="2047.5" y="392" text-anchor="middle" fill="white" font-weight="bold" font-size="12">HotLiquorTank</text>
+<text x="1950" y="422" fill="#555" style="">tankID: Identifier</text>
+<text x="1950" y="440" fill="#555" style="">material: Kind</text>
+<text x="1950" y="458" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="1950" y="476" fill="#4a6fa5" style="font-weight: bold;">heatingElement: HeatingElement</text>
+<text x="1950" y="494" fill="#555" style="">condition: HealthState</text>
+<rect x="2292" y="374" width="268" height="154" fill="#00000010" rx="4"/>
+<rect x="2290" y="372" width="268" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2290" y="372" width="268" height="30" fill="#34698a" rx="4"/>
+<rect x="2290" y="398" width="268" height="4" fill="#34698a"/>
+<text x="2424.0" y="392" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BrewKettle</text>
+<text x="2304" y="422" fill="#555" style="">kettleID: Identifier</text>
+<text x="2304" y="440" fill="#555" style="">material: Kind</text>
+<text x="2304" y="458" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="2304" y="476" fill="#555" style="">diameter: Distance</text>
+<text x="2304" y="494" fill="#555" style="">hasVolumeMarkings: ConfigurationState</text>
+<text x="2304" y="512" fill="#555" style="">condition: HealthState</text>
+<rect x="2600" y="374" width="171" height="136" fill="#00000010" rx="4"/>
+<rect x="2598" y="372" width="171" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2598" y="372" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2598" y="398" width="171" height="4" fill="#34698a"/>
+<text x="2683.5" y="392" text-anchor="middle" fill="white" font-weight="bold" font-size="12">HeatSource</text>
+<text x="2612" y="422" fill="#555" style="">sourceID: Identifier</text>
+<text x="2612" y="440" fill="#555" style="">sourceType: Kind</text>
+<text x="2612" y="458" fill="#555" style="">maxPower: Power</text>
+<text x="2612" y="476" fill="#555" style="">fuelType: Kind</text>
+<text x="2612" y="494" fill="#555" style="">condition: HealthState</text>
+<rect x="2876" y="374" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="2874" y="372" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2874" y="372" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2874" y="398" width="171" height="4" fill="#34698a"/>
+<text x="2959.5" y="392" text-anchor="middle" fill="white" font-weight="bold" font-size="12">HeatingElement</text>
+<text x="2888" y="422" fill="#555" style="">elementID: Identifier</text>
+<text x="2888" y="440" fill="#555" style="">elementType: Kind</text>
+<text x="2888" y="458" fill="#555" style="">powerRating: Power</text>
+<text x="2888" y="476" fill="#555" style="">condition: HealthState</text>
+<rect x="3178" y="374" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="3176" y="372" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3176" y="372" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="3176" y="398" width="160" height="4" fill="#34698a"/>
+<text x="3256.0" y="392" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SpargeArm</text>
+<text x="3190" y="422" fill="#555" style="">armID: Identifier</text>
+<text x="3190" y="440" fill="#555" style="">armType: Kind</text>
+<text x="3190" y="458" fill="#555" style="">material: Kind</text>
+<rect x="3473" y="374" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="3471" y="372" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3471" y="372" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="3471" y="398" width="160" height="4" fill="#34698a"/>
+<text x="3551.0" y="392" text-anchor="middle" fill="white" font-weight="bold" font-size="12">MashPaddle</text>
+<text x="3485" y="422" fill="#555" style="">paddleID: Identifier</text>
+<text x="3485" y="440" fill="#555" style="">material: Kind</text>
+<text x="3485" y="458" fill="#555" style="">length: Distance</text>
+<rect x="3736" y="374" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="3734" y="372" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3734" y="372" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="3734" y="398" width="171" height="4" fill="#34698a"/>
+<text x="3819.5" y="392" text-anchor="middle" fill="white" font-weight="bold" font-size="12">GrainBag</text>
+<text x="3748" y="422" fill="#555" style="">bagID: Identifier</text>
+<text x="3748" y="440" fill="#555" style="">meshSize: Distance</text>
+<text x="3748" y="458" fill="#555" style="">capacity: ScalarVolume</text>
+<rect x="4025" y="374" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="4023" y="372" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="4023" y="372" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="4023" y="398" width="171" height="4" fill="#34698a"/>
+<text x="4108.5" y="392" text-anchor="middle" fill="white" font-weight="bold" font-size="12">HopSpider</text>
+<text x="4037" y="422" fill="#555" style="">spiderID: Identifier</text>
+<text x="4037" y="440" fill="#555" style="">meshSize: Distance</text>
+<text x="4037" y="458" fill="#555" style="">capacity: ScalarVolume</text>
+<rect x="62" y="720" width="160" height="82" fill="#00000010" rx="4"/>
+<rect x="60" y="718" width="160" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="718" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="744" width="160" height="4" fill="#34698a"/>
+<text x="140.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WhirlpoolArm</text>
+<text x="74" y="768" fill="#555" style="">armID: Identifier</text>
+<text x="74" y="786" fill="#555" style="">material: Kind</text>
+<rect x="455" y="720" width="171" height="154" fill="#00000010" rx="4"/>
+<rect x="453" y="718" width="171" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="453" y="718" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="453" y="744" width="171" height="4" fill="#34698a"/>
+<text x="538.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">WortChiller</text>
+<text x="467" y="768" fill="#555" style="">chillerID: Identifier</text>
+<text x="467" y="786" fill="#555" style="">chillerType: Kind</text>
+<text x="467" y="804" fill="#555" style="">material: Kind</text>
+<text x="467" y="822" fill="#555" style="">coilLength: Distance</text>
+<text x="467" y="840" fill="#555" style="">plateCount: Count</text>
+<text x="467" y="858" fill="#555" style="">condition: HealthState</text>
+<rect x="809" y="720" width="171" height="136" fill="#00000010" rx="4"/>
+<rect x="807" y="718" width="171" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="807" y="718" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="807" y="744" width="171" height="4" fill="#34698a"/>
+<text x="892.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BrewPump</text>
+<text x="821" y="768" fill="#555" style="">pumpID: Identifier</text>
+<text x="821" y="786" fill="#555" style="">pumpType: Kind</text>
+<text x="821" y="804" fill="#555" style="">flowRate: MassFlowRate</text>
+<text x="821" y="822" fill="#555" style="">powerRating: Power</text>
+<text x="821" y="840" fill="#555" style="">condition: HealthState</text>
+<rect x="1098" y="720" width="160" height="118" fill="#00000010" rx="4"/>
+<rect x="1096" y="718" width="160" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1096" y="718" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="1096" y="744" width="160" height="4" fill="#34698a"/>
+<text x="1176.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BrewStand</text>
+<text x="1110" y="768" fill="#555" style="">standID: Identifier</text>
+<text x="1110" y="786" fill="#555" style="">tierCount: Count</text>
+<text x="1110" y="804" fill="#555" style="">material: Kind</text>
+<text x="1110" y="822" fill="#555" style="">weightCapacity: Mass</text>
+<rect x="1387" y="720" width="160" height="82" fill="#00000010" rx="4"/>
+<rect x="1385" y="718" width="160" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1385" y="718" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="1385" y="744" width="160" height="4" fill="#34698a"/>
+<text x="1465.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BrewTimer</text>
+<text x="1399" y="768" fill="#555" style="">timerID: Identifier</text>
+<text x="1399" y="786" fill="#555" style="">timerType: Kind</text>
+<rect x="1682" y="720" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="1680" y="718" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1680" y="718" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="1680" y="744" width="160" height="4" fill="#34698a"/>
+<text x="1760.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">HopScale</text>
+<text x="1694" y="768" fill="#555" style="">scaleID: Identifier</text>
+<text x="1694" y="786" fill="#555" style="">maxCapacity: Mass</text>
+<text x="1694" y="804" fill="#555" style="">resolution: Mass</text>
+<rect x="1938" y="720" width="314" height="172" fill="#00000010" rx="4"/>
+<rect x="1936" y="718" width="314" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1936" y="718" width="314" height="30" fill="#34698a" rx="4"/>
+<rect x="1936" y="744" width="314" height="4" fill="#34698a"/>
+<text x="2093.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">FermentationDomain</text>
+<text x="1950" y="768" fill="#555" style="">domainID: Identifier</text>
+<text x="1950" y="786" fill="#4a6fa5" style="font-weight: bold;">primaryFermenter: Fermenter</text>
+<text x="1950" y="804" fill="#4a6fa5" style="font-weight: bold;">secondaryFermenter: Fermenter</text>
+<text x="1950" y="822" fill="#4a6fa5" style="font-weight: bold;">fermentationChamber: FermentationChamber</text>
+<text x="1950" y="840" fill="#4a6fa5" style="font-weight: bold;">temperatureController: TemperatureController</text>
+<text x="1950" y="858" fill="#4a6fa5" style="font-weight: bold;">dryHopBasket: DryHopBasket</text>
+<text x="1950" y="876" fill="#4a6fa5" style="font-weight: bold;">yeastStarter: YeastStarterFlask</text>
+<rect x="2292" y="720" width="255" height="226" fill="#00000010" rx="4"/>
+<rect x="2290" y="718" width="255" height="226" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2290" y="718" width="255" height="30" fill="#34698a" rx="4"/>
+<rect x="2290" y="744" width="255" height="4" fill="#34698a"/>
+<text x="2417.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Fermenter</text>
+<text x="2304" y="768" fill="#555" style="">fermenterID: Identifier</text>
+<text x="2304" y="786" fill="#555" style="">fermenterType: Kind</text>
+<text x="2304" y="804" fill="#555" style="">material: Kind</text>
+<text x="2304" y="822" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="2304" y="840" fill="#555" style="">pressureRating: Pressure</text>
+<text x="2304" y="858" fill="#555" style="">hasSamplingPort: ConfigurationState</text>
+<text x="2304" y="876" fill="#555" style="">hasRackingArm: ConfigurationState</text>
+<text x="2304" y="894" fill="#4a6fa5" style="font-weight: bold;">airlock: Airlock</text>
+<text x="2304" y="912" fill="#4a6fa5" style="font-weight: bold;">spigot: Spigot</text>
+<text x="2304" y="930" fill="#555" style="">condition: HealthState</text>
+<rect x="2600" y="720" width="164" height="82" fill="#00000010" rx="4"/>
+<rect x="2598" y="718" width="164" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2598" y="718" width="164" height="30" fill="#34698a" rx="4"/>
+<rect x="2598" y="744" width="164" height="4" fill="#34698a"/>
+<text x="2680.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Airlock</text>
+<text x="2612" y="768" fill="#555" style="">airlockID: Identifier</text>
+<text x="2612" y="786" fill="#555" style="">airlockType: Kind</text>
+<rect x="2876" y="720" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="2874" y="718" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2874" y="718" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="2874" y="744" width="160" height="4" fill="#34698a"/>
+<text x="2954.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Spigot</text>
+<text x="2888" y="768" fill="#555" style="">spigotID: Identifier</text>
+<text x="2888" y="786" fill="#555" style="">material: Kind</text>
+<text x="2888" y="804" fill="#555" style="">threadSize: Kind</text>
+<rect x="3178" y="720" width="223" height="154" fill="#00000010" rx="4"/>
+<rect x="3176" y="718" width="223" height="154" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3176" y="718" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="3176" y="744" width="223" height="4" fill="#34698a"/>
+<text x="3287.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">FermentationChamber</text>
+<text x="3190" y="768" fill="#555" style="">chamberID: Identifier</text>
+<text x="3190" y="786" fill="#555" style="">chamberType: Kind</text>
+<text x="3190" y="804" fill="#555" style="">internalVolume: ScalarVolume</text>
+<text x="3190" y="822" fill="#4a6fa5" style="font-weight: bold;">coolingUnit: CoolingUnit</text>
+<text x="3190" y="840" fill="#4a6fa5" style="font-weight: bold;">heatingElement: HeatingElement</text>
+<text x="3190" y="858" fill="#555" style="">condition: HealthState</text>
+<rect x="3473" y="720" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="3471" y="718" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3471" y="718" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="3471" y="744" width="171" height="4" fill="#34698a"/>
+<text x="3556.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CoolingUnit</text>
+<text x="3485" y="768" fill="#555" style="">unitID: Identifier</text>
+<text x="3485" y="786" fill="#555" style="">unitType: Kind</text>
+<text x="3485" y="804" fill="#555" style="">coolingCapacity: Power</text>
+<text x="3485" y="822" fill="#555" style="">condition: HealthState</text>
+<rect x="3736" y="720" width="249" height="172" fill="#00000010" rx="4"/>
+<rect x="3734" y="718" width="249" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3734" y="718" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="3734" y="744" width="249" height="4" fill="#34698a"/>
+<text x="3858.5" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">TemperatureController</text>
+<text x="3748" y="768" fill="#555" style="">controllerID: Identifier</text>
+<text x="3748" y="786" fill="#555" style="">controllerType: Kind</text>
+<text x="3748" y="804" fill="#555" style="">setTemperature: Temperature</text>
+<text x="3748" y="822" fill="#555" style="">currentTemperature: Temperature</text>
+<text x="3748" y="840" fill="#555" style="">hysteresis: Temperature</text>
+<text x="3748" y="858" fill="#4a6fa5" style="font-weight: bold;">temperatureProbe: TemperatureProbe</text>
+<text x="3748" y="876" fill="#555" style="">condition: HealthState</text>
+<rect x="4025" y="720" width="164" height="100" fill="#00000010" rx="4"/>
+<rect x="4023" y="718" width="164" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="4023" y="718" width="164" height="30" fill="#34698a" rx="4"/>
+<rect x="4023" y="744" width="164" height="4" fill="#34698a"/>
+<text x="4105.0" y="738" text-anchor="middle" fill="white" font-weight="bold" font-size="12">TemperatureProbe</text>
+<text x="4037" y="768" fill="#555" style="">probeID: Identifier</text>
+<text x="4037" y="786" fill="#555" style="">probeType: Kind</text>
+<text x="4037" y="804" fill="#555" style="">accuracy: Temperature</text>
+<rect x="62" y="976" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="60" y="974" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="974" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="1000" width="171" height="4" fill="#34698a"/>
+<text x="145.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">DryHopBasket</text>
+<text x="74" y="1024" fill="#555" style="">basketID: Identifier</text>
+<text x="74" y="1042" fill="#555" style="">meshSize: Distance</text>
+<text x="74" y="1060" fill="#555" style="">capacity: ScalarVolume</text>
+<rect x="455" y="976" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="453" y="974" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="453" y="974" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="453" y="1000" width="171" height="4" fill="#34698a"/>
+<text x="538.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">YeastStarterFlask</text>
+<text x="467" y="1024" fill="#555" style="">flaskID: Identifier</text>
+<text x="467" y="1042" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="467" y="1060" fill="#555" style="">material: Kind</text>
+<rect x="809" y="976" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="807" y="974" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="807" y="974" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="807" y="1000" width="171" height="4" fill="#34698a"/>
+<text x="892.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">StirPlate</text>
+<text x="821" y="1024" fill="#555" style="">plateID: Identifier</text>
+<text x="821" y="1042" fill="#555" style="">maxSpeed: Speed</text>
+<text x="821" y="1060" fill="#555" style="">condition: HealthState</text>
+<rect x="1098" y="976" width="249" height="244" fill="#00000010" rx="4"/>
+<rect x="1096" y="974" width="249" height="244" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1096" y="974" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="1096" y="1000" width="249" height="4" fill="#34698a"/>
+<text x="1220.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CarbonationAndServingDomain</text>
+<text x="1110" y="1024" fill="#555" style="">domainID: Identifier</text>
+<text x="1110" y="1042" fill="#4a6fa5" style="font-weight: bold;">co2Tank: CO2Tank</text>
+<text x="1110" y="1060" fill="#4a6fa5" style="font-weight: bold;">co2Regulator: CO2Regulator</text>
+<text x="1110" y="1078" fill="#4a6fa5" style="font-weight: bold;">gasManifold: GasManifold</text>
+<text x="1110" y="1096" fill="#4a6fa5" style="font-weight: bold;">carbonationStone: CarbonationStone</text>
+<text x="1110" y="1114" fill="#4a6fa5" style="font-weight: bold;">keg: Keg</text>
+<text x="1110" y="1132" fill="#4a6fa5" style="font-weight: bold;">kegerator: Kegerator</text>
+<text x="1110" y="1150" fill="#4a6fa5" style="font-weight: bold;">beerTap: BeerTap</text>
+<text x="1110" y="1168" fill="#4a6fa5" style="font-weight: bold;">beerLine: BeerLine</text>
+<text x="1110" y="1186" fill="#4a6fa5" style="font-weight: bold;">dripTray: DripTray</text>
+<text x="1110" y="1204" fill="#4a6fa5" style="font-weight: bold;">tapHandle: TapHandle</text>
+<rect x="1387" y="976" width="229" height="136" fill="#00000010" rx="4"/>
+<rect x="1385" y="974" width="229" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1385" y="974" width="229" height="30" fill="#34698a" rx="4"/>
+<rect x="1385" y="1000" width="229" height="4" fill="#34698a"/>
+<text x="1499.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CO2Tank</text>
+<text x="1399" y="1024" fill="#555" style="">tankID: Identifier</text>
+<text x="1399" y="1042" fill="#555" style="">capacity: Mass</text>
+<text x="1399" y="1060" fill="#555" style="">currentLevel: Ratio</text>
+<text x="1399" y="1078" fill="#555" style="">tankPressure: Pressure</text>
+<text x="1399" y="1096" fill="#555" style="">certificationDate: CalendarTime</text>
+<rect x="1682" y="976" width="184" height="136" fill="#00000010" rx="4"/>
+<rect x="1680" y="974" width="184" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1680" y="974" width="184" height="30" fill="#34698a" rx="4"/>
+<rect x="1680" y="1000" width="184" height="4" fill="#34698a"/>
+<text x="1772.0" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CO2Regulator</text>
+<text x="1694" y="1024" fill="#555" style="">regulatorID: Identifier</text>
+<text x="1694" y="1042" fill="#555" style="">regulatorType: Kind</text>
+<text x="1694" y="1060" fill="#555" style="">outputPressure: Pressure</text>
+<text x="1694" y="1078" fill="#555" style="">gaugeCount: Count</text>
+<text x="1694" y="1096" fill="#555" style="">condition: HealthState</text>
+<rect x="1938" y="976" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="1936" y="974" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1936" y="974" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1936" y="1000" width="171" height="4" fill="#34698a"/>
+<text x="2021.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">GasManifold</text>
+<text x="1950" y="1024" fill="#555" style="">manifoldID: Identifier</text>
+<text x="1950" y="1042" fill="#555" style="">outputCount: Count</text>
+<text x="1950" y="1060" fill="#555" style="">material: Kind</text>
+<rect x="2292" y="976" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="2290" y="974" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2290" y="974" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="2290" y="1000" width="160" height="4" fill="#34698a"/>
+<text x="2370.0" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CarbonationStone</text>
+<text x="2304" y="1024" fill="#555" style="">stoneID: Identifier</text>
+<text x="2304" y="1042" fill="#555" style="">porosity: Distance</text>
+<text x="2304" y="1060" fill="#555" style="">material: Kind</text>
+<rect x="2600" y="976" width="190" height="190" fill="#00000010" rx="4"/>
+<rect x="2598" y="974" width="190" height="190" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2598" y="974" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="2598" y="1000" width="190" height="4" fill="#34698a"/>
+<text x="2693.0" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Keg</text>
+<text x="2612" y="1024" fill="#555" style="">kegID: Identifier</text>
+<text x="2612" y="1042" fill="#555" style="">kegType: Kind</text>
+<text x="2612" y="1060" fill="#555" style="">material: Kind</text>
+<text x="2612" y="1078" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="2612" y="1096" fill="#555" style="">pressureRating: Pressure</text>
+<text x="2612" y="1114" fill="#555" style="">currentPressure: Pressure</text>
+<text x="2612" y="1132" fill="#555" style="">fillLevel: Ratio</text>
+<text x="2612" y="1150" fill="#555" style="">condition: HealthState</text>
+<rect x="2876" y="976" width="236" height="136" fill="#00000010" rx="4"/>
+<rect x="2874" y="974" width="236" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2874" y="974" width="236" height="30" fill="#34698a" rx="4"/>
+<rect x="2874" y="1000" width="236" height="4" fill="#34698a"/>
+<text x="2992.0" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Kegerator</text>
+<text x="2888" y="1024" fill="#555" style="">kegeratorID: Identifier</text>
+<text x="2888" y="1042" fill="#555" style="">internalTemperature: Temperature</text>
+<text x="2888" y="1060" fill="#555" style="">tapCount: Count</text>
+<text x="2888" y="1078" fill="#555" style="">internalVolume: ScalarVolume</text>
+<text x="2888" y="1096" fill="#555" style="">condition: HealthState</text>
+<rect x="3178" y="976" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="3176" y="974" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3176" y="974" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="3176" y="1000" width="160" height="4" fill="#34698a"/>
+<text x="3256.0" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BeerTap</text>
+<text x="3190" y="1024" fill="#555" style="">tapID: Identifier</text>
+<text x="3190" y="1042" fill="#555" style="">tapType: Kind</text>
+<text x="3190" y="1060" fill="#555" style="">material: Kind</text>
+<rect x="3473" y="976" width="197" height="118" fill="#00000010" rx="4"/>
+<rect x="3471" y="974" width="197" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3471" y="974" width="197" height="30" fill="#34698a" rx="4"/>
+<rect x="3471" y="1000" width="197" height="4" fill="#34698a"/>
+<text x="3569.5" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BeerLine</text>
+<text x="3485" y="1024" fill="#555" style="">lineID: Identifier</text>
+<text x="3485" y="1042" fill="#555" style="">material: Kind</text>
+<text x="3485" y="1060" fill="#555" style="">internalDiameter: Distance</text>
+<text x="3485" y="1078" fill="#555" style="">length: Distance</text>
+<rect x="3736" y="976" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="3734" y="974" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3734" y="974" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="3734" y="1000" width="160" height="4" fill="#34698a"/>
+<text x="3814.0" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">DripTray</text>
+<text x="3748" y="1024" fill="#555" style="">trayID: Identifier</text>
+<text x="3748" y="1042" fill="#555" style="">material: Kind</text>
+<text x="3748" y="1060" fill="#555" style="">dimensions: Extent</text>
+<rect x="4025" y="976" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="4023" y="974" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="4023" y="974" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="4023" y="1000" width="160" height="4" fill="#34698a"/>
+<text x="4103.0" y="994" text-anchor="middle" fill="white" font-weight="bold" font-size="12">TapHandle</text>
+<text x="4037" y="1024" fill="#555" style="">handleID: Identifier</text>
+<text x="4037" y="1042" fill="#555" style="">material: Kind</text>
+<text x="4037" y="1060" fill="#555" style="">style: Kind</text>
+<rect x="62" y="1250" width="197" height="208" fill="#00000010" rx="4"/>
+<rect x="60" y="1248" width="197" height="208" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="1248" width="197" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="1274" width="197" height="4" fill="#34698a"/>
+<text x="158.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PackagingDomain</text>
+<text x="74" y="1298" fill="#555" style="">domainID: Identifier</text>
+<text x="74" y="1316" fill="#4a6fa5" style="font-weight: bold;">bottleFiller: BottleFiller</text>
+<text x="74" y="1334" fill="#4a6fa5" style="font-weight: bold;">bottleCapper: BottleCapper</text>
+<text x="74" y="1352" fill="#4a6fa5" style="font-weight: bold;">bottle: Bottle</text>
+<text x="74" y="1370" fill="#4a6fa5" style="font-weight: bold;">bottleCap: BottleCap</text>
+<text x="74" y="1388" fill="#4a6fa5" style="font-weight: bold;">canSeamer: CanSeamer</text>
+<text x="74" y="1406" fill="#4a6fa5" style="font-weight: bold;">beerCan: BeerCan</text>
+<text x="74" y="1424" fill="#4a6fa5" style="font-weight: bold;">growler: Growler</text>
+<text x="74" y="1442" fill="#4a6fa5" style="font-weight: bold;">bottleLabel: BottleLabel</text>
+<rect x="455" y="1250" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="453" y="1248" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="453" y="1248" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="453" y="1274" width="171" height="4" fill="#34698a"/>
+<text x="538.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BottleFiller</text>
+<text x="467" y="1298" fill="#555" style="">fillerID: Identifier</text>
+<text x="467" y="1316" fill="#555" style="">fillerType: Kind</text>
+<text x="467" y="1334" fill="#555" style="">spoutCount: Count</text>
+<text x="467" y="1352" fill="#555" style="">condition: HealthState</text>
+<rect x="809" y="1250" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="807" y="1248" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="807" y="1248" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="807" y="1274" width="171" height="4" fill="#34698a"/>
+<text x="892.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BottleCapper</text>
+<text x="821" y="1298" fill="#555" style="">capperID: Identifier</text>
+<text x="821" y="1316" fill="#555" style="">capperType: Kind</text>
+<text x="821" y="1334" fill="#555" style="">condition: HealthState</text>
+<rect x="1098" y="1250" width="171" height="136" fill="#00000010" rx="4"/>
+<rect x="1096" y="1248" width="171" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1096" y="1248" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1096" y="1274" width="171" height="4" fill="#34698a"/>
+<text x="1181.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Bottle</text>
+<text x="1110" y="1298" fill="#555" style="">bottleID: Identifier</text>
+<text x="1110" y="1316" fill="#555" style="">bottleType: Kind</text>
+<text x="1110" y="1334" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="1110" y="1352" fill="#555" style="">color: Color</text>
+<text x="1110" y="1370" fill="#555" style="">material: Kind</text>
+<rect x="1387" y="1250" width="255" height="100" fill="#00000010" rx="4"/>
+<rect x="1385" y="1248" width="255" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1385" y="1248" width="255" height="30" fill="#34698a" rx="4"/>
+<rect x="1385" y="1274" width="255" height="4" fill="#34698a"/>
+<text x="1512.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BottleCap</text>
+<text x="1399" y="1298" fill="#555" style="">capID: Identifier</text>
+<text x="1399" y="1316" fill="#555" style="">capType: Kind</text>
+<text x="1399" y="1334" fill="#555" style="">oxygenAbsorbing: ConfigurationState</text>
+<rect x="1682" y="1250" width="197" height="100" fill="#00000010" rx="4"/>
+<rect x="1680" y="1248" width="197" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1680" y="1248" width="197" height="30" fill="#34698a" rx="4"/>
+<rect x="1680" y="1274" width="197" height="4" fill="#34698a"/>
+<text x="1778.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CanSeamer</text>
+<text x="1694" y="1298" fill="#555" style="">seamerID: Identifier</text>
+<text x="1694" y="1316" fill="#555" style="">canSizeCompatibility: Kind</text>
+<text x="1694" y="1334" fill="#555" style="">condition: HealthState</text>
+<rect x="1938" y="1250" width="164" height="82" fill="#00000010" rx="4"/>
+<rect x="1936" y="1248" width="164" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1936" y="1248" width="164" height="30" fill="#34698a" rx="4"/>
+<rect x="1936" y="1274" width="164" height="4" fill="#34698a"/>
+<text x="2018.0" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BeerCan</text>
+<text x="1950" y="1298" fill="#555" style="">canID: Identifier</text>
+<text x="1950" y="1316" fill="#555" style="">canSize: ScalarVolume</text>
+<rect x="2292" y="1250" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="2290" y="1248" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2290" y="1248" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2290" y="1274" width="171" height="4" fill="#34698a"/>
+<text x="2375.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Growler</text>
+<text x="2304" y="1298" fill="#555" style="">growlerID: Identifier</text>
+<text x="2304" y="1316" fill="#555" style="">material: Kind</text>
+<text x="2304" y="1334" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="2304" y="1352" fill="#555" style="">closureType: Kind</text>
+<rect x="2600" y="1250" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="2598" y="1248" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2598" y="1248" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="2598" y="1274" width="160" height="4" fill="#34698a"/>
+<text x="2678.0" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BottleLabel</text>
+<text x="2612" y="1298" fill="#555" style="">labelID: Identifier</text>
+<text x="2612" y="1316" fill="#555" style="">labelSize: Extent</text>
+<text x="2612" y="1334" fill="#555" style="">labelMaterial: Kind</text>
+<rect x="2876" y="1250" width="262" height="172" fill="#00000010" rx="4"/>
+<rect x="2874" y="1248" width="262" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2874" y="1248" width="262" height="30" fill="#34698a" rx="4"/>
+<rect x="2874" y="1274" width="262" height="4" fill="#34698a"/>
+<text x="3005.0" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">QualityControlDomain</text>
+<text x="2888" y="1298" fill="#555" style="">domainID: Identifier</text>
+<text x="2888" y="1316" fill="#4a6fa5" style="font-weight: bold;">hydrometer: Hydrometer</text>
+<text x="2888" y="1334" fill="#4a6fa5" style="font-weight: bold;">refractometer: Refractometer</text>
+<text x="2888" y="1352" fill="#4a6fa5" style="font-weight: bold;">thermometer: Thermometer</text>
+<text x="2888" y="1370" fill="#4a6fa5" style="font-weight: bold;">graduatedCylinder: GraduatedCylinder</text>
+<text x="2888" y="1388" fill="#4a6fa5" style="font-weight: bold;">testJar: TestJar</text>
+<text x="2888" y="1406" fill="#4a6fa5" style="font-weight: bold;">tastingGlass: TastingGlass</text>
+<rect x="3178" y="1250" width="255" height="118" fill="#00000010" rx="4"/>
+<rect x="3176" y="1248" width="255" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3176" y="1248" width="255" height="30" fill="#34698a" rx="4"/>
+<rect x="3176" y="1274" width="255" height="4" fill="#34698a"/>
+<text x="3303.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Hydrometer</text>
+<text x="3190" y="1298" fill="#555" style="">hydrometerID: Identifier</text>
+<text x="3190" y="1316" fill="#555" style="">scaleRange: Kind</text>
+<text x="3190" y="1334" fill="#555" style="">calibrationTemperature: Temperature</text>
+<text x="3190" y="1352" fill="#555" style="">condition: HealthState</text>
+<rect x="3473" y="1250" width="223" height="100" fill="#00000010" rx="4"/>
+<rect x="3471" y="1248" width="223" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3471" y="1248" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="3471" y="1274" width="223" height="4" fill="#34698a"/>
+<text x="3582.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Refractometer</text>
+<text x="3485" y="1298" fill="#555" style="">refractometerID: Identifier</text>
+<text x="3485" y="1316" fill="#555" style="">scaleType: Kind</text>
+<text x="3485" y="1334" fill="#555" style="">atcEnabled: ConfigurationState</text>
+<rect x="3736" y="1250" width="190" height="118" fill="#00000010" rx="4"/>
+<rect x="3734" y="1248" width="190" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3734" y="1248" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="3734" y="1274" width="190" height="4" fill="#34698a"/>
+<text x="3829.0" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Thermometer</text>
+<text x="3748" y="1298" fill="#555" style="">thermometerID: Identifier</text>
+<text x="3748" y="1316" fill="#555" style="">thermometerType: Kind</text>
+<text x="3748" y="1334" fill="#555" style="">accuracy: Temperature</text>
+<text x="3748" y="1352" fill="#555" style="">condition: HealthState</text>
+<rect x="4025" y="1250" width="171" height="82" fill="#00000010" rx="4"/>
+<rect x="4023" y="1248" width="171" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="4023" y="1248" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="4023" y="1274" width="171" height="4" fill="#34698a"/>
+<text x="4108.5" y="1268" text-anchor="middle" fill="white" font-weight="bold" font-size="12">GraduatedCylinder</text>
+<text x="4037" y="1298" fill="#555" style="">cylinderID: Identifier</text>
+<text x="4037" y="1316" fill="#555" style="">capacity: ScalarVolume</text>
+<rect x="62" y="1488" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="60" y="1486" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="1486" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="1512" width="171" height="4" fill="#34698a"/>
+<text x="145.5" y="1506" text-anchor="middle" fill="white" font-weight="bold" font-size="12">TestJar</text>
+<text x="74" y="1536" fill="#555" style="">jarID: Identifier</text>
+<text x="74" y="1554" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="74" y="1572" fill="#555" style="">material: Kind</text>
+<rect x="455" y="1488" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="453" y="1486" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="453" y="1486" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="453" y="1512" width="171" height="4" fill="#34698a"/>
+<text x="538.5" y="1506" text-anchor="middle" fill="white" font-weight="bold" font-size="12">TastingGlass</text>
+<text x="467" y="1536" fill="#555" style="">glassID: Identifier</text>
+<text x="467" y="1554" fill="#555" style="">glassType: Kind</text>
+<text x="467" y="1572" fill="#555" style="">capacity: ScalarVolume</text>
+<rect x="809" y="1488" width="249" height="172" fill="#00000010" rx="4"/>
+<rect x="807" y="1486" width="249" height="172" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="807" y="1486" width="249" height="30" fill="#34698a" rx="4"/>
+<rect x="807" y="1512" width="249" height="4" fill="#34698a"/>
+<text x="931.5" y="1506" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SanitationDomain</text>
+<text x="821" y="1536" fill="#555" style="">domainID: Identifier</text>
+<text x="821" y="1554" fill="#4a6fa5" style="font-weight: bold;">cleaningBucket: CleaningBucket</text>
+<text x="821" y="1572" fill="#4a6fa5" style="font-weight: bold;">sprayBottle: SprayBottle</text>
+<text x="821" y="1590" fill="#4a6fa5" style="font-weight: bold;">brushSet: BrushSet</text>
+<text x="821" y="1608" fill="#4a6fa5" style="font-weight: bold;">bottleWasher: BottleWasher</text>
+<text x="821" y="1626" fill="#4a6fa5" style="font-weight: bold;">bottleDryingTree: BottleDryingTree</text>
+<text x="821" y="1644" fill="#4a6fa5" style="font-weight: bold;">kegWasher: KegWasher</text>
+<rect x="1098" y="1488" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="1096" y="1486" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1096" y="1486" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1096" y="1512" width="171" height="4" fill="#34698a"/>
+<text x="1181.5" y="1506" text-anchor="middle" fill="white" font-weight="bold" font-size="12">CleaningBucket</text>
+<text x="1110" y="1536" fill="#555" style="">bucketID: Identifier</text>
+<text x="1110" y="1554" fill="#555" style="">capacity: ScalarVolume</text>
+<text x="1110" y="1572" fill="#555" style="">material: Kind</text>
+<rect x="1387" y="1488" width="171" height="82" fill="#00000010" rx="4"/>
+<rect x="1385" y="1486" width="171" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1385" y="1486" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1385" y="1512" width="171" height="4" fill="#34698a"/>
+<text x="1470.5" y="1506" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SprayBottle</text>
+<text x="1399" y="1536" fill="#555" style="">bottleID: Identifier</text>
+<text x="1399" y="1554" fill="#555" style="">capacity: ScalarVolume</text>
+<rect x="1682" y="1488" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="1680" y="1486" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1680" y="1486" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1680" y="1512" width="171" height="4" fill="#34698a"/>
+<text x="1765.5" y="1506" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BrushSet</text>
+<text x="1694" y="1536" fill="#555" style="">setID: Identifier</text>
+<text x="1694" y="1554" fill="#555" style="">brushCount: Count</text>
+<text x="1694" y="1572" fill="#555" style="">condition: HealthState</text>
+<rect x="1938" y="1488" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="1936" y="1486" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1936" y="1486" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="1936" y="1512" width="171" height="4" fill="#34698a"/>
+<text x="2021.5" y="1506" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BottleWasher</text>
+<text x="1950" y="1536" fill="#555" style="">washerID: Identifier</text>
+<text x="1950" y="1554" fill="#555" style="">washerType: Kind</text>
+<text x="1950" y="1572" fill="#555" style="">condition: HealthState</text>
+<rect x="2292" y="1488" width="164" height="82" fill="#00000010" rx="4"/>
+<rect x="2290" y="1486" width="164" height="82" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2290" y="1486" width="164" height="30" fill="#34698a" rx="4"/>
+<rect x="2290" y="1512" width="164" height="4" fill="#34698a"/>
+<text x="2372.0" y="1506" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BottleDryingTree</text>
+<text x="2304" y="1536" fill="#555" style="">treeID: Identifier</text>
+<text x="2304" y="1554" fill="#555" style="">bottleCapacity: Count</text>
+<rect x="2600" y="1488" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="2598" y="1486" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2598" y="1486" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="2598" y="1512" width="171" height="4" fill="#34698a"/>
+<text x="2683.5" y="1506" text-anchor="middle" fill="white" font-weight="bold" font-size="12">KegWasher</text>
+<text x="2612" y="1536" fill="#555" style="">washerID: Identifier</text>
+<text x="2612" y="1554" fill="#555" style="">washerType: Kind</text>
+<text x="2612" y="1572" fill="#555" style="">condition: HealthState</text>
+<rect x="2876" y="1488" width="262" height="208" fill="#00000010" rx="4"/>
+<rect x="2874" y="1486" width="262" height="208" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="2874" y="1486" width="262" height="30" fill="#34698a" rx="4"/>
+<rect x="2874" y="1512" width="262" height="4" fill="#34698a"/>
+<text x="3005.0" y="1506" text-anchor="middle" fill="white" font-weight="bold" font-size="12">PlumbingAndFittingsDomain</text>
+<text x="2888" y="1536" fill="#555" style="">domainID: Identifier</text>
+<text x="2888" y="1554" fill="#4a6fa5" style="font-weight: bold;">siliconeTubing: SiliconeTubing</text>
+<text x="2888" y="1572" fill="#4a6fa5" style="font-weight: bold;">ballValve: BallValve</text>
+<text x="2888" y="1590" fill="#4a6fa5" style="font-weight: bold;">quickDisconnect: QuickDisconnect</text>
+<text x="2888" y="1608" fill="#4a6fa5" style="font-weight: bold;">hoseClamp: HoseClamp</text>
+<text x="2888" y="1626" fill="#4a6fa5" style="font-weight: bold;">barb: HoseBarb</text>
+<text x="2888" y="1644" fill="#4a6fa5" style="font-weight: bold;">autoSiphon: AutoSiphon</text>
+<text x="2888" y="1662" fill="#4a6fa5" style="font-weight: bold;">inlineThermometer: InlineThermometer</text>
+<text x="2888" y="1680" fill="#4a6fa5" style="font-weight: bold;">sightGlass: SightGlass</text>
+<rect x="3178" y="1488" width="223" height="136" fill="#00000010" rx="4"/>
+<rect x="3176" y="1486" width="223" height="136" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3176" y="1486" width="223" height="30" fill="#34698a" rx="4"/>
+<rect x="3176" y="1512" width="223" height="4" fill="#34698a"/>
+<text x="3287.5" y="1506" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SiliconeTubing</text>
+<text x="3190" y="1536" fill="#555" style="">tubingID: Identifier</text>
+<text x="3190" y="1554" fill="#555" style="">internalDiameter: Distance</text>
+<text x="3190" y="1572" fill="#555" style="">length: Distance</text>
+<text x="3190" y="1590" fill="#555" style="">temperatureRating: Temperature</text>
+<text x="3190" y="1608" fill="#555" style="">condition: HealthState</text>
+<rect x="3473" y="1488" width="171" height="118" fill="#00000010" rx="4"/>
+<rect x="3471" y="1486" width="171" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3471" y="1486" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="3471" y="1512" width="171" height="4" fill="#34698a"/>
+<text x="3556.5" y="1506" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BallValve</text>
+<text x="3485" y="1536" fill="#555" style="">valveID: Identifier</text>
+<text x="3485" y="1554" fill="#555" style="">material: Kind</text>
+<text x="3485" y="1572" fill="#555" style="">size: Kind</text>
+<text x="3485" y="1590" fill="#555" style="">condition: HealthState</text>
+<rect x="3736" y="1488" width="160" height="118" fill="#00000010" rx="4"/>
+<rect x="3734" y="1486" width="160" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="3734" y="1486" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="3734" y="1512" width="160" height="4" fill="#34698a"/>
+<text x="3814.0" y="1506" text-anchor="middle" fill="white" font-weight="bold" font-size="12">QuickDisconnect</text>
+<text x="3748" y="1536" fill="#555" style="">qdID: Identifier</text>
+<text x="3748" y="1554" fill="#555" style="">qdType: Kind</text>
+<text x="3748" y="1572" fill="#555" style="">material: Kind</text>
+<text x="3748" y="1590" fill="#555" style="">size: Kind</text>
+<rect x="4025" y="1488" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="4023" y="1486" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="4023" y="1486" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="4023" y="1512" width="160" height="4" fill="#34698a"/>
+<text x="4103.0" y="1506" text-anchor="middle" fill="white" font-weight="bold" font-size="12">HoseClamp</text>
+<text x="4037" y="1536" fill="#555" style="">clampID: Identifier</text>
+<text x="4037" y="1554" fill="#555" style="">clampType: Kind</text>
+<text x="4037" y="1572" fill="#555" style="">sizeRange: Kind</text>
+<rect x="62" y="1726" width="160" height="118" fill="#00000010" rx="4"/>
+<rect x="60" y="1724" width="160" height="118" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="60" y="1724" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="60" y="1750" width="160" height="4" fill="#34698a"/>
+<text x="140.0" y="1744" text-anchor="middle" fill="white" font-weight="bold" font-size="12">HoseBarb</text>
+<text x="74" y="1774" fill="#555" style="">barbID: Identifier</text>
+<text x="74" y="1792" fill="#555" style="">material: Kind</text>
+<text x="74" y="1810" fill="#555" style="">barbSize: Kind</text>
+<text x="74" y="1828" fill="#555" style="">threadSize: Kind</text>
+<rect x="455" y="1726" width="171" height="100" fill="#00000010" rx="4"/>
+<rect x="453" y="1724" width="171" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="453" y="1724" width="171" height="30" fill="#34698a" rx="4"/>
+<rect x="453" y="1750" width="171" height="4" fill="#34698a"/>
+<text x="538.5" y="1744" text-anchor="middle" fill="white" font-weight="bold" font-size="12">AutoSiphon</text>
+<text x="467" y="1774" fill="#555" style="">siphonID: Identifier</text>
+<text x="467" y="1792" fill="#555" style="">siphonSize: Kind</text>
+<text x="467" y="1810" fill="#555" style="">condition: HealthState</text>
+<rect x="809" y="1726" width="190" height="100" fill="#00000010" rx="4"/>
+<rect x="807" y="1724" width="190" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="807" y="1724" width="190" height="30" fill="#34698a" rx="4"/>
+<rect x="807" y="1750" width="190" height="4" fill="#34698a"/>
+<text x="902.0" y="1744" text-anchor="middle" fill="white" font-weight="bold" font-size="12">InlineThermometer</text>
+<text x="821" y="1774" fill="#555" style="">thermometerID: Identifier</text>
+<text x="821" y="1792" fill="#555" style="">connectionSize: Kind</text>
+<text x="821" y="1810" fill="#555" style="">accuracy: Temperature</text>
+<rect x="1098" y="1726" width="160" height="100" fill="#00000010" rx="4"/>
+<rect x="1096" y="1724" width="160" height="100" fill="white" stroke="#34698a" stroke-width="1.5" rx="4"/>
+<rect x="1096" y="1724" width="160" height="30" fill="#34698a" rx="4"/>
+<rect x="1096" y="1750" width="160" height="4" fill="#34698a"/>
+<text x="1176.0" y="1744" text-anchor="middle" fill="white" font-weight="bold" font-size="12">SightGlass</text>
+<text x="1110" y="1774" fill="#555" style="">glassID: Identifier</text>
+<text x="1110" y="1792" fill="#555" style="">connectionSize: Kind</text>
+<text x="1110" y="1810" fill="#555" style="">material: Kind</text>
+<rect x="1387" y="1726" width="223" height="104" fill="#00000010" rx="10"/>
+<rect x="1385" y="1724" width="223" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1385" y="1724" width="223" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1385" y="1748" width="223" height="6" fill="#8b5e3c"/>
+<text x="1496.5" y="1744" text-anchor="middle" fill="white" font-weight="bold" font-size="11">HLTSuppliesMashTun</text>
+<text x="1399" y="1774" fill="#555">strikeTemperature: Temperature</text>
+<line x1="1393" y1="1786" x2="1600" y2="1786" stroke="#ccc" stroke-width="0.5"/>
+<text x="1399" y="1798" fill="#c05746" font-weight="bold">→ HotLiquorTank</text>
+<text x="1399" y="1816" fill="#c05746" font-weight="bold">→ MashTun</text>
+<rect x="1682" y="1726" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="1680" y="1724" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1680" y="1724" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1680" y="1748" width="164" height="6" fill="#8b5e3c"/>
+<text x="1762.0" y="1744" text-anchor="middle" fill="white" font-weight="bold" font-size="11">MashTunDrainsToKettle</text>
+<line x1="1688" y1="1768" x2="1836" y2="1768" stroke="#ccc" stroke-width="0.5"/>
+<text x="1694" y="1780" fill="#c05746" font-weight="bold">→ MashTun</text>
+<text x="1694" y="1798" fill="#c05746" font-weight="bold">→ BrewKettle</text>
+<rect x="1938" y="1726" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="1936" y="1724" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1936" y="1724" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1936" y="1748" width="164" height="6" fill="#8b5e3c"/>
+<text x="2018.0" y="1744" text-anchor="middle" fill="white" font-weight="bold" font-size="11">HeatSourceHeatsKettle</text>
+<line x1="1944" y1="1768" x2="2092" y2="1768" stroke="#ccc" stroke-width="0.5"/>
+<text x="1950" y="1780" fill="#c05746" font-weight="bold">→ HeatSource</text>
+<text x="1950" y="1798" fill="#c05746" font-weight="bold">→ BrewKettle</text>
+<rect x="2292" y="1726" width="210" height="104" fill="#00000010" rx="10"/>
+<rect x="2290" y="1724" width="210" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2290" y="1724" width="210" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2290" y="1748" width="210" height="6" fill="#8b5e3c"/>
+<text x="2395.0" y="1744" text-anchor="middle" fill="white" font-weight="bold" font-size="11">KettleToChiller</text>
+<text x="2304" y="1774" fill="#555">wortTemperature: Temperature</text>
+<line x1="2298" y1="1786" x2="2492" y2="1786" stroke="#ccc" stroke-width="0.5"/>
+<text x="2304" y="1798" fill="#c05746" font-weight="bold">→ BrewKettle</text>
+<text x="2304" y="1816" fill="#c05746" font-weight="bold">→ WortChiller</text>
+<rect x="2600" y="1726" width="236" height="104" fill="#00000010" rx="10"/>
+<rect x="2598" y="1724" width="236" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2598" y="1724" width="236" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2598" y="1748" width="236" height="6" fill="#8b5e3c"/>
+<text x="2716.0" y="1744" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ChillerToFermenter</text>
+<text x="2612" y="1774" fill="#555">pitchingTemperature: Temperature</text>
+<line x1="2606" y1="1786" x2="2826" y2="1786" stroke="#ccc" stroke-width="0.5"/>
+<text x="2612" y="1798" fill="#c05746" font-weight="bold">→ WortChiller</text>
+<text x="2612" y="1816" fill="#c05746" font-weight="bold">→ Fermenter</text>
+<rect x="2876" y="1726" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="2874" y="1724" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2874" y="1724" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2874" y="1748" width="164" height="6" fill="#8b5e3c"/>
+<text x="2956.0" y="1744" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FermenterInChamber</text>
+<line x1="2882" y1="1768" x2="3030" y2="1768" stroke="#ccc" stroke-width="0.5"/>
+<text x="2888" y="1780" fill="#c05746" font-weight="bold">→ Fermenter</text>
+<text x="2888" y="1798" fill="#c05746" font-weight="bold">→ FermentationChamber</text>
+<rect x="3178" y="1726" width="197" height="86" fill="#00000010" rx="10"/>
+<rect x="3176" y="1724" width="197" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3176" y="1724" width="197" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3176" y="1748" width="197" height="6" fill="#8b5e3c"/>
+<text x="3274.5" y="1744" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ControllerRegulatesChamber</text>
+<line x1="3184" y1="1768" x2="3365" y2="1768" stroke="#ccc" stroke-width="0.5"/>
+<text x="3190" y="1780" fill="#c05746" font-weight="bold">→ TemperatureController</text>
+<text x="3190" y="1798" fill="#c05746" font-weight="bold">→ FermentationChamber</text>
+<rect x="3473" y="1726" width="177" height="86" fill="#00000010" rx="10"/>
+<rect x="3471" y="1724" width="177" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3471" y="1724" width="177" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3471" y="1748" width="177" height="6" fill="#8b5e3c"/>
+<text x="3559.5" y="1744" text-anchor="middle" fill="white" font-weight="bold" font-size="11">StarterFlaskOnStirPlate</text>
+<line x1="3479" y1="1768" x2="3640" y2="1768" stroke="#ccc" stroke-width="0.5"/>
+<text x="3485" y="1780" fill="#c05746" font-weight="bold">→ YeastStarterFlask</text>
+<text x="3485" y="1798" fill="#c05746" font-weight="bold">→ StirPlate</text>
+<rect x="3736" y="1726" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3734" y="1724" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3734" y="1724" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3734" y="1748" width="160" height="6" fill="#8b5e3c"/>
+<text x="3814.0" y="1744" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CO2TankToRegulator</text>
+<line x1="3742" y1="1768" x2="3886" y2="1768" stroke="#ccc" stroke-width="0.5"/>
+<text x="3748" y="1780" fill="#c05746" font-weight="bold">→ CO2Tank</text>
+<text x="3748" y="1798" fill="#c05746" font-weight="bold">→ CO2Regulator</text>
+<rect x="4025" y="1726" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="4023" y="1724" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="4023" y="1724" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="4023" y="1748" width="160" height="6" fill="#8b5e3c"/>
+<text x="4103.0" y="1744" text-anchor="middle" fill="white" font-weight="bold" font-size="11">RegulatorToManifold</text>
+<line x1="4031" y1="1768" x2="4175" y2="1768" stroke="#ccc" stroke-width="0.5"/>
+<text x="4037" y="1780" fill="#c05746" font-weight="bold">→ CO2Regulator</text>
+<text x="4037" y="1798" fill="#c05746" font-weight="bold">→ GasManifold</text>
+<rect x="62" y="1874" width="190" height="104" fill="#00000010" rx="10"/>
+<rect x="60" y="1872" width="190" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="1872" width="190" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="1896" width="190" height="6" fill="#8b5e3c"/>
+<text x="155.0" y="1892" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ManifoldPressuresKeg</text>
+<text x="74" y="1922" fill="#555">servingPressure: Pressure</text>
+<line x1="68" y1="1934" x2="242" y2="1934" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="1946" fill="#c05746" font-weight="bold">→ GasManifold</text>
+<text x="74" y="1964" fill="#c05746" font-weight="bold">→ Keg</text>
+<rect x="455" y="1874" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="453" y="1872" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="453" y="1872" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="453" y="1896" width="160" height="6" fill="#8b5e3c"/>
+<text x="533.0" y="1892" text-anchor="middle" fill="white" font-weight="bold" font-size="11">KegInKegerator</text>
+<line x1="461" y1="1916" x2="605" y2="1916" stroke="#ccc" stroke-width="0.5"/>
+<text x="467" y="1928" fill="#c05746" font-weight="bold">→ Keg</text>
+<text x="467" y="1946" fill="#c05746" font-weight="bold">→ Kegerator</text>
+<rect x="809" y="1874" width="164" height="122" fill="#00000010" rx="10"/>
+<rect x="807" y="1872" width="164" height="122" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="807" y="1872" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="807" y="1896" width="164" height="6" fill="#8b5e3c"/>
+<text x="889.0" y="1892" text-anchor="middle" fill="white" font-weight="bold" font-size="11">LineConnectsKegToTap</text>
+<text x="821" y="1922" fill="#555">lineResistance: Ratio</text>
+<line x1="815" y1="1934" x2="963" y2="1934" stroke="#ccc" stroke-width="0.5"/>
+<text x="821" y="1946" fill="#c05746" font-weight="bold">→ BeerLine</text>
+<text x="821" y="1964" fill="#c05746" font-weight="bold">→ Keg</text>
+<text x="821" y="1982" fill="#c05746" font-weight="bold">→ BeerTap</text>
+<rect x="1098" y="1874" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1096" y="1872" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1096" y="1872" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1096" y="1896" width="160" height="6" fill="#8b5e3c"/>
+<text x="1176.0" y="1892" text-anchor="middle" fill="white" font-weight="bold" font-size="11">TapHandleOnTap</text>
+<line x1="1104" y1="1916" x2="1248" y2="1916" stroke="#ccc" stroke-width="0.5"/>
+<text x="1110" y="1928" fill="#c05746" font-weight="bold">→ TapHandle</text>
+<text x="1110" y="1946" fill="#c05746" font-weight="bold">→ BeerTap</text>
+<rect x="1387" y="1874" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1385" y="1872" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1385" y="1872" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1385" y="1896" width="160" height="6" fill="#8b5e3c"/>
+<text x="1465.0" y="1892" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PumpRecirculatesMash</text>
+<line x1="1393" y1="1916" x2="1537" y2="1916" stroke="#ccc" stroke-width="0.5"/>
+<text x="1399" y="1928" fill="#c05746" font-weight="bold">→ BrewPump</text>
+<text x="1399" y="1946" fill="#c05746" font-weight="bold">→ MashTun</text>
+<rect x="1682" y="1874" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1680" y="1872" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1680" y="1872" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1680" y="1896" width="160" height="6" fill="#8b5e3c"/>
+<text x="1760.0" y="1892" text-anchor="middle" fill="white" font-weight="bold" font-size="11">PumpTransfersWort</text>
+<line x1="1688" y1="1916" x2="1832" y2="1916" stroke="#ccc" stroke-width="0.5"/>
+<text x="1694" y="1928" fill="#c05746" font-weight="bold">→ BrewPump</text>
+<text x="1694" y="1946" fill="#c05746" font-weight="bold">→ BrewKettle</text>
+<rect x="1938" y="1874" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1936" y="1872" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1936" y="1872" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1936" y="1896" width="160" height="6" fill="#8b5e3c"/>
+<text x="2016.0" y="1892" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SiphonTransfers</text>
+<line x1="1944" y1="1916" x2="2088" y2="1916" stroke="#ccc" stroke-width="0.5"/>
+<text x="1950" y="1928" fill="#c05746" font-weight="bold">→ AutoSiphon</text>
+<text x="1950" y="1946" fill="#c05746" font-weight="bold">→ Fermenter</text>
+<rect x="2292" y="1874" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="2290" y="1872" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2290" y="1872" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2290" y="1896" width="160" height="6" fill="#8b5e3c"/>
+<text x="2370.0" y="1892" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ValveOnVessel</text>
+<text x="2304" y="1922" fill="#555">mountType: Kind</text>
+<line x1="2298" y1="1934" x2="2442" y2="1934" stroke="#ccc" stroke-width="0.5"/>
+<text x="2304" y="1946" fill="#c05746" font-weight="bold">→ BallValve</text>
+<text x="2304" y="1964" fill="#c05746" font-weight="bold">→ MashTun</text>
+<rect x="2600" y="1874" width="184" height="86" fill="#00000010" rx="10"/>
+<rect x="2598" y="1872" width="184" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2598" y="1872" width="184" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2598" y="1896" width="184" height="6" fill="#8b5e3c"/>
+<text x="2690.0" y="1892" text-anchor="middle" fill="white" font-weight="bold" font-size="11">TubingConnectsComponents</text>
+<line x1="2606" y1="1916" x2="2774" y2="1916" stroke="#ccc" stroke-width="0.5"/>
+<text x="2612" y="1928" fill="#c05746" font-weight="bold">→ SiliconeTubing</text>
+<text x="2612" y="1946" fill="#c05746" font-weight="bold">→ QuickDisconnect</text>
+<rect x="2876" y="1874" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2874" y="1872" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2874" y="1872" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2874" y="1896" width="160" height="6" fill="#8b5e3c"/>
+<text x="2954.0" y="1892" text-anchor="middle" fill="white" font-weight="bold" font-size="11">FillerFillsBottle</text>
+<line x1="2882" y1="1916" x2="3026" y2="1916" stroke="#ccc" stroke-width="0.5"/>
+<text x="2888" y="1928" fill="#c05746" font-weight="bold">→ BottleFiller</text>
+<text x="2888" y="1946" fill="#c05746" font-weight="bold">→ Bottle</text>
+<rect x="3178" y="1874" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="3176" y="1872" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3176" y="1872" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3176" y="1896" width="160" height="6" fill="#8b5e3c"/>
+<text x="3256.0" y="1892" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CapperSealsBottle</text>
+<line x1="3184" y1="1916" x2="3328" y2="1916" stroke="#ccc" stroke-width="0.5"/>
+<text x="3190" y="1928" fill="#c05746" font-weight="bold">→ BottleCapper</text>
+<text x="3190" y="1946" fill="#c05746" font-weight="bold">→ Bottle</text>
+<text x="3190" y="1964" fill="#c05746" font-weight="bold">→ BottleCap</text>
+<rect x="3473" y="1874" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3471" y="1872" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3471" y="1872" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3471" y="1896" width="160" height="6" fill="#8b5e3c"/>
+<text x="3551.0" y="1892" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SeamerSealsCan</text>
+<line x1="3479" y1="1916" x2="3623" y2="1916" stroke="#ccc" stroke-width="0.5"/>
+<text x="3485" y="1928" fill="#c05746" font-weight="bold">→ CanSeamer</text>
+<text x="3485" y="1946" fill="#c05746" font-weight="bold">→ BeerCan</text>
+<rect x="3736" y="1874" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="3734" y="1872" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="3734" y="1872" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="3734" y="1896" width="160" height="6" fill="#8b5e3c"/>
+<text x="3814.0" y="1892" text-anchor="middle" fill="white" font-weight="bold" font-size="11">LabelOnBottle</text>
+<line x1="3742" y1="1916" x2="3886" y2="1916" stroke="#ccc" stroke-width="0.5"/>
+<text x="3748" y="1928" fill="#c05746" font-weight="bold">→ BottleLabel</text>
+<text x="3748" y="1946" fill="#c05746" font-weight="bold">→ Bottle</text>
+<rect x="4025" y="1874" width="190" height="86" fill="#00000010" rx="10"/>
+<rect x="4023" y="1872" width="190" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="4023" y="1872" width="190" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="4023" y="1896" width="190" height="6" fill="#8b5e3c"/>
+<text x="4118.0" y="1892" text-anchor="middle" fill="white" font-weight="bold" font-size="11">WaterTreatmentSuppliesHLT</text>
+<line x1="4031" y1="1916" x2="4205" y2="1916" stroke="#ccc" stroke-width="0.5"/>
+<text x="4037" y="1928" fill="#c05746" font-weight="bold">→ CarbonFilter</text>
+<text x="4037" y="1946" fill="#c05746" font-weight="bold">→ HotLiquorTank</text>
+<rect x="62" y="2026" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="60" y="2024" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="60" y="2024" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="60" y="2048" width="160" height="6" fill="#8b5e3c"/>
+<text x="140.0" y="2044" text-anchor="middle" fill="white" font-weight="bold" font-size="11">ROSuppliesHLT</text>
+<line x1="68" y1="2068" x2="212" y2="2068" stroke="#ccc" stroke-width="0.5"/>
+<text x="74" y="2080" fill="#c05746" font-weight="bold">→ ROSystem</text>
+<text x="74" y="2098" fill="#c05746" font-weight="bold">→ HotLiquorTank</text>
+<rect x="455" y="2026" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="453" y="2024" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="453" y="2024" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="453" y="2048" width="160" height="6" fill="#8b5e3c"/>
+<text x="533.0" y="2044" text-anchor="middle" fill="white" font-weight="bold" font-size="11">MillFeedsGrainToMash</text>
+<line x1="461" y1="2068" x2="605" y2="2068" stroke="#ccc" stroke-width="0.5"/>
+<text x="467" y="2080" fill="#c05746" font-weight="bold">→ GrainMill</text>
+<text x="467" y="2098" fill="#c05746" font-weight="bold">→ MashTun</text>
+<rect x="809" y="2026" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="807" y="2024" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="807" y="2024" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="807" y="2048" width="160" height="6" fill="#8b5e3c"/>
+<text x="887.0" y="2044" text-anchor="middle" fill="white" font-weight="bold" font-size="11">GrainBinFeedsMill</text>
+<line x1="815" y1="2068" x2="959" y2="2068" stroke="#ccc" stroke-width="0.5"/>
+<text x="821" y="2080" fill="#c05746" font-weight="bold">→ GrainBin</text>
+<text x="821" y="2098" fill="#c05746" font-weight="bold">→ GrainMill</text>
+<rect x="1098" y="2026" width="164" height="86" fill="#00000010" rx="10"/>
+<rect x="1096" y="2024" width="164" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1096" y="2024" width="164" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1096" y="2048" width="164" height="6" fill="#8b5e3c"/>
+<text x="1178.0" y="2044" text-anchor="middle" fill="white" font-weight="bold" font-size="11">CarbonationStoneInKeg</text>
+<line x1="1104" y1="2068" x2="1252" y2="2068" stroke="#ccc" stroke-width="0.5"/>
+<text x="1110" y="2080" fill="#c05746" font-weight="bold">→ CarbonationStone</text>
+<text x="1110" y="2098" fill="#c05746" font-weight="bold">→ Keg</text>
+<rect x="1387" y="2026" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="1385" y="2024" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1385" y="2024" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1385" y="2048" width="160" height="6" fill="#8b5e3c"/>
+<text x="1465.0" y="2044" text-anchor="middle" fill="white" font-weight="bold" font-size="11">KegWasherCleansKeg</text>
+<line x1="1393" y1="2068" x2="1537" y2="2068" stroke="#ccc" stroke-width="0.5"/>
+<text x="1399" y="2080" fill="#c05746" font-weight="bold">→ KegWasher</text>
+<text x="1399" y="2098" fill="#c05746" font-weight="bold">→ Keg</text>
+<rect x="1682" y="2026" width="184" height="86" fill="#00000010" rx="10"/>
+<rect x="1680" y="2024" width="184" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1680" y="2024" width="184" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1680" y="2048" width="184" height="6" fill="#8b5e3c"/>
+<text x="1772.0" y="2044" text-anchor="middle" fill="white" font-weight="bold" font-size="11">BottleWasherCleansBottle</text>
+<line x1="1688" y1="2068" x2="1856" y2="2068" stroke="#ccc" stroke-width="0.5"/>
+<text x="1694" y="2080" fill="#c05746" font-weight="bold">→ BottleWasher</text>
+<text x="1694" y="2098" fill="#c05746" font-weight="bold">→ Bottle</text>
+<rect x="1938" y="2026" width="160" height="104" fill="#00000010" rx="10"/>
+<rect x="1936" y="2024" width="160" height="104" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="1936" y="2024" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="1936" y="2048" width="160" height="6" fill="#8b5e3c"/>
+<text x="2016.0" y="2044" text-anchor="middle" fill="white" font-weight="bold" font-size="11">VesselOnBrewStand</text>
+<text x="1950" y="2074" fill="#555">tier: Kind</text>
+<line x1="1944" y1="2086" x2="2088" y2="2086" stroke="#ccc" stroke-width="0.5"/>
+<text x="1950" y="2098" fill="#c05746" font-weight="bold">→ BrewStand</text>
+<text x="1950" y="2116" fill="#c05746" font-weight="bold">→ BrewKettle</text>
+<rect x="2292" y="2026" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2290" y="2024" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2290" y="2024" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2290" y="2048" width="160" height="6" fill="#8b5e3c"/>
+<text x="2370.0" y="2044" text-anchor="middle" fill="white" font-weight="bold" font-size="11">HydrometerInCylinder</text>
+<line x1="2298" y1="2068" x2="2442" y2="2068" stroke="#ccc" stroke-width="0.5"/>
+<text x="2304" y="2080" fill="#c05746" font-weight="bold">→ Hydrometer</text>
+<text x="2304" y="2098" fill="#c05746" font-weight="bold">→ GraduatedCylinder</text>
+<rect x="2600" y="2026" width="190" height="86" fill="#00000010" rx="10"/>
+<rect x="2598" y="2024" width="190" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2598" y="2024" width="190" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2598" y="2048" width="190" height="6" fill="#8b5e3c"/>
+<text x="2693.0" y="2044" text-anchor="middle" fill="white" font-weight="bold" font-size="11">InlineThermometerOnTubing</text>
+<line x1="2606" y1="2068" x2="2780" y2="2068" stroke="#ccc" stroke-width="0.5"/>
+<text x="2612" y="2080" fill="#c05746" font-weight="bold">→ InlineThermometer</text>
+<text x="2612" y="2098" fill="#c05746" font-weight="bold">→ SiliconeTubing</text>
+<rect x="2876" y="2026" width="160" height="86" fill="#00000010" rx="10"/>
+<rect x="2874" y="2024" width="160" height="86" fill="#fffbf5" stroke="#8b5e3c" stroke-width="1.5" rx="10"/>
+<rect x="2874" y="2024" width="160" height="30" fill="#8b5e3c" rx="10"/>
+<rect x="2874" y="2048" width="160" height="6" fill="#8b5e3c"/>
+<text x="2954.0" y="2044" text-anchor="middle" fill="white" font-weight="bold" font-size="11">SightGlassOnTubing</text>
+<line x1="2882" y1="2068" x2="3026" y2="2068" stroke="#ccc" stroke-width="0.5"/>
+<text x="2888" y="2080" fill="#c05746" font-weight="bold">→ SightGlass</text>
+<text x="2888" y="2098" fill="#c05746" font-weight="bold">→ SiliconeTubing</text>
+</svg>

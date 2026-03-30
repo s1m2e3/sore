@@ -1,0 +1,259 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rdf:RDF xmlns='http://knowledgeweb.semanticweb.org/heterogeneity/alignment'
+	 xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' 
+	 xmlns:xsd='http://www.w3.org/2001/XMLSchema#' 
+	 alignmentSource='AgreementMakerLight'>
+
+<Alignment>
+	<xml>yes</xml>
+	<level>0</level>
+	<type>11</type>
+	<onto1>http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network</onto1>
+	<onto2>http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network</onto2>
+	<uri1>http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network</uri1>
+	<uri2>http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network</uri2>
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_obs_AngularVelocity"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_AngularVelocity"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.7154</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_attr_TransmissionAssembly_outputSpeed"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_Transmission_outputSpeed"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6832</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_attr_TransmissionAssembly_inputSpeed"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_Transmission_inputSpeed"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6832</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_attr_Automobile_automobileOperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_Automobile_automobileOperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6741</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_obs_OperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_OperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6734</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_obs_Identifier"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_Identifier"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6613</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_obs_Angle"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_Angle"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6551</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_attr_Automobile_automobileID"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_Automobile_automobileID"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6534</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_attr_Automobile_automobileMass"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_Automobile_automobileMass"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6501</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_obs_Mass"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_Mass"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6497</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_obs_Pressure"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_Pressure"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6491</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_obs_Force"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_Force"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6485</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_obs_Extent"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_Extent"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6474</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_obs_Temperature"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_Temperature"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6436</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_obs_Torque"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_Torque"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6428</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_attr_DriveAxleAssembly_assemblyOperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_AxleAssembly_axleOperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6409</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_attr_BrakeModule_brakeTemperature"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_BrakeAssembly_brakeTemperature"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6357</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_obs_Position"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_obs_Position"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6352</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_attr_DriveAxleAssembly_axleSpeed"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_AxleAssembly_axleSpeed"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6349</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_attr_DriveAxleAssembly_axleTorque"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_AxleAssembly_axleTorque"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6316</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_attr_TransmissionAssembly_assemblyOperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_Transmission_transmissionOperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.63</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_attr_BrakeModule_brakeForce"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_BrakeAssembly_brakeForce"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6244</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_attr_IgnitionAssembly_assemblyOperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_PistonAssembly_assemblyOperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6156</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_attr_SteeringModule_steeringForce"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_SteeringRack_steeringForce"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6138</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_attr_DriveAxleAssembly_driveAxleAssemblyID"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_AxleAssembly_axleAssemblyID"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.611</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_ent_SuspensionModule"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_ent_SuspensionAssembly"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.6072</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+	<map>
+		<Cell>
+			<entity1 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Packaged_Assemblies_Network/Automobile_Component_Network_Model_Packaged_Assemblies_Network_attr_BrakeModule_moduleOperationalState"/>
+			<entity2 rdf:resource="http://example.org/concept_instances/Automobile_Component_Network_Model_Mechanical_and_Structural_Network/Automobile_Component_Network_Model_Mechanical_and_Structural_Network_attr_BrakeAssembly_brakeOperationalState"/>
+			<measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.601</measure>
+			<relation>=</relation>
+		</Cell>
+	</map>
+
+</Alignment>
+</rdf:RDF>

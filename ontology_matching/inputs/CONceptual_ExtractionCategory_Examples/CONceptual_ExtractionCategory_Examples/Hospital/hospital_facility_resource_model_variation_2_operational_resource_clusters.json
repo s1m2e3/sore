@@ -1,0 +1,551 @@
+{
+  "topicDomain": "Hospital System",
+  "modelName": "Hospital Facility Resource Network Model - Operational Resource Clusters",
+  "methodBasis": "All entities represent hospital facility resources grouped into operational clusters. Variations differ by how resources are clustered and associated through support, adjacency, containment, and service coverage.",
+  "entities": [
+    {
+      "name": "HospitalSite",
+      "attributes": [
+        {
+          "name": "hospitalSiteID",
+          "type": "Identifier"
+        },
+        {
+          "name": "siteExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "sitePosition",
+          "type": "Position"
+        },
+        {
+          "name": "siteOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "InpatientCluster",
+      "attributes": [
+        {
+          "name": "inpatientClusterID",
+          "type": "Identifier"
+        },
+        {
+          "name": "clusterExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "clusterCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "clusterOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ProceduralCluster",
+      "attributes": [
+        {
+          "name": "proceduralClusterID",
+          "type": "Identifier"
+        },
+        {
+          "name": "clusterExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "clusterCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "clusterOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "DiagnosticCluster",
+      "attributes": [
+        {
+          "name": "diagnosticClusterID",
+          "type": "Identifier"
+        },
+        {
+          "name": "clusterExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "clusterCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "clusterOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SupportCluster",
+      "attributes": [
+        {
+          "name": "supportClusterID",
+          "type": "Identifier"
+        },
+        {
+          "name": "clusterExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "clusterCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "clusterOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "PatientBay",
+      "attributes": [
+        {
+          "name": "patientBayID",
+          "type": "Identifier"
+        },
+        {
+          "name": "bayExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "bayCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "bayOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ProcedureSuite",
+      "attributes": [
+        {
+          "name": "procedureSuiteID",
+          "type": "Identifier"
+        },
+        {
+          "name": "suiteExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "suiteCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "suiteOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ImagingSuite",
+      "attributes": [
+        {
+          "name": "imagingSuiteID",
+          "type": "Identifier"
+        },
+        {
+          "name": "suiteExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "shieldingState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "suiteOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "CentralSupplyArea",
+      "attributes": [
+        {
+          "name": "centralSupplyAreaID",
+          "type": "Identifier"
+        },
+        {
+          "name": "supplyCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "areaExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "areaOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SterilizationUnit",
+      "attributes": [
+        {
+          "name": "sterilizationUnitID",
+          "type": "Identifier"
+        },
+        {
+          "name": "unitCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "temperatureState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "unitOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ElevatorBank",
+      "attributes": [
+        {
+          "name": "elevatorBankID",
+          "type": "Identifier"
+        },
+        {
+          "name": "bankCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "movementState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "bankOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "BackupGenerator",
+      "attributes": [
+        {
+          "name": "backupGeneratorID",
+          "type": "Identifier"
+        },
+        {
+          "name": "generatorPower",
+          "type": "Power"
+        },
+        {
+          "name": "fuelState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "generatorOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "WaterTreatmentUnit",
+      "attributes": [
+        {
+          "name": "waterTreatmentUnitID",
+          "type": "Identifier"
+        },
+        {
+          "name": "flowRate",
+          "type": "MassFlowRate"
+        },
+        {
+          "name": "treatmentState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "unitOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ITCloset",
+      "attributes": [
+        {
+          "name": "itClosetID",
+          "type": "Identifier"
+        },
+        {
+          "name": "deviceCount",
+          "type": "Count"
+        },
+        {
+          "name": "coolingState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "closetOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "HospitalSiteContainsInpatientCluster",
+      "participants": [
+        "HospitalSite",
+        "InpatientCluster"
+      ],
+      "attributes": [
+        {
+          "name": "clusterPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "HospitalSiteContainsProceduralCluster",
+      "participants": [
+        "HospitalSite",
+        "ProceduralCluster"
+      ],
+      "attributes": [
+        {
+          "name": "clusterPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "HospitalSiteContainsDiagnosticCluster",
+      "participants": [
+        "HospitalSite",
+        "DiagnosticCluster"
+      ],
+      "attributes": [
+        {
+          "name": "clusterPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "HospitalSiteContainsSupportCluster",
+      "participants": [
+        "HospitalSite",
+        "SupportCluster"
+      ],
+      "attributes": [
+        {
+          "name": "clusterPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "InpatientClusterContainsPatientBay",
+      "participants": [
+        "InpatientCluster",
+        "PatientBay"
+      ],
+      "attributes": [
+        {
+          "name": "bayPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "ProceduralClusterContainsProcedureSuite",
+      "participants": [
+        "ProceduralCluster",
+        "ProcedureSuite"
+      ],
+      "attributes": [
+        {
+          "name": "suitePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "DiagnosticClusterContainsImagingSuite",
+      "participants": [
+        "DiagnosticCluster",
+        "ImagingSuite"
+      ],
+      "attributes": [
+        {
+          "name": "suitePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "SupportClusterContainsCentralSupplyArea",
+      "participants": [
+        "SupportCluster",
+        "CentralSupplyArea"
+      ],
+      "attributes": [
+        {
+          "name": "areaPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "SupportClusterContainsSterilizationUnit",
+      "participants": [
+        "SupportCluster",
+        "SterilizationUnit"
+      ],
+      "attributes": [
+        {
+          "name": "unitPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "SupportClusterContainsElevatorBank",
+      "participants": [
+        "SupportCluster",
+        "ElevatorBank"
+      ],
+      "attributes": [
+        {
+          "name": "bankPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "SupportClusterContainsBackupGenerator",
+      "participants": [
+        "SupportCluster",
+        "BackupGenerator"
+      ],
+      "attributes": [
+        {
+          "name": "unitPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "SupportClusterContainsWaterTreatmentUnit",
+      "participants": [
+        "SupportCluster",
+        "WaterTreatmentUnit"
+      ],
+      "attributes": [
+        {
+          "name": "unitPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "SupportClusterContainsITCloset",
+      "participants": [
+        "SupportCluster",
+        "ITCloset"
+      ],
+      "attributes": [
+        {
+          "name": "closetPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "CentralSupplyAreaSupportsPatientBay",
+      "participants": [
+        "CentralSupplyArea",
+        "PatientBay"
+      ],
+      "attributes": [
+        {
+          "name": "supportState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "CentralSupplyAreaSupportsProcedureSuite",
+      "participants": [
+        "CentralSupplyArea",
+        "ProcedureSuite"
+      ],
+      "attributes": [
+        {
+          "name": "supportState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SterilizationUnitSupportsProcedureSuite",
+      "participants": [
+        "SterilizationUnit",
+        "ProcedureSuite"
+      ],
+      "attributes": [
+        {
+          "name": "sterileSupplyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "BackupGeneratorSupportsDiagnosticCluster",
+      "participants": [
+        "BackupGenerator",
+        "DiagnosticCluster"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "ITClosetSupportsImagingSuite",
+      "participants": [
+        "ITCloset",
+        "ImagingSuite"
+      ],
+      "attributes": [
+        {
+          "name": "connectivityState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ElevatorBankConnectsInpatientClusterAndProceduralCluster",
+      "participants": [
+        "ElevatorBank",
+        "InpatientCluster",
+        "ProceduralCluster"
+      ],
+      "attributes": [
+        {
+          "name": "transportState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ]
+}
