@@ -1,0 +1,43 @@
+# Ontology matching pipeline dependencies
+#
+# ALWAYS activate the virtual environment first:
+#   Windows:  .venv\Scripts\activate
+#   Linux:    source .venv/bin/activate
+#
+# Install with:
+#   pip install -r requirements.txt
+#
+# PyTorch with CUDA 12.6 (GPU-accelerated, recommended):
+#   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+#
+# For CPU-only (slower, ~10x):
+#   pip install torch torchvision torchaudio
+
+# Core
+numpy==2.4.4
+scipy>=1.17
+owlready2>=0.50
+
+# NLI / transformer model
+transformers==5.4.0
+# PyTorch — install the CUDA build using the command above; do NOT use plain pip install torch
+torch==2.11.0+cu126
+torchvision==0.26.0+cu126
+torchaudio==2.11.0+cu126
+
+# Synonym matching (Stage 8) + Matryoshka characterizer (Stage 3)
+sentence-transformers>=3.0
+
+# Stage 3: WordNet anchor enrichment + covariance estimation + nomic model dep
+nltk>=3.9
+scikit-learn>=1.4
+einops>=0.8
+
+# Visualization
+matplotlib>=3.9
+networkx>=3.4
+plotly>=5.24
+
+# AML runner
+# AgreementMakerLight v3.2 JAR — place at AML/AML.jar
+# Requires Java 11+: https://github.com/AgreementMakerLight/AML-Project

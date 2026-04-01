@@ -22,8 +22,8 @@ For every pair (smaller model, larger model):
 
 Model
 -----
-  cross-encoder/nli-MiniLM2-L6-H768  (~120 MB, CPU-friendly, fast)
-  Falls back gracefully if the model cannot be downloaded.
+  cross-encoder/nli-deberta-v3-base  (~370 MB, GPU-accelerated, 512-token context)
+  Significantly better NLI accuracy than MiniLM; fits in 4 GB VRAM.
 
 Usage
 -----
@@ -43,6 +43,13 @@ import re
 from itertools import product
 from typing import Any
 
+# ── Local model cache — avoids re-downloading from HuggingFace every run ──── #
+_MODELS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models")
+os.makedirs(_MODELS_DIR, exist_ok=True)
+os.environ.setdefault("HF_HOME", _MODELS_DIR)
+os.environ.setdefault("TRANSFORMERS_CACHE", os.path.join(_MODELS_DIR, "hub"))
+# ─────────────────────────────────────────────────────────────────────────── #
+
 REPORTS_DIR  = os.path.join(os.path.dirname(__file__), "outputs", "reports")
 INPUTS_DIR   = os.path.join(
     os.path.dirname(__file__), "inputs",
@@ -51,7 +58,8 @@ INPUTS_DIR   = os.path.join(
 )
 MNLI_DIR     = os.path.join(os.path.dirname(__file__), "outputs", "mnli")
 OUT_CSV      = os.path.join(os.path.dirname(__file__), "outputs", "alignment_summary_mnli.csv")
-MODEL_NAME   = "cross-encoder/nli-MiniLM2-L6-H768"
+MODEL_NAME   = "cross-encoder/nli-deberta-v3-base"
+MAX_LENGTH   = 512          # DeBERTa-v3-base supports up to 512 tokens
 DEFAULT_THRESHOLD = 0.45
 
 
@@ -66,17 +74,28 @@ def _split_camel(name: str) -> str:
     return s.lower().strip()
 
 
-def _build_description(ent_name: str, attrs: list[dict]) -> str:
+def _build_description(
+    ent_name: str,
+    attrs: list[dict],
+    ancestors: list[str] | None = None,
+) -> str:
     """
-    Build a short natural-language description of an entity for NLI input.
+    Build a natural-language description of an entity for NLI input.
+
+    Includes ancestor chain context ("part of: X, Y") when provided.
 
     Example output:
-      "A brake rotor entity with attributes: outer diameter (Distance),
-       surface temperature (Temperature), operational status (OperationalState)"
+      "A cylinder block (part of: engine) entity with attributes:
+       block id (Identifier), bore diameter (Distance), cylinder count (Count)."
     """
     name_text = _split_camel(ent_name)
+
+    ancestor_text = ""
+    if ancestors:
+        ancestor_text = " (part of: " + ", ".join(_split_camel(a) for a in ancestors) + ")"
+
     if not attrs:
-        return f"A {name_text} entity."
+        return f"A {name_text}{ancestor_text} entity."
 
     attr_parts = []
     seen_types: set[str] = set()
@@ -89,8 +108,50 @@ def _build_description(ent_name: str, attrs: list[dict]) -> str:
         else:
             attr_parts.append(attr_label)
 
-    attr_text = ", ".join(attr_parts[:12])   # cap at 12 to stay within token limit
-    return f"A {name_text} entity with attributes: {attr_text}."
+    attr_text = ", ".join(attr_parts[:12])
+    return f"A {name_text}{ancestor_text} entity with attributes: {attr_text}."
+
+
+def _child_summary(
+    ent_name: str,
+    emap: dict[str, list[dict]],
+    max_children: int = 3,
+    max_attrs_per_child: int = 3,
+) -> list[str]:
+    """
+    Summarise the observable attributes of depth-1 entity-type children.
+
+    Only attributes whose type is itself an entity in the same model are
+    expanded; their own observable (non-entity) attributes are listed inline.
+    This gives abstract composite entities richer descriptions without
+    requiring changes to the scoring logic.
+
+    Returns a list of strings like "cylinder block [bore diameter, cylinder count]".
+    """
+    attrs       = emap.get(ent_name, [])
+    entity_names = set(emap.keys())
+    summaries: list[str] = []
+
+    for a in attrs:
+        child_type = a.get("type", "")
+        if child_type not in entity_names:
+            continue                        # observable-type attribute, skip
+        if len(summaries) >= max_children:
+            break
+
+        child_obs = [
+            _split_camel(ca.get("name", ""))
+            for ca in emap.get(child_type, [])
+            if ca.get("type", "") not in entity_names   # only observable attrs
+        ][:max_attrs_per_child]
+
+        label = _split_camel(child_type)
+        if child_obs:
+            summaries.append(f"{label} [{', '.join(child_obs)}]")
+        else:
+            summaries.append(label)
+
+    return summaries
 
 
 # --------------------------------------------------------------------------- #
@@ -109,6 +170,23 @@ def _build_json_index() -> dict[tuple[str, str], tuple[str, dict]]:
     return index
 
 
+def _vmodel_names(json_index: dict) -> set[str]:
+    """
+    Derive the set of versioned-model names (V1/V2/V3) by inspecting input
+    file names — no hardcoded domain or version strings.
+
+    V-model files are named like  *_model_v<digit>*.json.
+    Variation files are named like *_variation_*.json and are excluded.
+    Everything is read from the json_index built by _build_json_index().
+    """
+    result: set[str] = set()
+    for (_, model_name), (jf, _) in json_index.items():
+        fname = os.path.basename(jf).lower()
+        if re.search(r"_model_v\d", fname):
+            result.add(model_name)
+    return result
+
+
 def _entity_map(json_data: dict) -> dict[str, list[dict]]:
     """entity_name -> list of attribute dicts"""
     result: dict[str, list[dict]] = {}
@@ -116,6 +194,50 @@ def _entity_map(json_data: dict) -> dict[str, list[dict]]:
         name  = ent.get("entityName") or ent.get("name", "")
         attrs = ent.get("entityAttributes") or ent.get("attributes", [])
         result[name] = attrs
+    return result
+
+
+def _build_parent_map(emap: dict[str, list[dict]]) -> dict[str, list[str]]:
+    """
+    Build a reverse containment index: entity_name -> list of entity names
+    that directly contain it (i.e. have an attribute whose type == entity_name).
+    """
+    parent_map: dict[str, list[str]] = {name: [] for name in emap}
+    for container, attrs in emap.items():
+        for attr in attrs:
+            child = attr.get("type", "")
+            if child in parent_map and container not in parent_map[child]:
+                parent_map[child].append(container)
+    return parent_map
+
+
+def _ancestors(
+    ent_name: str,
+    parent_map: dict[str, list[str]],
+    depth: int = 2,
+) -> list[str]:
+    """
+    Return all direct parents up to *depth* levels via BFS (no duplicates).
+    Root entities — those with no container of their own — are excluded.
+    Including roots adds noise: they appear in every ontology and inflate
+    entailment scores against the top-level entity in the matched model.
+    """
+    seen: set[str] = set()
+    result: list[str] = []
+    current = list(parent_map.get(ent_name, []))
+    for _ in range(depth):
+        next_level: list[str] = []
+        for p in current:
+            if p not in seen:
+                # Root entities have an empty parent list — skip them.
+                if not parent_map.get(p):
+                    continue
+                seen.add(p)
+                result.append(p)
+                next_level.extend(parent_map.get(p, []))
+        current = next_level
+        if not current:
+            break
     return result
 
 
@@ -136,7 +258,9 @@ class NLIScorer:
               f"({'GPU: ' + torch.cuda.get_device_name(0) if self._device.type == 'cuda' else 'CPU'})")
         print(f"[MNLI] Loading model: {model_name}")
         self._tok   = AutoTokenizer.from_pretrained(model_name)
-        self._model = AutoModelForSequenceClassification.from_pretrained(model_name)
+        self._model = AutoModelForSequenceClassification.from_pretrained(
+            model_name, low_cpu_mem_usage=True
+        )
         self._model.to(self._device)
         self._model.eval()
         self._torch = torch
@@ -155,7 +279,7 @@ class NLIScorer:
             return self._cache[key]
         import torch
         inputs = self._tok(premise, hypothesis,
-                           return_tensors="pt", truncation=True, max_length=256)
+                           return_tensors="pt", truncation=True, max_length=MAX_LENGTH)
         inputs = {k: v.to(self._device) for k, v in inputs.items()}
         with torch.no_grad():
             logits = self._model(**inputs).logits
@@ -231,13 +355,17 @@ def _match_pair(
     other_data = json_index.get((domain, other_name), (None, {}))[1]
     ref_emap   = _entity_map(ref_data)
     other_emap = _entity_map(other_data)
+    ref_pmap   = _build_parent_map(ref_emap)
+    other_pmap = _build_parent_map(other_emap)
 
     # Build candidate pairs: missing × all larger entities
     pairs = []
     for u in missing_ref:
-        desc_u = _build_description(u, ref_emap.get(u, []))
+        desc_u = _build_description(u, ref_emap.get(u, []),
+                                    _ancestors(u, ref_pmap))
         for e in larger_entities:
-            desc_e = _build_description(e, other_emap.get(e, []))
+            desc_e = _build_description(e, other_emap.get(e, []),
+                                        _ancestors(e, other_pmap))
             pairs.append((u, desc_u, e, desc_e))
 
     print(f"  [{domain}] {ref_name[:35]} | {len(missing_ref)} unmapped × "
@@ -259,8 +387,10 @@ def _match_pair(
             "smaller_entity": name_u,
             "larger_entity":  name_e,
             "mnli_score":     round(score, 4),
-            "desc_smaller":   _build_description(name_u, ref_emap.get(name_u, [])),
-            "desc_larger":    _build_description(name_e, other_emap.get(name_e, [])),
+            "desc_smaller":   _build_description(name_u, ref_emap.get(name_u, []),
+                                                 _ancestors(name_u, ref_pmap)),
+            "desc_larger":    _build_description(name_e, other_emap.get(name_e, []),
+                                                 _ancestors(name_e, other_pmap)),
         })
         used_ref.add(name_u)
         used_other.add(name_e)
@@ -288,9 +418,11 @@ def _match_pair(
 # Main                                                                         #
 # --------------------------------------------------------------------------- #
 
-def run(threshold: float = DEFAULT_THRESHOLD, domain_filter: str | None = None) -> None:
+def run(threshold: float = DEFAULT_THRESHOLD, domain_filter: str | None = None,
+        all_models: bool = False) -> None:
     os.makedirs(MNLI_DIR, exist_ok=True)
     json_index = _build_json_index()
+    vmodels    = _vmodel_names(json_index)   # derived from input file names
     scorer     = NLIScorer()
 
     report_files = sorted(glob.glob(
@@ -311,13 +443,9 @@ def run(threshold: float = DEFAULT_THRESHOLD, domain_filter: str | None = None) 
         name_a = meta["model_a"]
         name_b = meta["model_b"]
 
-        # Skip variation-model pairs (low coverage anyway, too many false positives)
-        v_tags = ["_V1_", "_V2_", "_V3_", "Model_V1", "Model_V2", "Model_V3"]
-        is_vmodel = (
-            any(t in name_a for t in v_tags) and
-            any(t in name_b for t in v_tags)
-        )
-        if not is_vmodel:
+        # Only process pairs where both models are versioned (V1/V2/V3) models,
+        # not variation models. The vmodels set is derived from input file names.
+        if not all_models and (name_a not in vmodels or name_b not in vmodels):
             continue
 
         result = _match_pair(report, json_index, scorer, threshold, domain)
@@ -362,5 +490,7 @@ if __name__ == "__main__":
                         help="Minimum mutual entailment score (default 0.45)")
     parser.add_argument("--domain", type=str, default=None,
                         help="Run only for one domain (e.g. Automobile)")
+    parser.add_argument("--all-models", action="store_true",
+                        help="Include non-versioned models (Component Network etc.)")
     args = parser.parse_args()
-    run(threshold=args.threshold, domain_filter=args.domain)
+    run(threshold=args.threshold, domain_filter=args.domain, all_models=args.all_models)

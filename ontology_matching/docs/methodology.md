@@ -129,6 +129,63 @@ Threshold 0.45 was selected empirically: it admits confident functional synonyms
 
 ---
 
+## Stage 3: Subsumption Detection
+
+### Motivation
+
+Stages 1 and 2 enforce a strict **1:1 mapping** constraint. This is correct for equivalence — two entities that describe the same concept at the same level of abstraction. However, the residual analysis revealed a consistent pattern across all domains: fine-grained entities in one model (e.g., `CylinderBlock`, `CylinderHead`, `Cylinder`) have no equivalents in the other model because the other model expresses the same territory as a single abstract entity (e.g., `Engine`). This is a **subsumption** relationship, not equivalence, and requires a different matching structure.
+
+### Asymmetric Entailment as a Subsumption Signal
+
+Stage 2 uses *mutual* entailment (`min(A→B, B→A)`) to detect equivalence. The same NLI model produces an **asymmetric** signal when one entity is more specific than another:
+
+```
+entail(U → E) high   :  U's description is consistent with / implied by E
+entail(E → U) low    :  E does not narrow down to U — E is more general
+asymmetry = entail(U→E) − entail(E→U) > threshold
+```
+
+When multiple residual entities U₁, U₂, … from one model each satisfy this criterion against the same entity E in the other model, E is a semantic abstraction that **covers** the group. This is the 1:many relationship the 1:1 constraint cannot capture.
+
+### Both Directions
+
+Subsumption can run in either direction regardless of model size:
+
+- **`large_abstracts_small`**: One entity in the larger model is an abstraction of several fine-grained entities in the smaller model. Most common pattern: V3 system entities covering V1 component entities.
+- **`small_abstracts_large`**: One abstract entity in the smaller model covers several entities in the larger model. Occurs when the smaller model is architecturally high-level (e.g., `DiagnosticsLayer` in a small V3 model subsuming `ImagingSuite`, `CardiologyLab`, `PulmonaryLab` in a larger V1 model).
+
+### Algorithm
+
+```
+For each residual entity U (not matched by Stage 1 or Stage 2):
+  For each entity E in the other model:
+    fwd       = entail(desc_U → desc_E)
+    rev       = entail(desc_E → desc_U)
+    asymmetry = fwd − rev
+
+  If fwd ≥ 0.50 AND asymmetry ≥ 0.15:
+    candidate: E subsumes U  (direction: large_abstracts_small)
+
+Group by abstract entity E:
+  If multiple U_i map to the same E → report subsumption group
+
+Run the inverse direction symmetrically.
+```
+
+### Output: Three-Tier Alignment Status
+
+Stage 3 introduces a new alignment status, giving three distinct outcomes per entity:
+
+| Status | Meaning | Detected by |
+|---|---|---|
+| **matched** | 1:1 semantic equivalence | AML or Stage 2 MNLI |
+| **covered** | Subsumed by / subsumes an abstract entity | Stage 3 asymmetric MNLI |
+| **absent** | No correspondence found at any level | None of the three stages |
+
+This distinction is important: "covered" entities are not absent from the other ontology — they are present at a different level of granularity. "Absent" entities represent genuine modelling scope differences.
+
+---
+
 ## Combined Results
 
 | Domain      | Pair                 | AML Coverage | MNLI Recovered | Combined Coverage |
@@ -318,5 +375,5 @@ Three directions merit investigation:
 
 ---
 
-*Pipeline implementation:* `ontology_matching/generate_alignment_reports.py` (AML stage), `ontology_matching/mnli_matcher.py` (MNLI stage), `ontology_matching/list_unmapped.py` (residual analysis).
-*Output artefacts:* `outputs/alignment_summary.csv`, `outputs/alignment_summary_mnli.csv`, `outputs/unmapped_summary.csv`, `outputs/mnli/`.
+*Pipeline implementation:* `ontology_matching/generate_alignment_reports.py` (Stage 1 — AML), `ontology_matching/mnli_matcher.py` (Stage 2 — MNLI equivalence), `ontology_matching/subsumption_matcher.py` (Stage 3 — asymmetric subsumption), `ontology_matching/list_unmapped.py` (residual analysis).
+*Output artefacts:* `outputs/alignment_summary.csv`, `outputs/alignment_summary_mnli.csv`, `outputs/alignment_summary_subsumption.csv`, `outputs/unmapped_summary.csv`, `outputs/mnli/`, `outputs/subsumption/`.

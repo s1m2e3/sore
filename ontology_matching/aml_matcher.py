@@ -42,9 +42,10 @@ from itertools import combinations
 from typing import Any
 
 # Similarity thresholds
-MATCH_THRESHOLD   = 0.30   # minimum combined score to include a pair
-LEXICAL_WEIGHT    = 0.60
-TYPE_SIM_WEIGHT   = 0.40
+MATCH_THRESHOLD   = 0.28   # minimum combined score to include a pair
+LEXICAL_WEIGHT    = 0.50
+TYPE_SIM_WEIGHT   = 0.25
+ASSOC_SIM_WEIGHT  = 0.25
 
 
 # --------------------------------------------------------------------------- #
@@ -80,6 +81,27 @@ def _type_jaccard(types_a: set[str], types_b: set[str]) -> float:
     return len(types_a & types_b) / len(types_a | types_b)
 
 
+def _assoc_sim(info_a: dict, info_b: dict) -> float:
+    """
+    Association-vocabulary similarity between two entities.
+
+    Two sub-signals, take the max:
+    1. Token-set Jaccard over all association *name* tokens the entity participates in.
+       (e.g. "AutomobileComposedWithBodyFrame" -> {"automobile","composed","with","body","frame"})
+    2. Token-set Jaccard over the *partner entity names* the entity is directly connected to.
+       (e.g. Engine connected to Transmission and Crankshaft -> tokens of those names)
+    """
+    tok_a = info_a.get("assoc_tokens", set())
+    tok_b = info_b.get("assoc_tokens", set())
+    token_jac = (len(tok_a & tok_b) / len(tok_a | tok_b)) if (tok_a or tok_b) else 0.0
+
+    pt_a = info_a.get("partner_tokens", set())
+    pt_b = info_b.get("partner_tokens", set())
+    partner_jac = (len(pt_a & pt_b) / len(pt_a | pt_b)) if (pt_a or pt_b) else 0.0
+
+    return max(token_jac, partner_jac)
+
+
 # --------------------------------------------------------------------------- #
 # Model parsing                                                                #
 # --------------------------------------------------------------------------- #
@@ -108,13 +130,30 @@ def _parse_model(data: dict[str, Any]) -> dict[str, dict]:
         for attr in raw_attrs:
             attr_type = attr.get("type", "")
             attr_names.add(attr.get("name", ""))
-            # Include type if it looks like an observable (not another entity)
             if attr_type in declared_obs or (
-                declared_obs == set() and attr_type  # Type-B: include all
+                declared_obs == set() and attr_type
             ):
                 obs_types.add(attr_type)
 
-        entities[ent_name] = {"obs_types": obs_types, "attr_names": attr_names}
+        entities[ent_name] = {
+            "obs_types":      obs_types,
+            "attr_names":     attr_names,
+            "assoc_tokens":   set(),   # filled below
+            "partner_tokens": set(),   # filled below
+        }
+
+    # Build association context per entity (handles both JSON schemas)
+    for assoc in data.get("associations", []):
+        assoc_name   = assoc.get("associationName", "") or assoc.get("name", "")
+        participants = assoc.get("associationParticipants", []) or assoc.get("participants", [])
+        name_tokens  = set(_tokenize(assoc_name))
+        for p in participants:
+            if p not in entities:
+                continue
+            entities[p]["assoc_tokens"].update(name_tokens)
+            for other in participants:
+                if other != p:
+                    entities[p]["partner_tokens"].update(_tokenize(other))
 
     return entities
 
@@ -192,9 +231,10 @@ class AMLMatcher:
         candidates: list[tuple[float, str, str]] = []
         for name_a, info_a in entities_a.items():
             for name_b, info_b in entities_b.items():
-                lex  = _lexical_sim(name_a, name_b)
-                tsim = _type_jaccard(info_a["obs_types"], info_b["obs_types"])
-                score = LEXICAL_WEIGHT * lex + TYPE_SIM_WEIGHT * tsim
+                lex   = _lexical_sim(name_a, name_b)
+                tsim  = _type_jaccard(info_a["obs_types"], info_b["obs_types"])
+                asim  = _assoc_sim(info_a, info_b)
+                score = LEXICAL_WEIGHT * lex + TYPE_SIM_WEIGHT * tsim + ASSOC_SIM_WEIGHT * asim
                 if score >= MATCH_THRESHOLD:
                     candidates.append((score, name_a, name_b))
 
