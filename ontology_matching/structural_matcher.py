@@ -2,33 +2,61 @@
 """
 structural_matcher.py
 ---------------------
-Stage 2: Structural refinement using Topological Lin-Similarity.
+Stage 2: Structural refinement using semantic-first pairing with topology
+         validation.
 
-This stage identifies candidate matches for entities that remain unmapped 
+This stage identifies candidate matches for entities that remain unmapped
 after lexical (AML), semantic (MNLI), and structural (Child/Assoc) stages.
 
 Logic
 -----
-1. Build an undirected topological graph for both ontologies (V1 and V2).
+1. Build an undirected topological graph for both ontologies.
 2. Treat all JSON relationships (nesting and associations) as topological edges.
-3. Calculate Intrinsic Information Content (IC) for all nodes based on degree.
-4. For every unmatched entity in Model A:
-   a. Find its closest "anchors" (entities already matched in previous stages).
-   b. Look at the neighbors of those anchors in Model B.
-   c. Calculate Lin Similarity between the unmatched A-entity and the candidate B-neighbor.
-   d. Assign matches based on the highest Lin-IC score.
+3. Pass 1 — Semantic-first with topology gate:
+   a. Batch-encode ALL unmatched entities in A and B with SBERT.
+   b. Compute full cosine similarity matrix (|unmatched_A| × |unmatched_B|).
+   c. For every pair (u_a, u_b) with cos_sim ≥ threshold:
+        - Topology gate: u_a must be within BFS distance 2 of some anchor
+          anchor_a in G_a, AND u_b must be a direct neighbour of anchor_a's
+          matched counterpart anchor_b in G_b.
+        - WordNet gate (borderline zone threshold ≤ cos < WN_GATE_UPPER):
+          compound_sim(u_a, u_b) ≥ WN_MIN_SCORE.
+        - Score = cos_sim × dist_weight (× ROOT_ANCHOR_PENALTY if anchor is
+          a synthetic root anchor).
+   d. Global greedy assignment: sort all topology-valid candidates by score
+      (descending), assign best non-conflicting pair for each entity.
+4. Pass 2 (fallback): association-vocabulary Jaccard similarity for entities
+   that still have no candidate after Pass 1.
 
-Formula
+Semantic-first benefits over previous topology-first design
+-----------------------------------------------------------
+  - Full cosine matrix computed once per pair (batch GPU inference).
+  - Topology is a gate, not a generator — topology-adjacent pairs that are
+    semantically wrong are suppressed; semantically strong pairs that happen
+    to have topology support are always found.
+  - Global greedy assignment eliminates sequential first-pick bias.
+
+Scoring
 -------
-Lin Similarity = (2 * IC(LCA)) / (IC(Entity_A) + IC(Entity_B))
-Where LCA is the shared matched anchor (the common context).
+  score(u_a, u_b) = cos_sim × dist_weight [× ROOT_ANCHOR_PENALTY]
+
+  - cos_sim      = cosine similarity of L2-normalised SBERT embeddings after
+                   camelCase splitting ("BrakeRotor" → "brake rotor").
+  - dist_weight  = 1 / (d_a + 1), where d_a = BFS distance from u_a to
+                   the nearest anchor in G_a.
+  - ROOT_ANCHOR_PENALTY applied only when the validating anchor is a
+                   synthetic root anchor (domain-name match or WordNet root).
+
+Embedding model
+---------------
+  paraphrase-MiniLM-L6-v2  (already used by synonym_matcher.py in this pipeline)
 
 Usage
 -----
     cd ontology_matching
     python structural_matcher.py
     python structural_matcher.py --domain Automobile
-    python structural_matcher.py --threshold 0.6
+    python structural_matcher.py --threshold 0.45
 
 NOTE: This file is Stage 2 in the 8-stage pipeline.  Internal JSON keys
 (stage_matched etc.) intentionally retain their original naming; only the
@@ -43,6 +71,8 @@ import json
 import math
 import os
 import re
+import numpy as np
+import torch
 import networkx as nx
 from typing import Any
 
@@ -59,16 +89,100 @@ SUB_DIR     = os.path.join(BASE_DIR, "outputs", "subsumption")
 CHILD_DIR   = os.path.join(BASE_DIR, "outputs", "child")
 ASSOC_DIR   = os.path.join(BASE_DIR, "outputs", "association")
 SYN_DIR     = os.path.join(BASE_DIR, "outputs", "synonym")
+WN_DIR      = os.path.join(BASE_DIR, "outputs", "wordnet")
 STRUCT_DIR  = os.path.join(BASE_DIR, "outputs", "structural")
 
-DEFAULT_THRESHOLD = 0.5
+DEFAULT_THRESHOLD = 0.60   # minimum cos_sim for a cosine_struct match to be accepted
+SBERT_MODEL       = "paraphrase-MiniLM-L6-v2"
 
-# Lin-IC penalty applied when the only common ancestor is the injected domain-root
-# anchor.  A root-mediated match means "both entities are in the same domain",
-# which is trivially true and carries no discriminative structural signal.
-# At 0.2 a raw lin_sim of 1.0 becomes 0.2, which falls below DEFAULT_THRESHOLD,
-# effectively filtering pure root-anchor matches unless corroborated elsewhere.
-ROOT_ANCHOR_PENALTY = 0.20
+# WordNet validation gate (two-tier, applied to ALL matches):
+#
+# Tier 1 (0.60 ≤ cos < WN_GATE_UPPER):
+#   token-level compound_sim ≥ WN_MIN_SCORE (0.30) — catches false positives that
+#   share embedding neighbourhood but are semantically different sub-concepts.
+#
+# Tier 2 (cos ≥ WN_GATE_UPPER):
+#   full-entity synset path_similarity ≥ WN_FULL_MIN (0.15) — only blocks pairs
+#   where both entities have WordNet synsets AND those synsets are very distant.
+#   "SteeringWheel"↔"Wheel": path_sim(steering_wheel.n.01, wheel.n.01) = 0.143 → blocked.
+#   "Automobile"↔"Vehicle":  path_sim(car.n.01, vehicle.n.01)          = 0.200 → passes.
+#   When either entity has no compound synset the check is skipped (pass-through).
+WN_GATE_UPPER  = 0.75   # cosine threshold separating the two tiers
+WN_MIN_SCORE   = 0.30   # Tier 1 minimum: token-level compound_sim
+WN_FULL_MIN    = 0.15   # Tier 2 minimum: full-entity synset path_similarity
+
+from wordnet_reinforcer import compound_sim as _wn_compound_sim
+
+def _wn_full_entity_sim(name_a: str, name_b: str) -> float | None:
+    """Path similarity between two entity names treated as compound nouns.
+
+    Converts camelCase to underscore_form ("SteeringWheel" → "steering_wheel"),
+    looks up the first WordNet NOUN synset for each, and returns path_similarity.
+    Returns None if either entity has no compound synset — callers should treat
+    None as 'cannot determine; skip the check'.
+    """
+    from nltk.corpus import wordnet as wn
+    def _to_wn_key(name: str) -> str:
+        s = re.sub(r"([a-z])([A-Z])", r"\1 \2", name)
+        s = re.sub(r"([A-Z]+)([A-Z][a-z])", r"\1 \2", s)
+        return re.sub(r"\s+", "_", s.strip()).lower()
+
+    syns_a = wn.synsets(_to_wn_key(name_a), pos=wn.NOUN)
+    syns_b = wn.synsets(_to_wn_key(name_b), pos=wn.NOUN)
+    if not syns_a or not syns_b:
+        return None
+    sim = syns_a[0].path_similarity(syns_b[0])
+    return float(sim) if sim is not None else None
+
+# Root-anchor penalty: matches whose only structural prior is the injected
+# domain-root anchor carry very weak structural evidence. Discount so genuine
+# semantically similar matches still win, but root-only anchors are suppressed.
+ROOT_ANCHOR_PENALTY = 0.60  # multiplied into the cosine score (not the old 0.20)
+
+
+# --------------------------------------------------------------------------- #
+# Sentence-transformer encoder (lazy singleton)                               #
+# --------------------------------------------------------------------------- #
+
+class _SBERTEncoder:
+    """Lazy singleton wrapper around paraphrase-MiniLM-L6-v2."""
+    _instance = None
+
+    @classmethod
+    def get(cls) -> "_SBERTEncoder":
+        if cls._instance is None:
+            cls._instance = cls()
+        return cls._instance
+
+    def __init__(self) -> None:
+        from sentence_transformers import SentenceTransformer
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        print(f"  [S2] Loading '{SBERT_MODEL}' on {device} …")
+        self._model = SentenceTransformer(SBERT_MODEL, device=device)
+
+    def encode(self, names: list[str]) -> np.ndarray:
+        """Return L2-normalised embeddings for a list of entity names.
+        Names are camelCase-split before encoding so 'BrakeRotor' → 'brake rotor'.
+        """
+        texts = [_camel_split(n) for n in names]
+        return self._model.encode(
+            texts,
+            convert_to_numpy=True,
+            normalize_embeddings=True,
+            show_progress_bar=False,
+        )
+
+    def cosine(self, name_a: str, name_b: str) -> float:
+        """Cosine similarity between two entity names (dot product after L2-norm)."""
+        embs = self.encode([name_a, name_b])
+        return float(np.dot(embs[0], embs[1]))
+
+
+def _camel_split(name: str) -> str:
+    """Split camelCase/PascalCase to lower-cased tokens: 'BrakeRotor' → 'brake rotor'."""
+    s = re.sub(r"([a-z])([A-Z])", r"\1 \2", name)
+    s = re.sub(r"([A-Z]+)([A-Z][a-z])", r"\1 \2", s)
+    return re.sub(r"[^A-Za-z0-9]+", " ", s).strip().lower()
 
 # --------------------------------------------------------------------------- #
 # Helpers                                                                      #
@@ -158,18 +272,6 @@ def _build_undirected_graph(json_data: dict) -> nx.Graph:
 
     return G
 
-def _calculate_ic(G: nx.Graph) -> dict[str, float]:
-    """Calculate Intrinsic Information Content based on node degree."""
-    ic_map = {}
-    total_nodes = len(G.nodes)
-    if total_nodes <= 1:
-        return {n: 1.0 for n in G.nodes}
-    
-    max_deg = max(dict(G.degree()).values()) if total_nodes > 0 else 1
-    for node, deg in G.degree():
-        # Generality is proportional to degree; IC is 1 - generality
-        ic_map[node] = 1 - (math.log(deg + 1) / math.log(max_deg + 2))
-    return ic_map
 
 def _get_anchors(report: dict, domain: str, stem: str) -> dict[str, str]:
     """
@@ -192,7 +294,9 @@ def _get_anchors(report: dict, domain: str, stem: str) -> dict[str, str]:
             for m in _load(p).get("new_matches", []):
                 anchors[m[s_key]] = m[l_key]
 
-    # Add stages S2, S4, S5, S6 (S3 is subsumption/groups, handled separately if needed)
+    # S1b WordNet reinforcement — must be loaded before MNLI/child/assoc/synonym
+    # so that semantic root pairs (e.g. "Vehicle"↔"Automobile") are anchors for BFS
+    _add_stage(WN_DIR, "wordnet", "smaller_entity", "larger_entity")
     _add_stage(MNLI_DIR, "mnli", "smaller_entity", "larger_entity")
     _add_stage(CHILD_DIR, "child", "smaller_entity", "larger_entity")
     _add_stage(ASSOC_DIR, "assoc", "smaller_entity", "larger_entity")
@@ -232,9 +336,18 @@ def _find_root_anchors(
         anchor so that Lin-IC propagation has a starting point even when S1 found
         nothing lexically.
 
-    Strategy 2 — Highest-degree hub:
+    Strategy 2 — Highest-degree hub (Jaccard):
         Fallback: find the most-connected entity node in A that has a name-similar
         counterpart in B (Jaccard >= 0.5 on camelCase tokens).
+
+    Strategy 3 — WordNet semantic root detection:
+        For cross-type pairs (e.g. V-model vs Network model) where lexical names
+        diverge ("Vehicle" vs "Automobile", "Chassis" vs "Automobile"), Strategies
+        1 and 2 both fail.  Strategy 3 scores the top-3 highest-degree nodes in A
+        against all B nodes using WordNet path_similarity on constituent tokens.
+        The best pair above 0.35 is injected as the root anchor.
+        This ensures BFS propagation always has at least one starting point even
+        when root entities are named differently across model types.
     """
     domain_tokens = _tokenize(domain)
     entity_nodes_a = {n for n, d in G_a.nodes(data=True) if d.get("node_type") == "entity"}
@@ -256,7 +369,7 @@ def _find_root_anchors(
     if anchors:
         return anchors
 
-    # Strategy 2: highest-degree entity hub with name similarity
+    # Strategy 2: highest-degree entity hub with name similarity (Jaccard)
     if not entity_nodes_a or not entity_nodes_b:
         return anchors
     top_a = max(entity_nodes_a, key=lambda n: G_a.degree(n))
@@ -272,6 +385,22 @@ def _find_root_anchors(
                 best_sim, best_b = sim, eb
     if best_b and best_sim >= 0.5:
         anchors[top_a] = best_b
+        return anchors
+
+    # Strategy 3: WordNet semantic similarity on top-3 highest-degree nodes.
+    # Handles cases like "Vehicle"↔"Automobile" or "Chassis"↔"Automobile" where
+    # token Jaccard is 0 but the concepts are semantically close/equivalent.
+    top3_a = sorted(entity_nodes_a, key=lambda n: G_a.degree(n), reverse=True)[:3]
+    best_wn, best_ea, best_eb = 0.0, None, None
+    for ea in top3_a:
+        for eb in entity_nodes_b:
+            if eb in existing_matched_b:
+                continue
+            wn_score, _, _ = _wn_compound_sim(ea, eb)
+            if wn_score > best_wn:
+                best_wn, best_ea, best_eb = wn_score, ea, eb
+    if best_eb and best_wn >= 0.35:
+        anchors[best_ea] = best_eb
 
     return anchors
 
@@ -337,7 +466,6 @@ def run_pair(domain: str, report_path: str, threshold: float) -> dict | None:
         
     json_a, json_b = _load(path_a), _load(path_b)
     G_a, G_b = _build_undirected_graph(json_a), _build_undirected_graph(json_b)
-    ic_a, ic_b = _calculate_ic(G_a), _calculate_ic(G_b)
 
     # Build association-vocabulary indexes for the fallback pass
     vocab_a = _build_assoc_vocab(json_a)
@@ -350,7 +478,7 @@ def run_pair(domain: str, report_path: str, threshold: float) -> dict | None:
 
     # Bootstrap: inject domain-root entity as synthetic anchor if not already matched
     root_anchors = _find_root_anchors(json_a, json_b, domain, G_a, G_b, matched_b)
-    root_anchor_set: set[str] = set()   # track which anchors are root-only injections
+    root_anchor_set: set[str] = set()
     for ea, eb in root_anchors.items():
         if ea not in matched_a and eb not in matched_b:
             anchors_ab[ea] = eb
@@ -359,8 +487,6 @@ def run_pair(domain: str, report_path: str, threshold: float) -> dict | None:
             root_anchor_set.add(ea)
 
     # Derive association-node anchors from the entity anchors now in hand.
-    # These allow Lin-IC propagation to backtrack through association nodes
-    # as common ancestors when searching for unmatched neighbour candidates.
     assoc_anchors = _derive_association_anchors(G_a, G_b, anchors_ab)
     anchors_ab.update(assoc_anchors)
     matched_a.update(assoc_anchors.keys())
@@ -370,56 +496,125 @@ def run_pair(domain: str, report_path: str, threshold: float) -> dict | None:
     unmatched_a = [e["name"] for e in report["model_a"]["entities"] if e["name"] not in matched_a]
     unmatched_b = [e["name"] for e in report["model_b"]["entities"] if e["name"] not in matched_b]
 
+    # Lazy-load the sentence encoder (shared across all pairs in a run)
+    encoder = _SBERTEncoder.get()
+
     new_matches = []
 
-    # Pass 1: Lin-IC propagation from existing anchors
-    for u_a in list(unmatched_a):
-        if u_a not in G_a: continue
+    # ---------------------------------------------------------------------- #
+    # Pass 1: Semantic-first with topology gate.                              #
+    #                                                                         #
+    # Step A — Batch encode all unmatched entities in one GPU call each.      #
+    # Step B — Compute full cosine matrix.                                    #
+    # Step C — For each pair above the cosine threshold, check topology:      #
+    #           u_a must be within BFS-2 of an anchor in G_a whose            #
+    #           counterpart in G_b is within BFS-2 of u_b.                   #
+    # Step D — Apply WordNet gate in the borderline cosine zone.              #
+    # Step E — Global greedy assignment (sort by score, no first-pick bias).  #
+    # ---------------------------------------------------------------------- #
 
-        candidates = []
-        near_anchors_a = _get_near_anchors(u_a, G_a, matched_a)
+    unmatched_b_set = set(unmatched_b)
+    a_in_graph = [u for u in unmatched_a if u in G_a]
 
-        for anc_a, d_a in near_anchors_a:
-            anc_b = anchors_ab[anc_a]
-            if anc_b not in G_b: continue
+    if a_in_graph and unmatched_b:
+        # Step A: batch encode
+        embs_a = encoder.encode(a_in_graph)           # shape (|A|, dim)
+        embs_b = encoder.encode(unmatched_b)           # shape (|B|, dim)
+        cos_matrix = embs_a @ embs_b.T                 # shape (|A|, |B|)
 
-            is_root_anchor = anc_a in root_anchor_set
+        # Pre-compute per-anchor: which unmatched B nodes are within BFS depth 2?
+        # Depth 2 (vs depth 1) extends reach through intermediate nodes such as
+        # association nodes or matched intermediate entities, catching pairs like
+        # Piston↔PistonAssembly that are two hops from the nearest anchor.
+        anc_b_nbrs: dict[str, set[str]] = {}
+        for anc_b in set(anchors_ab.values()):
+            if anc_b not in G_b:
+                continue
+            reachable: set[str] = set()
+            visited = {anc_b}
+            queue: list[tuple[str, int]] = [(anc_b, 0)]
+            while queue:
+                curr, d = queue.pop(0)
+                if d >= 2:
+                    continue
+                for nb in G_b.neighbors(curr):
+                    if nb not in visited:
+                        visited.add(nb)
+                        if nb in unmatched_b_set:
+                            reachable.add(nb)
+                        queue.append((nb, d + 1))
+            anc_b_nbrs[anc_b] = reachable
 
-            for u_b in G_b.neighbors(anc_b):
-                if u_b in unmatched_b:
-                    ic_lca = (ic_a[anc_a] + ic_b[anc_b]) / 2
-                    denom = ic_a[u_a] + ic_b[u_b]
-                    lin_sim_raw = (2 * ic_lca / denom) if denom > 0 else 0
+        # Step B/C/D: collect all topology-valid candidates
+        all_candidates: list[dict] = []
+        for i, u_a in enumerate(a_in_graph):
+            near_a = _get_near_anchors(u_a, G_a, matched_a)
+            if not near_a:
+                continue
 
-                    # Penalize matches whose only common ancestor is the injected
-                    # domain-root anchor: "both are in the same domain" is not a
-                    # structural signal — discount heavily so genuine matches survive.
-                    if is_root_anchor:
-                        lin_sim = lin_sim_raw * ROOT_ANCHOR_PENALTY
-                    else:
-                        lin_sim = lin_sim_raw
+            for j, u_b in enumerate(unmatched_b):
+                cos_sim = float(cos_matrix[i, j])
+                if cos_sim < threshold:
+                    continue
 
-                    dist_weight = 1.0 / (d_a + 1)
-                    score = lin_sim * dist_weight
+                # Topology gate: find the best (highest dist_weight) anchor that
+                # connects u_a → anc_a → anc_b → u_b
+                best_dw, best_is_root = 0.0, False
+                for anc_a, d_a in near_a:
+                    anc_b = anchors_ab.get(anc_a)
+                    if anc_b and u_b in anc_b_nbrs.get(anc_b, set()):
+                        dw = 1.0 / (d_a + 1)
+                        if dw > best_dw:
+                            best_dw = dw
+                            best_is_root = anc_a in root_anchor_set
+                if best_dw == 0.0:
+                    continue  # no topology support — discard
 
-                    if score >= threshold:
-                        candidates.append({
-                            "smaller_entity": u_a,
-                            "larger_entity": u_b,
-                            "struct_score": round(score, 4),
-                            "lin_sim": round(lin_sim, 4),
-                            "lin_sim_raw": round(lin_sim_raw, 4),
-                            "lca_is_root_anchor": is_root_anchor,
-                            "anchor": anc_a,
-                            "method": "lin_ic"
-                        })
+                # Step D: Two-tier WordNet gate (applied to ALL candidates).
+                #
+                # Tier 1 (borderline cosine): token-level compound_sim catches pairs
+                # like "Flywheel"↔"Wheel" that share embedding space but differ semantically.
+                #
+                # Tier 2 (high cosine): full-entity synset path_similarity catches pairs
+                # like "SteeringWheel"↔"Wheel" (cos=0.82) where a sub-token match inflates
+                # compound_sim but the compound synsets are genuinely distant (0.143 < 0.15).
+                # Pairs with no compound synset (e.g. "AxleAssembly") skip Tier 2.
+                if cos_sim < WN_GATE_UPPER:
+                    wn_score, _, _ = _wn_compound_sim(u_a, u_b)
+                    if wn_score < WN_MIN_SCORE:
+                        continue
+                else:
+                    full_sim = _wn_full_entity_sim(u_a, u_b)
+                    if full_sim is not None and full_sim < WN_FULL_MIN:
+                        continue
 
-        if candidates:
-            best = max(candidates, key=lambda x: x["struct_score"])
-            new_matches.append(best)
-            if best["larger_entity"] in unmatched_b:
-                unmatched_b.remove(best["larger_entity"])
-            unmatched_a.remove(u_a)
+                score = cos_sim * best_dw
+                if best_is_root:
+                    score *= ROOT_ANCHOR_PENALTY
+
+                all_candidates.append({
+                    "smaller_entity":     u_a,
+                    "larger_entity":      u_b,
+                    "struct_score":       round(score, 4),
+                    "cos_sim":            round(cos_sim, 4),
+                    "lca_is_root_anchor": best_is_root,
+                    "method":             "cosine_struct",
+                })
+
+        # Step E: global greedy assignment — best score wins, no conflicts
+        all_candidates.sort(key=lambda x: x["struct_score"], reverse=True)
+        assigned_a: set[str] = set()
+        assigned_b: set[str] = set()
+        for cand in all_candidates:
+            if cand["smaller_entity"] in assigned_a or cand["larger_entity"] in assigned_b:
+                continue
+            assigned_a.add(cand["smaller_entity"])
+            assigned_b.add(cand["larger_entity"])
+            new_matches.append(cand)
+
+        # Update unmatched lists for Pass 2
+        unmatched_a = [u for u in unmatched_a if u not in assigned_a]
+        unmatched_b = [u for u in unmatched_b if u not in assigned_b]
 
     # Pass 2: Association-vocabulary fallback for entities with no Lin-IC candidates.
     # Applies to all pairs but is especially important for network ontologies where

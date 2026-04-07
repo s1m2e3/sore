@@ -92,17 +92,17 @@ def analyse_pair(report_path, struct_dir, s3_lookup, ref_mahal):
     # ── S2 Structural ─────────────────────────────────────────────────────────
     stem        = os.path.splitext(os.path.basename(report_path))[0]
     struct_path = os.path.join(struct_dir, domain, f"{stem}_structural.json")
-    s2_new      = 0
-    s2_avg_lin  = float("nan")
+    s2_new          = 0
+    s2_avg_cos      = float("nan")   # avg cosine_sim of cosine_struct matches
+    s2_avg_lin_raw  = float("nan")   # kept for legacy assoc_vocab rows (always 0.0)
     if os.path.exists(struct_path):
-        s2_data    = _load_json(struct_path)
-        matches    = s2_data.get("new_matches", [])
-        s2_new     = len(matches)
+        s2_data  = _load_json(struct_path)
+        matches  = s2_data.get("new_matches", [])
+        s2_new   = len(matches)
         if matches:
-            raw_lins   = [m["lin_sim"] for m in matches]
-            # lin_sim can be >1 (ratio of IC values); cap at 1 for normalisation
-            capped     = [min(ls, 1.0) for ls in raw_lins]
-            s2_avg_lin = sum(capped) / len(capped)
+            cos_sims = [m.get("cos_sim", 0.0) for m in matches]
+            s2_avg_cos     = sum(cos_sims) / len(cos_sims)
+            s2_avg_lin_raw = s2_avg_cos   # reuse column for display continuity
     s2_cov = s2_new / n_min if n_min > 0 else 0.0
 
     # ── S3 Mahalanobis + BC ───────────────────────────────────────────────────
@@ -138,7 +138,7 @@ def analyse_pair(report_path, struct_dir, s3_lookup, ref_mahal):
         # S2
         "s2_new":         s2_new,
         "s2_cov":         round(s2_cov, 4),
-        "s2_avg_lin":     round(s2_avg_lin, 4) if not math.isnan(s2_avg_lin) else "—",
+        "s2_avg_cos":     round(s2_avg_cos, 4) if not math.isnan(s2_avg_cos) else "—",
         # S3
         "mahalanobis":    round(mah, 4)      if not math.isnan(mah)      else "—",
         "mah_norm":       round(mah_norm, 4) if not math.isnan(mah_norm) else "—",
@@ -157,21 +157,20 @@ def _fmt(v, w=8):
 
 def print_domain(domain, rows):
     header = (
-        f"\n{'='*110}\n"
+        f"\n{'='*114}\n"
         f"  DOMAIN: {domain}\n"
-        f"{'='*110}\n"
+        f"{'='*114}\n"
         f"  {'Pair':<62} {'n_min':>5}  "
-        f"{'S1_cov':>6}  {'S2_cov':>6}  {'S2_lin':>6}  "
+        f"{'S1_cov':>6}  {'S2_cov':>6}  {'S2_cos':>6}  "
         f"{'Mah':>7}  {'MahN':>6}  {'BC':>8}  "
         f"{'sim':>6}  {'dist':>6}"
     )
     print(header)
-    print("  " + "-"*106)
+    print("  " + "-"*110)
 
     for r in rows:
         pair = f"{r['model_a']}  vs  {r['model_b']}"
         if len(pair) > 60:
-            # Shorten model names for display
             ma_short = r['model_a'].split()[-1] if ' ' in r['model_a'] else r['model_a'][-20:]
             mb_short = r['model_b'].split()[-1] if ' ' in r['model_b'] else r['model_b'][-20:]
             pair = f"{ma_short}  vs  {mb_short}"
@@ -179,7 +178,7 @@ def print_domain(domain, rows):
 
         line = (
             f"  {pair} {r['n_min']:>5}  "
-            f"{str(r['aml_cov']):>6}  {str(r['s2_cov']):>6}  {str(r['s2_avg_lin']):>6}  "
+            f"{str(r['aml_cov']):>6}  {str(r['s2_cov']):>6}  {str(r['s2_avg_cos']):>6}  "
             f"{str(r['mahalanobis']):>7}  {str(r['mah_norm']):>6}  {str(r['bc']):>8}  "
             f"{str(r['composite_sim']):>6}  {str(r['composite_dist']):>6}"
         )
