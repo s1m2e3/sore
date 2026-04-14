@@ -6,6 +6,10 @@ venv/
 outputs/
 cache/
 
+# Enriched ontology matching — generated intermediate and result files
+enriched_ontology_matching/pairs/
+enriched_ontology_matching/outputs/
+
 # Build artifacts
 __pycache__/
 *.pyc
