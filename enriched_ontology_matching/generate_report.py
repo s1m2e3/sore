@@ -25,6 +25,7 @@ _OUT_DEFAULT  = _DIR / "outputs" / "all_domains_results.md"
 _TEST_DIR     = _DIR
 _NBR_DIR      = _DIR / "outputs" / "neighbourhood"   # neighbourhood coherence CSVs
 _LIN_IC_DIR   = _DIR / "outputs" / "lin_ic"          # Lin-IC scoring CSVs
+_EMB_DIR      = _DIR / "outputs" / "embeddings"      # sentence embedding CSVs
 
 
 # ---------------------------------------------------------------------------
@@ -89,6 +90,31 @@ def _find_lin_ic(domain_key: str,
                  lin_ic_index: dict[str, list[dict]]) -> list[dict]:
     """Case-insensitive lookup of Lin-IC rows for a given domain key."""
     lower_index = {k.lower(): v for k, v in lin_ic_index.items()}
+    for candidate in [domain_key, domain_key.replace("test_", "")]:
+        hit = lower_index.get(candidate.lower())
+        if hit is not None:
+            return hit
+    return []
+
+
+def _load_emb_index(emb_dir: Path) -> dict[str, list[dict]]:
+    """
+    Scan emb_dir for *_emb.csv files and return a dict mapping
+    the domain key (e.g. 'auto_V1_V2') to its rows.
+    """
+    index: dict[str, list[dict]] = {}
+    if not emb_dir.is_dir():
+        return index
+    for f in emb_dir.glob("*_emb.csv"):
+        key = f.stem.replace("_emb", "")
+        with open(f, newline="", encoding="utf-8") as fh:
+            index[key] = list(csv.DictReader(fh))
+    return index
+
+
+def _find_emb(domain_key: str, emb_index: dict[str, list[dict]]) -> list[dict]:
+    """Case-insensitive lookup of embedding rows for a given domain key."""
+    lower_index = {k.lower(): v for k, v in emb_index.items()}
     for candidate in [domain_key, domain_key.replace("test_", "")]:
         hit = lower_index.get(candidate.lower())
         if hit is not None:
@@ -331,12 +357,103 @@ def _lin_ic_section(lin_rows: list[dict]) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Embedding cosine similarity subsection
+# ---------------------------------------------------------------------------
+
+def _embedding_section(emb_rows: list[dict]) -> str:
+    """
+    Render Layer 4 — Sentence Embedding Cosine Similarity subsection.
+
+    Shows L1 non-trivial matches and top L2 equivalence candidates ranked
+    by cosine_avg.  Three representations are reported:
+      whole : encode(full readable name)
+      sum   : normalize(sum of token embeddings)
+      prod  : normalize(element-wise product of token embeddings)
+    """
+    if not emb_rows:
+        return ""
+
+    l1_rows = [r for r in emb_rows if r.get("layer") == "1"]
+    l2_rows = [r for r in emb_rows if r.get("layer") == "2"
+               and r.get("semantic_label") in ("Identical", "Synonym", "Near-Synonym")]
+
+    if not l1_rows and not l2_rows:
+        return ""
+
+    lines: list[str] = []
+    lines.append("### Layer 4 — Sentence Embedding Similarity\n")
+    lines.append(
+        "Model: `paraphrase-MiniLM-L6-v2` (L2-normalised cosine)  &nbsp;|&nbsp; "
+        "**whole**: holistic CamelCase name  &nbsp;|&nbsp; "
+        "**sum**: sum of token embeddings  &nbsp;|&nbsp; "
+        "**prod**: element-wise product of token embeddings  &nbsp;|&nbsp; "
+        "**avg**: mean of the three\n"
+    )
+
+    # L1 non-trivial matches ranked by cosine_avg
+    if l1_rows:
+        non_trivial = [r for r in l1_rows
+                       if r.get("entity_a", "").lower() != r.get("entity_b", "").lower()]
+        if non_trivial:
+            lines.append("**L1 non-trivial matches ranked by cosine avg:**\n")
+            ranked = sorted(
+                non_trivial,
+                key=lambda r: float(r.get("cosine_avg") or 0),
+                reverse=True,
+            )
+            tbl = []
+            for r in ranked:
+                tbl.append([
+                    r["entity_a"], r["entity_b"],
+                    r.get("semantic_label", ""),
+                    r.get("cosine_whole", ""), r.get("cosine_sum", ""),
+                    r.get("cosine_prod", ""), r.get("cosine_avg", ""),
+                    r.get("tokens_a", ""), r.get("tokens_b", ""),
+                ])
+            lines.append(_md_table(
+                ["Entity A", "Entity B", "Semantic",
+                 "Cos_whole", "Cos_sum", "Cos_prod", "Cos_avg",
+                 "Tokens A", "Tokens B"],
+                tbl,
+            ))
+            lines.append("")
+
+    # L2 equivalence candidates ranked by cosine_avg (top 15)
+    if l2_rows:
+        lines.append("**Top L2 equivalence candidates by cosine avg:**\n")
+        ranked_l2 = sorted(
+            l2_rows,
+            key=lambda r: float(r.get("cosine_avg") or 0),
+            reverse=True,
+        )[:15]
+        tbl = []
+        for r in ranked_l2:
+            tbl.append([
+                r["entity_a"], r["entity_b"],
+                r.get("semantic_label", ""),
+                r.get("cosine_whole", ""), r.get("cosine_sum", ""),
+                r.get("cosine_prod", ""), r.get("cosine_avg", ""),
+                r.get("tokens_a", ""), r.get("tokens_b", ""),
+            ])
+        lines.append(_md_table(
+            ["Entity A", "Entity B", "Semantic",
+             "Cos_whole", "Cos_sum", "Cos_prod", "Cos_avg",
+             "Tokens A", "Tokens B"],
+            tbl,
+        ))
+        lines.append("")
+
+    return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
 # Per-domain section builder
 # ---------------------------------------------------------------------------
 
 def _domain_section(domain: str, rows: list[dict], meta: dict, idx: int,
                     nbr_rows: list[dict] | None = None,
-                    lin_ic_rows: list[dict] | None = None) -> str:
+                    lin_ic_rows: list[dict] | None = None,
+                    emb_rows: list[dict] | None = None) -> str:
     l1    = [r for r in rows if r["layer"] == "1"]
     l2eq  = [r for r in rows if r["layer"] == "2" and r["layer2_type"] == "Equivalence"]
     l2sub = [r for r in rows if r["layer"] == "2" and r["layer2_type"] == "Subsumption"]
@@ -453,6 +570,10 @@ def _domain_section(domain: str, rows: list[dict], meta: dict, idx: int,
     if lin_ic_rows:
         lines.append(_lin_ic_section(lin_ic_rows))
 
+    # ── Layer 4: Sentence embedding cosine similarity ─────────────────────────
+    if emb_rows:
+        lines.append(_embedding_section(emb_rows))
+
     return "\n".join(lines)
 
 
@@ -555,7 +676,8 @@ def _cross_domain_obs(by_domain: dict[str, list[dict]]) -> str:
 
 def generate(csv_path: Path, out_path: Path,
              nbr_dir: Path | None = None,
-             lin_ic_dir: Path | None = None) -> None:
+             lin_ic_dir: Path | None = None,
+             emb_dir: Path | None = None) -> None:
     rows     = _load_csv(csv_path)
     by_domain: dict[str, list[dict]] = defaultdict(list)
     for r in rows:
@@ -563,23 +685,26 @@ def generate(csv_path: Path, out_path: Path,
 
     metas = {d: _load_domain_meta(d) for d in by_domain}
 
-    # Load neighbourhood coherence CSVs if directory exists
+    # Load neighbourhood coherence, Lin-IC, and embedding CSVs
     nbr_index    = _load_neighbourhood_index(nbr_dir or _NBR_DIR)
     lin_ic_index = _load_lin_ic_index(lin_ic_dir or _LIN_IC_DIR)
+    emb_index    = _load_emb_index(emb_dir or _EMB_DIR)
     nbr_found    = len(nbr_index)
     lin_found    = len(lin_ic_index)
+    emb_found    = len(emb_index)
 
     cn_info = "5.7.0 local CSV"
 
     lines: list[str] = [
         "# Enriched Ontology Matching — All Domains Results\n",
         f"**Pipeline**: AML + LogMap (structural) "
-        f"→ Layer 1 characterisation (WN+CN) → Layer 2 discovery (WN+CN) "
-        f"→ Layer 3 Lin-IC scoring  ",
+        f"-> Layer 1 characterisation (WN+CN) -> Layer 2 discovery (WN+CN) "
+        f"-> Layer 3 Lin-IC scoring -> Layer 4 sentence embedding similarity  ",
         f"**ConceptNet**: {cn_info}  ",
         f"**Combined output**: `{csv_path.name}` ({len(rows)} total rows)  ",
         f"**Neighbourhood coherence**: {nbr_found} pair(s) &nbsp;|&nbsp; "
-        f"**Lin-IC scored**: {lin_found} pair(s)\n",
+        f"**Lin-IC scored**: {lin_found} pair(s) &nbsp;|&nbsp; "
+        f"**Embedding scored**: {emb_found} pair(s)\n",
         "---\n",
         "## Summary\n",
         _summary_table(by_domain, metas),
@@ -589,9 +714,11 @@ def generate(csv_path: Path, out_path: Path,
     for idx, (domain, drows) in enumerate(by_domain.items(), start=1):
         nbr_rows    = _find_neighbourhood(domain, nbr_index)
         lin_ic_rows = _find_lin_ic(domain, lin_ic_index)
+        emb_rows    = _find_emb(domain, emb_index)
         lines.append(_domain_section(domain, drows, metas[domain], idx,
                                      nbr_rows=nbr_rows,
-                                     lin_ic_rows=lin_ic_rows))
+                                     lin_ic_rows=lin_ic_rows,
+                                     emb_rows=emb_rows))
 
     lines.append(_cross_domain_obs(by_domain))
 
@@ -614,7 +741,11 @@ if __name__ == "__main__":
     parser.add_argument("--lin-ic-dir", default=None,
                         help="Directory containing *_lin_ic.csv files "
                              f"(default: {_LIN_IC_DIR})")
+    parser.add_argument("--emb-dir", default=None,
+                        help="Directory containing *_emb.csv files "
+                             f"(default: {_EMB_DIR})")
     args = parser.parse_args()
     generate(Path(args.csv), Path(args.out),
              nbr_dir=Path(args.neighbourhood_dir) if args.neighbourhood_dir else None,
-             lin_ic_dir=Path(args.lin_ic_dir) if args.lin_ic_dir else None)
+             lin_ic_dir=Path(args.lin_ic_dir) if args.lin_ic_dir else None,
+             emb_dir=Path(args.emb_dir) if args.emb_dir else None)

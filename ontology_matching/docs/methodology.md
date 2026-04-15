@@ -129,6 +129,80 @@ Threshold 0.45 was selected empirically: it admits confident functional synonyms
 
 ---
 
+## Stage 2b: Topological Lin-IC Structural Refinement
+
+### Motivation
+
+After S1 (lexical) and S2 (MNLI semantic), a residual of entities remains unmatched — typically
+peripheral or functionally renamed concepts that carry no lexical or entailment signal. Stage 2b
+uses **graph topology** to propagate matches from already-established anchors into their structural
+neighbourhood.
+
+### Graph Construction
+
+An undirected topological graph is built for each model from its JSON source:
+- Each entity becomes a node.
+- Composition edges connect parent entities to attribute-type entities.
+- Association nodes are added as first-class intermediate nodes connecting their participant entities
+  in a triadic structure (participant_A — assoc_node — participant_B).
+
+### Information Content: Sanchez 2011
+
+IC is computed using the corpus-free Sanchez 2011 leaf-count formula, adapted for undirected graphs:
+
+```
+IC(v) = 1 − log(local_leaves(v) + 1) / log(total_leaves + 1)
+
+local_leaves(v) = number of degree-1 nodes adjacent to v
+                  + 1 if v itself is a degree-1 node
+total_leaves    = total degree-1 nodes in the graph
+```
+
+Hub nodes with many leaf neighbours → large `local_leaves` → **low IC** (general concepts).
+Peripheral leaf nodes → `local_leaves = 1` (self) → **high IC** (specific concepts).
+
+This replaces the earlier degree-only formula `IC = 1 − log(deg+1)/log(max_deg+2)`, which assigned
+identical IC to any two nodes of the same degree regardless of their structural neighbourhood.
+
+**Reference:** D. Sanchez, M. Batet, D. Isern (2011). "Ontology-based Information Content
+Computation." *Knowledge-Based Systems* 24(2), 297–303.
+
+### Similarity: Lastra-Diaz WB-sim 2015
+
+The Lin similarity formula is replaced by the WB-sim bounded variant:
+
+```
+WB-sim(A, B) = 2 × IC(LCA) / (IC(A) + IC(B) + IC(LCA))
+```
+
+where IC(LCA) is approximated as the average IC of the matched anchor in both graphs. The
+additional `+IC(LCA)` in the denominator reduces (though does not fully eliminate in undirected
+graphs) the inflation beyond 1.0 that the original Lin formula produced when the anchor had higher
+IC than the candidates. In well-formed directed hierarchies this formula is provably bounded to
+[0, 1]; in undirected graphs the bound holds when `IC(LCA) ≤ IC(A) + IC(B)`.
+
+**Reference:** J.J. Lastra-Diaz, A. García-Serrano (2015). "A novel family of IC-based similarity
+measures with a detailed experimental survey on WordNet." *Engineering Applications of Artificial
+Intelligence* 46, 140–153.
+
+### Known Limitations
+
+1. **Undirected graph degeneracy**: The LCA proxy (matched anchor) in an undirected graph has no
+   formal ancestor-descendant guarantee. When the anchor is more peripheral (higher IC) than the
+   candidates, WB-sim still exceeds 1.0. Empirically, raw WB-sim values of 1.3–3.6 were observed
+   in V-V and V-Net pairs; the report caps these at 1.0 for the averaged S2_lin metric.
+
+2. **Sibling indistinguishability**: Two differently-named nodes at the same graph depth with
+   identical connectivity still receive the same Sanchez IC and the same WB-sim score. The tie is
+   broken by iteration order (non-deterministic). Incorporating label semantics (label-based IC)
+   is the next planned improvement.
+
+3. **Threshold sensitivity**: The tighter IC scoring under Sanchez 2011 reduced the number of
+   Lin-IC matches that pass the 0.5 threshold — particularly for Hospital V-V pairs, where former
+   Lin-IC matches were replaced by assoc_vocab-only matches (S2_lin = 0.0).
+
+---
+
 ## Stage 3: Subsumption Detection
 
 ### Motivation

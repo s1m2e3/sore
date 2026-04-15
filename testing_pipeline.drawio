@@ -1,0 +1,85 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0" version="29.6.5">
+  <diagram name="Page-1" id="Dxc15A37VuCDEYwePz2-">
+    <mxGraphModel dx="1404" dy="656" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="x12v0L88-4lQ69wznCs8-10" edge="1" parent="1" source="x12v0L88-4lQ69wznCs8-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x12v0L88-4lQ69wznCs8-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Message Metamodel.&lt;div&gt;Embedded in Json structure.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="425" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-8" edge="1" parent="1" source="x12v0L88-4lQ69wznCs8-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x12v0L88-4lQ69wznCs8-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-4" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Message/Conceptual Model" vertex="1">
+          <mxGeometry height="65" width="140" x="210" y="277.5" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-6" edge="1" parent="1" source="x12v0L88-4lQ69wznCs8-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;dashed=1;dashPattern=8 8;" target="x12v0L88-4lQ69wznCs8-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-5" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Can be FACE compliant metamodel" vertex="1">
+          <mxGeometry height="30" width="60" x="510" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-14" edge="1" parent="1" source="x12v0L88-4lQ69wznCs8-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x12v0L88-4lQ69wznCs8-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-9" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Ontology implied by message given message metamodel" vertex="1">
+          <mxGeometry height="65" width="130" x="610" y="277.5" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-12" edge="1" parent="1" source="x12v0L88-4lQ69wznCs8-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;dashPattern=12 12;" target="x12v0L88-4lQ69wznCs8-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-11" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="From the messages provided by Dave:&lt;div&gt;&lt;ul&gt;&lt;li&gt;All messages have a root entity.&lt;/li&gt;&lt;li&gt;The relationship between entities&amp;nbsp;is&amp;nbsp; through composition and associations.&lt;/li&gt;&lt;li&gt;Messages from the same domain may not necessarily share the same root entity.&lt;/li&gt;&lt;li&gt;All entities can have attributes and other entities as their attributes.&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="370" x="490" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-17" edge="1" parent="1" source="x12v0L88-4lQ69wznCs8-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="x12v0L88-4lQ69wznCs8-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="930" y="310" />
+              <mxPoint x="930" y="590" />
+              <mxPoint x="280" y="590" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="From ontology to implied message" vertex="1">
+          <mxGeometry height="60" width="120" x="790" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-16" edge="1" parent="1" source="x12v0L88-4lQ69wznCs8-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;dashPattern=12 12;" target="x12v0L88-4lQ69wznCs8-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-15" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="The ontology built from the message represents one instance of the ontology. Thus, to recover the message we need to store:&lt;div&gt;&lt;ul&gt;&lt;li&gt;The&amp;nbsp; type and value stored in the attributes.&lt;/li&gt;&lt;li&gt;Name of the entities is stored in each node of the ontology&lt;/li&gt;&lt;li&gt;Name of the associations stored in the message&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="335" x="775" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-19" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1140" y="630" as="sourcePoint" />
+            <mxPoint x="1130" y="20" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-22" edge="1" parent="1" source="x12v0L88-4lQ69wznCs8-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" target="x12v0L88-4lQ69wznCs8-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-26" edge="1" parent="1" source="x12v0L88-4lQ69wznCs8-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="x12v0L88-4lQ69wznCs8-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-20" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Comparing ontologies&lt;/h1&gt;&lt;div&gt;Necessary assumptions:&lt;/div&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;The messages can be decoded from a language (english in this case). This in turn means that under camelcase or known naming schemes we can attach meaning to the names of entities, attributes and associations available in the messages.&lt;/li&gt;&lt;li&gt;A distance vector will be used to characterize the closeness of the incumbent ontologies. For each of the metrics displayed in the vector we will define closeness as either large or smaller numbers.&amp;nbsp;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="250" width="300" x="1190" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-21" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;Guiding heuristics for distance metrics:&lt;/font&gt;&lt;/h1&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;The chosen metrics shall be able to provide the following results:&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;Ontologies that use similar words to refer to similar concepts should be closer in the encoded space (Lexical level).&lt;/li&gt;&lt;li&gt;Ontologies that display similar topologies in their structure should be closer in the encoded space provided the ontologies talk about similar concepts. Topological similarity should only be relevant when we talk about similar concepts. To do so a data augmentation technique will be realized such that the two topologies are compared to a common shared concept (Topological level).&amp;nbsp;&lt;/li&gt;&lt;li&gt;When the assertions implied by the ontologies are similar, the metric should also characterize this closeness in assertions(Semantical level).&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="350" width="300" x="1620" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-24" edge="1" parent="1" source="x12v0L88-4lQ69wznCs8-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;dashPattern=8 8;" target="x12v0L88-4lQ69wznCs8-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-23" parent="1" style="text;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(236, 236, 236); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;A simple topologic comparison may itself be deceiving, if I both ontologies are trees with one root and 2 children but they talk different things the topological similarity should not be so relevant.&lt;span&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="80" width="220" x="2040" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="x12v0L88-4lQ69wznCs8-25" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Available verified tools and their uses:&lt;/h1&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;Wordnet, wordnet is a dictionary that lists all possible meaning (synsets) of a word, hypernyms and hyponyms. Thus, if the words used for naming entities in the message are in English we can attach that word to a meaning and evaluate lexical distance.&lt;/li&gt;&lt;li&gt;Conceptnet, conceptnet is a database of known relationships between words in English. Thus, one can evaluate if one topology is conceptually subsumed in another, and if there exists direct known relationships between the entities of the two ontologies.&lt;/li&gt;&lt;li&gt;Open source Sentence encoders, if we encode the derived assertions of the ontologies we should be able to observe distance metrics (like cosine similarity) between the ontologies in the encoded space. The encoding allows the use of definition of distributions and with the distributions one can derive statistical distance metrics of the distribution of the words used for a particular domain.&lt;/li&gt;&lt;li&gt;Analytic Ontology matching algorithms, there are verified, well developed and maintained open source software for ontology matching like AML and LogMap being the latter still competitive in the ontology matching competitions aside from neural network methods. Unfortunately these only compare the ontologies at the lexical level.&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="450" width="300" x="1190" y="420" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

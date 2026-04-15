@@ -40,6 +40,11 @@ system.drawio
 limes_configs/
 tools/
 
+# Large data / model files
+ontology_matching/inputs/conceptnet-assertions-5.7.0.csv.gz
+ontology_matching/inputs/conceptnet-assertions-5.7.0.csv/
+ontology_matching/models/
+
 # Accidental files
 '
 0

@@ -254,13 +254,9 @@ def verb_coherence(
 # ---------------------------------------------------------------------------
 
 def _load_matches_from_csv(csv_path: Path) -> list[dict]:
-    """Load L1 matches from an existing enriched per-pair CSV."""
-    rows = []
+    """Load all matched pairs (L1 + L2) from an existing enriched per-pair CSV."""
     with open(csv_path, newline="", encoding="utf-8") as fh:
-        for r in csv.DictReader(fh):
-            if r.get("layer") == "1":
-                rows.append(r)
-    return rows
+        return list(csv.DictReader(fh))
 
 
 def _compute_matches_simple(
@@ -333,7 +329,7 @@ def run_analysis(
     # Load or compute matches
     if matches_csv and Path(matches_csv).exists():
         match_rows = _load_matches_from_csv(Path(matches_csv))
-        print(f"  Loaded {len(match_rows)} L1 matches from {Path(matches_csv).name}")
+        print(f"  Loaded {len(match_rows)} pairs from {Path(matches_csv).name}")
     else:
         match_rows = _compute_matches_simple(data_a, data_b, name_a, name_b)
         print(f"  Computed {len(match_rows)} L1 matches via AML")

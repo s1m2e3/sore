@@ -1,6 +1,6 @@
 # Enriched Ontology Matching Pipeline
 
-A four-layer semantic enrichment pipeline that runs structural matchers (AML + LogMap) over pairs of ontology models and characterises every match using WordNet, ConceptNet, neighbourhood graph coherence, and Lin Information-Content similarity.
+A five-layer semantic enrichment pipeline that runs structural matchers (AML + LogMap) over pairs of ontology models and characterises every match using WordNet, ConceptNet, neighbourhood graph coherence, Lin Information-Content similarity, and sentence embedding cosine similarity.
 
 ## Pipeline Overview
 
@@ -10,6 +10,7 @@ A four-layer semantic enrichment pipeline that runs structural matchers (AML + L
 | **L1** | Structural Matching | AML + LogMap find entity pairs via string/structural similarity; results are merged and de-duplicated |
 | **L2** | Semantic Discovery | WordNet (WUP, hyponymy) and ConceptNet (local CSV) discover additional equivalence and subsumption candidates among *unmatched* entities |
 | **L3** | Lin-IC Scoring | Corpus-based Lin Information Content (Brown corpus) with explicit Least Common Subsumer (LCS) validates and ranks every L1 + L2 pair |
+| **L4** | Sentence Embedding | `paraphrase-MiniLM-L6-v2` cosine similarity with three representations per CamelCase entity: whole name, sum of token embeddings, element-wise product of token embeddings |
 
 ---
 
@@ -197,6 +198,8 @@ enriched_ontology_matching/
 │   │   └── <domain_key>_coherence.csv # L0 scores per pair
 │   ├── lin_ic/
 │   │   └── <domain_key>_lin_ic.csv    # L3 Lin-IC scores per pair
+│   ├── embeddings/
+│   │   └── <domain_key>_emb.csv       # L4 sentence embedding cosine scores
 │   └── all_domains_results.md         # final human-readable report
 └── pairs/
     └── <domain_key>.json              # intermediate combined test JSONs
@@ -234,6 +237,25 @@ enriched_ontology_matching/
 - `3 – 5` — moderate specificity
 - `< 3` — only a generic root (e.g. `artifact.n.01`, `physical_entity.n.01`) — treat with caution
 
+### Embedding CSV columns (`embeddings/<domain_key>_emb.csv`)
+
+| Column | Description |
+|--------|-------------|
+| `entity_a`, `entity_b` | Matched entity names |
+| `layer` | `1` = structural match, `2` = discovered |
+| `semantic_label` | `Identical`, `Synonym`, `Near-Synonym`, … |
+| `cosine_whole` | Cosine of full readable name encodings |
+| `cosine_sum` | Cosine of normalised sum-of-token embeddings |
+| `cosine_prod` | Cosine of normalised element-wise product of token embeddings |
+| `cosine_avg` | Mean of the three cosine scores |
+| `tokens_a`, `tokens_b` | CamelCase tokens used (slash-separated) |
+
+**Interpreting the three representations:**
+- `cosine_whole` captures the holistic compound meaning of the full entity name
+- `cosine_sum` emphasises shared token vocabulary (additive composition)
+- `cosine_prod` emphasises token interaction effects (multiplicative composition)
+- Low `cosine_whole` but high `cosine_sum` often signals partial lexical overlap — inspect `tokens_a`/`tokens_b`
+
 ---
 
 ## Input Format
@@ -267,6 +289,7 @@ The pipeline also supports the Network-model format (`name` / `participants` key
 | `enriched_matcher.py` | L1 (structural merge) + L2 (WN+CN discovery) |
 | `neighbourhood_coherence.py` | L0 — graph neighbourhood semantic coherence |
 | `lin_ic_stage.py` | L3 — Lin Information-Content scoring with LCS |
+| `semantic_encoder.py` | L4 — Multi-representation sentence embedding cosine similarity |
 | `generate_report.py` | Reads all output CSVs, renders the MD report |
 | `aml_runner.py` | Wrapper around the AML JAR |
 | `logmap_runner.py` | Wrapper around the LogMap JAR |

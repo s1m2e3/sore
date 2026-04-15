@@ -62,6 +62,8 @@ _PAIRS_DIR  = _DIR / "pairs"
 _ENRICHED   = _DIR / "outputs" / "enriched"
 _NBR_DIR    = _DIR / "outputs" / "neighbourhood"
 _LIN_IC_DIR = _DIR / "outputs" / "lin_ic"
+_EMB_DIR    = _DIR / "outputs" / "embeddings"
+_MERGED_DIR = _DIR / "outputs" / "merged"
 _COMBINED   = _ENRICHED / "all_domains_combined.csv"
 _MD_OUT     = _DIR / "outputs" / "all_domains_results.md"
 
@@ -141,11 +143,15 @@ def main() -> None:
     from logmap_runner import _safe_local
     from neighbourhood_coherence import run_analysis as nbr_analysis
     from lin_ic_stage import run_lin_ic
+    from semantic_encoder import run_embedding_stage
+    from merge_stage import merge_pair
 
     _PAIRS_DIR.mkdir(exist_ok=True)
     _ENRICHED.mkdir(parents=True, exist_ok=True)
     _NBR_DIR.mkdir(parents=True, exist_ok=True)
     _LIN_IC_DIR.mkdir(parents=True, exist_ok=True)
+    _EMB_DIR.mkdir(parents=True, exist_ok=True)
+    _MERGED_DIR.mkdir(parents=True, exist_ok=True)
 
     domains = args.domains if args.domains else DOMAINS
     all_pair_csvs: list[tuple[str, Path]] = []  # (domain_key, csv_path)
@@ -238,6 +244,32 @@ def main() -> None:
                 except Exception as exc:
                     print(f"    [WARN] Lin-IC failed for {domain_key}: {exc}")
 
+            # ── Step 4: Sentence embedding cosine similarity ─────────────────
+            emb_csv = _EMB_DIR / f"{domain_key}_emb.csv"
+            if args.skip_existing and emb_csv.exists():
+                print(f"    [SKIP] Embeddings for {domain_key}")
+            else:
+                try:
+                    run_embedding_stage(csv_path, a, b, emb_csv)
+                except Exception as exc:
+                    print(f"    [WARN] Embedding failed for {domain_key}: {exc}")
+
+            # ── Step 5: Merge all metrics into one flat CSV ───────────────────
+            merged_csv = _MERGED_DIR / f"{domain_key}_full.csv"
+            if args.skip_existing and merged_csv.exists():
+                print(f"    [SKIP] Merge for {domain_key}")
+            else:
+                try:
+                    merge_pair(
+                        enriched_csv = csv_path,
+                        nbr_csv      = nbr_csv      if nbr_csv.exists()     else None,
+                        lin_ic_csv   = lin_ic_csv   if lin_ic_csv.exists()  else None,
+                        emb_csv      = emb_csv      if emb_csv.exists()     else None,
+                        out_csv      = merged_csv,
+                    )
+                except Exception as exc:
+                    print(f"    [WARN] Merge failed for {domain_key}: {exc}")
+
     if not all_pair_csvs:
         print("\n[WARN] No pairs processed. Check domain names and input files.")
         return
@@ -263,7 +295,8 @@ def main() -> None:
     # ── Generate MD report ─────────────────────────────────────────────────
     print(f"\n[Report] Generating {_MD_OUT} ...")
     from generate_report import generate
-    generate(_COMBINED, _MD_OUT, nbr_dir=_NBR_DIR, lin_ic_dir=_LIN_IC_DIR)
+    generate(_COMBINED, _MD_OUT, nbr_dir=_NBR_DIR, lin_ic_dir=_LIN_IC_DIR,
+             emb_dir=_EMB_DIR)
     print("[Done]")
 
 
