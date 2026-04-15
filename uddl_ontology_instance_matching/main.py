@@ -1,3 +1,0 @@
-from base_ontology import build_uddl_metamodel
-
-build_uddl_metamodel()
