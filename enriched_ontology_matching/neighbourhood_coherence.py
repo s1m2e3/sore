@@ -1,19 +1,26 @@
 """
 neighbourhood_coherence.py
 --------------------------
-Computes neighbourhood coherence scores for ontology match pairs using
-WordNet + ConceptNet semantic comparison of each entity's local graph context.
+Computes semantically-weighted neighbourhood coherence scores for ontology
+match pairs.
 
 For a matched pair (ea, eb):
   1. Collect nbrs_a = all entities adjacent to ea in ontology A
      Collect nbrs_b = all entities adjacent to eb in ontology B
-  2. For each na in nbrs_a, find its best-matching neighbour in nbrs_b by max_wup.
-  3. coherence_a2b = mean of those best scores (how well A's context is explained by B)
+  2. For each na in nbrs_a, compute:
+         score(na, nb) = sqrt(wup(na, nb) * cosine(na, nb))   [geometric mean]
+     and take the max over all nb in nbrs_b.
+  3. coherence_a2b = mean of those per-neighbour max scores   [0–1, continuous]
   4. Compute symmetrically coherence_b2a.
-  5. coherence_sym = (a2b + b2a) / 2  — final symmetric score [0, 1]
+  5. coherence_sym = (coherence_a2b + coherence_b2a) / 2
 
-Also compares the association verb tokens (the relationship types used within each
-ontology) to give a separate relational-type coherence signal.
+The geometric mean of WUP and cosine acts as a gate:
+  - High WUP + high cosine → confirmed semantic match → full credit
+  - High WUP + low cosine  → WordNet topology accident (device.n.01 etc.) → killed
+  - Low WUP + high cosine  → distributional similarity without WN path → partial credit
+
+All coherence scores are continuous [0–1]; no binary threshold is used in
+the final output.
 
 Works for any domain — handles both JSON association formats:
   V-model format : associationName  / associationParticipants
@@ -22,13 +29,14 @@ Works for any domain — handles both JSON association formats:
 Usage
 -----
   # From repo root:
-  ontology_matching/.venv/Scripts/python.exe ^
-      enriched_ontology_matching/neighbourhood_coherence.py ^
-      --a  inputs/.../Automobile/automobile_model_v1.json ^
-      --b  inputs/.../Automobile/automobile_model_v2.json ^
-      [--matches-csv enriched_ontology_matching/outputs/enriched/<stem>.csv] ^
-      [--out-csv     enriched_ontology_matching/outputs/neighbourhood/auto_v1_v2.csv] ^
-      [--threshold   0.5]
+  python enriched_ontology_matching/neighbourhood_coherence.py \\
+      --pair enriched_ontology_matching/pairs/auto_V1_V2.json \\
+      --matches-csv enriched_ontology_matching/outputs/enriched/<stem>.csv \\
+      --out-csv     enriched_ontology_matching/outputs/neighbourhood/auto_V1_V2_coherence.csv
+
+  # Or with separate model JSONs:
+  python enriched_ontology_matching/neighbourhood_coherence.py \\
+      --a model_a.json --b model_b.json ...
 """
 
 from __future__ import annotations
@@ -36,11 +44,13 @@ from __future__ import annotations
 import argparse
 import csv
 import json
-import re
 import sys
 from collections import defaultdict
+from math import sqrt
 from pathlib import Path
 from typing import Optional
+
+import numpy as np
 
 _DIR = Path(__file__).parent
 sys.path.insert(0, str(_DIR))
@@ -53,12 +63,9 @@ from enriched_matcher import characterise_entity_pair
 # ---------------------------------------------------------------------------
 _CN_CSV = _CN_CSV_DEFAULT
 
-# Tokens that indicate a relationship verb in association names
 _VERB_TOKENS = {
-    # prepositions / structural
     "to", "in", "on", "at", "with", "of", "from", "by", "via", "through",
     "into", "onto", "between", "within", "across", "along",
-    # common verb stems
     "supports", "support", "drives", "drive", "powers", "power",
     "lubricates", "lubricate", "contains", "contain", "connects", "connect",
     "mounts", "mount", "links", "link", "couples", "couple", "charges",
@@ -72,10 +79,37 @@ _VERB_TOKENS = {
     "have", "is", "are",
 }
 
-_STOP_ENTITY_TOKENS = {
-    "system", "model", "type", "base", "item", "unit", "data", "info",
-    "module", "assembly", "component", "part", "sub",
-}
+# ---------------------------------------------------------------------------
+# Lazy sentence-transformer model
+# ---------------------------------------------------------------------------
+_ENCODER = None
+
+
+def _get_encoder():
+    global _ENCODER
+    if _ENCODER is None:
+        try:
+            from sentence_transformers import SentenceTransformer
+            _ENCODER = SentenceTransformer("paraphrase-MiniLM-L6-v2")
+            print("[Encoder] paraphrase-MiniLM-L6-v2 loaded.")
+        except ImportError:
+            print("[Encoder] sentence-transformers not installed — cosine fallback to WUP.")
+            _ENCODER = False
+    return _ENCODER
+
+
+def _build_emb_cache(names: list[str]) -> dict[str, np.ndarray]:
+    """
+    Batch-encode a list of entity names into unit-normalised vectors.
+    CamelCase names are split into readable tokens before encoding.
+    Returns {} if the encoder is unavailable.
+    """
+    model = _get_encoder()
+    if not model:
+        return {}
+    readable = [" ".join(split_camel(n)) or n for n in names]
+    vecs = model.encode(readable, normalize_embeddings=True, show_progress_bar=False)
+    return {name: vec for name, vec in zip(names, vecs)}
 
 
 # ---------------------------------------------------------------------------
@@ -95,14 +129,11 @@ def _assoc_participants(assoc: dict) -> list[str]:
 # ---------------------------------------------------------------------------
 
 def build_adjacency(data: dict) -> dict[str, set[str]]:
-    """
-    Build entity → set[neighbour_entity] map from any JSON format.
-    Edges are undirected (each participant is connected to all others).
-    """
+    """entity → set[neighbour_entity] (undirected)."""
     adj: dict[str, set[str]] = defaultdict(set)
     for assoc in data.get("associations", []):
         parts = _assoc_participants(assoc)
-        for i, p in enumerate(parts):
+        for p in parts:
             for q in parts:
                 if q != p:
                     adj[p].add(q)
@@ -110,10 +141,7 @@ def build_adjacency(data: dict) -> dict[str, set[str]]:
 
 
 def build_edge_verbs(data: dict) -> dict[str, set[str]]:
-    """
-    Build entity → set[verb_token] map: what relation types does each entity
-    participate in?  Verbs are extracted from CamelCase association names.
-    """
+    """entity → set[verb_token] from association names."""
     verbs: dict[str, set[str]] = defaultdict(set)
     for assoc in data.get("associations", []):
         name  = _assoc_name(assoc)
@@ -125,53 +153,56 @@ def build_edge_verbs(data: dict) -> dict[str, set[str]]:
 
 
 def _extract_verb_tokens(assoc_name: str) -> list[str]:
-    """
-    Extract the verb / preposition tokens from a CamelCase association name.
-    e.g. "EngineToTransmissionCoupling"   → ["to"]
-         "PistonAssemblyDrivesCrankshaft" → ["drives"]
-         "BodyFrameSupportsEngineBlock"   → ["supports"]
-    """
     tokens = [t.lower() for t in split_camel(assoc_name)]
     return [t for t in tokens if t in _VERB_TOKENS]
+
+
+# ---------------------------------------------------------------------------
+# Semantic scoring
+# ---------------------------------------------------------------------------
+
+def _semantic_score(na: str, nb: str, emb_cache: dict) -> float:
+    """
+    Geometric mean of WUP and cosine similarity for a neighbour entity pair.
+
+    sqrt(wup * cosine) requires BOTH signals to be high:
+      - WordNet topology accident (high WUP, low cosine) → score stays low
+      - Embedding-only match (low WUP, high cosine) → partial credit
+      - Confirmed semantic match (high WUP, high cosine) → full credit
+    """
+    r   = characterise_entity_pair(na, nb)
+    wup = float(r.get("max_wup", r.get("wup_score", 0.0)))
+
+    va = emb_cache.get(na)
+    vb = emb_cache.get(nb)
+    if va is not None and vb is not None:
+        cos = max(0.0, float(np.dot(va, vb)))
+    else:
+        cos = wup  # graceful fallback when encoder unavailable
+
+    return sqrt(wup * cos)
 
 
 # ---------------------------------------------------------------------------
 # Coherence scorer
 # ---------------------------------------------------------------------------
 
-def _best_match_score(na: str, nbrs_b: set[str]) -> float:
-    """Max max_wup between entity na and any entity in nbrs_b."""
-    if not nbrs_b:
-        return 0.0
-    best = 0.0
-    for nb in nbrs_b:
-        r = characterise_entity_pair(na, nb)
-        score = r.get("max_wup", r.get("wup_score", 0.0))
-        if score > best:
-            best = score
-        if best >= 1.0:
-            break
-    return best
-
-
 def neighbourhood_coherence(
     ea: str,
     eb: str,
     adj_a: dict[str, set[str]],
     adj_b: dict[str, set[str]],
-    threshold: float = 0.5,
+    emb_cache: dict,
 ) -> dict:
     """
-    Compute symmetric neighbourhood coherence for a matched entity pair (ea, eb).
+    Compute semantic neighbourhood coherence for a matched entity pair (ea, eb).
 
-    Returns a dict with:
-      coherence_a2b  — fraction of ea's neighbours that find a match ≥ threshold in B
-      coherence_b2a  — fraction of eb's neighbours that find a match ≥ threshold in A
-      coherence_sym  — symmetric average of the above
-      avg_best_a2b   — mean best-match score (continuous, not thresholded)
-      avg_best_b2a   — mean best-match score from B→A
-      n_nbrs_a, n_nbrs_b
-      best_pairs     — top-5 (na, nb, score) triples
+    coherence_a2b — mean over na in nbrs_A of max_nb(semantic_score(na, nb))
+    coherence_b2a — mean over nb in nbrs_B of max_na(semantic_score(nb, na))
+    coherence_sym — (coherence_a2b + coherence_b2a) / 2   [0–1, continuous]
+
+    Both directions use sqrt(wup * cosine) per neighbour pair so that WUP
+    inflation from shared WordNet ancestors is killed by low cosine.
     """
     nbrs_a = adj_a.get(ea, set())
     nbrs_b = adj_b.get(eb, set())
@@ -187,43 +218,38 @@ def neighbourhood_coherence(
     if not nbrs_a or not nbrs_b:
         return result
 
-    # A → B direction
-    scores_a2b = []
+    # A → B
+    scores_a2b: list[float] = []
     all_pairs: list[tuple[float, str, str]] = []
     for na in nbrs_a:
-        best_score = 0.0
+        best = 0.0
         best_nb = ""
         for nb in nbrs_b:
-            r = characterise_entity_pair(na, nb)
-            s = float(r.get("max_wup", r.get("wup_score", 0.0)))
-            if s > best_score:
-                best_score = s
+            s = _semantic_score(na, nb, emb_cache)
+            if s > best:
+                best = s
                 best_nb = nb
-        scores_a2b.append(best_score)
-        all_pairs.append((best_score, na, best_nb))
+        scores_a2b.append(best)
+        all_pairs.append((best, na, best_nb))
 
-    # B → A direction
-    scores_b2a = []
+    # B → A
+    scores_b2a: list[float] = []
     for nb in nbrs_b:
-        best_score = 0.0
+        best = 0.0
         for na in nbrs_a:
-            r = characterise_entity_pair(nb, na)
-            s = float(r.get("max_wup", r.get("wup_score", 0.0)))
-            if s > best_score:
-                best_score = s
-        scores_b2a.append(best_score)
+            s = _semantic_score(nb, na, emb_cache)
+            if s > best:
+                best = s
+        scores_b2a.append(best)
 
     avg_a2b = sum(scores_a2b) / len(scores_a2b)
     avg_b2a = sum(scores_b2a) / len(scores_b2a)
-    coh_a2b = sum(1 for s in scores_a2b if s >= threshold) / len(scores_a2b)
-    coh_b2a = sum(1 for s in scores_b2a if s >= threshold) / len(scores_b2a)
-
     all_pairs.sort(reverse=True)
 
     result.update({
-        "coherence_a2b": round(coh_a2b, 4),
-        "coherence_b2a": round(coh_b2a, 4),
-        "coherence_sym": round((coh_a2b + coh_b2a) / 2, 4),
+        "coherence_a2b": round(avg_a2b, 4),
+        "coherence_b2a": round(avg_b2a, 4),
+        "coherence_sym": round((avg_a2b + avg_b2a) / 2, 4),
         "avg_best_a2b":  round(avg_a2b, 4),
         "avg_best_b2a":  round(avg_b2a, 4),
         "best_pairs":    [(round(s, 3), na, nb) for s, na, nb in all_pairs[:5]],
@@ -237,16 +263,12 @@ def verb_coherence(
     verbs_a: dict[str, set[str]],
     verbs_b: dict[str, set[str]],
 ) -> float:
-    """
-    Jaccard overlap of the verb/relation types used by ea (in A) and eb (in B).
-    """
+    """Jaccard overlap of verb/relation types used by ea and eb."""
     va = verbs_a.get(ea, set())
     vb = verbs_b.get(eb, set())
     if not va and not vb:
         return 0.0
-    union = va | vb
-    inter = va & vb
-    return round(len(inter) / len(union), 4)
+    return round(len(va & vb) / len(va | vb), 4)
 
 
 # ---------------------------------------------------------------------------
@@ -254,18 +276,11 @@ def verb_coherence(
 # ---------------------------------------------------------------------------
 
 def _load_matches_from_csv(csv_path: Path) -> list[dict]:
-    """Load all matched pairs (L1 + L2) from an existing enriched per-pair CSV."""
     with open(csv_path, newline="", encoding="utf-8") as fh:
         return list(csv.DictReader(fh))
 
 
-def _compute_matches_simple(
-    data_a: dict, data_b: dict,
-    name_a: str, name_b: str,
-) -> list[dict]:
-    """
-    Fallback: run AML to get L1 matches if no CSV is available.
-    """
+def _compute_matches_simple(data_a: dict, data_b: dict, name_a: str, name_b: str) -> list[dict]:
     from aml_runner import AMLRunner
     print("[Matches] No CSV provided — running AML to get L1 matches ...")
     aml_maps = AMLRunner().match_jsons(data_a, data_b, name_a=name_a, name_b=name_b)
@@ -278,82 +293,97 @@ def _compute_matches_simple(
 # ---------------------------------------------------------------------------
 
 def run_analysis(
-    json_a: Path | str,
-    json_b: Path | str,
+    json_a: Path | str | None = None,
+    json_b: Path | str | None = None,
+    pair_json: Path | str | None = None,
     matches_csv: Optional[Path] = None,
     out_csv: Optional[Path] = None,
-    threshold: float = 0.5,
+    threshold: float = 0.5,    # kept for summary printout only
 ) -> list[dict]:
     """
-    Full neighbourhood coherence analysis for any two ontology JSON files.
+    Full semantic neighbourhood coherence analysis for an ontology pair.
+
+    Supply either:
+      - pair_json : a combined pair JSON with "json_a" and "json_b" keys, OR
+      - json_a + json_b : paths to the two individual model JSON files
 
     Parameters
     ----------
-    json_a, json_b  : paths to the two model JSON files
-    matches_csv     : optional path to a pre-computed enriched per-pair CSV
-    out_csv         : optional path to write results CSV
-    threshold       : WUP threshold for counting a neighbour as "covered"
-
-    Returns
-    -------
-    List of result dicts sorted by coherence_sym descending.
+    matches_csv : pre-computed enriched per-pair CSV (L1+L2 matches)
+    out_csv     : path to write results CSV
+    threshold   : display-only; does NOT affect coherence_sym value
     """
-    path_a = Path(json_a)
-    path_b = Path(json_b)
-
-    data_a = json.loads(path_a.read_text(encoding="utf-8"))
-    data_b = json.loads(path_b.read_text(encoding="utf-8"))
-
-    name_a = data_a.get("modelName", path_a.stem)
-    name_b = data_b.get("modelName", path_b.stem)
+    # ── Load model data ──────────────────────────────────────────────────────
+    if pair_json is not None:
+        p = Path(pair_json)
+        combined = json.loads(p.read_text(encoding="utf-8"))
+        data_a = combined.get("json_a", combined)
+        data_b = combined.get("json_b", {})
+        name_a = data_a.get("modelName", p.stem + "_a")
+        name_b = data_b.get("modelName", p.stem + "_b")
+    elif json_a is not None and json_b is not None:
+        path_a = Path(json_a)
+        path_b = Path(json_b)
+        data_a = json.loads(path_a.read_text(encoding="utf-8"))
+        data_b = json.loads(path_b.read_text(encoding="utf-8"))
+        name_a = data_a.get("modelName", path_a.stem)
+        name_b = data_b.get("modelName", path_b.stem)
+    else:
+        raise ValueError("Supply either pair_json or both json_a and json_b.")
 
     print(f"\n{'='*70}")
-    print(f"Neighbourhood Coherence Analysis")
+    print(f"Neighbourhood Coherence Analysis (semantic-weighted)")
     print(f"  A: {name_a}")
     print(f"  B: {name_b}")
     print(f"{'='*70}")
 
-    # Build graphs
+    # ── Build graphs ─────────────────────────────────────────────────────────
     adj_a   = build_adjacency(data_a)
     adj_b   = build_adjacency(data_b)
     verbs_a = build_edge_verbs(data_a)
     verbs_b = build_edge_verbs(data_b)
 
     print(f"  Graph A: {len(data_a.get('entities',[]))} entities, "
-          f"{len(adj_a)} with edges, "
-          f"{sum(len(v) for v in adj_a.values())} edge-endpoints")
+          f"{len(adj_a)} with edges")
     print(f"  Graph B: {len(data_b.get('entities',[]))} entities, "
-          f"{len(adj_b)} with edges, "
-          f"{sum(len(v) for v in adj_b.values())} edge-endpoints")
+          f"{len(adj_b)} with edges")
 
-    # Load or compute matches
+    # ── Load or compute matches ───────────────────────────────────────────────
     if matches_csv and Path(matches_csv).exists():
         match_rows = _load_matches_from_csv(Path(matches_csv))
         print(f"  Loaded {len(match_rows)} pairs from {Path(matches_csv).name}")
     else:
         match_rows = _compute_matches_simple(data_a, data_b, name_a, name_b)
-        print(f"  Computed {len(match_rows)} L1 matches via AML")
 
     if not match_rows:
         print("  [WARN] No matches found.")
         return []
 
-    # Pre-load ConceptNet once
-    print(f"\n[CN] Pre-loading ConceptNet CSV ...")
+    # ── Pre-load ConceptNet ───────────────────────────────────────────────────
+    print("[CN] Pre-loading ConceptNet CSV ...")
     _cn_load_csv(_CN_CSV)
 
-    # Compute coherence for each matched pair
+    # ── Build embedding cache for all neighbour entities ──────────────────────
+    # Collect every entity name that will appear in any neighbour comparison.
+    all_neighbor_names: set[str] = set()
+    for row in match_rows:
+        ea, eb = row["entity_a"], row["entity_b"]
+        all_neighbor_names.update(adj_a.get(ea, set()))
+        all_neighbor_names.update(adj_b.get(eb, set()))
+
+    print(f"[Encoder] Building embedding cache for {len(all_neighbor_names)} neighbour entities ...")
+    emb_cache = _build_emb_cache(list(all_neighbor_names))
+
+    # ── Compute coherence for each matched pair ───────────────────────────────
     print(f"\n[Coherence] Analysing {len(match_rows)} pairs ...\n")
     results = []
     for row in match_rows:
-        ea = row["entity_a"]
-        eb = row["entity_b"]
+        ea  = row["entity_a"]
+        eb  = row["entity_b"]
         sem = row.get("semantic_label", "")
         wup = row.get("wup_score", "")
-        max_wup = row.get("max_wup", wup)
-        avg_wup = row.get("avg_wup", wup)
 
-        coh = neighbourhood_coherence(ea, eb, adj_a, adj_b, threshold=threshold)
+        coh  = neighbourhood_coherence(ea, eb, adj_a, adj_b, emb_cache)
         vcoh = verb_coherence(ea, eb, verbs_a, verbs_b)
 
         results.append({
@@ -361,8 +391,8 @@ def run_analysis(
             "entity_b":       eb,
             "semantic_label": sem,
             "wup_score":      wup,
-            "max_wup":        max_wup,
-            "avg_wup":        avg_wup,
+            "max_wup":        row.get("max_wup", wup),
+            "avg_wup":        row.get("avg_wup", wup),
             "n_nbrs_a":       coh["n_nbrs_a"],
             "n_nbrs_b":       coh["n_nbrs_b"],
             "coherence_a2b":  coh["coherence_a2b"],
@@ -371,16 +401,14 @@ def run_analysis(
             "avg_best_a2b":   coh["avg_best_a2b"],
             "avg_best_b2a":   coh["avg_best_b2a"],
             "verb_coherence": vcoh,
-            "best_pairs":     " | ".join(f"{nb}<->{nc}({s})"
-                                         for s, nb, nc in coh["best_pairs"]),
+            "best_pairs":     " | ".join(
+                f"{nb}<->{nc}({s})" for s, nb, nc in coh["best_pairs"]
+            ),
         })
 
-    results.sort(key=lambda r: (r["coherence_sym"], r["avg_best_a2b"]), reverse=True)
-
-    # Print ranked table
+    results.sort(key=lambda r: r["coherence_sym"], reverse=True)
     _print_results(results, name_a, name_b, threshold)
 
-    # Write CSV
     if out_csv:
         _write_results_csv(results, Path(out_csv))
 
@@ -402,42 +430,22 @@ _COL_FIELDS = [
 def _print_results(results: list[dict], name_a: str, name_b: str, threshold: float) -> None:
     w = 26
     print(f"\n{'Entity A':<{w}} {'Entity B':<{w}} {'Sem':<14} "
-          f"{'WUP':>5} {'MaxW':>5} {'Coh_A2B':>8} {'Coh_B2A':>8} "
+          f"{'WUP':>5} {'Coh_A2B':>8} {'Coh_B2A':>8} "
           f"{'Coh_sym':>8} {'VerbCoh':>8}  Best neighbour pairs")
     print("-" * 160)
-
     for r in results:
-        flag = " *" if r["coherence_sym"] >= threshold else (
-               " ?" if r["n_nbrs_a"] == 0 or r["n_nbrs_b"] == 0 else "")
+        flag = " *" if r["coherence_sym"] >= threshold else ""
         print(
             f"{r['entity_a']:<{w}} {r['entity_b']:<{w}} "
             f"{r['semantic_label']:<14} "
-            f"{str(r['wup_score']):>5} {str(r['max_wup']):>5} "
+            f"{str(r['wup_score']):>5} "
             f"{r['coherence_a2b']:>8.3f} {r['coherence_b2a']:>8.3f} "
             f"{r['coherence_sym']:>8.3f} {r['verb_coherence']:>8.3f}"
             f"  {r['best_pairs'][:70]}{flag}"
         )
-
-    # Summary
-    high  = [r for r in results if r["coherence_sym"] >= threshold]
-    iso_a = [r for r in results if r["n_nbrs_a"] == 0]
-    iso_b = [r for r in results if r["n_nbrs_b"] == 0]
-    low   = [r for r in results if r["coherence_sym"] < threshold
-             and r["n_nbrs_a"] > 0 and r["n_nbrs_b"] > 0]
-
-    print(f"\n{'-'*70}")
-    print(f"  Total L1 matches: {len(results)}")
-    print(f"  Neighbourhood-supported (sym >= {threshold}): {len(high)}  *")
-    print(f"  Low coherence (both have neighbours):        {len(low)}")
-    print(f"  Isolated in A (no edges):                   {len(iso_a)}")
-    print(f"  Isolated in B (no edges):                   {len(iso_b)}")
-
-    if low:
-        print(f"\n  [!] Low-coherence matches (name match but neighbourhood disagrees):")
-        for r in sorted(low, key=lambda x: x["coherence_sym"]):
-            print(f"    {r['entity_a']:<26} <-> {r['entity_b']:<26}  "
-                  f"coh={r['coherence_sym']:.3f}  "
-                  f"A-nbrs={set(r['best_pairs'].split(' | ')[0].split('<->')[0]) if r['best_pairs'] else '{}'}")
+    high = sum(1 for r in results if r["coherence_sym"] >= threshold)
+    print(f"\n  Total pairs: {len(results)}  |  "
+          f"coherence_sym >= {threshold}: {high}")
 
 
 def _write_results_csv(results: list[dict], out_path: Path) -> None:
@@ -455,22 +463,32 @@ def _write_results_csv(results: list[dict], out_path: Path) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Neighbourhood coherence analysis for any ontology pair."
+        description="Semantic neighbourhood coherence for an ontology pair."
     )
-    parser.add_argument("--a", required=True, help="Path to ontology A JSON")
-    parser.add_argument("--b", required=True, help="Path to ontology B JSON")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--pair", dest="pair_json",
+                       help="Combined pair JSON with json_a / json_b keys.")
+    group.add_argument("--a",   dest="json_a",
+                       help="Path to ontology A JSON (use with --b).")
+    parser.add_argument("--b", dest="json_b",
+                        help="Path to ontology B JSON (use with --a).")
     parser.add_argument("--matches-csv", default=None,
-                        help="Pre-computed enriched per-pair CSV (L1 matches).")
+                        help="Pre-computed enriched per-pair CSV (L1+L2 matches).")
     parser.add_argument("--out-csv", default=None,
                         help="Output CSV path for coherence results.")
     parser.add_argument("--threshold", type=float, default=0.5,
-                        help="WUP threshold to count a neighbour as 'covered' (default 0.5).")
+                        help="Display threshold for summary (default 0.5). "
+                             "Does NOT affect coherence_sym value.")
     args = parser.parse_args()
 
+    if args.json_a and not args.json_b:
+        parser.error("--a requires --b")
+
     run_analysis(
-        json_a       = args.a,
-        json_b       = args.b,
-        matches_csv  = args.matches_csv,
-        out_csv      = args.out_csv,
-        threshold    = args.threshold,
+        json_a      = args.json_a,
+        json_b      = args.json_b,
+        pair_json   = args.pair_json,
+        matches_csv = args.matches_csv,
+        out_csv     = args.out_csv,
+        threshold   = args.threshold,
     )
