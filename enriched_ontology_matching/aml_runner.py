@@ -5,7 +5,7 @@ Python wrapper for the actual AgreementMakerLight (AML) v3.2 JAR.
 
 AML is a Java-based OAEI ontology matching system.
 Source: https://github.com/AgreementMakerLight/AML-Project
-JAR:    ontology_matching/tools/AML/AML_v3.2/AgreementMakerLight.jar
+JAR:    enriched_ontology_matching/tools/AML/AML_v3.2/AgreementMakerLight.jar
 
 IMPORTANT: AML must be invoked from its own directory because it reads
            store/config.ini and store/StopList.txt at runtime using
@@ -45,7 +45,7 @@ from pathlib import Path
 # Paths
 # ---------------------------------------------------------------------------
 _DIR    = Path(__file__).parent
-AML_DIR = _DIR.parent / "ontology_matching" / "tools" / "AML" / "AML_v3.2"
+AML_DIR = _DIR / "tools" / "AML" / "AML_v3.2"
 AML_JAR = AML_DIR / "AgreementMakerLight.jar"
 
 # ---------------------------------------------------------------------------
@@ -82,7 +82,7 @@ def run_aml(
     if not AML_JAR.exists():
         raise FileNotFoundError(
             f"AML JAR not found at {AML_JAR}\n"
-            "Expected: ontology_matching/tools/AML/AML_v3.2/AgreementMakerLight.jar"
+            "Expected: enriched_ontology_matching/tools/AML/AML_v3.2/AgreementMakerLight.jar"
         )
 
     output_rdf.parent.mkdir(parents=True, exist_ok=True)
