@@ -10,7 +10,7 @@ The final output is a clean **metrics-only CSV** per pair with one row per entit
 |-------|------|--------------|
 | **L1** | Structural Matching | AML + LogMap find entity pairs; results are merged and de-duplicated |
 | **L2** | Semantic Discovery | WordNet + ConceptNet discover additional equivalence/subsumption candidates among *unmatched* entities |
-| **L0** | Neighbourhood Coherence | Validates each pair by comparing local graph neighbourhoods across ontologies |
+| **L0** | Neighbourhood Coherence | Validates each pair via `sqrt(WUP × cosine)` geometric mean over local graph neighbours |
 | **L3** | Lin-IC Scoring | Corpus-based Lin Information Content (Brown corpus) scores every L1+L2 pair |
 | **L4** | Sentence Embedding | `paraphrase-MiniLM-L6-v2` cosine similarity per entity pair |
 | **L5** | Merge | Joins all layer outputs into one metrics-only CSV |
@@ -23,22 +23,6 @@ The final output is a clean **metrics-only CSV** per pair with one row per entit
 
 ```bash
 python --version   # 3.10 or higher
-```
-
-Install Python dependencies from the repo root:
-
-```bash
-pip install nltk sentence-transformers
-```
-
-Then download NLTK data once:
-
-```python
-import nltk
-nltk.download('wordnet')
-nltk.download('omw-1.4')
-nltk.download('wordnet_ic')
-nltk.download('brown')
 ```
 
 ### 2. Java 11+
@@ -86,62 +70,179 @@ gunzip conceptnet-assertions-5.7.0.csv.gz
 Place the extracted file at:
 
 ```
-enriched_ontology_matching/inputs/conceptnet-assertions-5.7.0.csv
+ontology_matching/inputs/conceptnet-assertions-5.7.0.csv/assertions.csv
+```
+
+### 6. Input Models (Constitutive JSON Files)
+
+The pipeline expects conceptual-model JSON files organised by domain. `run_all_pairs.py` looks for them at:
+
+```
+ontology_matching/inputs/CONceptual_ExtractionCategory_Examples/
+  CONceptual_ExtractionCategory_Examples/
+    Automobile/
+      automobile_v1.json
+      automobile_v2.json
+      automobile_v3.json
+      automobile_variation_1.json
+      automobile_variation_2.json
+      automobile_variation_3.json
+    Coffee/
+      ...
+    Homebrewing/
+      ...
+    Hospital/
+      ...
+    SmartHome/
+      ...
+    University/
+      ...
+```
+
+Each JSON file represents a single conceptual model with this schema:
+
+```json
+{
+  "modelName": "Automobile_Model_V1_SystemCentric",
+  "entities": [
+    { "entityName": "Engine" },
+    { "entityName": "Wheel" }
+  ],
+  "associations": [
+    {
+      "associationName": "EngineDrivesWheel",
+      "associationParticipants": ["Engine", "Wheel"]
+    }
+  ]
+}
+```
+
+Network-schema models use `"name"` and `"participants"` instead of `"associationName"` / `"associationParticipants"`.
+
+---
+
+## Setup
+
+All commands are run from the **repository root**.
+
+### Step 0 — Create virtual environment and install dependencies
+
+```bash
+# Create the venv
+python -m venv .venv
+
+# Activate it
+# Windows (PowerShell):
+.venv\Scripts\Activate.ps1
+# Windows (CMD):
+.venv\Scripts\activate.bat
+# macOS / Linux:
+source .venv/bin/activate
+
+# Install all dependencies
+pip install -r requirements.txt
+
+# Download required NLTK data (one-time)
+python -c "import nltk; nltk.download('wordnet'); nltk.download('omw-1.4'); nltk.download('wordnet_ic'); nltk.download('brown')"
+```
+
+After this step, always use `.venv/Scripts/python.exe` (Windows) or `.venv/bin/python` (macOS/Linux) to run the pipeline scripts.
+
+---
+
+## Generating All Results (End-to-End)
+
+The fastest way to generate everything is `run_all_pairs.py`. It discovers all model JSONs under each domain, generates every within-domain pair combination, and runs the full five-stage pipeline (L1 → L2 → L0 → L3 → L4 → L5) for each pair.
+
+### Quick start — run all domains
+
+```bash
+.venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py
+```
+
+This will:
+
+1. **Discover** all model JSON files per domain (Automobile, Coffee, Homebrewing, Hospital, SmartHome, University)
+2. **Generate pair JSONs** in `enriched_ontology_matching/pairs/` (e.g. `auto_V1_V2.json`)
+3. **Run L1+L2** (AML + LogMap + WordNet + ConceptNet) → per-pair CSV in `outputs/enriched/`
+4. **Run L0** (neighbourhood coherence with `sqrt(WUP × cosine)`) → `outputs/neighbourhood/`
+5. **Run L3** (Lin-IC scoring) → `outputs/lin_ic/`
+6. **Run L4** (sentence embedding cosine) → `outputs/embeddings/`
+7. **Run L5** (merge all metrics) → `outputs/merged/<ModelA>_vs_<ModelB>_metrics.csv`
+8. **Combine** all per-pair CSVs into `outputs/enriched/all_domains_combined.csv`
+9. **Generate** a Markdown report at `outputs/all_domains_results.md`
+
+### Re-run with cached results
+
+To skip pairs whose outputs already exist (e.g. after adding new models):
+
+```bash
+.venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --skip-existing
+```
+
+### Run specific domains only
+
+```bash
+.venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --domains Automobile Hospital
+```
+
+### Use only one structural matcher
+
+```bash
+.venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --matcher aml
+# or: --matcher logmap
 ```
 
 ---
 
-## Running the Pipeline
+## Running Individual Stages Manually
 
-All commands are run from the **repository root**.
+Use these commands to run a single pair through each stage independently.
 
-### Step 1 — Run a single pair (L1 + L2)
-
-Input files are pre-built pair JSONs in `enriched_ontology_matching/pairs/`.
+### Step 1 — L1+L2: Structural Matching + Semantic Discovery
 
 ```bash
-python enriched_ontology_matching/enriched_matcher.py \
+.venv/Scripts/python.exe enriched_ontology_matching/enriched_matcher.py \
     enriched_ontology_matching/pairs/auto_V1_V2.json
 ```
 
 Output: `enriched_ontology_matching/outputs/enriched/<ModelA>_vs_<ModelB>.csv`
 
-To use only one matcher:
+To use only one matcher add `--matcher logmap` or `--matcher aml`.
+
+### Step 2 — L0: Neighbourhood Coherence
+
+Requires a pair JSON (for model graphs) and the enriched CSV from Step 1:
 
 ```bash
-python enriched_ontology_matching/enriched_matcher.py \
-    enriched_ontology_matching/pairs/auto_V1_V2.json \
-    --matcher logmap   # or: aml
-```
-
-### Step 2 — Neighbourhood Coherence (L0)
-
-```bash
-python enriched_ontology_matching/neighbourhood_coherence.py \
+.venv/Scripts/python.exe enriched_ontology_matching/neighbourhood_coherence.py \
+    --pair        enriched_ontology_matching/pairs/auto_V1_V2.json \
     --matches-csv enriched_ontology_matching/outputs/enriched/<stem>.csv \
     --out-csv     enriched_ontology_matching/outputs/neighbourhood/auto_V1_V2_coherence.csv
 ```
 
-### Step 3 — Lin-IC Scoring (L3)
+Coherence is computed as `sqrt(WUP × cosine)` per neighbour pair (geometric mean), then averaged over all neighbours in each direction.
+
+### Step 3 — L3: Lin-IC Scoring
 
 ```bash
-python enriched_ontology_matching/lin_ic_stage.py \
+.venv/Scripts/python.exe enriched_ontology_matching/lin_ic_stage.py \
     --csv enriched_ontology_matching/outputs/enriched/<stem>.csv \
     --out enriched_ontology_matching/outputs/lin_ic/auto_V1_V2_lin_ic.csv
 ```
 
-### Step 4 — Sentence Embeddings (L4)
+### Step 4 — L4: Sentence Embeddings
 
 ```bash
-python enriched_ontology_matching/semantic_encoder.py \
+.venv/Scripts/python.exe enriched_ontology_matching/semantic_encoder.py \
     --csv enriched_ontology_matching/outputs/enriched/<stem>.csv \
     --out enriched_ontology_matching/outputs/embeddings/auto_V1_V2_emb.csv
 ```
 
-### Step 5 — Merge into metrics CSV (L5)
+### Step 5 — L5: Merge into Metrics CSV
 
 ```bash
-python enriched_ontology_matching/merge_stage.py \
+.venv/Scripts/python.exe enriched_ontology_matching/merge_stage.py \
     --enriched enriched_ontology_matching/outputs/enriched/<stem>.csv \
     --nbr      enriched_ontology_matching/outputs/neighbourhood/auto_V1_V2_coherence.csv \
     --lin-ic   enriched_ontology_matching/outputs/lin_ic/auto_V1_V2_lin_ic.csv \
@@ -156,18 +257,20 @@ python enriched_ontology_matching/merge_stage.py \
 ```
 enriched_ontology_matching/
 ├── pairs/
-│   └── auto_V1_V2.json              # input pair JSON (json_a + json_b)
+│   └── auto_V1_V2.json                        # generated pair JSON (json_a + json_b)
 ├── outputs/
 │   ├── enriched/
-│   │   └── <ModelA>_vs_<ModelB>.csv # L1+L2 per-pair CSV
+│   │   ├── <ModelA>_vs_<ModelB>.csv            # L1+L2 per-pair CSV
+│   │   └── all_domains_combined.csv            # all pairs concatenated
 │   ├── neighbourhood/
-│   │   └── <key>_coherence.csv      # L0 coherence scores
+│   │   └── <key>_coherence.csv                 # L0 coherence scores
 │   ├── lin_ic/
-│   │   └── <key>_lin_ic.csv         # L3 Lin-IC scores
+│   │   └── <key>_lin_ic.csv                    # L3 Lin-IC scores
 │   ├── embeddings/
-│   │   └── <key>_emb.csv            # L4 embedding cosine scores
-│   └── merged/
-│       └── <ModelA>_vs_<ModelB>_metrics.csv   # final metrics CSV
+│   │   └── <key>_emb.csv                       # L4 embedding cosine scores
+│   ├── merged/
+│   │   └── <ModelA>_vs_<ModelB>_metrics.csv    # final metrics CSV
+│   └── all_domains_results.md                  # human-readable summary report
 └── tools/
     ├── logmap/
     │   └── logmap-matcher-4.0.jar
@@ -175,6 +278,8 @@ enriched_ontology_matching/
         └── AML_v3.2/
             └── AgreementMakerLight.jar
 ```
+
+`<key>` is a short domain-pair identifier (e.g. `auto_V1_V2`, `hosp_V1_Net1`).
 
 ---
 
@@ -189,33 +294,10 @@ Each `outputs/merged/*_metrics.csv` has one row per entity pair and 7 columns:
 | `matched` | 0 / 1 | 1 if AML or LogMap (or both) found this pair |
 | `avg_wup` | float 0–1 | Average WordNet Wu-Palmer similarity across all token combinations |
 | `lin_ic` | float 0–1 | Lin Information Content similarity (best token pair) |
-| `coherence_sym` | float 0–1 | Symmetric neighbourhood coherence |
+| `coherence_sym` | float 0–1 | Symmetric neighbourhood coherence (`sqrt(WUP × cosine)` geometric mean) |
 | `cosine_avg` | float 0–1 | Token-average sentence embedding cosine similarity |
 
 Rows with `matched=0` are pairs discovered only by the semantic layers (L2).
-
----
-
-## Input Pair JSON Format
-
-Each file in `pairs/` has this structure:
-
-```json
-{
-  "json_a": {
-    "modelName": "Automobile Model V1",
-    "entities": [{ "entityName": "Engine" }],
-    "associations": [{ "associationName": "EngineDrivesWheel" }]
-  },
-  "json_b": {
-    "modelName": "Automobile Model V2",
-    "entities": [{ "entityName": "Motor" }],
-    "associations": []
-  }
-}
-```
-
-Both `entityName`/`associationName` (Type-A) and `name` (Type-B network schema) are supported.
 
 ---
 
@@ -223,6 +305,7 @@ Both `entityName`/`associationName` (Type-A) and `name` (Type-B network schema) 
 
 | File | Purpose |
 |------|---------|
+| `run_all_pairs.py` | **Main entry point** — batch runner for all within-domain pairs (L1→L5) |
 | `enriched_matcher.py` | L1 (AML + LogMap structural merge) + L2 (WN+CN discovery) |
 | `neighbourhood_coherence.py` | L0 — graph neighbourhood semantic coherence |
 | `lin_ic_stage.py` | L3 — Lin Information-Content scoring |
@@ -231,5 +314,4 @@ Both `entityName`/`associationName` (Type-A) and `name` (Type-B network schema) 
 | `aml_runner.py` | Wrapper around the AML JAR |
 | `logmap_runner.py` | Wrapper around the LogMap JAR |
 | `root_comparator.py` | CamelCase splitting, WUP, ConceptNet CSV lookup |
-| `run_all_pairs.py` | Batch runner for all pairs in a domain |
 | `generate_report.py` | Renders a human-readable MD report from the combined CSV |

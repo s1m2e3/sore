@@ -1,2 +1,7 @@
 owlready2
 graphviz
+nltk
+numpy
+requests
+sentence-transformers
+torch
