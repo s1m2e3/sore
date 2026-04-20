@@ -1,0 +1,35 @@
+{
+  "modelName": "University_Model_V2_AcademicProgramCentric",
+  "modelDescription": "Academic program-centric decomposition. Focuses on degree programs, curriculum design, course offerings, credit requirements, and accreditation across colleges and departments.",
+  "observables": ["Identifier","Count","Duration","Ratio","Kind","Description","OperationalState"],
+  "entities": [
+    {"entityName":"AcademicProgram","entityAttributes":[{"name":"programID","type":"Identifier"},{"name":"programName","type":"Description"},{"name":"degreeLevel","type":"Kind"},{"name":"creditHours","type":"Count"},{"name":"accreditationStatus","type":"OperationalState"}]},
+    {"entityName":"Curriculum","entityAttributes":[{"name":"curriculumID","type":"Identifier"},{"name":"curriculumName","type":"Description"},{"name":"effectiveYear","type":"Duration"},{"name":"totalCredits","type":"Count"},{"name":"reviewCycle","type":"Kind"}]},
+    {"entityName":"Course","entityAttributes":[{"name":"courseID","type":"Identifier"},{"name":"courseNumber","type":"Identifier"},{"name":"courseTitle","type":"Description"},{"name":"creditHours","type":"Count"},{"name":"deliveryMode","type":"Kind"}]},
+    {"entityName":"CoreCourse","entityAttributes":[{"name":"coreID","type":"Identifier"},{"name":"coreName","type":"Description"},{"name":"competencyArea","type":"Kind"},{"name":"passingGrade","type":"Kind"},{"name":"waivable","type":"OperationalState"}]},
+    {"entityName":"Elective","entityAttributes":[{"name":"electiveID","type":"Identifier"},{"name":"electiveName","type":"Description"},{"name":"electiveCategory","type":"Kind"},{"name":"minCredits","type":"Count"},{"name":"maxCredits","type":"Count"}]},
+    {"entityName":"Concentration","entityAttributes":[{"name":"concentrationID","type":"Identifier"},{"name":"concentrationName","type":"Description"},{"name":"requiredCourses","type":"Count"},{"name":"discipline","type":"Kind"},{"name":"careerOutcome","type":"Description"}]},
+    {"entityName":"Prerequisite","entityAttributes":[{"name":"prerequisiteID","type":"Identifier"},{"name":"requiredCourse","type":"Description"},{"name":"minimumGrade","type":"Kind"},{"name":"canBeConcurrent","type":"OperationalState"}]},
+    {"entityName":"DegreeRequirement","entityAttributes":[{"name":"requirementID","type":"Identifier"},{"name":"requirementType","type":"Kind"},{"name":"minimumCredits","type":"Count"},{"name":"gpaRequirement","type":"Ratio"},{"name":"residencyRequirement","type":"Count"}]},
+    {"entityName":"Accreditation","entityAttributes":[{"name":"accreditationID","type":"Identifier"},{"name":"accreditingBody","type":"Description"},{"name":"accreditationDate","type":"Duration"},{"name":"expirationDate","type":"Duration"},{"name":"status","type":"OperationalState"}]},
+    {"entityName":"Enrollment","entityAttributes":[{"name":"enrollmentID","type":"Identifier"},{"name":"enrollmentDate","type":"Duration"},{"name":"enrollmentType","type":"Kind"},{"name":"studentCount","type":"Count"},{"name":"sectionNumber","type":"Identifier"}]},
+    {"entityName":"CourseSection","entityAttributes":[{"name":"sectionID","type":"Identifier"},{"name":"sectionNumber","type":"Identifier"},{"name":"term","type":"Kind"},{"name":"maxCapacity","type":"Count"},{"name":"meetingPattern","type":"Kind"}]},
+    {"entityName":"LearningOutcome","entityAttributes":[{"name":"outcomeID","type":"Identifier"},{"name":"outcomeStatement","type":"Description"},{"name":"assessmentMethod","type":"Kind"},{"name":"bloomsLevel","type":"Kind"},{"name":"alignedStandard","type":"Description"}]},
+    {"entityName":"Capstone","entityAttributes":[{"name":"capstoneID","type":"Identifier"},{"name":"capstoneName","type":"Description"},{"name":"creditHours","type":"Count"},{"name":"evaluationCriteria","type":"Description"},{"name":"industryPartner","type":"Kind"}]},
+    {"entityName":"TransferCredit","entityAttributes":[{"name":"transferID","type":"Identifier"},{"name":"sourceInstitution","type":"Description"},{"name":"creditsTransferred","type":"Count"},{"name":"equivalentCourse","type":"Description"},{"name":"approvalDate","type":"Duration"}]},
+    {"entityName":"AcademicAdvisor","entityAttributes":[{"name":"advisorID","type":"Identifier"},{"name":"advisorName","type":"Description"},{"name":"specialization","type":"Kind"},{"name":"adviseeCount","type":"Count"},{"name":"department","type":"Kind"}]}
+  ],
+  "associations": [
+    {"associationName":"ProgramCurriculum","associationAttributes":[{"name":"curriculumVersion","type":"Kind"}],"associationParticipants":["AcademicProgram","Curriculum"]},
+    {"associationName":"CurriculumCoreCourse","associationAttributes":[{"name":"sequenceOrder","type":"Count"}],"associationParticipants":["Curriculum","CoreCourse"]},
+    {"associationName":"CurriculumElective","associationAttributes":[{"name":"electiveGroup","type":"Kind"}],"associationParticipants":["Curriculum","Elective"]},
+    {"associationName":"ProgramConcentration","associationAttributes":[{"name":"concentrationRequired","type":"OperationalState"}],"associationParticipants":["AcademicProgram","Concentration"]},
+    {"associationName":"CoursePrerequisite","associationAttributes":[{"name":"prerequisiteType","type":"Kind"}],"associationParticipants":["Course","Prerequisite"]},
+    {"associationName":"ProgramDegreeRequirement","associationAttributes":[{"name":"requirementCategory","type":"Kind"}],"associationParticipants":["AcademicProgram","DegreeRequirement"]},
+    {"associationName":"ProgramAccreditation","associationAttributes":[{"name":"accreditationType","type":"Kind"}],"associationParticipants":["AcademicProgram","Accreditation"]},
+    {"associationName":"CourseSectionEnrollment","associationAttributes":[{"name":"waitlistCount","type":"Count"}],"associationParticipants":["CourseSection","Enrollment"]},
+    {"associationName":"CourseOutcome","associationAttributes":[{"name":"outcomeWeight","type":"Ratio"}],"associationParticipants":["Course","LearningOutcome"]},
+    {"associationName":"ProgramCapstone","associationAttributes":[{"name":"capstoneTerm","type":"Kind"}],"associationParticipants":["AcademicProgram","Capstone"]},
+    {"associationName":"AdvisorProgram","associationAttributes":[{"name":"primaryAdvisor","type":"OperationalState"}],"associationParticipants":["AcademicAdvisor","AcademicProgram"]}
+  ]
+}

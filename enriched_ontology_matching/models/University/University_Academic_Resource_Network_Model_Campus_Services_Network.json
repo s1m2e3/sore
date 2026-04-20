@@ -1,0 +1,27 @@
+{
+  "modelName": "University Academic Resource Network Model - Campus Services Network",
+  "modelDescription": "Campus services and student support resource network. Nodes represent service units — library, housing, dining, health, IT, recreation — and their support relationships to students and staff.",
+  "observables": ["Identifier","Count","Duration","Ratio","Kind","Description","OperationalState"],
+  "entities": [
+    {"name":"Library","attributes":[{"name":"libraryID","type":"Identifier"},{"name":"libraryName","type":"Description"},{"name":"collectionSize","type":"Count"},{"name":"operatingHours","type":"Kind"}]},
+    {"name":"Dormitory","attributes":[{"name":"dormID","type":"Identifier"},{"name":"dormName","type":"Description"},{"name":"capacity","type":"Count"},{"name":"residenceType","type":"Kind"},{"name":"occupancyRate","type":"Ratio"}]},
+    {"name":"DiningHall","attributes":[{"name":"diningID","type":"Identifier"},{"name":"diningName","type":"Description"},{"name":"seatingCapacity","type":"Count"},{"name":"mealPlanAccepted","type":"OperationalState"}]},
+    {"name":"HealthCenter","attributes":[{"name":"healthID","type":"Identifier"},{"name":"healthCenterName","type":"Description"},{"name":"appointmentTypes","type":"Kind"},{"name":"operatingHours","type":"Kind"}]},
+    {"name":"CounselingService","attributes":[{"name":"serviceID","type":"Identifier"},{"name":"serviceName","type":"Description"},{"name":"therapistCount","type":"Count"},{"name":"appointmentAvailability","type":"OperationalState"}]},
+    {"name":"ITServices","attributes":[{"name":"serviceID","type":"Identifier"},{"name":"serviceType","type":"Kind"},{"name":"supportHours","type":"Kind"},{"name":"ticketVolume","type":"Count"}]},
+    {"name":"RecreationCenter","attributes":[{"name":"recID","type":"Identifier"},{"name":"recName","type":"Description"},{"name":"facilityType","type":"Kind"},{"name":"membershipCount","type":"Count"}]},
+    {"name":"CareerServices","attributes":[{"name":"careerID","type":"Identifier"},{"name":"serviceName","type":"Description"},{"name":"employerPartners","type":"Count"},{"name":"placementRate","type":"Ratio"}]},
+    {"name":"FinancialAidOffice","attributes":[{"name":"officeID","type":"Identifier"},{"name":"aidTypes","type":"Kind"},{"name":"studentsServed","type":"Count"},{"name":"disbursementCycles","type":"Count"}]},
+    {"name":"TransportationService","attributes":[{"name":"serviceID","type":"Identifier"},{"name":"serviceType","type":"Kind"},{"name":"routeCount","type":"Count"},{"name":"ridership","type":"Count"}]}
+  ],
+  "associations": [
+    {"associationName":"DormDining","associationAttributes":[{"name":"mealPlanType","type":"Kind"}],"associationParticipants":["Dormitory","DiningHall"]},
+    {"associationName":"DormHealthCenter","associationAttributes":[{"name":"referralType","type":"Kind"}],"associationParticipants":["Dormitory","HealthCenter"]},
+    {"associationName":"HealthCenterCounseling","associationAttributes":[{"name":"referralReason","type":"Kind"}],"associationParticipants":["HealthCenter","CounselingService"]},
+    {"associationName":"LibraryITServices","associationAttributes":[{"name":"systemIntegration","type":"Kind"}],"associationParticipants":["Library","ITServices"]},
+    {"associationName":"RecreationITServices","associationAttributes":[{"name":"managementSystem","type":"Kind"}],"associationParticipants":["RecreationCenter","ITServices"]},
+    {"associationName":"CareerServicesFinancialAid","associationAttributes":[{"name":"scholarshipProgram","type":"Kind"}],"associationParticipants":["CareerServices","FinancialAidOffice"]},
+    {"associationName":"DormTransportation","associationAttributes":[{"name":"routeAccess","type":"Kind"}],"associationParticipants":["Dormitory","TransportationService"]},
+    {"associationName":"LibraryCareerServices","associationAttributes":[{"name":"resourceSharing","type":"Kind"}],"associationParticipants":["Library","CareerServices"]}
+  ]
+}

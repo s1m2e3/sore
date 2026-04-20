@@ -1,0 +1,27 @@
+{
+  "modelName": "University Academic Resource Network Model - Research and Innovation Network",
+  "modelDescription": "Research and innovation resource network. Represents research infrastructure nodes — labs, grants, partners, spin-offs — and their connectivity in the university innovation ecosystem.",
+  "observables": ["Identifier","Count","Duration","Ratio","Kind","Description","OperationalState"],
+  "entities": [
+    {"name":"ResearchLab","attributes":[{"name":"labID","type":"Identifier"},{"name":"labName","type":"Description"},{"name":"labType","type":"Kind"},{"name":"operationalStatus","type":"OperationalState"}]},
+    {"name":"Grant","attributes":[{"name":"grantID","type":"Identifier"},{"name":"grantAgency","type":"Kind"},{"name":"awardAmount","type":"Count"},{"name":"grantStatus","type":"OperationalState"}]},
+    {"name":"ResearchCenter","attributes":[{"name":"centerID","type":"Identifier"},{"name":"centerName","type":"Description"},{"name":"focusArea","type":"Kind"},{"name":"capacity","type":"Count"}]},
+    {"name":"Incubator","attributes":[{"name":"incubatorID","type":"Identifier"},{"name":"incubatorName","type":"Description"},{"name":"tenantCount","type":"Count"},{"name":"programDuration","type":"Duration"}]},
+    {"name":"Startup","attributes":[{"name":"startupID","type":"Identifier"},{"name":"startupName","type":"Description"},{"name":"sector","type":"Kind"},{"name":"foundingDate","type":"Duration"},{"name":"fundingStage","type":"Kind"}]},
+    {"name":"IndustryPartner","attributes":[{"name":"partnerID","type":"Identifier"},{"name":"partnerName","type":"Description"},{"name":"partnerSector","type":"Kind"},{"name":"agreementType","type":"Kind"}]},
+    {"name":"Patent","attributes":[{"name":"patentID","type":"Identifier"},{"name":"patentTitle","type":"Description"},{"name":"filingDate","type":"Duration"},{"name":"patentStatus","type":"OperationalState"}]},
+    {"name":"SharedEquipment","attributes":[{"name":"equipmentID","type":"Identifier"},{"name":"equipmentName","type":"Description"},{"name":"equipmentType","type":"Kind"},{"name":"bookingStatus","type":"OperationalState"}]},
+    {"name":"InovationHub","attributes":[{"name":"hubID","type":"Identifier"},{"name":"hubName","type":"Description"},{"name":"services","type":"Description"},{"name":"memberCount","type":"Count"}]},
+    {"name":"TechTransfer","attributes":[{"name":"transferID","type":"Identifier"},{"name":"technology","type":"Description"},{"name":"licenseeType","type":"Kind"},{"name":"royaltyRate","type":"Ratio"}]}
+  ],
+  "associations": [
+    {"associationName":"CenterLab","associationAttributes":[{"name":"resourceSharing","type":"Kind"}],"associationParticipants":["ResearchCenter","ResearchLab"]},
+    {"associationName":"LabGrant","associationAttributes":[{"name":"fundingProportion","type":"Ratio"}],"associationParticipants":["ResearchLab","Grant"]},
+    {"associationName":"CenterIncubator","associationAttributes":[{"name":"supportType","type":"Kind"}],"associationParticipants":["ResearchCenter","Incubator"]},
+    {"associationName":"IncubatorStartup","associationAttributes":[{"name":"cohortYear","type":"Duration"}],"associationParticipants":["Incubator","Startup"]},
+    {"associationName":"StartupIndustryPartner","associationAttributes":[{"name":"partnershipType","type":"Kind"}],"associationParticipants":["Startup","IndustryPartner"]},
+    {"associationName":"LabSharedEquipment","associationAttributes":[{"name":"usageHours","type":"Count"}],"associationParticipants":["ResearchLab","SharedEquipment"]},
+    {"associationName":"PatentTechTransfer","associationAttributes":[{"name":"exclusivityType","type":"Kind"}],"associationParticipants":["Patent","TechTransfer"]},
+    {"associationName":"HubStartup","associationAttributes":[{"name":"membershipTier","type":"Kind"}],"associationParticipants":["InovationHub","Startup"]}
+  ]
+}

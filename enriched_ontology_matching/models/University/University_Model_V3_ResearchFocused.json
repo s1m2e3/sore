@@ -1,0 +1,35 @@
+{
+  "modelName": "University_Model_V3_ResearchFocused",
+  "modelDescription": "Research-focused decomposition of university operations. Captures research centers, grants, publications, patents, researcher roles, and industry partnerships across academic units.",
+  "observables": ["Identifier","Count","Duration","Ratio","Kind","Description","OperationalState","Energy"],
+  "entities": [
+    {"entityName":"ResearchCenter","entityAttributes":[{"name":"centerID","type":"Identifier"},{"name":"centerName","type":"Description"},{"name":"researchDomain","type":"Kind"},{"name":"fundingLevel","type":"Kind"},{"name":"affiliation","type":"Description"}]},
+    {"entityName":"ResearchProject","entityAttributes":[{"name":"projectID","type":"Identifier"},{"name":"projectTitle","type":"Description"},{"name":"startDate","type":"Duration"},{"name":"endDate","type":"Duration"},{"name":"fundingAmount","type":"Count"},{"name":"projectStatus","type":"OperationalState"}]},
+    {"entityName":"Grant","entityAttributes":[{"name":"grantID","type":"Identifier"},{"name":"grantTitle","type":"Description"},{"name":"fundingAgency","type":"Kind"},{"name":"awardAmount","type":"Count"},{"name":"grantPeriod","type":"Duration"},{"name":"indirectRate","type":"Ratio"}]},
+    {"entityName":"Publication","entityAttributes":[{"name":"publicationID","type":"Identifier"},{"name":"title","type":"Description"},{"name":"publicationType","type":"Kind"},{"name":"publicationDate","type":"Duration"},{"name":"doiNumber","type":"Identifier"},{"name":"citationCount","type":"Count"}]},
+    {"entityName":"Patent","entityAttributes":[{"name":"patentID","type":"Identifier"},{"name":"patentTitle","type":"Description"},{"name":"filingDate","type":"Duration"},{"name":"grantDate","type":"Duration"},{"name":"patentStatus","type":"OperationalState"},{"name":"technologyDomain","type":"Kind"}]},
+    {"entityName":"PrincipalInvestigator","entityAttributes":[{"name":"piID","type":"Identifier"},{"name":"piName","type":"Description"},{"name":"researchArea","type":"Kind"},{"name":"activeGrantCount","type":"Count"},{"name":"hIndex","type":"Count"}]},
+    {"entityName":"Researcher","entityAttributes":[{"name":"researcherID","type":"Identifier"},{"name":"researcherName","type":"Description"},{"name":"role","type":"Kind"},{"name":"specialization","type":"Kind"},{"name":"yearsExperience","type":"Count"}]},
+    {"entityName":"Postdoc","entityAttributes":[{"name":"postdocID","type":"Identifier"},{"name":"postdocName","type":"Description"},{"name":"fellowship","type":"Kind"},{"name":"startDate","type":"Duration"},{"name":"researchFocus","type":"Description"}]},
+    {"entityName":"GraduateResearcher","entityAttributes":[{"name":"studentID","type":"Identifier"},{"name":"programLevel","type":"Kind"},{"name":"thesisTopic","type":"Description"},{"name":"advisor","type":"Description"},{"name":"fundingSource","type":"Kind"}]},
+    {"entityName":"IndustryPartner","entityAttributes":[{"name":"partnerID","type":"Identifier"},{"name":"partnerName","type":"Description"},{"name":"partnerType","type":"Kind"},{"name":"collaborationScope","type":"Description"},{"name":"agreementExpiry","type":"Duration"}]},
+    {"entityName":"ResearchLab","entityAttributes":[{"name":"labID","type":"Identifier"},{"name":"labName","type":"Description"},{"name":"equipmentBudget","type":"Count"},{"name":"labCapacity","type":"Count"},{"name":"safetyLevel","type":"Kind"}]},
+    {"entityName":"TechTransfer","entityAttributes":[{"name":"transferID","type":"Identifier"},{"name":"technologyName","type":"Description"},{"name":"licenseeType","type":"Kind"},{"name":"royaltyRate","type":"Ratio"},{"name":"agreementDate","type":"Duration"}]},
+    {"entityName":"ResearchOutput","entityAttributes":[{"name":"outputID","type":"Identifier"},{"name":"outputType","type":"Kind"},{"name":"impactFactor","type":"Ratio"},{"name":"disseminationDate","type":"Duration"},{"name":"targetAudience","type":"Kind"}]},
+    {"entityName":"EthicsReview","entityAttributes":[{"name":"reviewID","type":"Identifier"},{"name":"reviewType","type":"Kind"},{"name":"submissionDate","type":"Duration"},{"name":"approvalDate","type":"Duration"},{"name":"reviewStatus","type":"OperationalState"}]}
+  ],
+  "associations": [
+    {"associationName":"CenterProject","associationAttributes":[{"name":"projectRole","type":"Kind"}],"associationParticipants":["ResearchCenter","ResearchProject"]},
+    {"associationName":"ProjectGrant","associationAttributes":[{"name":"fundingPercentage","type":"Ratio"}],"associationParticipants":["ResearchProject","Grant"]},
+    {"associationName":"PIProject","associationAttributes":[{"name":"piRole","type":"Kind"}],"associationParticipants":["PrincipalInvestigator","ResearchProject"]},
+    {"associationName":"ProjectResearcher","associationAttributes":[{"name":"hoursPerWeek","type":"Count"}],"associationParticipants":["ResearchProject","Researcher"]},
+    {"associationName":"PIPostdoc","associationAttributes":[{"name":"mentorshipType","type":"Kind"}],"associationParticipants":["PrincipalInvestigator","Postdoc"]},
+    {"associationName":"ProjectPublication","associationAttributes":[{"name":"authorOrder","type":"Count"}],"associationParticipants":["ResearchProject","Publication"]},
+    {"associationName":"ProjectPatent","associationAttributes":[{"name":"inventorRank","type":"Count"}],"associationParticipants":["ResearchProject","Patent"]},
+    {"associationName":"PatentTechTransfer","associationAttributes":[{"name":"transferType","type":"Kind"}],"associationParticipants":["Patent","TechTransfer"]},
+    {"associationName":"TechTransferIndustryPartner","associationAttributes":[{"name":"exclusivityScope","type":"Kind"}],"associationParticipants":["TechTransfer","IndustryPartner"]},
+    {"associationName":"CenterResearchLab","associationAttributes":[{"name":"labStatus","type":"OperationalState"}],"associationParticipants":["ResearchCenter","ResearchLab"]},
+    {"associationName":"ProjectEthicsReview","associationAttributes":[{"name":"reviewRequired","type":"OperationalState"}],"associationParticipants":["ResearchProject","EthicsReview"]},
+    {"associationName":"PIGraduateResearcher","associationAttributes":[{"name":"advisingType","type":"Kind"}],"associationParticipants":["PrincipalInvestigator","GraduateResearcher"]}
+  ]
+}

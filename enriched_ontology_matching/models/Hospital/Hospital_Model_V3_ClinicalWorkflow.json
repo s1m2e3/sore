@@ -1,0 +1,36 @@
+{
+  "modelName": "Hospital_Model_V3_ClinicalWorkflow",
+  "modelDescription": "Clinical workflow decomposition. Focuses on care pathways, protocols, medical procedures, orders, and interdepartmental handoffs across the hospital care continuum.",
+  "observables": ["Identifier","Duration","Count","HealthState","OperationalState","Kind","Description","Ratio","ScalarVolume"],
+  "entities": [
+    {"entityName":"ClinicalProtocol","entityAttributes":[{"name":"protocolID","type":"Identifier"},{"name":"protocolName","type":"Description"},{"name":"version","type":"Kind"},{"name":"approvalDate","type":"Duration"},{"name":"specialtyScope","type":"Kind"}]},
+    {"entityName":"CarePathway","entityAttributes":[{"name":"pathwayID","type":"Identifier"},{"name":"pathwayName","type":"Description"},{"name":"targetCondition","type":"Kind"},{"name":"estimatedDuration","type":"Duration"},{"name":"adherenceRate","type":"Ratio"}]},
+    {"entityName":"MedicalProcedure","entityAttributes":[{"name":"procedureID","type":"Identifier"},{"name":"cptCode","type":"Identifier"},{"name":"procedureName","type":"Description"},{"name":"riskLevel","type":"Kind"},{"name":"avgDuration","type":"Duration"}]},
+    {"entityName":"DiagnosticTest","entityAttributes":[{"name":"testID","type":"Identifier"},{"name":"testName","type":"Description"},{"name":"testCategory","type":"Kind"},{"name":"turnaroundTime","type":"Duration"},{"name":"specimenType","type":"Kind"}]},
+    {"entityName":"LabOrder","entityAttributes":[{"name":"orderID","type":"Identifier"},{"name":"orderDate","type":"Duration"},{"name":"priority","type":"Kind"},{"name":"collectionTime","type":"Duration"},{"name":"orderStatus","type":"OperationalState"}]},
+    {"entityName":"ImagingRequest","entityAttributes":[{"name":"requestID","type":"Identifier"},{"name":"requestDate","type":"Duration"},{"name":"modality","type":"Kind"},{"name":"clinicalIndication","type":"Description"},{"name":"urgency","type":"Kind"}]},
+    {"entityName":"ReferralOrder","entityAttributes":[{"name":"referralID","type":"Identifier"},{"name":"referralDate","type":"Duration"},{"name":"referralType","type":"Kind"},{"name":"targetSpecialty","type":"Kind"},{"name":"clinicalReason","type":"Description"}]},
+    {"entityName":"MedicationOrder","entityAttributes":[{"name":"orderID","type":"Identifier"},{"name":"drugName","type":"Description"},{"name":"dose","type":"Kind"},{"name":"route","type":"Kind"},{"name":"frequency","type":"Kind"}]},
+    {"entityName":"NursingTask","entityAttributes":[{"name":"taskID","type":"Identifier"},{"name":"taskType","type":"Kind"},{"name":"scheduledTime","type":"Duration"},{"name":"priority","type":"Kind"},{"name":"completionStatus","type":"OperationalState"}]},
+    {"entityName":"ClinicalHandoff","entityAttributes":[{"name":"handoffID","type":"Identifier"},{"name":"handoffType","type":"Kind"},{"name":"handoffTime","type":"Duration"},{"name":"sendingUnit","type":"Kind"},{"name":"receivingUnit","type":"Kind"}]},
+    {"entityName":"CareTeam","entityAttributes":[{"name":"teamID","type":"Identifier"},{"name":"teamName","type":"Description"},{"name":"specialty","type":"Kind"},{"name":"teamSize","type":"Count"},{"name":"roundingSchedule","type":"Kind"}]},
+    {"entityName":"ClinicalNote","entityAttributes":[{"name":"noteID","type":"Identifier"},{"name":"noteType","type":"Kind"},{"name":"authorRole","type":"Kind"},{"name":"createdTime","type":"Duration"},{"name":"noteStatus","type":"OperationalState"}]},
+    {"entityName":"PatientRound","entityAttributes":[{"name":"roundID","type":"Identifier"},{"name":"roundTime","type":"Duration"},{"name":"roundType","type":"Kind"},{"name":"participantCount","type":"Count"},{"name":"issuesIdentified","type":"Count"}]},
+    {"entityName":"DischargeOrder","entityAttributes":[{"name":"orderID","type":"Identifier"},{"name":"issuedDate","type":"Duration"},{"name":"dischargeType","type":"Kind"},{"name":"homeServices","type":"Kind"},{"name":"followUpSchedule","type":"Description"}]},
+    {"entityName":"QualityMetric","entityAttributes":[{"name":"metricID","type":"Identifier"},{"name":"metricName","type":"Description"},{"name":"measurementPeriod","type":"Duration"},{"name":"targetValue","type":"Ratio"},{"name":"actualValue","type":"Ratio"}]}
+  ],
+  "associations": [
+    {"associationName":"PathwayProtocol","associationAttributes":[{"name":"complianceRequired","type":"HealthState"}],"associationParticipants":["CarePathway","ClinicalProtocol"]},
+    {"associationName":"PathwayProcedure","associationAttributes":[{"name":"sequenceOrder","type":"Count"}],"associationParticipants":["CarePathway","MedicalProcedure"]},
+    {"associationName":"ProcedureDiagnosticTest","associationAttributes":[{"name":"testPurpose","type":"Kind"}],"associationParticipants":["MedicalProcedure","DiagnosticTest"]},
+    {"associationName":"DiagnosticTestLabOrder","associationAttributes":[{"name":"orderedBy","type":"Kind"}],"associationParticipants":["DiagnosticTest","LabOrder"]},
+    {"associationName":"ProcedureImagingRequest","associationAttributes":[{"name":"imagingPurpose","type":"Kind"}],"associationParticipants":["MedicalProcedure","ImagingRequest"]},
+    {"associationName":"PathwayReferralOrder","associationAttributes":[{"name":"referralTrigger","type":"Kind"}],"associationParticipants":["CarePathway","ReferralOrder"]},
+    {"associationName":"CareTeamRound","associationAttributes":[{"name":"leadPhysician","type":"Kind"}],"associationParticipants":["CareTeam","PatientRound"]},
+    {"associationName":"RoundClinicalNote","associationAttributes":[{"name":"noteCategory","type":"Kind"}],"associationParticipants":["PatientRound","ClinicalNote"]},
+    {"associationName":"HandoffCareTeam","associationAttributes":[{"name":"handoffReason","type":"Description"}],"associationParticipants":["ClinicalHandoff","CareTeam"]},
+    {"associationName":"PathwayDischargeOrder","associationAttributes":[{"name":"dischargeReadiness","type":"HealthState"}],"associationParticipants":["CarePathway","DischargeOrder"]},
+    {"associationName":"CareTeamNursingTask","associationAttributes":[{"name":"delegatedBy","type":"Kind"}],"associationParticipants":["CareTeam","NursingTask"]},
+    {"associationName":"ProtocolQualityMetric","associationAttributes":[{"name":"monitoringFrequency","type":"Kind"}],"associationParticipants":["ClinicalProtocol","QualityMetric"]}
+  ]
+}

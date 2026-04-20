@@ -1,0 +1,31 @@
+{
+  "modelName": "Hospital Facility Resource Network Model - Equipment and Technology Network",
+  "modelDescription": "Medical equipment and technology asset network. Represents clinical devices, imaging systems, laboratory instruments, surgical equipment, and supporting IT infrastructure as interconnected resource nodes.",
+  "observables": ["Identifier","OperationalState","Duration","Count","Power","Energy","Kind","Description","Ratio","Mass"],
+  "entities": [
+    {"name":"MedicalEquipment","attributes":[{"name":"equipmentID","type":"Identifier"},{"name":"equipmentName","type":"Description"},{"name":"category","type":"Kind"},{"name":"operationalStatus","type":"OperationalState"}]},
+    {"name":"Ventilator","attributes":[{"name":"ventilatorID","type":"Identifier"},{"name":"ventilatorModel","type":"Kind"},{"name":"tidalVolumeSetting","type":"Mass"},{"name":"status","type":"OperationalState"}]},
+    {"name":"PatientMonitor","attributes":[{"name":"monitorID","type":"Identifier"},{"name":"monitorType","type":"Kind"},{"name":"channelCount","type":"Count"},{"name":"alarmStatus","type":"OperationalState"}]},
+    {"name":"ImagingSystem","attributes":[{"name":"systemID","type":"Identifier"},{"name":"modality","type":"Kind"},{"name":"installationDate","type":"Duration"},{"name":"operationalStatus","type":"OperationalState"}]},
+    {"name":"LabInstrument","attributes":[{"name":"instrumentID","type":"Identifier"},{"name":"instrumentType","type":"Kind"},{"name":"throughputRate","type":"Count"},{"name":"calibrationDate","type":"Duration"}]},
+    {"name":"SurgicalRobot","attributes":[{"name":"robotID","type":"Identifier"},{"name":"robotModel","type":"Kind"},{"name":"procedureCapability","type":"Description"},{"name":"maintenanceDue","type":"Duration"}]},
+    {"name":"Defibrillator","attributes":[{"name":"deviceID","type":"Identifier"},{"name":"deviceType","type":"Kind"},{"name":"energyOutput","type":"Energy"},{"name":"lastInspection","type":"Duration"}]},
+    {"name":"InfusionPump","attributes":[{"name":"pumpID","type":"Identifier"},{"name":"pumpType","type":"Kind"},{"name":"flowRateSetting","type":"Ratio"},{"name":"drugLibraryVersion","type":"Kind"}]},
+    {"name":"SurgicalTable","attributes":[{"name":"tableID","type":"Identifier"},{"name":"tableModel","type":"Kind"},{"name":"weightCapacity","type":"Mass"},{"name":"positioningOptions","type":"Kind"}]},
+    {"name":"ClinicalWorkstation","attributes":[{"name":"workstationID","type":"Identifier"},{"name":"workstationType","type":"Kind"},{"name":"softwareVersion","type":"Kind"},{"name":"department","type":"Description"}]},
+    {"name":"MedicalGasOutlet","attributes":[{"name":"outletID","type":"Identifier"},{"name":"gasType","type":"Kind"},{"name":"flowCapacity","type":"Ratio"},{"name":"locationCode","type":"Identifier"}]},
+    {"name":"SterilizationUnit","attributes":[{"name":"unitID","type":"Identifier"},{"name":"sterilizationMethod","type":"Kind"},{"name":"cycleCapacity","type":"Count"},{"name":"cycleTime","type":"Duration"}]},
+    {"name":"NurseCallPanel","attributes":[{"name":"panelID","type":"Identifier"},{"name":"panelType","type":"Kind"},{"name":"zoneCount","type":"Count"},{"name":"installationArea","type":"Description"}]},
+    {"name":"UltrasoundMachine","attributes":[{"name":"machineID","type":"Identifier"},{"name":"machineType","type":"Kind"},{"name":"probeTypes","type":"Description"},{"name":"portability","type":"Kind"}]}
+  ],
+  "associations": [
+    {"associationName":"EquipmentMonitoring","associationAttributes":[{"name":"monitoringFrequency","type":"Kind"}],"associationParticipants":["MedicalEquipment","PatientMonitor"]},
+    {"associationName":"SurgeryRobotTable","associationAttributes":[{"name":"procedureType","type":"Kind"}],"associationParticipants":["SurgicalRobot","SurgicalTable"]},
+    {"associationName":"ICUVentilatorMonitor","associationAttributes":[{"name":"alarmThreshold","type":"Kind"}],"associationParticipants":["Ventilator","PatientMonitor"]},
+    {"associationName":"LabInstrumentWorkstation","associationAttributes":[{"name":"dataInterface","type":"Kind"}],"associationParticipants":["LabInstrument","ClinicalWorkstation"]},
+    {"associationName":"ImagingWorkstation","associationAttributes":[{"name":"PACSConnection","type":"Kind"}],"associationParticipants":["ImagingSystem","ClinicalWorkstation"]},
+    {"associationName":"EquipmentSterilization","associationAttributes":[{"name":"sterilizationCycle","type":"Duration"}],"associationParticipants":["MedicalEquipment","SterilizationUnit"]},
+    {"associationName":"GasOutletVentilator","associationAttributes":[{"name":"flowRate","type":"Ratio"}],"associationParticipants":["MedicalGasOutlet","Ventilator"]},
+    {"associationName":"NurseCallEquipment","associationAttributes":[{"name":"alertType","type":"Kind"}],"associationParticipants":["NurseCallPanel","MedicalEquipment"]}
+  ]
+}
