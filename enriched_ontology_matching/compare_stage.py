@@ -377,6 +377,95 @@ DOMAIN_COLOUR = {
 }
 
 
+def build_regularised_mds_coords(
+    onts: list[str],
+    pair_data: dict,
+    fill_rates: dict[str, float],
+    lambda_centroid: float = 2.0,
+) -> tuple[np.ndarray, float]:
+    """
+    Regularised MDS: full 36×36 joint MDS + domain centroid-cohesion penalty.
+
+    Minimises:
+        L(X) = Σ_{i<j} (‖xi−xj‖ − d_ij)²   [individual pairwise fidelity]
+             + λ · Σ_i ‖xi − c_{d(i)}‖²      [same-domain cluster cohesion]
+
+    where c_{d(i)} = live mean position of domain-d nodes.
+
+    Unlike the two-level hierarchical approach, every individual cross-domain
+    pairwise distance (Auto:V1 ↔ Hosp:V2, etc.) directly pulls the two nodes
+    toward or away from each other.  The centroid term only adds a soft
+    grouping force — it does not override the pairwise geometry.
+
+    Analytic gradients let L-BFGS-B converge in ~100–300 iterations.
+    """
+    from sklearn.manifold import MDS
+    from scipy.optimize import minimize
+
+    n = len(onts)
+
+    # domain membership indices
+    domain_map: dict[str, list[int]] = {}
+    for i, o in enumerate(onts):
+        domain_map.setdefault(domain_of(o), []).append(i)
+
+    # full pairwise distance matrix
+    dist = build_distance_matrix(onts, pair_data, fill_rates)
+
+    # initialise with standard 3-D MDS
+    mds0 = MDS(n_components=3, dissimilarity="precomputed",
+               random_state=42, normalized_stress="auto",
+               n_init=6, max_iter=2000)
+    x0 = mds0.fit_transform(dist)
+    print(f"  MDS init stress (Kruskal): {_kruskal_stress(dist, x0):.4f}")
+
+    # --- objective + analytic gradient -----------------------------------
+    def _obj(x_flat):
+        X = x_flat.reshape(n, 3)
+
+        # vectorised pairwise differences  (n, n, 3)
+        D3 = X[:, np.newaxis, :] - X[np.newaxis, :, :]
+        d_act = np.sqrt((D3 ** 2).sum(axis=2) + 1e-10)   # (n, n)
+
+        # stress term: 0.5 * Σ_{all i≠j} — counts each pair twice
+        res = d_act - dist                                 # (n, n)
+        np.fill_diagonal(res, 0.0)
+        f_s = 0.5 * (res ** 2).sum()
+        safe_d = d_act.copy()
+        np.fill_diagonal(safe_d, 1.0)
+        ratio = res / safe_d                               # (n, n)
+        np.fill_diagonal(ratio, 0.0)
+        # gradient of 0.5*Σ res²: ∂/∂xi = Σ_j ratio_ij * (xi−xj)
+        g_s = (ratio[:, :, np.newaxis] * D3).sum(axis=1)  # (n, 3)
+
+        # centroid penalty: Σ_i ‖xi − c_{d(i)}‖²
+        # gradient: ∂/∂xk = 2(xk − c_{d(k)})   [exact, centroid moves with xk]
+        f_c = 0.0
+        g_c = np.zeros_like(X)
+        for members in domain_map.values():
+            if len(members) < 2:
+                continue
+            mask = np.array(members)
+            centroid = X[mask].mean(axis=0)
+            dc = X[mask] - centroid                        # (n_d, 3)
+            f_c += float((dc ** 2).sum())
+            g_c[mask] += 2.0 * dc
+
+        f = f_s + lambda_centroid * f_c
+        g = g_s + lambda_centroid * g_c
+        return float(f), g.ravel()
+
+    result = minimize(
+        _obj, x0.ravel(), jac=True, method="L-BFGS-B",
+        options={"maxiter": 4000, "ftol": 1e-14, "gtol": 1e-9},
+    )
+    coords = result.x.reshape(n, 3)
+    print(f"  L-BFGS-B: converged={result.success}  iters={result.nit}  f={result.fun:.4f}")
+
+    stress = _kruskal_stress(dist, coords)
+    return coords, stress
+
+
 def _edge_colour(comp: float) -> str:
     """Continuous interpolation: light gray (low similarity) → deep blue (high)."""
     t = min(max(comp, 0.0), 1.0)
@@ -755,9 +844,10 @@ def main():
     json_files = [p.name for p in PAIRS_DIR.glob("*.json")]
     print(f"{len(json_files)} JSON files in pairs/: {json_files}")
 
-    # ── hierarchical domain-centroid layout ───────────────────────────────────
-    print("\nBuilding hierarchical domain-centroid layout ...")
-    coords, stress = build_hierarchical_coords(onts, pair_data, fill_rates)
+    # ── regularised MDS: full pairwise + centroid cohesion ────────────────────
+    print("\nBuilding regularised MDS layout (lambda=2.0) ...")
+    coords, stress = build_regularised_mds_coords(onts, pair_data, fill_rates,
+                                                   lambda_centroid=2.0)
     print(f"Overall Kruskal stress (final embedding): {stress:.4f}")
 
     # ── build and save plot ────────────────────────────────────────────────────
