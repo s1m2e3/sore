@@ -223,6 +223,148 @@ def build_distance_matrix(
     return dist
 
 
+def _kruskal_stress(dist_matrix: np.ndarray, coords: np.ndarray) -> float:
+    """Normalised Kruskal stress-1 between target distances and embedded distances."""
+    n = len(coords)
+    num = den = 0.0
+    for i in range(n):
+        for j in range(i + 1, n):
+            delta = dist_matrix[i, j]
+            d = float(np.linalg.norm(coords[i] - coords[j]))
+            num += (d - delta) ** 2
+            den += delta ** 2
+    return math.sqrt(num / den) if den > 0 else 0.0
+
+
+def build_hierarchical_coords(
+    onts: list[str],
+    pair_data: dict,
+    fill_rates: dict[str, float],
+) -> tuple[np.ndarray, float]:
+    """
+    Two-level domain-centroid layout.
+
+    Level 1 — inter-domain MDS:
+        For each pair of domains compute the mean composite similarity across all
+        cross-domain ontology pairs, convert to distance, then run 3-D MDS.
+        The resulting 3-D positions become the domain centroids.
+
+    Level 2 — intra-domain MDS:
+        Within each domain run 3-D MDS on intra-domain pairwise distances.
+        Scale the resulting offsets to at most INTRA_FRAC of the minimum
+        inter-centroid gap so domain clusters never overlap, then translate
+        each cluster to sit on its centroid.
+
+    Returns (coords array of shape (n_onts, 3), overall Kruskal stress).
+    """
+    from sklearn.manifold import MDS
+
+    domains_list = sorted({domain_of(o) for o in onts})
+    n_dom = len(domains_list)
+    dom_idx = {d: i for i, d in enumerate(domains_list)}
+
+    domain_members: dict[str, list[str]] = {d: [] for d in domains_list}
+    for o in onts:
+        domain_members[domain_of(o)].append(o)
+
+    # ── Level 1: inter-domain distance matrix ─────────────────────────────
+    dom_sim_sum = np.zeros((n_dom, n_dom))
+    dom_sim_cnt = np.zeros((n_dom, n_dom))
+    for (a, b), metrics in pair_data.items():
+        da, db = domain_of(a), domain_of(b)
+        if da == db:
+            continue
+        i, j = dom_idx[da], dom_idx[db]
+        s = metrics["composite"]
+        dom_sim_sum[i, j] += s
+        dom_sim_sum[j, i] += s
+        dom_sim_cnt[i, j] += 1
+        dom_sim_cnt[j, i] += 1
+
+    dom_dist = np.ones((n_dom, n_dom))
+    np.fill_diagonal(dom_dist, 0.0)
+    for i in range(n_dom):
+        for j in range(n_dom):
+            if i != j and dom_sim_cnt[i, j] > 0:
+                dom_dist[i, j] = 1.0 - dom_sim_sum[i, j] / dom_sim_cnt[i, j]
+
+    mds1 = MDS(n_components=3, dissimilarity="precomputed",
+               random_state=42, normalized_stress="auto",
+               n_init=8, max_iter=2000)
+    centroid_coords = mds1.fit_transform(dom_dist)   # (n_dom, 3)
+    print(f"  Domain-level MDS stress:    {mds1.stress_:.4f}")
+
+    # normalise centroid spread to unit std
+    std = centroid_coords.std(axis=0)
+    std[std == 0] = 1.0
+    centroid_coords /= std.max()
+
+    # minimum inter-centroid gap → caps intra-domain cluster radius
+    min_inter_gap = float("inf")
+    for i in range(n_dom):
+        for j in range(i + 1, n_dom):
+            gap = float(np.linalg.norm(centroid_coords[i] - centroid_coords[j]))
+            min_inter_gap = min(min_inter_gap, gap)
+    if not math.isfinite(min_inter_gap) or min_inter_gap == 0:
+        min_inter_gap = 1.0
+
+    INTRA_FRAC = 0.38   # intra-cluster radius ≤ 38 % of closest centroid gap
+    max_intra_radius = min_inter_gap * INTRA_FRAC
+
+    # ── Level 2: per-domain intra MDS ────────────────────────────────────
+    ont_idx = {o: i for i, o in enumerate(onts)}
+    coords  = np.zeros((len(onts), 3))
+
+    for d in domains_list:
+        members = domain_members[d]
+        centroid = centroid_coords[dom_idx[d]]
+
+        if len(members) == 1:
+            coords[ont_idx[members[0]]] = centroid
+            continue
+
+        n_m   = len(members)
+        m_idx = {o: i for i, o in enumerate(members)}
+        intra = np.ones((n_m, n_m))
+        np.fill_diagonal(intra, 0.0)
+        for (a, b), metrics in pair_data.items():
+            if a in m_idx and b in m_idx:
+                s = metrics["composite"]
+                i, j = m_idx[a], m_idx[b]
+                intra[i, j] = 1.0 - s
+                intra[j, i] = 1.0 - s
+        intra = (intra + intra.T) / 2
+
+        if n_m == 2:
+            offset = np.zeros(3)
+            offset[0] = intra[0, 1] * max_intra_radius * 0.5
+            coords[ont_idx[members[0]]] = centroid - offset
+            coords[ont_idx[members[1]]] = centroid + offset
+            continue
+
+        mds2 = MDS(n_components=3, dissimilarity="precomputed",
+                   random_state=42, normalized_stress="auto",
+                   n_init=4, max_iter=1000)
+        intra_coords = mds2.fit_transform(intra)   # (n_m, 3)
+        print(f"  {d:12s} intra MDS stress: {mds2.stress_:.4f}")
+
+        # scale so cluster radius ≤ max_intra_radius
+        radius = np.linalg.norm(intra_coords - intra_coords.mean(axis=0),
+                                axis=1).max()
+        if radius > 0:
+            intra_coords = intra_coords / radius * max_intra_radius
+
+        # translate to centroid
+        intra_coords += centroid - intra_coords.mean(axis=0)
+        for o, pos in zip(members, intra_coords):
+            coords[ont_idx[o]] = pos
+
+    # ── overall Kruskal stress of the final embedding ─────────────────────
+    full_dist = build_distance_matrix(onts, pair_data, fill_rates)
+    stress = _kruskal_stress(full_dist, coords)
+    return coords, stress
+
+
 # ── colour palette ─────────────────────────────────────────────────────────────
 DOMAIN_COLOUR = {
     "Automobile":  "#1565C0",   # deep blue
@@ -613,17 +755,10 @@ def main():
     json_files = [p.name for p in PAIRS_DIR.glob("*.json")]
     print(f"{len(json_files)} JSON files in pairs/: {json_files}")
 
-    # ── distance matrix + MDS ─────────────────────────────────────────────────
-    dist = build_distance_matrix(onts, pair_data, fill_rates)
-
-    # Classical MDS init gives a far better starting point than random
-    from sklearn.manifold import MDS as _MDS
-    mds = _MDS(n_components=3, dissimilarity="precomputed",
-               random_state=42, normalized_stress="auto",
-               n_init=1, init="random", max_iter=1000)
-    coords = mds.fit_transform(dist)
-    stress = mds.stress_
-    print(f"MDS stress: {stress:.4f}")
+    # ── hierarchical domain-centroid layout ───────────────────────────────────
+    print("\nBuilding hierarchical domain-centroid layout ...")
+    coords, stress = build_hierarchical_coords(onts, pair_data, fill_rates)
+    print(f"Overall Kruskal stress (final embedding): {stress:.4f}")
 
     # ── build and save plot ────────────────────────────────────────────────────
     fig, post_script = build_html(onts, coords, pair_data, json_files, stress, fill_rates)
