@@ -211,14 +211,14 @@ def characterise_token_pair(ta: str, tb: str) -> dict:
 
     # ── WordNet ────────────────────────────────────────────────────────────
     if _WN_OK:
-        # Restrict to top-3 most-frequent synsets per word to avoid polysemy
+        # Restrict to top-N most-frequent synsets per word to avoid polysemy
         # false positives (e.g. "line" and "air" both appear in tune.n.01
         # but are unrelated in an automotive context).
-        _MAX_SYNS = 3
+        _MAX_SYNS = 5
         syns_a = wn_synsets(ta)[:_MAX_SYNS]
         syns_b = wn_synsets(tb)[:_MAX_SYNS]
 
-        # Restricted WUP: same top-3 restriction
+        # Restricted WUP: same top-5 restriction
         if syns_a and syns_b:
             wup = max(
                 (sa.wup_similarity(sb) or 0.0 for sa in syns_a for sb in syns_b),
@@ -293,7 +293,7 @@ def characterise_token_pair(ta: str, tb: str) -> dict:
         label = cn_lbl
     elif result["gloss_hit"]:
         label = "GlossOverlap"   # WordNet gloss text overlap — no CN edge found
-    elif result["wup_score"] >= 0.5:
+    elif result["wup_score"] >= 0.3:
         label = "WN-Proximate"   # WN hierarchy proximity only — no confirmed edge
     else:
         label = "Unrelated"

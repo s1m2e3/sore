@@ -9,7 +9,7 @@ embeddings) into a single flat CSV keyed on (entity_a, entity_b).
 Output columns (metrics only — no intermediate derivation fields):
   entity_a, entity_b        — pair identity
   matched                   — 1 if AML or LogMap found this pair, else 0
-  avg_wup                   — average WordNet Wu-Palmer similarity across token pairs (0–1)
+  wup                       — (max_wup + avg_wup) / 2: blends best-token signal with full average
   lin_ic                    — Lin Information Content similarity (0–1)
   coherence_sym             — symmetric neighbourhood coherence (0–1)
   cosine_avg                — token-average embedding cosine similarity
@@ -31,7 +31,7 @@ from pathlib import Path
 MERGED_FIELDS = [
     "entity_a", "entity_b",
     "matched",
-    "avg_wup",
+    "wup",
     "lin_ic",
     "coherence_sym",
     "cosine_avg",
@@ -70,11 +70,24 @@ def merge_pair(
         lin = lin_idx.get(key, {})
         emb = emb_idx.get(key, {})
 
+        # New format: (max_wup + avg_wup) / 2.
+        # Old format fallback: use wup_score (equivalent to per-token max).
+        raw_max   = row.get("max_wup", "").strip()
+        raw_avg   = row.get("avg_wup", "").strip()
+        raw_score = row.get("wup_score", "").strip()
+        try:
+            wup_val = round((float(raw_max) + float(raw_avg)) / 2, 4)
+        except (ValueError, TypeError):
+            try:
+                wup_val = round(float(raw_max or raw_avg or raw_score), 4)
+            except (ValueError, TypeError):
+                wup_val = ""
+
         merged.append({
             "entity_a":       key[0],
             "entity_b":       key[1],
             "matched": 1 if src in ("AML", "LogMap", "Both") else 0,
-            "avg_wup":        row.get("avg_wup", ""),
+            "wup":            wup_val,
             "lin_ic":         lin.get("lin_ic", ""),
             "coherence_sym":  nbr.get("coherence_sym", ""),
             "cosine_avg":     emb.get("cosine_avg", ""),

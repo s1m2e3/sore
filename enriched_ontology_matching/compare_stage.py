@@ -27,7 +27,7 @@ PAIRS_DIR  = ROOT / "pairs"
 OUT_HTML   = ROOT / "outputs" / "ontology_map.html"
 
 # ── metric columns in merged CSVs ──────────────────────────────────────────────
-METRICS = ["cosine_avg", "avg_wup", "lin_ic", "coherence_sym"]
+METRICS = ["cosine_avg", "wup", "lin_ic", "coherence_sym"]
 CONTINUOUS = METRICS  # alias kept for backward compat
 
 
@@ -78,7 +78,7 @@ def load_pair_metrics(csv_path: Path) -> dict:
 
     if not rows:
         return {"n_pairs": 0, "composite": None, "enriched": False,
-                "avg_wup": 0.0, "lin_ic": 0.0,
+                "wup": 0.0, "lin_ic": 0.0,
                 "coherence_sym": 0.0, "cosine_avg": 0.0,
                 "match_rate": 0.0}
 
@@ -98,7 +98,7 @@ def load_pair_metrics(csv_path: Path) -> dict:
         "enriched":      enriched,
         "match_rate":    matched_count / len(rows),
         "cosine_avg":    safe_mean(col_vals["cosine_avg"]),
-        "avg_wup":       safe_mean(col_vals["avg_wup"]),
+        "wup":           safe_mean(col_vals["wup"]),
         "lin_ic":        safe_mean(col_vals["lin_ic"]),
         "coherence_sym": safe_mean(col_vals["coherence_sym"]),
     }
@@ -126,17 +126,38 @@ def domain_of(name: str) -> str:
         return "Hospital"
     if "university" in low:
         return "University"
+    if "coffee" in low:
+        return "Coffee"
+    if "homebrew" in low or "homebrewing" in low:
+        return "Homebrewing"
+    if "smarthome" in low or "smart_home" in low or "smart home" in low:
+        return "SmartHome"
     return "Other"
 
 
 def short_name(name: str) -> str:
-    """Compact label: strip 'Automobile_' prefix and '_Model' / '_Network' noise."""
-    s = re.sub(r"^Automobile_Component_Network_Model_", "Net:", name)
-    s = re.sub(r"^Automobile_Model_", "V:", s)
+    """Compact label: strip long prefixes and noise suffixes."""
+    s = re.sub(r"^Automobile_Component_Network_Model_", "Auto:", name)
+    s = re.sub(r"^Automobile_Model_", "Auto:", s)
     s = re.sub(r"^Hospital_Model_", "Hosp:", s)
     s = re.sub(r"^Hospital_Facility_Resource_Network_Model_", "HospNet:", s)
     s = re.sub(r"^University_Model_", "Uni:", s)
     s = re.sub(r"^University_Academic_Lifecycle_Model$", "Uni:AcadLifecycle", s)
+    s = re.sub(r"^University_Academic_Resource_Network_Model_", "UniNet:", s)
+    s = re.sub(r"^University_Institutional_Hierarchy_Model$", "Uni:InstHierarchy", s)
+    s = re.sub(r"^University_Campus_Resource_and_Interaction_Network_Model$", "UniNet:Campus", s)
+    s = re.sub(r"^Coffee_Model_", "Coffee:", s)
+    s = re.sub(r"^Coffee_Environment_Workspace_and_Equipment_Hierarchy_Model$", "Coffee:WkspEquip", s)
+    s = re.sub(r"^Coffee_Environment_Component_Connectivity_Network_Model$", "Coffee:CompConn", s)
+    s = re.sub(r"^Coffee_Environment_Service_Setting_and_Interaction_Model$", "Coffee:SvcSetting", s)
+    s = re.sub(r"^HomeBrewing_Model_", "Brew:", s)
+    s = re.sub(r"^Homebrewing_Resource_Model_Equipment_and_Ingredient_Hierarchy$", "Brew:EquipIngred", s)
+    s = re.sub(r"^Homebrewing_Resource_Model_Packaged_Resource_Clusters$", "Brew:PkgClusters", s)
+    s = re.sub(r"^Homebrewing_Resource_Model_Serviceable_Equipment_and_Supplies_Network$", "Brew:SvcEquip", s)
+    s = re.sub(r"^SmartHome_Model_", "SH:", s)
+    s = re.sub(r"^Smart_Home_System_Hierarchy_Model$", "SH:SysHierarchy", s)
+    s = re.sub(r"^Smart_Home_Event_and_Control_Flow_Model$", "SH:EventCtrl", s)
+    s = re.sub(r"^Smart_Home_Space_and_Device_Interaction_Network_Model$", "SH:SpaceDevice", s)
     s = re.sub(r"_Network$", "", s)
     return s
 
@@ -204,10 +225,13 @@ def build_distance_matrix(
 
 # ── colour palette ─────────────────────────────────────────────────────────────
 DOMAIN_COLOUR = {
-    "Automobile": "#1565C0",
-    "Hospital":   "#C62828",
-    "University": "#2E7D32",
-    "Other":      "#616161",
+    "Automobile":  "#1565C0",   # deep blue
+    "Hospital":    "#C62828",   # deep red
+    "University":  "#2E7D32",   # deep green
+    "Coffee":      "#6D4C41",   # brown
+    "Homebrewing": "#F57F17",   # amber/orange
+    "SmartHome":   "#6A1B9A",   # purple
+    "Other":       "#616161",   # grey
 }
 
 
@@ -274,6 +298,8 @@ def _compute_topk(onts: list[str], pair_data: dict, k: int) -> set:
 
 def build_html(onts, coords, pair_data, available_jsons, stress: float,
                fill_rates: dict | None = None):
+    import json as _json
+
     domains = [domain_of(o) for o in onts]
     labels  = [short_name(o) for o in onts]
     x_all   = coords[:, 0].tolist()
@@ -286,13 +312,14 @@ def build_html(onts, coords, pair_data, available_jsons, stress: float,
     top3_set = _compute_topk(onts, pair_data, 3)
     top5_set = _compute_topk(onts, pair_data, 5)
 
-    # ── one trace per edge (sorted strongest first for legend ordering) ────────
+    # ── one trace per edge (sorted strongest first) ───────────────────────────
     edge_order = sorted(pair_data.items(), key=lambda kv: -kv[1]["composite"])
 
-    edge_traces   = []   # go.Scatter per pair
-    is_mst_flags  = []   # parallel bool list
-    is_top3_flags = []
-    is_top5_flags = []
+    edge_traces    = []
+    is_mst_flags   = []
+    is_top3_flags  = []
+    is_top5_flags  = []
+    edge_domains_list = []   # [[domainA, domainB], ...] parallel to edge_traces
 
     for (a, b), metrics in edge_order:
         comp = metrics["composite"]
@@ -303,7 +330,7 @@ def build_html(onts, coords, pair_data, available_jsons, stress: float,
             f"<b>{short_name(a)}</b> — <b>{short_name(b)}</b><br>"
             f"Weighted composite: <b>{comp:.3f}</b><br>"
             f"cosine {metrics['cosine_avg']:.3f} (w={fr.get('cosine_avg',1):.2f})  "
-            f"wup {metrics['avg_wup']:.3f} (w={fr.get('avg_wup',1):.2f})<br>"
+            f"wup {metrics['wup']:.3f} (w={fr.get('wup',1):.2f})<br>"
             f"lin_ic {metrics['lin_ic']:.3f} (w={fr.get('lin_ic',1):.2f})  "
             f"coh {metrics['coherence_sym']:.3f} (w={fr.get('coherence_sym',1):.2f})<br>"
             f"n_pairs: {metrics['n_pairs']}"
@@ -316,17 +343,19 @@ def build_html(onts, coords, pair_data, available_jsons, stress: float,
             line=dict(width=_edge_width(comp), color=_edge_colour(comp)),
             hoverinfo="text", text=[tip, tip],
             showlegend=False,
-            visible=in_mst,   # default: MST view
+            visible=in_mst,
         ))
         is_mst_flags.append(in_mst)
         is_top3_flags.append(key in top3_set)
         is_top5_flags.append(key in top5_set)
+        edge_domains_list.append([domain_of(a), domain_of(b)])
 
     n_edges = len(edge_traces)
 
     # ── node traces (one per domain) ──────────────────────────────────────────
+    sorted_domains = sorted(set(domains))
     node_traces = []
-    for domain in sorted(set(domains)):
+    for domain in sorted_domains:
         mask = [i for i, d in enumerate(domains) if d == domain]
         hover_texts = []
         for i in mask:
@@ -360,23 +389,18 @@ def build_html(onts, coords, pair_data, available_jsons, stress: float,
     n_nodes = len(node_traces)
     fig = go.Figure(data=edge_traces + node_traces)
 
-    # ── visibility helper ──────────────────────────────────────────────────────
-    def vis(flags):
-        return list(flags) + [True] * n_nodes
-
     n_mst  = sum(is_mst_flags)
     n_top3 = sum(is_top3_flags)
     n_top5 = sum(is_top5_flags)
 
-    # ── layout + buttons ───────────────────────────────────────────────────────
+    # ── layout (no updatemenus — mode buttons injected by JS) ─────────────────
     fig.update_layout(
         title=dict(
             text=(
                 f"Ontology Distance Map  —  Sparsity-Weighted MDS  "
                 f"(stress={stress:.2f})"
                 f"<br><sup>Position = weighted Euclidean distance · "
-                f"Edge width & opacity = composite similarity · "
-                f"Default: MST backbone ({n_mst} edges)</sup>"
+                f"Edge width & opacity = composite similarity</sup>"
             ),
             font=dict(size=14), x=0.01, xanchor="left",
         ),
@@ -390,40 +414,134 @@ def build_html(onts, coords, pair_data, available_jsons, stress: float,
         paper_bgcolor="#f0f2f5",
         margin=dict(l=10, r=10, t=90, b=10),
         height=820,
-        updatemenus=[dict(
-            type="buttons", direction="left",
-            x=0.0, y=1.055, xanchor="left",
-            showactive=True, active=0,
-            buttons=[
-                dict(label=f"MST ({n_mst} edges)",
-                     method="restyle",
-                     args=[{"visible": vis(is_mst_flags)}]),
-                dict(label=f"Top-3 neighbors ({n_top3} edges)",
-                     method="restyle",
-                     args=[{"visible": vis(is_top3_flags)}]),
-                dict(label=f"Top-5 neighbors ({n_top5} edges)",
-                     method="restyle",
-                     args=[{"visible": vis(is_top5_flags)}]),
-                dict(label=f"All ({n_edges} edges)",
-                     method="restyle",
-                     args=[{"visible": vis([True] * n_edges)}]),
-                dict(label="Nodes only",
-                     method="restyle",
-                     args=[{"visible": vis([False] * n_edges)}]),
-            ],
-        )],
         annotations=[dict(
             x=1.0, y=-0.01, xref="paper", yref="paper",
             text=(
                 "Edge width = composite^1.8  |  "
-                "Weights: cosine=0.63 wup=0.16 lin_ic=0.15 coh=0.06  |  "
+                f"Weights: {' '.join(f'{m}={fr.get(m,0):.2f}' for m in METRICS) if fr else 'sparsity-weighted'}  |  "
                 "MDS stress = lower is better"
             ),
             showarrow=False, font=dict(size=9, color="#888"), xanchor="right",
         )],
     )
 
-    return fig
+    # ── build post_script: JS state machine for domain↔edge linking ───────────
+    post_script = """
+(function() {
+  var gd = document.querySelector('.plotly-graph-div');
+  if (!gd) { setTimeout(arguments.callee, 100); return; }
+
+  var N_EDGES   = """ + str(n_edges) + """;
+  var N_NODES   = """ + str(n_nodes) + """;
+  var ALL_DOMAINS = """ + _json.dumps(sorted_domains) + """;
+  var EDGE_DOMAINS = """ + _json.dumps(edge_domains_list) + """;
+  var FILTERS = {
+    mst:  """ + _json.dumps([bool(x) for x in is_mst_flags]) + """,
+    top3: """ + _json.dumps([bool(x) for x in is_top3_flags]) + """,
+    top5: """ + _json.dumps([bool(x) for x in is_top5_flags]) + """,
+    all:  """ + _json.dumps([True] * n_edges) + """,
+    none: """ + _json.dumps([False] * n_edges) + """
+  };
+
+  var activeMode = 'mst';
+  var visibleDomains = new Set(ALL_DOMAINS);
+
+  function computeVis() {
+    var base = FILTERS[activeMode];
+    var vis = [];
+    for (var i = 0; i < N_EDGES; i++) {
+      var da = EDGE_DOMAINS[i][0], db = EDGE_DOMAINS[i][1];
+      vis.push(base[i] && visibleDomains.has(da) && visibleDomains.has(db));
+    }
+    for (var j = 0; j < N_NODES; j++) {
+      // Use 'legendonly' (not false) so the legend item stays clickable
+      // even when the domain is hidden — allows toggling back on.
+      vis.push(visibleDomains.has(gd.data[N_EDGES + j].name) ? true : 'legendonly');
+    }
+    return vis;
+  }
+
+  function applyVis() { Plotly.restyle(gd, {visible: computeVis()}); }
+
+  // Intercept legend clicks on domain (node) traces
+  gd.on('plotly_legendclick', function(d) {
+    var ci = d.curveNumber;
+    if (ci >= N_EDGES) {
+      var dom = gd.data[ci].name;
+      if (visibleDomains.has(dom)) visibleDomains.delete(dom);
+      else visibleDomains.add(dom);
+      applyVis();
+    }
+    return false;  // prevent Plotly default toggle
+  });
+
+  // Double-click on domain: isolate that domain (or restore all)
+  gd.on('plotly_legenddoubleclick', function(d) {
+    var ci = d.curveNumber;
+    if (ci >= N_EDGES) {
+      var dom = gd.data[ci].name;
+      if (visibleDomains.size === 1 && visibleDomains.has(dom)) {
+        visibleDomains = new Set(ALL_DOMAINS);  // restore all
+      } else {
+        visibleDomains = new Set([dom]);          // isolate
+      }
+      applyVis();
+    }
+    return false;
+  });
+
+  // Mode switcher (called by injected buttons)
+  window._omapSetMode = function(mode) {
+    activeMode = mode;
+    applyVis();
+    document.querySelectorAll('.omap-btn').forEach(function(b) {
+      var on = b.dataset.mode === mode;
+      b.style.background  = on ? '#1565C0' : '#e8eaf6';
+      b.style.color       = on ? '#fff'    : '#333';
+      b.style.fontWeight  = on ? '600'     : '400';
+      b.style.borderColor = on ? '#0d47a1' : '#aaa';
+    });
+  };
+
+  // Inject mode buttons above plot
+  var bar = document.createElement('div');
+  bar.style.cssText = [
+    'position:absolute','top:52px','left:14px','z-index:999',
+    'display:flex','gap:5px','flex-wrap:wrap'
+  ].join(';');
+  var modes = [
+    {key:'mst',  label:'MST (""" + str(n_mst) + """ edges)'},
+    {key:'top3', label:'Top-3 (""" + str(n_top3) + """ edges)'},
+    {key:'top5', label:'Top-5 (""" + str(n_top5) + """ edges)'},
+    {key:'all',  label:'All (""" + str(n_edges) + """ edges)'},
+    {key:'none', label:'Nodes only'},
+  ];
+  modes.forEach(function(m) {
+    var btn = document.createElement('button');
+    btn.textContent = m.label;
+    btn.dataset.mode = m.key;
+    btn.className = 'omap-btn';
+    var isActive = m.key === 'mst';
+    btn.style.cssText = [
+      'padding:4px 11px',
+      'border:1px solid ' + (isActive ? '#0d47a1' : '#aaa'),
+      'border-radius:4px',
+      'cursor:pointer',
+      'font-size:11px',
+      'background:' + (isActive ? '#1565C0' : '#e8eaf6'),
+      'color:'       + (isActive ? '#fff'    : '#333'),
+      'font-weight:' + (isActive ? '600'     : '400'),
+    ].join(';');
+    btn.onclick = function() { window._omapSetMode(m.key); };
+    bar.appendChild(btn);
+  });
+  var wrapper = gd.parentElement;
+  wrapper.style.position = 'relative';
+  wrapper.appendChild(bar);
+})();
+"""
+
+    return fig, post_script
 
 
 def main():
@@ -496,9 +614,9 @@ def main():
     print(f"MDS stress: {stress:.4f}")
 
     # ── build and save plot ────────────────────────────────────────────────────
-    fig = build_html(onts, coords, pair_data, json_files, stress, fill_rates)
+    fig, post_script = build_html(onts, coords, pair_data, json_files, stress, fill_rates)
     OUT_HTML.parent.mkdir(parents=True, exist_ok=True)
-    fig.write_html(str(OUT_HTML), include_plotlyjs="cdn")
+    fig.write_html(str(OUT_HTML), include_plotlyjs="cdn", post_script=post_script)
     print(f"Saved: {OUT_HTML}")
 
 

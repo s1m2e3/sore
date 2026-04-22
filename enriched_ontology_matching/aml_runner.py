@@ -45,7 +45,7 @@ from pathlib import Path
 # Paths
 # ---------------------------------------------------------------------------
 _DIR    = Path(__file__).parent
-AML_DIR = _DIR / "tools" / "AML" / "AML_v3.2"
+AML_DIR = _DIR / "tools" / "AML_v3.2"
 AML_JAR = AML_DIR / "AgreementMakerLight.jar"
 
 # ---------------------------------------------------------------------------

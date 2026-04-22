@@ -54,7 +54,7 @@ sys.path.insert(0, str(_DIR))
 # ---------------------------------------------------------------------------
 _REPO_ROOT = _DIR.parent
 _EXAMPLES  = (
-    _REPO_ROOT / "ontology_matching" / "inputs"
+    _DIR / "inputs"
     / "CONceptual_ExtractionCategory_Examples"
     / "CONceptual_ExtractionCategory_Examples"
 )
@@ -121,9 +121,108 @@ _COMBINED_FIELDS = [
 # Main
 # ---------------------------------------------------------------------------
 
+def _run_pair(
+    a: Path, b: Path,
+    domain_key: str,
+    skip_existing: bool,
+    use_aml: bool,
+    use_logmap: bool,
+    run_pipeline,
+    nbr_analysis,
+    run_lin_ic,
+    run_embedding_stage,
+    merge_pair,
+    _safe_local,
+) -> tuple[str, Path] | None:
+    """
+    Run the full 5-step pipeline for a single model pair (a, b).
+
+    Returns (domain_key, enriched_csv_path) on success, None on failure.
+    """
+    data_a = json.loads(a.read_text(encoding="utf-8"))
+    data_b = json.loads(b.read_text(encoding="utf-8"))
+
+    name_a = data_a.get("modelName", a.stem)
+    name_b = data_b.get("modelName", b.stem)
+
+    stem     = f"{_safe_local(name_a)}_vs_{_safe_local(name_b)}"
+    pair_csv = _ENRICHED / f"{stem}.csv"
+
+    nbr_csv    = _NBR_DIR    / f"{domain_key}_coherence.csv"
+    lin_ic_csv = _LIN_IC_DIR / f"{domain_key}_lin_ic.csv"
+    emb_csv    = _EMB_DIR    / f"{domain_key}_emb.csv"
+    merged_csv = _MERGED_DIR / f"{stem}_metrics.csv"
+
+    # ── Step 1: Enriched pipeline ────────────────────────────────────────
+    if skip_existing and pair_csv.exists():
+        print(f"  [SKIP] {domain_key}  (enriched CSV exists)")
+        csv_path = pair_csv
+    else:
+        pair_json = _PAIRS_DIR / f"{domain_key}.json"
+        pair_json.write_text(
+            json.dumps({"json_a": data_a, "json_b": data_b}, indent=2),
+            encoding="utf-8",
+        )
+        print(f"\n  [PAIR] {domain_key}")
+        print(f"    A: {name_a}  ({len(data_a.get('entities', []))} ents, "
+              f"{len(data_a.get('associations', []))} assocs)")
+        print(f"    B: {name_b}  ({len(data_b.get('entities', []))} ents, "
+              f"{len(data_b.get('associations', []))} assocs)")
+        try:
+            csv_path = run_pipeline(pair_json, use_aml=use_aml, use_logmap=use_logmap)
+        except Exception as exc:
+            print(f"  [ERROR] {domain_key}: {exc}")
+            return None
+
+    # ── Step 2: Neighbourhood coherence ─────────────────────────────────
+    if skip_existing and nbr_csv.exists():
+        print(f"    [SKIP] Coherence for {domain_key}")
+    else:
+        try:
+            nbr_analysis(json_a=a, json_b=b, matches_csv=csv_path,
+                         out_csv=nbr_csv, threshold=0.5)
+        except Exception as exc:
+            print(f"    [WARN] Coherence failed for {domain_key}: {exc}")
+
+    # ── Step 3: Lin-IC ───────────────────────────────────────────────────
+    if skip_existing and lin_ic_csv.exists():
+        print(f"    [SKIP] Lin-IC for {domain_key}")
+    else:
+        try:
+            run_lin_ic(csv_path, lin_ic_csv)
+        except Exception as exc:
+            print(f"    [WARN] Lin-IC failed for {domain_key}: {exc}")
+
+    # ── Step 4: Sentence embeddings ──────────────────────────────────────
+    if skip_existing and emb_csv.exists():
+        print(f"    [SKIP] Embeddings for {domain_key}")
+    else:
+        try:
+            run_embedding_stage(csv_path, a, b, emb_csv)
+        except Exception as exc:
+            print(f"    [WARN] Embedding failed for {domain_key}: {exc}")
+
+    # ── Step 5: Merge ────────────────────────────────────────────────────
+    if skip_existing and merged_csv.exists():
+        print(f"    [SKIP] Merge for {domain_key}")
+    else:
+        try:
+            merge_pair(
+                enriched_csv = csv_path,
+                nbr_csv      = nbr_csv      if nbr_csv.exists()     else None,
+                lin_ic_csv   = lin_ic_csv   if lin_ic_csv.exists()  else None,
+                emb_csv      = emb_csv      if emb_csv.exists()     else None,
+                out_csv      = merged_csv,
+            )
+        except Exception as exc:
+            print(f"    [WARN] Merge failed for {domain_key}: {exc}")
+
+    return (domain_key, csv_path)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Run enriched pipeline on ALL within-domain model pairs."
+        description="Run enriched pipeline on model pairs (within-domain and/or cross-domain)."
     )
     parser.add_argument(
         "--skip-existing", action="store_true",
@@ -136,6 +235,10 @@ def main() -> None:
     parser.add_argument(
         "--matcher", choices=["aml", "logmap", "both"], default="both",
         help="Which structural matcher(s) to run (default: both).",
+    )
+    parser.add_argument(
+        "--cross-domain", action="store_true",
+        help="Also run cross-domain pairs (AML+LogMap across all selected domain pairs).",
     )
     args = parser.parse_args()
 
@@ -153,9 +256,22 @@ def main() -> None:
     _EMB_DIR.mkdir(parents=True, exist_ok=True)
     _MERGED_DIR.mkdir(parents=True, exist_ok=True)
 
-    domains = args.domains if args.domains else DOMAINS
-    all_pair_csvs: list[tuple[str, Path]] = []  # (domain_key, csv_path)
+    pipeline_kwargs = dict(
+        skip_existing      = args.skip_existing,
+        use_aml            = args.matcher in ("aml",    "both"),
+        use_logmap         = args.matcher in ("logmap", "both"),
+        run_pipeline       = run_pipeline,
+        nbr_analysis       = nbr_analysis,
+        run_lin_ic         = run_lin_ic,
+        run_embedding_stage= run_embedding_stage,
+        merge_pair         = merge_pair,
+        _safe_local        = _safe_local,
+    )
 
+    domains = args.domains if args.domains else DOMAINS
+    all_pair_csvs: list[tuple[str, Path]] = []
+
+    # ── Within-domain pairs ────────────────────────────────────────────────
     for domain in domains:
         if domain not in DOMAINS:
             print(f"[WARN] Unknown domain '{domain}'. Valid: {DOMAINS}")
@@ -167,108 +283,46 @@ def main() -> None:
             continue
 
         d_short = _DOMAIN_SHORT.get(domain, domain.lower())
-        pairs = list(itertools.combinations(models, 2))
+        pairs   = list(itertools.combinations(models, 2))
         print(f"\n{'='*60}")
         print(f"Domain: {domain}  ({len(models)} models -> {len(pairs)} pairs)")
         print(f"{'='*60}")
 
         for a, b in pairs:
-            short_a = _model_short(a)
-            short_b = _model_short(b)
+            short_a    = _model_short(a)
+            short_b    = _model_short(b)
             domain_key = f"{d_short}_{short_a}_{short_b}"
+            result = _run_pair(a, b, domain_key, **pipeline_kwargs)
+            if result:
+                all_pair_csvs.append(result)
 
-            data_a = json.loads(a.read_text(encoding="utf-8"))
-            data_b = json.loads(b.read_text(encoding="utf-8"))
+    # ── Cross-domain pairs ─────────────────────────────────────────────────
+    if args.cross_domain:
+        valid_domains = [d for d in domains if d in DOMAINS]
+        cross_pairs_total = sum(
+            len(discover_models(da)) * len(discover_models(db))
+            for da, db in itertools.combinations(valid_domains, 2)
+        )
+        print(f"\n{'='*60}")
+        print(f"Cross-domain pairs ({cross_pairs_total} total)")
+        print(f"{'='*60}")
 
-            name_a = data_a.get("modelName", short_a)
-            name_b = data_b.get("modelName", short_b)
+        for domain_a, domain_b in itertools.combinations(valid_domains, 2):
+            models_a = discover_models(domain_a)
+            models_b = discover_models(domain_b)
+            d_short_a = _DOMAIN_SHORT.get(domain_a, domain_a.lower())
+            d_short_b = _DOMAIN_SHORT.get(domain_b, domain_b.lower())
 
-            # Predict output CSV path (matches enriched_matcher.run_pipeline naming)
-            stem     = f"{_safe_local(name_a)}_vs_{_safe_local(name_b)}"
-            pair_csv = _ENRICHED / f"{stem}.csv"
+            print(f"\n  {domain_a} x {domain_b}: "
+                  f"{len(models_a)} x {len(models_b)} = {len(models_a)*len(models_b)} pairs")
 
-            nbr_csv = _NBR_DIR / f"{domain_key}_coherence.csv"
-
-            # ── Step 1: Enriched pipeline (or skip if existing) ──────────────
-            if args.skip_existing and pair_csv.exists():
-                print(f"  [SKIP] {domain_key}  (enriched CSV exists)")
-                all_pair_csvs.append((domain_key, pair_csv))
-                csv_path = pair_csv
-            else:
-                # Write pair test JSON — kept in pairs/ for generate_report metadata lookup
-                pair_json = _PAIRS_DIR / f"{domain_key}.json"
-                pair_json.write_text(
-                    json.dumps({"json_a": data_a, "json_b": data_b}, indent=2),
-                    encoding="utf-8",
-                )
-
-                print(f"\n  [PAIR] {domain_key}")
-                print(f"    A: {name_a}  ({len(data_a.get('entities', []))} ents, "
-                      f"{len(data_a.get('associations', []))} assocs)")
-                print(f"    B: {name_b}  ({len(data_b.get('entities', []))} ents, "
-                      f"{len(data_b.get('associations', []))} assocs)")
-
-                try:
-                    csv_path = run_pipeline(
-                        pair_json,
-                        use_aml    = args.matcher in ("aml",    "both"),
-                        use_logmap = args.matcher in ("logmap", "both"),
-                    )
-                    all_pair_csvs.append((domain_key, csv_path))
-                except Exception as exc:
-                    print(f"  [ERROR] {domain_key}: {exc}")
-                    continue
-
-            # ── Step 2: Neighbourhood coherence ─────────────────────────────
-            if args.skip_existing and nbr_csv.exists():
-                print(f"    [SKIP] Coherence for {domain_key}")
-            else:
-                try:
-                    nbr_analysis(
-                        json_a      = a,
-                        json_b      = b,
-                        matches_csv = csv_path,
-                        out_csv     = nbr_csv,
-                        threshold   = 0.5,
-                    )
-                except Exception as exc:
-                    print(f"    [WARN] Coherence failed for {domain_key}: {exc}")
-
-            # ── Step 3: Lin-IC final scoring ─────────────────────────────────
-            lin_ic_csv = _LIN_IC_DIR / f"{domain_key}_lin_ic.csv"
-            if args.skip_existing and lin_ic_csv.exists():
-                print(f"    [SKIP] Lin-IC for {domain_key}")
-            else:
-                try:
-                    run_lin_ic(csv_path, lin_ic_csv)
-                except Exception as exc:
-                    print(f"    [WARN] Lin-IC failed for {domain_key}: {exc}")
-
-            # ── Step 4: Sentence embedding cosine similarity ─────────────────
-            emb_csv = _EMB_DIR / f"{domain_key}_emb.csv"
-            if args.skip_existing and emb_csv.exists():
-                print(f"    [SKIP] Embeddings for {domain_key}")
-            else:
-                try:
-                    run_embedding_stage(csv_path, a, b, emb_csv)
-                except Exception as exc:
-                    print(f"    [WARN] Embedding failed for {domain_key}: {exc}")
-
-            # ── Step 5: Merge all metrics into one flat CSV ───────────────────
-            merged_csv = _MERGED_DIR / f"{domain_key}_full.csv"
-            if args.skip_existing and merged_csv.exists():
-                print(f"    [SKIP] Merge for {domain_key}")
-            else:
-                try:
-                    merge_pair(
-                        enriched_csv = csv_path,
-                        nbr_csv      = nbr_csv      if nbr_csv.exists()     else None,
-                        lin_ic_csv   = lin_ic_csv   if lin_ic_csv.exists()  else None,
-                        emb_csv      = emb_csv      if emb_csv.exists()     else None,
-                        out_csv      = merged_csv,
-                    )
-                except Exception as exc:
-                    print(f"    [WARN] Merge failed for {domain_key}: {exc}")
+            for a, b in itertools.product(models_a, models_b):
+                short_a    = _model_short(a)
+                short_b    = _model_short(b)
+                domain_key = f"{d_short_a}_{short_a}_vs_{d_short_b}_{short_b}"
+                result = _run_pair(a, b, domain_key, **pipeline_kwargs)
+                if result:
+                    all_pair_csvs.append(result)
 
     if not all_pair_csvs:
         print("\n[WARN] No pairs processed. Check domain names and input files.")
