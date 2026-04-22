@@ -381,7 +381,7 @@ def build_regularised_mds_coords(
     onts: list[str],
     pair_data: dict,
     fill_rates: dict[str, float],
-    lambda_centroid: float = 2.0,
+    lambda_centroid: float = 0.3,
 ) -> tuple[np.ndarray, float]:
     """
     Regularised MDS: full 36×36 joint MDS + domain centroid-cohesion penalty.
@@ -845,9 +845,9 @@ def main():
     print(f"{len(json_files)} JSON files in pairs/: {json_files}")
 
     # ── regularised MDS: full pairwise + centroid cohesion ────────────────────
-    print("\nBuilding regularised MDS layout (lambda=2.0) ...")
+    print("\nBuilding regularised MDS layout (lambda=0.3) ...")
     coords, stress = build_regularised_mds_coords(onts, pair_data, fill_rates,
-                                                   lambda_centroid=2.0)
+                                                   lambda_centroid=0.3)
     print(f"Overall Kruskal stress (final embedding): {stress:.4f}")
 
     # ── build and save plot ────────────────────────────────────────────────────
