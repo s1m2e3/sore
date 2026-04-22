@@ -304,6 +304,7 @@ def build_html(onts, coords, pair_data, available_jsons, stress: float,
     labels  = [short_name(o) for o in onts]
     x_all   = coords[:, 0].tolist()
     y_all   = coords[:, 1].tolist()
+    z_all   = coords[:, 2].tolist()
     idx     = {o: i for i, o in enumerate(onts)}
     fr      = fill_rates or {}
 
@@ -337,10 +338,13 @@ def build_html(onts, coords, pair_data, available_jsons, stress: float,
         )
 
         in_mst = key in mst_set
-        edge_traces.append(go.Scatter(
-            x=[x_all[i], x_all[j]], y=[y_all[i], y_all[j]],
+        edge_traces.append(go.Scatter3d(
+            x=[x_all[i], x_all[j]],
+            y=[y_all[i], y_all[j]],
+            z=[z_all[i], z_all[j]],
             mode="lines",
-            line=dict(width=_edge_width(comp), color=_edge_colour(comp)),
+            line=dict(width=max(1, int(_edge_width(comp) * 0.55)),
+                      color=_edge_colour(comp)),
             hoverinfo="text", text=[tip, tip],
             showlegend=False,
             visible=in_mst,
@@ -370,15 +374,16 @@ def build_html(onts, coords, pair_data, available_jsons, stress: float,
             hover_texts.append(tip)
 
         colour = DOMAIN_COLOUR.get(domain, "#616161")
-        node_traces.append(go.Scatter(
+        node_traces.append(go.Scatter3d(
             x=[x_all[i] for i in mask],
             y=[y_all[i] for i in mask],
+            z=[z_all[i] for i in mask],
             mode="markers+text",
-            marker=dict(size=22, color=colour,
-                        line=dict(width=2.5, color="white"), opacity=0.92),
+            marker=dict(size=10, color=colour,
+                        line=dict(width=2, color="white"), opacity=0.92),
             text=[labels[i] for i in mask],
             textposition="top center",
-            textfont=dict(size=10, color="#222"),
+            textfont=dict(size=9, color="#222"),
             hoverinfo="text", hovertext=hover_texts,
             name=domain,
             legendgroup=f"domain_{domain}",
@@ -404,9 +409,16 @@ def build_html(onts, coords, pair_data, available_jsons, stress: float,
             ),
             font=dict(size=14), x=0.01, xanchor="left",
         ),
-        xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
-        yaxis=dict(showgrid=False, zeroline=False, showticklabels=False,
-                   scaleanchor="x"),
+        scene=dict(
+            xaxis=dict(showgrid=False, zeroline=False, showticklabels=False,
+                       showbackground=False, title=""),
+            yaxis=dict(showgrid=False, zeroline=False, showticklabels=False,
+                       showbackground=False, title=""),
+            zaxis=dict(showgrid=False, zeroline=False, showticklabels=False,
+                       showbackground=False, title=""),
+            bgcolor="#fafafa",
+            aspectmode="cube",
+        ),
         legend=dict(groupclick="toggleitem", bordercolor="#ccc",
                     borderwidth=1, font=dict(size=11)),
         hovermode="closest",
@@ -606,7 +618,7 @@ def main():
 
     # Classical MDS init gives a far better starting point than random
     from sklearn.manifold import MDS as _MDS
-    mds = _MDS(n_components=2, dissimilarity="precomputed",
+    mds = _MDS(n_components=3, dissimilarity="precomputed",
                random_state=42, normalized_stress="auto",
                n_init=1, init="random", max_iter=1000)
     coords = mds.fit_transform(dist)
