@@ -1,0 +1,485 @@
+{
+  "topicDomain": "How to make and consume coffee (including how the coffee maker works)",
+  "modelName": "Coffee Environment Component Connectivity Network Model",
+  "methodBasis": "Entities represent finer-grained environmental and equipment components; Associations emphasize connectivity, adjacency, support, containment, and user interaction rather than preparation flow.",
+  "entities": [
+    {
+      "name": "BrewArea",
+      "attributes": [
+        {
+          "name": "brewAreaID",
+          "type": "Identifier"
+        },
+        {
+          "name": "brewAreaOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "brewAreaPosition",
+          "type": "Position"
+        },
+        {
+          "name": "brewAreaExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "CounterSurface",
+      "attributes": [
+        {
+          "name": "counterSurfaceID",
+          "type": "Identifier"
+        },
+        {
+          "name": "surfaceOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "surfaceExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "surfaceCapacityCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "ElectricalOutlet",
+      "attributes": [
+        {
+          "name": "electricalOutletID",
+          "type": "Identifier"
+        },
+        {
+          "name": "outletOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "availablePower",
+          "type": "Power"
+        },
+        {
+          "name": "outletPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "CoffeeMaker",
+      "attributes": [
+        {
+          "name": "coffeeMakerID",
+          "type": "Identifier"
+        },
+        {
+          "name": "machineOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "machinePowerState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "machineExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "Reservoir",
+      "attributes": [
+        {
+          "name": "reservoirID",
+          "type": "Identifier"
+        },
+        {
+          "name": "reservoirVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "reservoirTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "reservoirOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "HeatingElement",
+      "attributes": [
+        {
+          "name": "heatingElementID",
+          "type": "Identifier"
+        },
+        {
+          "name": "elementTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "elementPower",
+          "type": "Power"
+        },
+        {
+          "name": "elementOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "BrewBasket",
+      "attributes": [
+        {
+          "name": "brewBasketID",
+          "type": "Identifier"
+        },
+        {
+          "name": "basketOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "basketCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "basketPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "WarmingPlate",
+      "attributes": [
+        {
+          "name": "warmingPlateID",
+          "type": "Identifier"
+        },
+        {
+          "name": "plateTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "plateOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "platePower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "Grinder",
+      "attributes": [
+        {
+          "name": "grinderID",
+          "type": "Identifier"
+        },
+        {
+          "name": "grinderOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "grindState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "grinderExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "StorageCanister",
+      "attributes": [
+        {
+          "name": "storageCanisterID",
+          "type": "Identifier"
+        },
+        {
+          "name": "canisterOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "storedMass",
+          "type": "Mass"
+        },
+        {
+          "name": "canisterExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "Cup",
+      "attributes": [
+        {
+          "name": "cupID",
+          "type": "Identifier"
+        },
+        {
+          "name": "cupOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "cupVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "cupPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "SeatingArea",
+      "attributes": [
+        {
+          "name": "seatingAreaID",
+          "type": "Identifier"
+        },
+        {
+          "name": "seatingOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "seatingCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "seatingExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "Consumer",
+      "attributes": [
+        {
+          "name": "consumerID",
+          "type": "Identifier"
+        },
+        {
+          "name": "consumerOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "preferenceState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "occupancyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "AdditiveContainer",
+      "attributes": [
+        {
+          "name": "additiveContainerID",
+          "type": "Identifier"
+        },
+        {
+          "name": "containerOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "storedVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "containerExtent",
+          "type": "Extent"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "BrewAreaContainsCounterSurface",
+      "participants": [
+        "BrewArea",
+        "CounterSurface"
+      ],
+      "attributes": [
+        {
+          "name": "relativePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "CounterSurfaceSupportsCoffeeMaker",
+      "participants": [
+        "CounterSurface",
+        "CoffeeMaker"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "CounterSurfaceSupportsGrinder",
+      "participants": [
+        "CounterSurface",
+        "Grinder"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "CounterSurfaceSupportsStorageCanister",
+      "participants": [
+        "CounterSurface",
+        "StorageCanister"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "CounterSurfaceSupportsAdditiveContainer",
+      "participants": [
+        "CounterSurface",
+        "AdditiveContainer"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "ElectricalOutletPowersCoffeeMaker",
+      "participants": [
+        "ElectricalOutlet",
+        "CoffeeMaker"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "CoffeeMakerContainsReservoir",
+      "participants": [
+        "CoffeeMaker",
+        "Reservoir"
+      ],
+      "attributes": [
+        {
+          "name": "componentPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "CoffeeMakerContainsHeatingElement",
+      "participants": [
+        "CoffeeMaker",
+        "HeatingElement"
+      ],
+      "attributes": [
+        {
+          "name": "componentPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "CoffeeMakerContainsBrewBasket",
+      "participants": [
+        "CoffeeMaker",
+        "BrewBasket"
+      ],
+      "attributes": [
+        {
+          "name": "componentPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "CoffeeMakerContainsWarmingPlate",
+      "participants": [
+        "CoffeeMaker",
+        "WarmingPlate"
+      ],
+      "attributes": [
+        {
+          "name": "componentPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "CounterSurfaceSupportsCup",
+      "participants": [
+        "CounterSurface",
+        "Cup"
+      ],
+      "attributes": [
+        {
+          "name": "supportPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "BrewAreaAdjacentToSeatingArea",
+      "participants": [
+        "BrewArea",
+        "SeatingArea"
+      ],
+      "attributes": [
+        {
+          "name": "adjacencyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SeatingAreaAccommodatesConsumer",
+      "participants": [
+        "SeatingArea",
+        "Consumer"
+      ],
+      "attributes": [
+        {
+          "name": "occupancyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ConsumerUsesCup",
+      "participants": [
+        "Consumer",
+        "Cup"
+      ],
+      "attributes": [
+        {
+          "name": "useState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,614 @@
+{
+  "topicDomain": "Home Beer Brewing",
+  "modelName": "Homebrewing Resource Model - Packaged Resource Clusters",
+  "methodBasis": "All entities represent packaged clusters of homebrewing equipment and ingredients. Variations differ by packaging resources into functional clusters and modeling adjacency and support relationships.",
+  "entities": [
+    {
+      "name": "HomebrewSite",
+      "attributes": [
+        {
+          "name": "homebrewSiteID",
+          "type": "Identifier"
+        },
+        {
+          "name": "siteExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "sitePosition",
+          "type": "Position"
+        },
+        {
+          "name": "siteOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "HotSideCluster",
+      "attributes": [
+        {
+          "name": "hotSideClusterID",
+          "type": "Identifier"
+        },
+        {
+          "name": "clusterExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "clusterCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "clusterOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ColdSideCluster",
+      "attributes": [
+        {
+          "name": "coldSideClusterID",
+          "type": "Identifier"
+        },
+        {
+          "name": "clusterExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "clusterCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "clusterOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "PackagingCluster",
+      "attributes": [
+        {
+          "name": "packagingClusterID",
+          "type": "Identifier"
+        },
+        {
+          "name": "clusterExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "clusterCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "clusterOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "IngredientStorageCluster",
+      "attributes": [
+        {
+          "name": "ingredientStorageClusterID",
+          "type": "Identifier"
+        },
+        {
+          "name": "clusterExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "storageCapacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "clusterOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "HeatSource",
+      "attributes": [
+        {
+          "name": "heatSourceID",
+          "type": "Identifier"
+        },
+        {
+          "name": "heatPower",
+          "type": "Power"
+        },
+        {
+          "name": "heatOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "fuelState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "MashVessel",
+      "attributes": [
+        {
+          "name": "mashVesselID",
+          "type": "Identifier"
+        },
+        {
+          "name": "vesselVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "vesselTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "vesselOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "BoilVessel",
+      "attributes": [
+        {
+          "name": "boilVesselID",
+          "type": "Identifier"
+        },
+        {
+          "name": "vesselVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "vesselTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "vesselOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Chiller",
+      "attributes": [
+        {
+          "name": "chillerID",
+          "type": "Identifier"
+        },
+        {
+          "name": "coolingDuration",
+          "type": "Duration"
+        },
+        {
+          "name": "flowRate",
+          "type": "MassFlowRate"
+        },
+        {
+          "name": "chillerOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "FermentationVessel",
+      "attributes": [
+        {
+          "name": "fermentationVesselID",
+          "type": "Identifier"
+        },
+        {
+          "name": "vesselVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "vesselTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "vesselOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Airlock",
+      "attributes": [
+        {
+          "name": "airlockID",
+          "type": "Identifier"
+        },
+        {
+          "name": "liquidVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "pressureState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "airlockOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "BottleOrKegSet",
+      "attributes": [
+        {
+          "name": "bottleOrKegSetID",
+          "type": "Identifier"
+        },
+        {
+          "name": "containerCount",
+          "type": "Count"
+        },
+        {
+          "name": "containerVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "setOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "CleaningKit",
+      "attributes": [
+        {
+          "name": "cleaningKitID",
+          "type": "Identifier"
+        },
+        {
+          "name": "kitCount",
+          "type": "Count"
+        },
+        {
+          "name": "kitOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "solutionVolume",
+          "type": "ScalarVolume"
+        }
+      ]
+    },
+    {
+      "name": "GrainSupply",
+      "attributes": [
+        {
+          "name": "grainSupplyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "storedMass",
+          "type": "Mass"
+        },
+        {
+          "name": "supplyState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "containerExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "HopSupply",
+      "attributes": [
+        {
+          "name": "hopSupplyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "storedMass",
+          "type": "Mass"
+        },
+        {
+          "name": "supplyState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "containerExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "YeastSupply",
+      "attributes": [
+        {
+          "name": "yeastSupplyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "storedMass",
+          "type": "Mass"
+        },
+        {
+          "name": "supplyState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "containerExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "WaterSupply",
+      "attributes": [
+        {
+          "name": "waterSupplyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "storedVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "waterTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "supplyState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "HomebrewSiteContainsHotSideCluster",
+      "participants": [
+        "HomebrewSite",
+        "HotSideCluster"
+      ],
+      "attributes": [
+        {
+          "name": "clusterPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "HomebrewSiteContainsColdSideCluster",
+      "participants": [
+        "HomebrewSite",
+        "ColdSideCluster"
+      ],
+      "attributes": [
+        {
+          "name": "clusterPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "HomebrewSiteContainsPackagingCluster",
+      "participants": [
+        "HomebrewSite",
+        "PackagingCluster"
+      ],
+      "attributes": [
+        {
+          "name": "clusterPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "HomebrewSiteContainsIngredientStorageCluster",
+      "participants": [
+        "HomebrewSite",
+        "IngredientStorageCluster"
+      ],
+      "attributes": [
+        {
+          "name": "clusterPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "HotSideClusterContainsHeatSource",
+      "participants": [
+        "HotSideCluster",
+        "HeatSource"
+      ],
+      "attributes": [
+        {
+          "name": "resourcePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "HotSideClusterContainsMashVessel",
+      "participants": [
+        "HotSideCluster",
+        "MashVessel"
+      ],
+      "attributes": [
+        {
+          "name": "resourcePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "HotSideClusterContainsBoilVessel",
+      "participants": [
+        "HotSideCluster",
+        "BoilVessel"
+      ],
+      "attributes": [
+        {
+          "name": "resourcePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "ColdSideClusterContainsChiller",
+      "participants": [
+        "ColdSideCluster",
+        "Chiller"
+      ],
+      "attributes": [
+        {
+          "name": "resourcePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "ColdSideClusterContainsFermentationVessel",
+      "participants": [
+        "ColdSideCluster",
+        "FermentationVessel"
+      ],
+      "attributes": [
+        {
+          "name": "resourcePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "ColdSideClusterContainsAirlock",
+      "participants": [
+        "ColdSideCluster",
+        "Airlock"
+      ],
+      "attributes": [
+        {
+          "name": "resourcePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "PackagingClusterContainsBottleOrKegSet",
+      "participants": [
+        "PackagingCluster",
+        "BottleOrKegSet"
+      ],
+      "attributes": [
+        {
+          "name": "resourcePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "PackagingClusterContainsCleaningKit",
+      "participants": [
+        "PackagingCluster",
+        "CleaningKit"
+      ],
+      "attributes": [
+        {
+          "name": "resourcePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "IngredientStorageClusterContainsGrainSupply",
+      "participants": [
+        "IngredientStorageCluster",
+        "GrainSupply"
+      ],
+      "attributes": [
+        {
+          "name": "resourcePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "IngredientStorageClusterContainsHopSupply",
+      "participants": [
+        "IngredientStorageCluster",
+        "HopSupply"
+      ],
+      "attributes": [
+        {
+          "name": "resourcePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "IngredientStorageClusterContainsYeastSupply",
+      "participants": [
+        "IngredientStorageCluster",
+        "YeastSupply"
+      ],
+      "attributes": [
+        {
+          "name": "resourcePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "IngredientStorageClusterContainsWaterSupply",
+      "participants": [
+        "IngredientStorageCluster",
+        "WaterSupply"
+      ],
+      "attributes": [
+        {
+          "name": "resourcePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "HeatSourceSupportsMashVessel",
+      "participants": [
+        "HeatSource",
+        "MashVessel"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "HeatSourceSupportsBoilVessel",
+      "participants": [
+        "HeatSource",
+        "BoilVessel"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "ChillerAdjacentToBoilVesselAndFermentationVessel",
+      "participants": [
+        "Chiller",
+        "BoilVessel",
+        "FermentationVessel"
+      ],
+      "attributes": [
+        {
+          "name": "adjacencyState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ]
+}

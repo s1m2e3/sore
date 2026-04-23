@@ -1,0 +1,640 @@
+{
+  "topicDomain": "University System",
+  "modelName": "University Institutional Hierarchy Model",
+  "methodBasis": "Entities represent major institutional structures and composed entities; Associations represent governance, enrollment, employment, administration, and resource relationships among entities.",
+  "entities": [
+    {
+      "name": "University",
+      "attributes": [
+        {
+          "name": "universityID",
+          "type": "Identifier"
+        },
+        {
+          "name": "universityName",
+          "type": "Name"
+        },
+        {
+          "name": "institutionalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "mainPosition",
+          "type": "Position"
+        },
+        {
+          "name": "mainExtent",
+          "type": "Extent"
+        },
+        {
+          "name": "collegeCount",
+          "type": "Count"
+        },
+        {
+          "name": "departmentCount",
+          "type": "Count"
+        },
+        {
+          "name": "studentCount",
+          "type": "Count"
+        },
+        {
+          "name": "employeeCount",
+          "type": "Count"
+        },
+        {
+          "name": "academicCalendar",
+          "type": "AcademicCalendar"
+        },
+        {
+          "name": "governanceBody",
+          "type": "GovernanceBody"
+        },
+        {
+          "name": "admissionsSystem",
+          "type": "AdmissionsSystem"
+        },
+        {
+          "name": "academicSystem",
+          "type": "AcademicSystem"
+        },
+        {
+          "name": "studentServicesSystem",
+          "type": "StudentServicesSystem"
+        },
+        {
+          "name": "facilitiesSystem",
+          "type": "FacilitiesSystem"
+        },
+        {
+          "name": "financeSystem",
+          "type": "FinanceSystem"
+        }
+      ]
+    },
+    {
+      "name": "GovernanceBody",
+      "attributes": [
+        {
+          "name": "governanceBodyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "governanceState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "memberCount",
+          "type": "Count"
+        },
+        {
+          "name": "decisionCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "AcademicCalendar",
+      "attributes": [
+        {
+          "name": "calendarID",
+          "type": "Identifier"
+        },
+        {
+          "name": "calendarState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "termCount",
+          "type": "Count"
+        },
+        {
+          "name": "activeTermState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "College",
+      "attributes": [
+        {
+          "name": "collegeID",
+          "type": "Identifier"
+        },
+        {
+          "name": "collegeName",
+          "type": "Name"
+        },
+        {
+          "name": "collegeState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "departmentCount",
+          "type": "Count"
+        },
+        {
+          "name": "programCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "Department",
+      "attributes": [
+        {
+          "name": "departmentID",
+          "type": "Identifier"
+        },
+        {
+          "name": "departmentName",
+          "type": "Name"
+        },
+        {
+          "name": "departmentState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "facultyCount",
+          "type": "Count"
+        },
+        {
+          "name": "courseCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "Program",
+      "attributes": [
+        {
+          "name": "programID",
+          "type": "Identifier"
+        },
+        {
+          "name": "programName",
+          "type": "Name"
+        },
+        {
+          "name": "programState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "requiredCreditCount",
+          "type": "Count"
+        },
+        {
+          "name": "concentrationCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "Course",
+      "attributes": [
+        {
+          "name": "courseID",
+          "type": "Identifier"
+        },
+        {
+          "name": "courseName",
+          "type": "Name"
+        },
+        {
+          "name": "courseState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "creditCount",
+          "type": "Count"
+        },
+        {
+          "name": "courseLevel",
+          "type": "Order"
+        }
+      ]
+    },
+    {
+      "name": "Student",
+      "attributes": [
+        {
+          "name": "studentID",
+          "type": "Identifier"
+        },
+        {
+          "name": "studentName",
+          "type": "Name"
+        },
+        {
+          "name": "studentState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "admissionState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "academicStandingState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "earnedCreditCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "FacultyMember",
+      "attributes": [
+        {
+          "name": "facultyMemberID",
+          "type": "Identifier"
+        },
+        {
+          "name": "facultyMemberName",
+          "type": "Name"
+        },
+        {
+          "name": "facultyState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "rankState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "teachingLoadCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "StaffMember",
+      "attributes": [
+        {
+          "name": "staffMemberID",
+          "type": "Identifier"
+        },
+        {
+          "name": "staffMemberName",
+          "type": "Name"
+        },
+        {
+          "name": "staffState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "serviceAreaState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "AdmissionsSystem",
+      "attributes": [
+        {
+          "name": "admissionsSystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "admissionsState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "applicationCount",
+          "type": "Count"
+        },
+        {
+          "name": "decisionCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "AcademicSystem",
+      "attributes": [
+        {
+          "name": "academicSystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "academicState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "termCourseCount",
+          "type": "Count"
+        },
+        {
+          "name": "termEnrollmentCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "StudentServicesSystem",
+      "attributes": [
+        {
+          "name": "studentServicesSystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "servicesState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "serviceCount",
+          "type": "Count"
+        },
+        {
+          "name": "activeCaseCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "FacilitiesSystem",
+      "attributes": [
+        {
+          "name": "facilitiesSystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "facilitiesState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "buildingCount",
+          "type": "Count"
+        },
+        {
+          "name": "roomCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "FinanceSystem",
+      "attributes": [
+        {
+          "name": "financeSystemID",
+          "type": "Identifier"
+        },
+        {
+          "name": "financeState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "budgetAmount",
+          "type": "Money"
+        },
+        {
+          "name": "tuitionAmount",
+          "type": "Money"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "UniversityGovernedByGovernanceBody",
+      "participants": [
+        "University",
+        "GovernanceBody"
+      ],
+      "attributes": [
+        {
+          "name": "governanceScopeState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "UniversityOperatesAcademicCalendar",
+      "participants": [
+        "University",
+        "AcademicCalendar"
+      ],
+      "attributes": [
+        {
+          "name": "activeTermState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "UniversityContainsCollege",
+      "participants": [
+        "University",
+        "College"
+      ],
+      "attributes": [
+        {
+          "name": "relativePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "CollegeContainsDepartment",
+      "participants": [
+        "College",
+        "Department"
+      ],
+      "attributes": [
+        {
+          "name": "organizationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "DepartmentAdministersProgram",
+      "participants": [
+        "Department",
+        "Program"
+      ],
+      "attributes": [
+        {
+          "name": "programAdministrationState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "DepartmentOffersCourse",
+      "participants": [
+        "Department",
+        "Course"
+      ],
+      "attributes": [
+        {
+          "name": "courseOfferingState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "courseFrequency",
+          "type": "TemporalFrequency"
+        }
+      ]
+    },
+    {
+      "name": "ProgramRequiresCourse",
+      "participants": [
+        "Program",
+        "Course"
+      ],
+      "attributes": [
+        {
+          "name": "requirementState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "requiredCreditCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "StudentEnrolledInProgram",
+      "participants": [
+        "Student",
+        "Program"
+      ],
+      "attributes": [
+        {
+          "name": "enrollmentState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "declaredTime",
+          "type": "Time"
+        }
+      ]
+    },
+    {
+      "name": "StudentTakesCourse",
+      "participants": [
+        "Student",
+        "Course"
+      ],
+      "attributes": [
+        {
+          "name": "registrationState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "gradeState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "FacultyMemberAssignedToDepartment",
+      "participants": [
+        "FacultyMember",
+        "Department"
+      ],
+      "attributes": [
+        {
+          "name": "employmentState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "appointmentTime",
+          "type": "Time"
+        }
+      ]
+    },
+    {
+      "name": "FacultyMemberTeachesCourse",
+      "participants": [
+        "FacultyMember",
+        "Course"
+      ],
+      "attributes": [
+        {
+          "name": "teachingAssignmentState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "termState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "StaffMemberSupportsStudentServicesSystem",
+      "participants": [
+        "StaffMember",
+        "StudentServicesSystem"
+      ],
+      "attributes": [
+        {
+          "name": "serviceRoleState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "AdmissionsSystemProcessesStudent",
+      "participants": [
+        "AdmissionsSystem",
+        "Student"
+      ],
+      "attributes": [
+        {
+          "name": "applicationState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "decisionTime",
+          "type": "Time"
+        }
+      ]
+    },
+    {
+      "name": "AcademicSystemAdministersCourse",
+      "participants": [
+        "AcademicSystem",
+        "Course"
+      ],
+      "attributes": [
+        {
+          "name": "schedulingState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "FinanceSystemAccountsForStudent",
+      "participants": [
+        "FinanceSystem",
+        "Student"
+      ],
+      "attributes": [
+        {
+          "name": "accountBalanceAmount",
+          "type": "Money"
+        },
+        {
+          "name": "paymentState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "FacilitiesSystemSupportsDepartment",
+      "participants": [
+        "FacilitiesSystem",
+        "Department"
+      ],
+      "attributes": [
+        {
+          "name": "spaceAllocationExtent",
+          "type": "Extent"
+        }
+      ]
+    }
+  ]
+}

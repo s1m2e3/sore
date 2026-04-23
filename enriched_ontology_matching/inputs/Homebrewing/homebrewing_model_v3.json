@@ -1,0 +1,1035 @@
+{
+  "modelName": "HomeBrewing_Model_V3_FunctionalDomain",
+  "modelDescription": "Functional-domain decomposition of a home beer brewing setup. Entities are organized into ten functional domains: IngredientStorageDomain, WaterTreatmentDomain, GrainProcessingDomain, WortProductionDomain, FermentationDomain, CarbonationAndServingDomain, PackagingDomain, QualityControlDomain, SanitationDomain, and PlumbingAndFittingsDomain. Each domain composes its specific equipment and resources. Cross-domain relationships are expressed through Associations.",
+  "observables": [
+    "Identifier", "Temperature", "Pressure", "Power", "Energy",
+    "Mass", "Position", "Distance", "Duration",
+    "TemporalFrequency", "ScalarVolume", "ScalarArea",
+    "MassFlowRate", "Ratio", "Count", "HealthState",
+    "OperationalState", "Kind", "Description",
+    "Humidity", "ConfigurationState", "Size",
+    "CalendarTime", "Speed", "Mode",
+    "ChemicalConcentration", "Density", "CountRate",
+    "Color", "Extent"
+  ],
+  "entities": [
+    {
+      "entityName": "HomeBrewery",
+      "entityAttributes": [
+        { "name": "breweryID", "type": "Identifier" },
+        { "name": "breweryName", "type": "Description" },
+        { "name": "ingredientStorage", "type": "IngredientStorageDomain" },
+        { "name": "waterTreatment", "type": "WaterTreatmentDomain" },
+        { "name": "grainProcessing", "type": "GrainProcessingDomain" },
+        { "name": "wortProduction", "type": "WortProductionDomain" },
+        { "name": "fermentation", "type": "FermentationDomain" },
+        { "name": "carbonationAndServing", "type": "CarbonationAndServingDomain" },
+        { "name": "packaging", "type": "PackagingDomain" },
+        { "name": "qualityControl", "type": "QualityControlDomain" },
+        { "name": "sanitation", "type": "SanitationDomain" },
+        { "name": "plumbingAndFittings", "type": "PlumbingAndFittingsDomain" }
+      ]
+    },
+    {
+      "entityName": "IngredientStorageDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "grainBin", "type": "GrainBin" },
+        { "name": "hopStorage", "type": "HopStorage" },
+        { "name": "yeastStorage", "type": "YeastStorage" },
+        { "name": "adjunctContainer", "type": "AdjunctContainer" },
+        { "name": "primingSugarContainer", "type": "PrimingSugarContainer" },
+        { "name": "waterChemistryKit", "type": "WaterChemistryKit" }
+      ]
+    },
+    {
+      "entityName": "GrainBin",
+      "entityAttributes": [
+        { "name": "binID", "type": "Identifier" },
+        { "name": "binType", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "sealState", "type": "ConfigurationState" },
+        { "name": "currentFillLevel", "type": "Ratio" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "HopStorage",
+      "entityAttributes": [
+        { "name": "storageID", "type": "Identifier" },
+        { "name": "storageType", "type": "Kind" },
+        { "name": "storageTemperature", "type": "Temperature" },
+        { "name": "vacuumSealed", "type": "ConfigurationState" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "YeastStorage",
+      "entityAttributes": [
+        { "name": "storageID", "type": "Identifier" },
+        { "name": "storageType", "type": "Kind" },
+        { "name": "storageTemperature", "type": "Temperature" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "AdjunctContainer",
+      "entityAttributes": [
+        { "name": "containerID", "type": "Identifier" },
+        { "name": "containerType", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "sealState", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "PrimingSugarContainer",
+      "entityAttributes": [
+        { "name": "containerID", "type": "Identifier" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "sealState", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "WaterChemistryKit",
+      "entityAttributes": [
+        { "name": "kitID", "type": "Identifier" },
+        { "name": "mineralCount", "type": "Count" },
+        { "name": "acidType", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "WaterTreatmentDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "carbonFilter", "type": "CarbonFilter" },
+        { "name": "roSystem", "type": "ROSystem" },
+        { "name": "waterTestKit", "type": "WaterTestKit" },
+        { "name": "phMeter", "type": "PHMeter" }
+      ]
+    },
+    {
+      "entityName": "CarbonFilter",
+      "entityAttributes": [
+        { "name": "filterID", "type": "Identifier" },
+        { "name": "filterType", "type": "Kind" },
+        { "name": "flowRate", "type": "MassFlowRate" },
+        { "name": "filterLife", "type": "ScalarVolume" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "ROSystem",
+      "entityAttributes": [
+        { "name": "systemID", "type": "Identifier" },
+        { "name": "membraneCount", "type": "Count" },
+        { "name": "rejectionRate", "type": "Ratio" },
+        { "name": "flowRate", "type": "MassFlowRate" },
+        { "name": "tankCapacity", "type": "ScalarVolume" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "WaterTestKit",
+      "entityAttributes": [
+        { "name": "kitID", "type": "Identifier" },
+        { "name": "testsIncluded", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "PHMeter",
+      "entityAttributes": [
+        { "name": "meterID", "type": "Identifier" },
+        { "name": "resolution", "type": "Ratio" },
+        { "name": "lastCalibration", "type": "CalendarTime" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "GrainProcessingDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "grainMill", "type": "GrainMill" },
+        { "name": "grainScale", "type": "GrainScale" },
+        { "name": "grainScoop", "type": "GrainScoop" }
+      ]
+    },
+    {
+      "entityName": "GrainMill",
+      "entityAttributes": [
+        { "name": "millID", "type": "Identifier" },
+        { "name": "millType", "type": "Kind" },
+        { "name": "rollerCount", "type": "Count" },
+        { "name": "gapSetting", "type": "Distance" },
+        { "name": "motorized", "type": "ConfigurationState" },
+        { "name": "motorPower", "type": "Power" },
+        { "name": "hopperCapacity", "type": "ScalarVolume" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "GrainScale",
+      "entityAttributes": [
+        { "name": "scaleID", "type": "Identifier" },
+        { "name": "maxCapacity", "type": "Mass" },
+        { "name": "resolution", "type": "Mass" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "GrainScoop",
+      "entityAttributes": [
+        { "name": "scoopID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" }
+      ]
+    },
+    {
+      "entityName": "WortProductionDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "mashTun", "type": "MashTun" },
+        { "name": "hotLiquorTank", "type": "HotLiquorTank" },
+        { "name": "brewKettle", "type": "BrewKettle" },
+        { "name": "heatSource", "type": "HeatSource" },
+        { "name": "spargeArm", "type": "SpargeArm" },
+        { "name": "mashPaddle", "type": "MashPaddle" },
+        { "name": "grainBag", "type": "GrainBag" },
+        { "name": "hopSpider", "type": "HopSpider" },
+        { "name": "whirlpoolArm", "type": "WhirlpoolArm" },
+        { "name": "wortChiller", "type": "WortChiller" },
+        { "name": "brewPump", "type": "BrewPump" },
+        { "name": "brewStand", "type": "BrewStand" },
+        { "name": "brewTimer", "type": "BrewTimer" },
+        { "name": "hopScale", "type": "HopScale" }
+      ]
+    },
+    {
+      "entityName": "MashTun",
+      "entityAttributes": [
+        { "name": "tunID", "type": "Identifier" },
+        { "name": "tunType", "type": "Kind" },
+        { "name": "material", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "insulated", "type": "ConfigurationState" },
+        { "name": "falseBottom", "type": "FalseBottom" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "FalseBottom",
+      "entityAttributes": [
+        { "name": "bottomID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "diameter", "type": "Distance" },
+        { "name": "slotWidth", "type": "Distance" }
+      ]
+    },
+    {
+      "entityName": "HotLiquorTank",
+      "entityAttributes": [
+        { "name": "tankID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "heatingElement", "type": "HeatingElement" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "BrewKettle",
+      "entityAttributes": [
+        { "name": "kettleID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "diameter", "type": "Distance" },
+        { "name": "hasVolumeMarkings", "type": "ConfigurationState" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "HeatSource",
+      "entityAttributes": [
+        { "name": "sourceID", "type": "Identifier" },
+        { "name": "sourceType", "type": "Kind" },
+        { "name": "maxPower", "type": "Power" },
+        { "name": "fuelType", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "HeatingElement",
+      "entityAttributes": [
+        { "name": "elementID", "type": "Identifier" },
+        { "name": "elementType", "type": "Kind" },
+        { "name": "powerRating", "type": "Power" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "SpargeArm",
+      "entityAttributes": [
+        { "name": "armID", "type": "Identifier" },
+        { "name": "armType", "type": "Kind" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "MashPaddle",
+      "entityAttributes": [
+        { "name": "paddleID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "length", "type": "Distance" }
+      ]
+    },
+    {
+      "entityName": "GrainBag",
+      "entityAttributes": [
+        { "name": "bagID", "type": "Identifier" },
+        { "name": "meshSize", "type": "Distance" },
+        { "name": "capacity", "type": "ScalarVolume" }
+      ]
+    },
+    {
+      "entityName": "HopSpider",
+      "entityAttributes": [
+        { "name": "spiderID", "type": "Identifier" },
+        { "name": "meshSize", "type": "Distance" },
+        { "name": "capacity", "type": "ScalarVolume" }
+      ]
+    },
+    {
+      "entityName": "WhirlpoolArm",
+      "entityAttributes": [
+        { "name": "armID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "WortChiller",
+      "entityAttributes": [
+        { "name": "chillerID", "type": "Identifier" },
+        { "name": "chillerType", "type": "Kind" },
+        { "name": "material", "type": "Kind" },
+        { "name": "coilLength", "type": "Distance" },
+        { "name": "plateCount", "type": "Count" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "BrewPump",
+      "entityAttributes": [
+        { "name": "pumpID", "type": "Identifier" },
+        { "name": "pumpType", "type": "Kind" },
+        { "name": "flowRate", "type": "MassFlowRate" },
+        { "name": "powerRating", "type": "Power" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "BrewStand",
+      "entityAttributes": [
+        { "name": "standID", "type": "Identifier" },
+        { "name": "tierCount", "type": "Count" },
+        { "name": "material", "type": "Kind" },
+        { "name": "weightCapacity", "type": "Mass" }
+      ]
+    },
+    {
+      "entityName": "BrewTimer",
+      "entityAttributes": [
+        { "name": "timerID", "type": "Identifier" },
+        { "name": "timerType", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "HopScale",
+      "entityAttributes": [
+        { "name": "scaleID", "type": "Identifier" },
+        { "name": "maxCapacity", "type": "Mass" },
+        { "name": "resolution", "type": "Mass" }
+      ]
+    },
+    {
+      "entityName": "FermentationDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "primaryFermenter", "type": "Fermenter" },
+        { "name": "secondaryFermenter", "type": "Fermenter" },
+        { "name": "fermentationChamber", "type": "FermentationChamber" },
+        { "name": "temperatureController", "type": "TemperatureController" },
+        { "name": "dryHopBasket", "type": "DryHopBasket" },
+        { "name": "yeastStarter", "type": "YeastStarterFlask" }
+      ]
+    },
+    {
+      "entityName": "Fermenter",
+      "entityAttributes": [
+        { "name": "fermenterID", "type": "Identifier" },
+        { "name": "fermenterType", "type": "Kind" },
+        { "name": "material", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "pressureRating", "type": "Pressure" },
+        { "name": "hasSamplingPort", "type": "ConfigurationState" },
+        { "name": "hasRackingArm", "type": "ConfigurationState" },
+        { "name": "airlock", "type": "Airlock" },
+        { "name": "spigot", "type": "Spigot" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Airlock",
+      "entityAttributes": [
+        { "name": "airlockID", "type": "Identifier" },
+        { "name": "airlockType", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "Spigot",
+      "entityAttributes": [
+        { "name": "spigotID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "threadSize", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "FermentationChamber",
+      "entityAttributes": [
+        { "name": "chamberID", "type": "Identifier" },
+        { "name": "chamberType", "type": "Kind" },
+        { "name": "internalVolume", "type": "ScalarVolume" },
+        { "name": "coolingUnit", "type": "CoolingUnit" },
+        { "name": "heatingElement", "type": "HeatingElement" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "CoolingUnit",
+      "entityAttributes": [
+        { "name": "unitID", "type": "Identifier" },
+        { "name": "unitType", "type": "Kind" },
+        { "name": "coolingCapacity", "type": "Power" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "TemperatureController",
+      "entityAttributes": [
+        { "name": "controllerID", "type": "Identifier" },
+        { "name": "controllerType", "type": "Kind" },
+        { "name": "setTemperature", "type": "Temperature" },
+        { "name": "currentTemperature", "type": "Temperature" },
+        { "name": "hysteresis", "type": "Temperature" },
+        { "name": "temperatureProbe", "type": "TemperatureProbe" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "TemperatureProbe",
+      "entityAttributes": [
+        { "name": "probeID", "type": "Identifier" },
+        { "name": "probeType", "type": "Kind" },
+        { "name": "accuracy", "type": "Temperature" }
+      ]
+    },
+    {
+      "entityName": "DryHopBasket",
+      "entityAttributes": [
+        { "name": "basketID", "type": "Identifier" },
+        { "name": "meshSize", "type": "Distance" },
+        { "name": "capacity", "type": "ScalarVolume" }
+      ]
+    },
+    {
+      "entityName": "YeastStarterFlask",
+      "entityAttributes": [
+        { "name": "flaskID", "type": "Identifier" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "StirPlate",
+      "entityAttributes": [
+        { "name": "plateID", "type": "Identifier" },
+        { "name": "maxSpeed", "type": "Speed" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "CarbonationAndServingDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "co2Tank", "type": "CO2Tank" },
+        { "name": "co2Regulator", "type": "CO2Regulator" },
+        { "name": "gasManifold", "type": "GasManifold" },
+        { "name": "carbonationStone", "type": "CarbonationStone" },
+        { "name": "keg", "type": "Keg" },
+        { "name": "kegerator", "type": "Kegerator" },
+        { "name": "beerTap", "type": "BeerTap" },
+        { "name": "beerLine", "type": "BeerLine" },
+        { "name": "dripTray", "type": "DripTray" },
+        { "name": "tapHandle", "type": "TapHandle" }
+      ]
+    },
+    {
+      "entityName": "CO2Tank",
+      "entityAttributes": [
+        { "name": "tankID", "type": "Identifier" },
+        { "name": "capacity", "type": "Mass" },
+        { "name": "currentLevel", "type": "Ratio" },
+        { "name": "tankPressure", "type": "Pressure" },
+        { "name": "certificationDate", "type": "CalendarTime" }
+      ]
+    },
+    {
+      "entityName": "CO2Regulator",
+      "entityAttributes": [
+        { "name": "regulatorID", "type": "Identifier" },
+        { "name": "regulatorType", "type": "Kind" },
+        { "name": "outputPressure", "type": "Pressure" },
+        { "name": "gaugeCount", "type": "Count" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "GasManifold",
+      "entityAttributes": [
+        { "name": "manifoldID", "type": "Identifier" },
+        { "name": "outputCount", "type": "Count" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "CarbonationStone",
+      "entityAttributes": [
+        { "name": "stoneID", "type": "Identifier" },
+        { "name": "porosity", "type": "Distance" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "Keg",
+      "entityAttributes": [
+        { "name": "kegID", "type": "Identifier" },
+        { "name": "kegType", "type": "Kind" },
+        { "name": "material", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "pressureRating", "type": "Pressure" },
+        { "name": "currentPressure", "type": "Pressure" },
+        { "name": "fillLevel", "type": "Ratio" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Kegerator",
+      "entityAttributes": [
+        { "name": "kegeratorID", "type": "Identifier" },
+        { "name": "internalTemperature", "type": "Temperature" },
+        { "name": "tapCount", "type": "Count" },
+        { "name": "internalVolume", "type": "ScalarVolume" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "BeerTap",
+      "entityAttributes": [
+        { "name": "tapID", "type": "Identifier" },
+        { "name": "tapType", "type": "Kind" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "BeerLine",
+      "entityAttributes": [
+        { "name": "lineID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "internalDiameter", "type": "Distance" },
+        { "name": "length", "type": "Distance" }
+      ]
+    },
+    {
+      "entityName": "DripTray",
+      "entityAttributes": [
+        { "name": "trayID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "dimensions", "type": "Extent" }
+      ]
+    },
+    {
+      "entityName": "TapHandle",
+      "entityAttributes": [
+        { "name": "handleID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "style", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "PackagingDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "bottleFiller", "type": "BottleFiller" },
+        { "name": "bottleCapper", "type": "BottleCapper" },
+        { "name": "bottle", "type": "Bottle" },
+        { "name": "bottleCap", "type": "BottleCap" },
+        { "name": "canSeamer", "type": "CanSeamer" },
+        { "name": "beerCan", "type": "BeerCan" },
+        { "name": "growler", "type": "Growler" },
+        { "name": "bottleLabel", "type": "BottleLabel" }
+      ]
+    },
+    {
+      "entityName": "BottleFiller",
+      "entityAttributes": [
+        { "name": "fillerID", "type": "Identifier" },
+        { "name": "fillerType", "type": "Kind" },
+        { "name": "spoutCount", "type": "Count" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "BottleCapper",
+      "entityAttributes": [
+        { "name": "capperID", "type": "Identifier" },
+        { "name": "capperType", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Bottle",
+      "entityAttributes": [
+        { "name": "bottleID", "type": "Identifier" },
+        { "name": "bottleType", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "color", "type": "Color" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "BottleCap",
+      "entityAttributes": [
+        { "name": "capID", "type": "Identifier" },
+        { "name": "capType", "type": "Kind" },
+        { "name": "oxygenAbsorbing", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "CanSeamer",
+      "entityAttributes": [
+        { "name": "seamerID", "type": "Identifier" },
+        { "name": "canSizeCompatibility", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "BeerCan",
+      "entityAttributes": [
+        { "name": "canID", "type": "Identifier" },
+        { "name": "canSize", "type": "ScalarVolume" }
+      ]
+    },
+    {
+      "entityName": "Growler",
+      "entityAttributes": [
+        { "name": "growlerID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "closureType", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "BottleLabel",
+      "entityAttributes": [
+        { "name": "labelID", "type": "Identifier" },
+        { "name": "labelSize", "type": "Extent" },
+        { "name": "labelMaterial", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "QualityControlDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "hydrometer", "type": "Hydrometer" },
+        { "name": "refractometer", "type": "Refractometer" },
+        { "name": "thermometer", "type": "Thermometer" },
+        { "name": "graduatedCylinder", "type": "GraduatedCylinder" },
+        { "name": "testJar", "type": "TestJar" },
+        { "name": "tastingGlass", "type": "TastingGlass" }
+      ]
+    },
+    {
+      "entityName": "Hydrometer",
+      "entityAttributes": [
+        { "name": "hydrometerID", "type": "Identifier" },
+        { "name": "scaleRange", "type": "Kind" },
+        { "name": "calibrationTemperature", "type": "Temperature" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Refractometer",
+      "entityAttributes": [
+        { "name": "refractometerID", "type": "Identifier" },
+        { "name": "scaleType", "type": "Kind" },
+        { "name": "atcEnabled", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "Thermometer",
+      "entityAttributes": [
+        { "name": "thermometerID", "type": "Identifier" },
+        { "name": "thermometerType", "type": "Kind" },
+        { "name": "accuracy", "type": "Temperature" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "GraduatedCylinder",
+      "entityAttributes": [
+        { "name": "cylinderID", "type": "Identifier" },
+        { "name": "capacity", "type": "ScalarVolume" }
+      ]
+    },
+    {
+      "entityName": "TestJar",
+      "entityAttributes": [
+        { "name": "jarID", "type": "Identifier" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "TastingGlass",
+      "entityAttributes": [
+        { "name": "glassID", "type": "Identifier" },
+        { "name": "glassType", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" }
+      ]
+    },
+    {
+      "entityName": "SanitationDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "cleaningBucket", "type": "CleaningBucket" },
+        { "name": "sprayBottle", "type": "SprayBottle" },
+        { "name": "brushSet", "type": "BrushSet" },
+        { "name": "bottleWasher", "type": "BottleWasher" },
+        { "name": "bottleDryingTree", "type": "BottleDryingTree" },
+        { "name": "kegWasher", "type": "KegWasher" }
+      ]
+    },
+    {
+      "entityName": "CleaningBucket",
+      "entityAttributes": [
+        { "name": "bucketID", "type": "Identifier" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "material", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "SprayBottle",
+      "entityAttributes": [
+        { "name": "bottleID", "type": "Identifier" },
+        { "name": "capacity", "type": "ScalarVolume" }
+      ]
+    },
+    {
+      "entityName": "BrushSet",
+      "entityAttributes": [
+        { "name": "setID", "type": "Identifier" },
+        { "name": "brushCount", "type": "Count" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "BottleWasher",
+      "entityAttributes": [
+        { "name": "washerID", "type": "Identifier" },
+        { "name": "washerType", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "BottleDryingTree",
+      "entityAttributes": [
+        { "name": "treeID", "type": "Identifier" },
+        { "name": "bottleCapacity", "type": "Count" }
+      ]
+    },
+    {
+      "entityName": "KegWasher",
+      "entityAttributes": [
+        { "name": "washerID", "type": "Identifier" },
+        { "name": "washerType", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "PlumbingAndFittingsDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "siliconeTubing", "type": "SiliconeTubing" },
+        { "name": "ballValve", "type": "BallValve" },
+        { "name": "quickDisconnect", "type": "QuickDisconnect" },
+        { "name": "hoseClamp", "type": "HoseClamp" },
+        { "name": "barb", "type": "HoseBarb" },
+        { "name": "autoSiphon", "type": "AutoSiphon" },
+        { "name": "inlineThermometer", "type": "InlineThermometer" },
+        { "name": "sightGlass", "type": "SightGlass" }
+      ]
+    },
+    {
+      "entityName": "SiliconeTubing",
+      "entityAttributes": [
+        { "name": "tubingID", "type": "Identifier" },
+        { "name": "internalDiameter", "type": "Distance" },
+        { "name": "length", "type": "Distance" },
+        { "name": "temperatureRating", "type": "Temperature" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "BallValve",
+      "entityAttributes": [
+        { "name": "valveID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "size", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "QuickDisconnect",
+      "entityAttributes": [
+        { "name": "qdID", "type": "Identifier" },
+        { "name": "qdType", "type": "Kind" },
+        { "name": "material", "type": "Kind" },
+        { "name": "size", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "HoseClamp",
+      "entityAttributes": [
+        { "name": "clampID", "type": "Identifier" },
+        { "name": "clampType", "type": "Kind" },
+        { "name": "sizeRange", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "HoseBarb",
+      "entityAttributes": [
+        { "name": "barbID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "barbSize", "type": "Kind" },
+        { "name": "threadSize", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "AutoSiphon",
+      "entityAttributes": [
+        { "name": "siphonID", "type": "Identifier" },
+        { "name": "siphonSize", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "InlineThermometer",
+      "entityAttributes": [
+        { "name": "thermometerID", "type": "Identifier" },
+        { "name": "connectionSize", "type": "Kind" },
+        { "name": "accuracy", "type": "Temperature" }
+      ]
+    },
+    {
+      "entityName": "SightGlass",
+      "entityAttributes": [
+        { "name": "glassID", "type": "Identifier" },
+        { "name": "connectionSize", "type": "Kind" },
+        { "name": "material", "type": "Kind" }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "associationName": "HLTSuppliesMashTun",
+      "associationAttributes": [
+        { "name": "strikeTemperature", "type": "Temperature" }
+      ],
+      "associationParticipants": ["HotLiquorTank", "MashTun"]
+    },
+    {
+      "associationName": "MashTunDrainsToKettle",
+      "associationAttributes": [],
+      "associationParticipants": ["MashTun", "BrewKettle"]
+    },
+    {
+      "associationName": "HeatSourceHeatsKettle",
+      "associationAttributes": [],
+      "associationParticipants": ["HeatSource", "BrewKettle"]
+    },
+    {
+      "associationName": "KettleToChiller",
+      "associationAttributes": [
+        { "name": "wortTemperature", "type": "Temperature" }
+      ],
+      "associationParticipants": ["BrewKettle", "WortChiller"]
+    },
+    {
+      "associationName": "ChillerToFermenter",
+      "associationAttributes": [
+        { "name": "pitchingTemperature", "type": "Temperature" }
+      ],
+      "associationParticipants": ["WortChiller", "Fermenter"]
+    },
+    {
+      "associationName": "FermenterInChamber",
+      "associationAttributes": [],
+      "associationParticipants": ["Fermenter", "FermentationChamber"]
+    },
+    {
+      "associationName": "ControllerRegulatesChamber",
+      "associationAttributes": [],
+      "associationParticipants": ["TemperatureController", "FermentationChamber"]
+    },
+    {
+      "associationName": "StarterFlaskOnStirPlate",
+      "associationAttributes": [],
+      "associationParticipants": ["YeastStarterFlask", "StirPlate"]
+    },
+    {
+      "associationName": "CO2TankToRegulator",
+      "associationAttributes": [],
+      "associationParticipants": ["CO2Tank", "CO2Regulator"]
+    },
+    {
+      "associationName": "RegulatorToManifold",
+      "associationAttributes": [],
+      "associationParticipants": ["CO2Regulator", "GasManifold"]
+    },
+    {
+      "associationName": "ManifoldPressuresKeg",
+      "associationAttributes": [
+        { "name": "servingPressure", "type": "Pressure" }
+      ],
+      "associationParticipants": ["GasManifold", "Keg"]
+    },
+    {
+      "associationName": "KegInKegerator",
+      "associationAttributes": [],
+      "associationParticipants": ["Keg", "Kegerator"]
+    },
+    {
+      "associationName": "LineConnectsKegToTap",
+      "associationAttributes": [
+        { "name": "lineResistance", "type": "Ratio" }
+      ],
+      "associationParticipants": ["BeerLine", "Keg", "BeerTap"]
+    },
+    {
+      "associationName": "TapHandleOnTap",
+      "associationAttributes": [],
+      "associationParticipants": ["TapHandle", "BeerTap"]
+    },
+    {
+      "associationName": "PumpRecirculatesMash",
+      "associationAttributes": [],
+      "associationParticipants": ["BrewPump", "MashTun"]
+    },
+    {
+      "associationName": "PumpTransfersWort",
+      "associationAttributes": [],
+      "associationParticipants": ["BrewPump", "BrewKettle"]
+    },
+    {
+      "associationName": "SiphonTransfers",
+      "associationAttributes": [],
+      "associationParticipants": ["AutoSiphon", "Fermenter"]
+    },
+    {
+      "associationName": "ValveOnVessel",
+      "associationAttributes": [
+        { "name": "mountType", "type": "Kind" }
+      ],
+      "associationParticipants": ["BallValve", "MashTun"]
+    },
+    {
+      "associationName": "TubingConnectsComponents",
+      "associationAttributes": [],
+      "associationParticipants": ["SiliconeTubing", "QuickDisconnect"]
+    },
+    {
+      "associationName": "FillerFillsBottle",
+      "associationAttributes": [],
+      "associationParticipants": ["BottleFiller", "Bottle"]
+    },
+    {
+      "associationName": "CapperSealsBottle",
+      "associationAttributes": [],
+      "associationParticipants": ["BottleCapper", "Bottle", "BottleCap"]
+    },
+    {
+      "associationName": "SeamerSealsCan",
+      "associationAttributes": [],
+      "associationParticipants": ["CanSeamer", "BeerCan"]
+    },
+    {
+      "associationName": "LabelOnBottle",
+      "associationAttributes": [],
+      "associationParticipants": ["BottleLabel", "Bottle"]
+    },
+    {
+      "associationName": "WaterTreatmentSuppliesHLT",
+      "associationAttributes": [],
+      "associationParticipants": ["CarbonFilter", "HotLiquorTank"]
+    },
+    {
+      "associationName": "ROSuppliesHLT",
+      "associationAttributes": [],
+      "associationParticipants": ["ROSystem", "HotLiquorTank"]
+    },
+    {
+      "associationName": "MillFeedsGrainToMash",
+      "associationAttributes": [],
+      "associationParticipants": ["GrainMill", "MashTun"]
+    },
+    {
+      "associationName": "GrainBinFeedsMill",
+      "associationAttributes": [],
+      "associationParticipants": ["GrainBin", "GrainMill"]
+    },
+    {
+      "associationName": "CarbonationStoneInKeg",
+      "associationAttributes": [],
+      "associationParticipants": ["CarbonationStone", "Keg"]
+    },
+    {
+      "associationName": "KegWasherCleansKeg",
+      "associationAttributes": [],
+      "associationParticipants": ["KegWasher", "Keg"]
+    },
+    {
+      "associationName": "BottleWasherCleansBottle",
+      "associationAttributes": [],
+      "associationParticipants": ["BottleWasher", "Bottle"]
+    },
+    {
+      "associationName": "VesselOnBrewStand",
+      "associationAttributes": [
+        { "name": "tier", "type": "Kind" }
+      ],
+      "associationParticipants": ["BrewStand", "BrewKettle"]
+    },
+    {
+      "associationName": "HydrometerInCylinder",
+      "associationAttributes": [],
+      "associationParticipants": ["Hydrometer", "GraduatedCylinder"]
+    },
+    {
+      "associationName": "InlineThermometerOnTubing",
+      "associationAttributes": [],
+      "associationParticipants": ["InlineThermometer", "SiliconeTubing"]
+    },
+    {
+      "associationName": "SightGlassOnTubing",
+      "associationAttributes": [],
+      "associationParticipants": ["SightGlass", "SiliconeTubing"]
+    }
+  ]
+}

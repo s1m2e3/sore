@@ -1,0 +1,559 @@
+{
+  "topicDomain": "Home Beer Brewing",
+  "modelName": "Homebrewing Resource Model - Equipment and Ingredient Hierarchy",
+  "methodBasis": "All entities represent equipment, vessels, tools, ingredients, and supporting resources needed for homebrewing. Variations differ by how these resources are grouped and associated.",
+  "entities": [
+    {
+      "name": "HomebrewingSetup",
+      "attributes": [
+        {
+          "name": "homebrewingSetupID",
+          "type": "Identifier"
+        },
+        {
+          "name": "setupOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "setupPosition",
+          "type": "Position"
+        },
+        {
+          "name": "setupExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStation",
+      "attributes": [
+        {
+          "name": "brewingStationID",
+          "type": "Identifier"
+        },
+        {
+          "name": "stationOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "stationPosition",
+          "type": "Position"
+        },
+        {
+          "name": "stationExtent",
+          "type": "Extent"
+        }
+      ]
+    },
+    {
+      "name": "HeatingEquipment",
+      "attributes": [
+        {
+          "name": "heatingEquipmentID",
+          "type": "Identifier"
+        },
+        {
+          "name": "heatingPower",
+          "type": "Power"
+        },
+        {
+          "name": "heatingOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "fuelState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "MashTun",
+      "attributes": [
+        {
+          "name": "mashTunID",
+          "type": "Identifier"
+        },
+        {
+          "name": "tunVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "tunTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "tunOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "BoilKettle",
+      "attributes": [
+        {
+          "name": "boilKettleID",
+          "type": "Identifier"
+        },
+        {
+          "name": "kettleVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "kettleTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "kettleOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Fermenter",
+      "attributes": [
+        {
+          "name": "fermenterID",
+          "type": "Identifier"
+        },
+        {
+          "name": "fermenterVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "fermenterTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "fermenterOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "PackagingContainer",
+      "attributes": [
+        {
+          "name": "packagingContainerID",
+          "type": "Identifier"
+        },
+        {
+          "name": "containerVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "containerCount",
+          "type": "Count"
+        },
+        {
+          "name": "containerOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "TransferTool",
+      "attributes": [
+        {
+          "name": "transferToolID",
+          "type": "Identifier"
+        },
+        {
+          "name": "toolFlowRate",
+          "type": "MassFlowRate"
+        },
+        {
+          "name": "toolVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "toolOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "MeasurementTool",
+      "attributes": [
+        {
+          "name": "measurementToolID",
+          "type": "Identifier"
+        },
+        {
+          "name": "measurementCount",
+          "type": "Count"
+        },
+        {
+          "name": "measurementOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "sampleTemperature",
+          "type": "Temperature"
+        }
+      ]
+    },
+    {
+      "name": "SanitationSupply",
+      "attributes": [
+        {
+          "name": "sanitationSupplyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "supplyVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "contactDuration",
+          "type": "Duration"
+        },
+        {
+          "name": "supplyOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Water",
+      "attributes": [
+        {
+          "name": "waterID",
+          "type": "Identifier"
+        },
+        {
+          "name": "waterVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "waterTemperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "waterOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "MaltedGrain",
+      "attributes": [
+        {
+          "name": "maltedGrainID",
+          "type": "Identifier"
+        },
+        {
+          "name": "grainMass",
+          "type": "Mass"
+        },
+        {
+          "name": "grainState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "grainOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Hop",
+      "attributes": [
+        {
+          "name": "hopID",
+          "type": "Identifier"
+        },
+        {
+          "name": "hopMass",
+          "type": "Mass"
+        },
+        {
+          "name": "hopFormState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "hopOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Yeast",
+      "attributes": [
+        {
+          "name": "yeastID",
+          "type": "Identifier"
+        },
+        {
+          "name": "yeastMass",
+          "type": "Mass"
+        },
+        {
+          "name": "yeastState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "yeastOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Adjunct",
+      "attributes": [
+        {
+          "name": "adjunctID",
+          "type": "Identifier"
+        },
+        {
+          "name": "adjunctMass",
+          "type": "Mass"
+        },
+        {
+          "name": "adjunctVolume",
+          "type": "ScalarVolume"
+        },
+        {
+          "name": "adjunctOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "HomebrewingSetupContainsBrewingStation",
+      "participants": [
+        "HomebrewingSetup",
+        "BrewingStation"
+      ],
+      "attributes": [
+        {
+          "name": "relativePosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStationContainsHeatingEquipment",
+      "participants": [
+        "BrewingStation",
+        "HeatingEquipment"
+      ],
+      "attributes": [
+        {
+          "name": "equipmentPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStationContainsMashTun",
+      "participants": [
+        "BrewingStation",
+        "MashTun"
+      ],
+      "attributes": [
+        {
+          "name": "equipmentPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStationContainsBoilKettle",
+      "participants": [
+        "BrewingStation",
+        "BoilKettle"
+      ],
+      "attributes": [
+        {
+          "name": "equipmentPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStationContainsFermenter",
+      "participants": [
+        "BrewingStation",
+        "Fermenter"
+      ],
+      "attributes": [
+        {
+          "name": "equipmentPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStationContainsPackagingContainer",
+      "participants": [
+        "BrewingStation",
+        "PackagingContainer"
+      ],
+      "attributes": [
+        {
+          "name": "equipmentPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStationContainsTransferTool",
+      "participants": [
+        "BrewingStation",
+        "TransferTool"
+      ],
+      "attributes": [
+        {
+          "name": "toolPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStationContainsMeasurementTool",
+      "participants": [
+        "BrewingStation",
+        "MeasurementTool"
+      ],
+      "attributes": [
+        {
+          "name": "toolPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStationContainsSanitationSupply",
+      "participants": [
+        "BrewingStation",
+        "SanitationSupply"
+      ],
+      "attributes": [
+        {
+          "name": "supplyPosition",
+          "type": "Position"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStationStoresWater",
+      "participants": [
+        "BrewingStation",
+        "Water"
+      ],
+      "attributes": [
+        {
+          "name": "storedVolume",
+          "type": "ScalarVolume"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStationStoresMaltedGrain",
+      "participants": [
+        "BrewingStation",
+        "MaltedGrain"
+      ],
+      "attributes": [
+        {
+          "name": "storedMass",
+          "type": "Mass"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStationStoresHop",
+      "participants": [
+        "BrewingStation",
+        "Hop"
+      ],
+      "attributes": [
+        {
+          "name": "storedMass",
+          "type": "Mass"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStationStoresYeast",
+      "participants": [
+        "BrewingStation",
+        "Yeast"
+      ],
+      "attributes": [
+        {
+          "name": "storedMass",
+          "type": "Mass"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStationStoresAdjunct",
+      "participants": [
+        "BrewingStation",
+        "Adjunct"
+      ],
+      "attributes": [
+        {
+          "name": "storedQuantityState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "HeatingEquipmentSupportsBoilKettle",
+      "participants": [
+        "HeatingEquipment",
+        "BoilKettle"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "HeatingEquipmentSupportsMashTun",
+      "participants": [
+        "HeatingEquipment",
+        "MashTun"
+      ],
+      "attributes": [
+        {
+          "name": "suppliedPower",
+          "type": "Power"
+        }
+      ]
+    },
+    {
+      "name": "SanitationSupplyServesFermenter",
+      "participants": [
+        "SanitationSupply",
+        "Fermenter"
+      ],
+      "attributes": [
+        {
+          "name": "contactDuration",
+          "type": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "TransferToolConnectsBoilKettleAndFermenter",
+      "participants": [
+        "TransferTool",
+        "BoilKettle",
+        "Fermenter"
+      ],
+      "attributes": [
+        {
+          "name": "transferState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ]
+}

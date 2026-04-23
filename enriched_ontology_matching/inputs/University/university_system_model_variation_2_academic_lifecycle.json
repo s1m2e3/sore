@@ -1,0 +1,489 @@
+{
+  "topicDomain": "University System",
+  "modelName": "University Academic Lifecycle Model",
+  "methodBasis": "Entities represent lifecycle states, decisions, academic activities, and outcomes; Associations express evaluation, admission, scheduling, participation, assessment, progression, and completion.",
+  "entities": [
+    {
+      "name": "Applicant",
+      "attributes": [
+        {
+          "name": "applicantID",
+          "type": "Identifier"
+        },
+        {
+          "name": "applicantName",
+          "type": "Name"
+        },
+        {
+          "name": "applicationState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "applicationTime",
+          "type": "Time"
+        }
+      ]
+    },
+    {
+      "name": "AdmissionDecision",
+      "attributes": [
+        {
+          "name": "admissionDecisionID",
+          "type": "Identifier"
+        },
+        {
+          "name": "decisionState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "decisionTime",
+          "type": "Time"
+        },
+        {
+          "name": "decisionPriority",
+          "type": "Order"
+        }
+      ]
+    },
+    {
+      "name": "Student",
+      "attributes": [
+        {
+          "name": "studentID",
+          "type": "Identifier"
+        },
+        {
+          "name": "studentName",
+          "type": "Name"
+        },
+        {
+          "name": "studentState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "standingState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "earnedCreditCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "Term",
+      "attributes": [
+        {
+          "name": "termID",
+          "type": "Identifier"
+        },
+        {
+          "name": "termName",
+          "type": "Name"
+        },
+        {
+          "name": "termState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "startTime",
+          "type": "Time"
+        },
+        {
+          "name": "endTime",
+          "type": "Time"
+        }
+      ]
+    },
+    {
+      "name": "CourseCatalogEntry",
+      "attributes": [
+        {
+          "name": "catalogEntryID",
+          "type": "Identifier"
+        },
+        {
+          "name": "courseName",
+          "type": "Name"
+        },
+        {
+          "name": "creditCount",
+          "type": "Count"
+        },
+        {
+          "name": "catalogState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "CourseSection",
+      "attributes": [
+        {
+          "name": "courseSectionID",
+          "type": "Identifier"
+        },
+        {
+          "name": "sectionState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "capacityCount",
+          "type": "Count"
+        },
+        {
+          "name": "deliveryState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "InstructorAssignment",
+      "attributes": [
+        {
+          "name": "instructorAssignmentID",
+          "type": "Identifier"
+        },
+        {
+          "name": "assignmentState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "assignmentTime",
+          "type": "Time"
+        }
+      ]
+    },
+    {
+      "name": "Registration",
+      "attributes": [
+        {
+          "name": "registrationID",
+          "type": "Identifier"
+        },
+        {
+          "name": "registrationState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "registrationTime",
+          "type": "Time"
+        },
+        {
+          "name": "creditCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "LearningActivity",
+      "attributes": [
+        {
+          "name": "learningActivityID",
+          "type": "Identifier"
+        },
+        {
+          "name": "activityState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "activityTime",
+          "type": "Time"
+        },
+        {
+          "name": "activityCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "Assessment",
+      "attributes": [
+        {
+          "name": "assessmentID",
+          "type": "Identifier"
+        },
+        {
+          "name": "assessmentState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "assessmentTime",
+          "type": "Time"
+        },
+        {
+          "name": "weightRatio",
+          "type": "Ratio"
+        }
+      ]
+    },
+    {
+      "name": "Result",
+      "attributes": [
+        {
+          "name": "resultID",
+          "type": "Identifier"
+        },
+        {
+          "name": "resultState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "scoreRatio",
+          "type": "Ratio"
+        },
+        {
+          "name": "gradeState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ProgressEvaluation",
+      "attributes": [
+        {
+          "name": "progressEvaluationID",
+          "type": "Identifier"
+        },
+        {
+          "name": "progressState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "evaluationTime",
+          "type": "Time"
+        },
+        {
+          "name": "remainingCreditCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "Credential",
+      "attributes": [
+        {
+          "name": "credentialID",
+          "type": "Identifier"
+        },
+        {
+          "name": "credentialState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "awardTime",
+          "type": "Time"
+        },
+        {
+          "name": "completionCreditCount",
+          "type": "Count"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "ApplicantEvaluatedByAdmissionDecision",
+      "participants": [
+        "Applicant",
+        "AdmissionDecision"
+      ],
+      "attributes": [
+        {
+          "name": "decisionReasonState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "AdmissionDecisionCreatesStudent",
+      "participants": [
+        "AdmissionDecision",
+        "Student"
+      ],
+      "attributes": [
+        {
+          "name": "matriculationState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "matriculationTime",
+          "type": "Time"
+        }
+      ]
+    },
+    {
+      "name": "CourseCatalogEntryScheduledAsCourseSection",
+      "participants": [
+        "CourseCatalogEntry",
+        "CourseSection"
+      ],
+      "attributes": [
+        {
+          "name": "scheduleState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "TermContainsCourseSection",
+      "participants": [
+        "Term",
+        "CourseSection"
+      ],
+      "attributes": [
+        {
+          "name": "deliveryWindowState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "InstructorAssignmentAssignedToCourseSection",
+      "participants": [
+        "InstructorAssignment",
+        "CourseSection"
+      ],
+      "attributes": [
+        {
+          "name": "teachingRoleState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "StudentCreatesRegistration",
+      "participants": [
+        "Student",
+        "Registration"
+      ],
+      "attributes": [
+        {
+          "name": "registrationIntentState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "RegistrationAppliesToCourseSection",
+      "participants": [
+        "Registration",
+        "CourseSection"
+      ],
+      "attributes": [
+        {
+          "name": "seatState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "CourseSectionGeneratesLearningActivity",
+      "participants": [
+        "CourseSection",
+        "LearningActivity"
+      ],
+      "attributes": [
+        {
+          "name": "activityFrequency",
+          "type": "TemporalFrequency"
+        }
+      ]
+    },
+    {
+      "name": "LearningActivityGeneratesAssessment",
+      "participants": [
+        "LearningActivity",
+        "Assessment"
+      ],
+      "attributes": [
+        {
+          "name": "assessmentTypeState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "StudentParticipatesInLearningActivity",
+      "participants": [
+        "Student",
+        "LearningActivity"
+      ],
+      "attributes": [
+        {
+          "name": "participationState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "StudentCompletesAssessment",
+      "participants": [
+        "Student",
+        "Assessment"
+      ],
+      "attributes": [
+        {
+          "name": "submissionState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "submissionTime",
+          "type": "Time"
+        }
+      ]
+    },
+    {
+      "name": "AssessmentProducesResult",
+      "participants": [
+        "Assessment",
+        "Result"
+      ],
+      "attributes": [
+        {
+          "name": "evaluationState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ResultAttributedToStudent",
+      "participants": [
+        "Result",
+        "Student"
+      ],
+      "attributes": [
+        {
+          "name": "recordState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "StudentEvaluatedByProgressEvaluation",
+      "participants": [
+        "Student",
+        "ProgressEvaluation"
+      ],
+      "attributes": [
+        {
+          "name": "standingState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ProgressEvaluationProducesCredential",
+      "participants": [
+        "ProgressEvaluation",
+        "Credential"
+      ],
+      "attributes": [
+        {
+          "name": "completionState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,531 @@
+{
+  "topicDomain": "Smart Home Automation",
+  "modelName": "Smart Home Event and Control Flow Model",
+  "methodBasis": "Entities represent sensed conditions, decisions, commands, actuators, resources, and resulting environmental states; Associations express observation, evaluation, triggering, execution, and feedback.",
+  "entities": [
+    {
+      "name": "SmartHome",
+      "attributes": [
+        {
+          "name": "smartHomeID",
+          "type": "Identifier"
+        },
+        {
+          "name": "overallOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "activeMode",
+          "type": "OperationalState"
+        },
+        {
+          "name": "occupancyState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SensedCondition",
+      "attributes": [
+        {
+          "name": "conditionID",
+          "type": "Identifier"
+        },
+        {
+          "name": "conditionTime",
+          "type": "Time"
+        },
+        {
+          "name": "conditionOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "conditionValueCount",
+          "type": "Count"
+        }
+      ]
+    },
+    {
+      "name": "EnvironmentalState",
+      "attributes": [
+        {
+          "name": "environmentalStateID",
+          "type": "Identifier"
+        },
+        {
+          "name": "temperature",
+          "type": "Temperature"
+        },
+        {
+          "name": "humidity",
+          "type": "Ratio"
+        },
+        {
+          "name": "illuminationLevel",
+          "type": "LuminousIntensity"
+        },
+        {
+          "name": "airQualityState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "noiseLevel",
+          "type": "Ratio"
+        }
+      ]
+    },
+    {
+      "name": "OccupancyState",
+      "attributes": [
+        {
+          "name": "occupancyStateID",
+          "type": "Identifier"
+        },
+        {
+          "name": "presenceState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "occupantCount",
+          "type": "Count"
+        },
+        {
+          "name": "movementState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "SecurityState",
+      "attributes": [
+        {
+          "name": "securityStateID",
+          "type": "Identifier"
+        },
+        {
+          "name": "armingState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "intrusionState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "hazardState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "EnergyState",
+      "attributes": [
+        {
+          "name": "energyStateID",
+          "type": "Identifier"
+        },
+        {
+          "name": "powerDemand",
+          "type": "Power"
+        },
+        {
+          "name": "powerSupply",
+          "type": "Power"
+        },
+        {
+          "name": "storedEnergy",
+          "type": "Energy"
+        },
+        {
+          "name": "gridState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "AutomationPolicy",
+      "attributes": [
+        {
+          "name": "policyID",
+          "type": "Identifier"
+        },
+        {
+          "name": "policyPriority",
+          "type": "Order"
+        },
+        {
+          "name": "policyOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "policyVersion",
+          "type": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Decision",
+      "attributes": [
+        {
+          "name": "decisionID",
+          "type": "Identifier"
+        },
+        {
+          "name": "decisionTime",
+          "type": "Time"
+        },
+        {
+          "name": "decisionPriority",
+          "type": "Order"
+        },
+        {
+          "name": "decisionOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Command",
+      "attributes": [
+        {
+          "name": "commandID",
+          "type": "Identifier"
+        },
+        {
+          "name": "commandTime",
+          "type": "Time"
+        },
+        {
+          "name": "commandOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "targetState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ActuatorGroup",
+      "attributes": [
+        {
+          "name": "actuatorGroupID",
+          "type": "Identifier"
+        },
+        {
+          "name": "actuatorCount",
+          "type": "Count"
+        },
+        {
+          "name": "executionState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "executionLatency",
+          "type": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "SensorGroup",
+      "attributes": [
+        {
+          "name": "sensorGroupID",
+          "type": "Identifier"
+        },
+        {
+          "name": "sensorCount",
+          "type": "Count"
+        },
+        {
+          "name": "samplingFrequency",
+          "type": "TemporalFrequency"
+        },
+        {
+          "name": "sensorOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "Notification",
+      "attributes": [
+        {
+          "name": "notificationID",
+          "type": "Identifier"
+        },
+        {
+          "name": "notificationTime",
+          "type": "Time"
+        },
+        {
+          "name": "notificationPriority",
+          "type": "Order"
+        },
+        {
+          "name": "notificationOperationalState",
+          "type": "OperationalState"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "name": "SensorGroupObservesEnvironmentalState",
+      "participants": [
+        "SensorGroup",
+        "EnvironmentalState"
+      ],
+      "attributes": [
+        {
+          "name": "samplingFrequency",
+          "type": "TemporalFrequency"
+        },
+        {
+          "name": "observationFreshness",
+          "type": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "SensorGroupObservesOccupancyState",
+      "participants": [
+        "SensorGroup",
+        "OccupancyState"
+      ],
+      "attributes": [
+        {
+          "name": "detectionConfidence",
+          "type": "Ratio"
+        },
+        {
+          "name": "presenceUpdateFrequency",
+          "type": "TemporalFrequency"
+        }
+      ]
+    },
+    {
+      "name": "SensorGroupObservesSecurityState",
+      "participants": [
+        "SensorGroup",
+        "SecurityState"
+      ],
+      "attributes": [
+        {
+          "name": "hazardDetectionConfidence",
+          "type": "Ratio"
+        },
+        {
+          "name": "eventFrequency",
+          "type": "TemporalFrequency"
+        }
+      ]
+    },
+    {
+      "name": "SensorGroupObservesEnergyState",
+      "participants": [
+        "SensorGroup",
+        "EnergyState"
+      ],
+      "attributes": [
+        {
+          "name": "powerMeasurementRate",
+          "type": "TemporalFrequency"
+        },
+        {
+          "name": "measurementAccuracy",
+          "type": "Ratio"
+        }
+      ]
+    },
+    {
+      "name": "ObservedStateFormsSensedCondition",
+      "participants": [
+        "EnvironmentalState",
+        "OccupancyState",
+        "SecurityState",
+        "EnergyState",
+        "SensedCondition"
+      ],
+      "attributes": [
+        {
+          "name": "conditionTime",
+          "type": "Time"
+        },
+        {
+          "name": "conditionPriority",
+          "type": "Order"
+        }
+      ]
+    },
+    {
+      "name": "AutomationPolicyEvaluatesSensedCondition",
+      "participants": [
+        "AutomationPolicy",
+        "SensedCondition"
+      ],
+      "attributes": [
+        {
+          "name": "evaluationTime",
+          "type": "Time"
+        },
+        {
+          "name": "evaluationPriority",
+          "type": "Order"
+        }
+      ]
+    },
+    {
+      "name": "AutomationPolicyProducesDecision",
+      "participants": [
+        "AutomationPolicy",
+        "Decision"
+      ],
+      "attributes": [
+        {
+          "name": "decisionReasonState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "decisionPriority",
+          "type": "Order"
+        }
+      ]
+    },
+    {
+      "name": "DecisionGeneratesCommand",
+      "participants": [
+        "Decision",
+        "Command"
+      ],
+      "attributes": [
+        {
+          "name": "commandCount",
+          "type": "Count"
+        },
+        {
+          "name": "executionDeadline",
+          "type": "Time"
+        }
+      ]
+    },
+    {
+      "name": "CommandTargetsActuatorGroup",
+      "participants": [
+        "Command",
+        "ActuatorGroup"
+      ],
+      "attributes": [
+        {
+          "name": "targetOperationalState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "executionLatency",
+          "type": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "ActuatorGroupChangesEnvironmentalState",
+      "participants": [
+        "ActuatorGroup",
+        "EnvironmentalState"
+      ],
+      "attributes": [
+        {
+          "name": "temperatureDelta",
+          "type": "TemperatureDelta"
+        },
+        {
+          "name": "illuminationDelta",
+          "type": "LuminousIntensity"
+        }
+      ]
+    },
+    {
+      "name": "ActuatorGroupChangesOccupancyState",
+      "participants": [
+        "ActuatorGroup",
+        "OccupancyState"
+      ],
+      "attributes": [
+        {
+          "name": "presenceStateEffect",
+          "type": "OperationalState"
+        },
+        {
+          "name": "movementStateEffect",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ActuatorGroupChangesSecurityState",
+      "participants": [
+        "ActuatorGroup",
+        "SecurityState"
+      ],
+      "attributes": [
+        {
+          "name": "armingStateEffect",
+          "type": "OperationalState"
+        },
+        {
+          "name": "hazardMitigationState",
+          "type": "OperationalState"
+        }
+      ]
+    },
+    {
+      "name": "ActuatorGroupChangesEnergyState",
+      "participants": [
+        "ActuatorGroup",
+        "EnergyState"
+      ],
+      "attributes": [
+        {
+          "name": "powerDemandDelta",
+          "type": "Power"
+        },
+        {
+          "name": "storageDelta",
+          "type": "Energy"
+        }
+      ]
+    },
+    {
+      "name": "SecurityStateTriggersNotification",
+      "participants": [
+        "SecurityState",
+        "Notification"
+      ],
+      "attributes": [
+        {
+          "name": "notificationPriority",
+          "type": "Order"
+        },
+        {
+          "name": "triggerTime",
+          "type": "Time"
+        }
+      ]
+    },
+    {
+      "name": "DecisionTriggersNotification",
+      "participants": [
+        "Decision",
+        "Notification"
+      ],
+      "attributes": [
+        {
+          "name": "notificationReasonState",
+          "type": "OperationalState"
+        },
+        {
+          "name": "notificationTime",
+          "type": "Time"
+        }
+      ]
+    }
+  ]
+}

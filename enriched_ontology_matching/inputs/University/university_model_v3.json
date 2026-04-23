@@ -1,0 +1,1082 @@
+{
+  "modelName": "University_Model_V3_FunctionalDomain",
+  "modelDescription": "Functional-domain decomposition of a university system. Entities are organized into six functional domains: AcademicDomain (programs, courses, curriculum), CampusPhysicalDomain (buildings, rooms, equipment, grounds), TechnologyDomain (network, data center, software platforms, AV), StudentLifeDomain (housing, dining, health, organizations, athletics), ResearchDomain (centers, labs, grants, equipment), and OperationsDomain (transport, parking, utilities, HR). Each domain composes its constituent elements. Cross-domain relationships are captured through Associations.",
+  "observables": [
+    "Identifier", "Temperature", "Power", "Energy",
+    "ElectricPotential", "ElectricCurrent", "Mass",
+    "Position", "Distance", "Duration",
+    "TemporalFrequency", "ScalarVolume", "ScalarArea",
+    "Ratio", "Count", "HealthState",
+    "OperationalState", "Kind", "Description", "Extent",
+    "Humidity", "Illuminance", "ConfigurationState", "Size",
+    "DataRate", "CalendarTime", "NonPhysicalAddress",
+    "Audio", "Video", "Speed", "Mode", "CountRate"
+  ],
+  "entities": [
+    {
+      "entityName": "University",
+      "entityAttributes": [
+        { "name": "universityID", "type": "Identifier" },
+        { "name": "universityName", "type": "Description" },
+        { "name": "location", "type": "Position" },
+        { "name": "campusArea", "type": "ScalarArea" },
+        { "name": "foundingDate", "type": "CalendarTime" },
+        { "name": "accreditationStatus", "type": "Kind" },
+        { "name": "academicDomain", "type": "AcademicDomain" },
+        { "name": "campusPhysical", "type": "CampusPhysicalDomain" },
+        { "name": "technology", "type": "TechnologyDomain" },
+        { "name": "studentLife", "type": "StudentLifeDomain" },
+        { "name": "research", "type": "ResearchDomain" },
+        { "name": "operations", "type": "OperationsDomain" }
+      ]
+    },
+    {
+      "entityName": "AcademicDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "college", "type": "College" },
+        { "name": "academicTerm", "type": "AcademicTerm" },
+        { "name": "facultyMember", "type": "FacultyMember" },
+        { "name": "student", "type": "Student" },
+        { "name": "teachingAssistant", "type": "TeachingAssistant" }
+      ]
+    },
+    {
+      "entityName": "College",
+      "entityAttributes": [
+        { "name": "collegeID", "type": "Identifier" },
+        { "name": "collegeName", "type": "Description" },
+        { "name": "department", "type": "Department" }
+      ]
+    },
+    {
+      "entityName": "Department",
+      "entityAttributes": [
+        { "name": "departmentID", "type": "Identifier" },
+        { "name": "departmentName", "type": "Description" },
+        { "name": "discipline", "type": "Kind" },
+        { "name": "program", "type": "AcademicProgram" },
+        { "name": "course", "type": "Course" }
+      ]
+    },
+    {
+      "entityName": "AcademicProgram",
+      "entityAttributes": [
+        { "name": "programID", "type": "Identifier" },
+        { "name": "programName", "type": "Description" },
+        { "name": "degreeLevel", "type": "Kind" },
+        { "name": "degreeType", "type": "Kind" },
+        { "name": "creditRequirement", "type": "Count" },
+        { "name": "accreditationStatus", "type": "Kind" },
+        { "name": "programStatus", "type": "OperationalState" },
+        { "name": "concentration", "type": "Concentration" }
+      ]
+    },
+    {
+      "entityName": "Concentration",
+      "entityAttributes": [
+        { "name": "concentrationID", "type": "Identifier" },
+        { "name": "concentrationName", "type": "Description" },
+        { "name": "creditRequirement", "type": "Count" }
+      ]
+    },
+    {
+      "entityName": "Course",
+      "entityAttributes": [
+        { "name": "courseID", "type": "Identifier" },
+        { "name": "courseTitle", "type": "Description" },
+        { "name": "courseNumber", "type": "Identifier" },
+        { "name": "creditHours", "type": "Count" },
+        { "name": "courseLevel", "type": "Kind" },
+        { "name": "deliveryMode", "type": "Kind" },
+        { "name": "section", "type": "CourseSection" }
+      ]
+    },
+    {
+      "entityName": "CourseSection",
+      "entityAttributes": [
+        { "name": "sectionID", "type": "Identifier" },
+        { "name": "sectionNumber", "type": "Identifier" },
+        { "name": "meetingDays", "type": "Kind" },
+        { "name": "startTime", "type": "CalendarTime" },
+        { "name": "endTime", "type": "CalendarTime" },
+        { "name": "maxSeats", "type": "Count" },
+        { "name": "enrolledCount", "type": "Count" },
+        { "name": "waitlistCount", "type": "Count" },
+        { "name": "deliveryMode", "type": "Kind" },
+        { "name": "sectionStatus", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "AcademicTerm",
+      "entityAttributes": [
+        { "name": "termID", "type": "Identifier" },
+        { "name": "termName", "type": "Description" },
+        { "name": "termType", "type": "Kind" },
+        { "name": "startDate", "type": "CalendarTime" },
+        { "name": "endDate", "type": "CalendarTime" }
+      ]
+    },
+    {
+      "entityName": "FacultyMember",
+      "entityAttributes": [
+        { "name": "facultyID", "type": "Identifier" },
+        { "name": "name", "type": "Description" },
+        { "name": "rank", "type": "Kind" },
+        { "name": "tenureStatus", "type": "Kind" },
+        { "name": "specialization", "type": "Kind" },
+        { "name": "contactEmail", "type": "NonPhysicalAddress" },
+        { "name": "employmentStatus", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "Student",
+      "entityAttributes": [
+        { "name": "studentID", "type": "Identifier" },
+        { "name": "name", "type": "Description" },
+        { "name": "classStanding", "type": "Kind" },
+        { "name": "enrollmentStatus", "type": "Kind" },
+        { "name": "creditsCompleted", "type": "Count" },
+        { "name": "gpa", "type": "Ratio" },
+        { "name": "contactEmail", "type": "NonPhysicalAddress" },
+        { "name": "admissionDate", "type": "CalendarTime" },
+        { "name": "expectedGraduation", "type": "CalendarTime" }
+      ]
+    },
+    {
+      "entityName": "TeachingAssistant",
+      "entityAttributes": [
+        { "name": "taID", "type": "Identifier" },
+        { "name": "taName", "type": "Description" },
+        { "name": "assignedHours", "type": "Duration" },
+        { "name": "taType", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "CampusPhysicalDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "building", "type": "Building" },
+        { "name": "outdoorSpace", "type": "OutdoorSpace" }
+      ]
+    },
+    {
+      "entityName": "Building",
+      "entityAttributes": [
+        { "name": "buildingID", "type": "Identifier" },
+        { "name": "buildingName", "type": "Description" },
+        { "name": "buildingType", "type": "Kind" },
+        { "name": "location", "type": "Position" },
+        { "name": "grossArea", "type": "ScalarArea" },
+        { "name": "floorCount", "type": "Count" },
+        { "name": "yearBuilt", "type": "CalendarTime" },
+        { "name": "condition", "type": "HealthState" },
+        { "name": "floor", "type": "Floor" }
+      ]
+    },
+    {
+      "entityName": "Floor",
+      "entityAttributes": [
+        { "name": "floorID", "type": "Identifier" },
+        { "name": "floorLevel", "type": "Identifier" },
+        { "name": "floorArea", "type": "ScalarArea" },
+        { "name": "room", "type": "Room" }
+      ]
+    },
+    {
+      "entityName": "Room",
+      "entityAttributes": [
+        { "name": "roomID", "type": "Identifier" },
+        { "name": "roomNumber", "type": "Identifier" },
+        { "name": "roomType", "type": "Kind" },
+        { "name": "floorArea", "type": "ScalarArea" },
+        { "name": "seatingCapacity", "type": "Count" },
+        { "name": "temperature", "type": "Temperature" },
+        { "name": "humidity", "type": "Humidity" },
+        { "name": "lightingLevel", "type": "Illuminance" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "InstructionalSpace",
+      "entityAttributes": [
+        { "name": "spaceID", "type": "Identifier" },
+        { "name": "spaceType", "type": "Kind" },
+        { "name": "seatingCapacity", "type": "Count" },
+        { "name": "seatType", "type": "Kind" },
+        { "name": "avEquipment", "type": "AVEquipment" }
+      ]
+    },
+    {
+      "entityName": "AVEquipment",
+      "entityAttributes": [
+        { "name": "equipmentID", "type": "Identifier" },
+        { "name": "projector", "type": "Projector" },
+        { "name": "displayScreen", "type": "DisplayScreen" },
+        { "name": "audioSystem", "type": "AudioSystem" },
+        { "name": "documentCamera", "type": "DocumentCamera" },
+        { "name": "videoConference", "type": "VideoConferenceUnit" },
+        { "name": "lectureCapture", "type": "LectureCaptureSystem" },
+        { "name": "whiteboard", "type": "Whiteboard" }
+      ]
+    },
+    {
+      "entityName": "Projector",
+      "entityAttributes": [
+        { "name": "projectorID", "type": "Identifier" },
+        { "name": "projectorType", "type": "Kind" },
+        { "name": "brightness", "type": "Illuminance" },
+        { "name": "resolution", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "DisplayScreen",
+      "entityAttributes": [
+        { "name": "screenID", "type": "Identifier" },
+        { "name": "screenSize", "type": "Distance" },
+        { "name": "resolution", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "AudioSystem",
+      "entityAttributes": [
+        { "name": "systemID", "type": "Identifier" },
+        { "name": "speakerCount", "type": "Count" },
+        { "name": "microphoneCount", "type": "Count" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "DocumentCamera",
+      "entityAttributes": [
+        { "name": "cameraID", "type": "Identifier" },
+        { "name": "resolution", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "VideoConferenceUnit",
+      "entityAttributes": [
+        { "name": "unitID", "type": "Identifier" },
+        { "name": "unitType", "type": "Kind" },
+        { "name": "cameraResolution", "type": "Kind" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "LectureCaptureSystem",
+      "entityAttributes": [
+        { "name": "systemID", "type": "Identifier" },
+        { "name": "recordingResolution", "type": "Kind" },
+        { "name": "storageUsed", "type": "Size" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "Whiteboard",
+      "entityAttributes": [
+        { "name": "boardID", "type": "Identifier" },
+        { "name": "boardType", "type": "Kind" },
+        { "name": "dimensions", "type": "Extent" }
+      ]
+    },
+    {
+      "entityName": "OutdoorSpace",
+      "entityAttributes": [
+        { "name": "spaceID", "type": "Identifier" },
+        { "name": "spaceName", "type": "Description" },
+        { "name": "spaceType", "type": "Kind" },
+        { "name": "area", "type": "ScalarArea" }
+      ]
+    },
+    {
+      "entityName": "TechnologyDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "campusNetwork", "type": "CampusNetwork" },
+        { "name": "dataCenter", "type": "DataCenter" },
+        { "name": "computingLab", "type": "ComputingLab" },
+        { "name": "softwarePlatform", "type": "SoftwarePlatform" }
+      ]
+    },
+    {
+      "entityName": "CampusNetwork",
+      "entityAttributes": [
+        { "name": "networkID", "type": "Identifier" },
+        { "name": "bandwidthCapacity", "type": "DataRate" },
+        { "name": "currentUtilization", "type": "Ratio" },
+        { "name": "wifiAP", "type": "WiFiAccessPoint" },
+        { "name": "netSwitch", "type": "NetworkSwitch" },
+        { "name": "firewall", "type": "Firewall" },
+        { "name": "vpnGateway", "type": "VPNGateway" }
+      ]
+    },
+    {
+      "entityName": "WiFiAccessPoint",
+      "entityAttributes": [
+        { "name": "apID", "type": "Identifier" },
+        { "name": "band", "type": "Kind" },
+        { "name": "connectedClients", "type": "Count" },
+        { "name": "dataRate", "type": "DataRate" },
+        { "name": "signalStrength", "type": "Ratio" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "NetworkSwitch",
+      "entityAttributes": [
+        { "name": "switchID", "type": "Identifier" },
+        { "name": "portCount", "type": "Count" },
+        { "name": "speed", "type": "DataRate" },
+        { "name": "poeCapable", "type": "ConfigurationState" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "Firewall",
+      "entityAttributes": [
+        { "name": "firewallID", "type": "Identifier" },
+        { "name": "throughput", "type": "DataRate" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "VPNGateway",
+      "entityAttributes": [
+        { "name": "gatewayID", "type": "Identifier" },
+        { "name": "concurrentSessions", "type": "Count" },
+        { "name": "throughput", "type": "DataRate" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "DataCenter",
+      "entityAttributes": [
+        { "name": "centerID", "type": "Identifier" },
+        { "name": "centerName", "type": "Description" },
+        { "name": "floorArea", "type": "ScalarArea" },
+        { "name": "rackCount", "type": "Count" },
+        { "name": "powerCapacity", "type": "Power" },
+        { "name": "coolingCapacity", "type": "Power" },
+        { "name": "server", "type": "Server" },
+        { "name": "storageArray", "type": "StorageArray" }
+      ]
+    },
+    {
+      "entityName": "Server",
+      "entityAttributes": [
+        { "name": "serverID", "type": "Identifier" },
+        { "name": "serverType", "type": "Kind" },
+        { "name": "cpuCoreCount", "type": "Count" },
+        { "name": "memorySize", "type": "Size" },
+        { "name": "storageSize", "type": "Size" },
+        { "name": "powerConsumption", "type": "Power" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "operationalState", "type": "OperationalState" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "StorageArray",
+      "entityAttributes": [
+        { "name": "arrayID", "type": "Identifier" },
+        { "name": "totalCapacity", "type": "Size" },
+        { "name": "usedCapacity", "type": "Size" },
+        { "name": "raidLevel", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "ComputingLab",
+      "entityAttributes": [
+        { "name": "labID", "type": "Identifier" },
+        { "name": "labName", "type": "Description" },
+        { "name": "workstationCount", "type": "Count" },
+        { "name": "workstation", "type": "Workstation" },
+        { "name": "printer", "type": "Printer" },
+        { "name": "operatingHours", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "Workstation",
+      "entityAttributes": [
+        { "name": "workstationID", "type": "Identifier" },
+        { "name": "workstationType", "type": "Kind" },
+        { "name": "operatingSystem", "type": "Kind" },
+        { "name": "memorySize", "type": "Size" },
+        { "name": "storageSize", "type": "Size" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Printer",
+      "entityAttributes": [
+        { "name": "printerID", "type": "Identifier" },
+        { "name": "printerType", "type": "Kind" },
+        { "name": "networkAddress", "type": "NonPhysicalAddress" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "SoftwarePlatform",
+      "entityAttributes": [
+        { "name": "platformID", "type": "Identifier" },
+        { "name": "platformName", "type": "Description" },
+        { "name": "platformType", "type": "Kind" },
+        { "name": "version", "type": "Identifier" },
+        { "name": "activeUserCount", "type": "Count" },
+        { "name": "operationalState", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "StudentLifeDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "housing", "type": "HousingSystem" },
+        { "name": "dining", "type": "DiningSystem" },
+        { "name": "healthServices", "type": "HealthServices" },
+        { "name": "studentOrganization", "type": "StudentOrganization" },
+        { "name": "athletics", "type": "AthleticsSubdomain" }
+      ]
+    },
+    {
+      "entityName": "HousingSystem",
+      "entityAttributes": [
+        { "name": "systemID", "type": "Identifier" },
+        { "name": "totalBeds", "type": "Count" },
+        { "name": "occupancyRate", "type": "Ratio" },
+        { "name": "residenceHall", "type": "ResidenceHall" }
+      ]
+    },
+    {
+      "entityName": "ResidenceHall",
+      "entityAttributes": [
+        { "name": "hallID", "type": "Identifier" },
+        { "name": "hallName", "type": "Description" },
+        { "name": "roomCount", "type": "Count" },
+        { "name": "bedCount", "type": "Count" },
+        { "name": "floorCount", "type": "Count" },
+        { "name": "condition", "type": "HealthState" },
+        { "name": "dormRoom", "type": "DormRoom" },
+        { "name": "commonArea", "type": "CommonArea" },
+        { "name": "laundryRoom", "type": "LaundryRoom" }
+      ]
+    },
+    {
+      "entityName": "DormRoom",
+      "entityAttributes": [
+        { "name": "roomID", "type": "Identifier" },
+        { "name": "roomNumber", "type": "Identifier" },
+        { "name": "roomType", "type": "Kind" },
+        { "name": "bedCount", "type": "Count" },
+        { "name": "floorArea", "type": "ScalarArea" },
+        { "name": "occupancyState", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "CommonArea",
+      "entityAttributes": [
+        { "name": "areaID", "type": "Identifier" },
+        { "name": "areaType", "type": "Kind" },
+        { "name": "seatingCapacity", "type": "Count" },
+        { "name": "hasTV", "type": "ConfigurationState" },
+        { "name": "hasKitchenette", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "LaundryRoom",
+      "entityAttributes": [
+        { "name": "roomID", "type": "Identifier" },
+        { "name": "washerCount", "type": "Count" },
+        { "name": "dryerCount", "type": "Count" }
+      ]
+    },
+    {
+      "entityName": "DiningSystem",
+      "entityAttributes": [
+        { "name": "systemID", "type": "Identifier" },
+        { "name": "diningHall", "type": "DiningHall" },
+        { "name": "cafe", "type": "Cafe" },
+        { "name": "mealPlan", "type": "MealPlan" }
+      ]
+    },
+    {
+      "entityName": "DiningHall",
+      "entityAttributes": [
+        { "name": "hallID", "type": "Identifier" },
+        { "name": "hallName", "type": "Description" },
+        { "name": "seatingCapacity", "type": "Count" },
+        { "name": "operationalStatus", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "Cafe",
+      "entityAttributes": [
+        { "name": "cafeID", "type": "Identifier" },
+        { "name": "cafeName", "type": "Description" },
+        { "name": "seatingCapacity", "type": "Count" },
+        { "name": "operationalStatus", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "MealPlan",
+      "entityAttributes": [
+        { "name": "planID", "type": "Identifier" },
+        { "name": "planName", "type": "Description" },
+        { "name": "planType", "type": "Kind" },
+        { "name": "mealsPerWeek", "type": "Count" }
+      ]
+    },
+    {
+      "entityName": "HealthServices",
+      "entityAttributes": [
+        { "name": "serviceID", "type": "Identifier" },
+        { "name": "healthCenter", "type": "HealthCenter" },
+        { "name": "counselingCenter", "type": "CounselingCenter" }
+      ]
+    },
+    {
+      "entityName": "HealthCenter",
+      "entityAttributes": [
+        { "name": "centerID", "type": "Identifier" },
+        { "name": "centerName", "type": "Description" },
+        { "name": "staffCount", "type": "Count" },
+        { "name": "examRoomCount", "type": "Count" },
+        { "name": "operationalStatus", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "CounselingCenter",
+      "entityAttributes": [
+        { "name": "centerID", "type": "Identifier" },
+        { "name": "centerName", "type": "Description" },
+        { "name": "staffCount", "type": "Count" },
+        { "name": "operationalStatus", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "StudentOrganization",
+      "entityAttributes": [
+        { "name": "orgID", "type": "Identifier" },
+        { "name": "orgName", "type": "Description" },
+        { "name": "orgType", "type": "Kind" },
+        { "name": "memberCount", "type": "Count" },
+        { "name": "status", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "AthleticsSubdomain",
+      "entityAttributes": [
+        { "name": "subdomainID", "type": "Identifier" },
+        { "name": "sportsTeam", "type": "SportsTeam" },
+        { "name": "athleticFacility", "type": "AthleticFacility" },
+        { "name": "recreationCenter", "type": "RecreationCenter" }
+      ]
+    },
+    {
+      "entityName": "SportsTeam",
+      "entityAttributes": [
+        { "name": "teamID", "type": "Identifier" },
+        { "name": "teamName", "type": "Description" },
+        { "name": "sport", "type": "Kind" },
+        { "name": "division", "type": "Kind" },
+        { "name": "rosterSize", "type": "Count" }
+      ]
+    },
+    {
+      "entityName": "AthleticFacility",
+      "entityAttributes": [
+        { "name": "facilityID", "type": "Identifier" },
+        { "name": "facilityName", "type": "Description" },
+        { "name": "facilityType", "type": "Kind" },
+        { "name": "seatingCapacity", "type": "Count" },
+        { "name": "fieldArea", "type": "ScalarArea" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "RecreationCenter",
+      "entityAttributes": [
+        { "name": "centerID", "type": "Identifier" },
+        { "name": "centerName", "type": "Description" },
+        { "name": "buildingArea", "type": "ScalarArea" },
+        { "name": "equipmentCount", "type": "Count" },
+        { "name": "courtCount", "type": "Count" },
+        { "name": "poolPresent", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "ResearchDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "researchCenter", "type": "ResearchCenter" },
+        { "name": "researchLab", "type": "ResearchLab" },
+        { "name": "grant", "type": "Grant" },
+        { "name": "scholarship", "type": "Scholarship" },
+        { "name": "libraryBranch", "type": "LibraryBranch" }
+      ]
+    },
+    {
+      "entityName": "ResearchCenter",
+      "entityAttributes": [
+        { "name": "centerID", "type": "Identifier" },
+        { "name": "centerName", "type": "Description" },
+        { "name": "researchFocus", "type": "Kind" },
+        { "name": "staffCount", "type": "Count" }
+      ]
+    },
+    {
+      "entityName": "ResearchLab",
+      "entityAttributes": [
+        { "name": "labID", "type": "Identifier" },
+        { "name": "labName", "type": "Description" },
+        { "name": "labType", "type": "Kind" },
+        { "name": "safetyRating", "type": "Kind" },
+        { "name": "workstationCount", "type": "Count" },
+        { "name": "condition", "type": "HealthState" },
+        { "name": "labEquipment", "type": "LabEquipment" },
+        { "name": "safetyEquipment", "type": "SafetyEquipment" }
+      ]
+    },
+    {
+      "entityName": "LabEquipment",
+      "entityAttributes": [
+        { "name": "equipmentID", "type": "Identifier" },
+        { "name": "equipmentName", "type": "Description" },
+        { "name": "equipmentType", "type": "Kind" },
+        { "name": "serialNumber", "type": "Identifier" },
+        { "name": "acquisitionDate", "type": "CalendarTime" },
+        { "name": "powerRequirement", "type": "Power" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "SafetyEquipment",
+      "entityAttributes": [
+        { "name": "equipmentID", "type": "Identifier" },
+        { "name": "equipmentType", "type": "Kind" },
+        { "name": "lastInspection", "type": "CalendarTime" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Grant",
+      "entityAttributes": [
+        { "name": "grantID", "type": "Identifier" },
+        { "name": "grantName", "type": "Description" },
+        { "name": "grantType", "type": "Kind" },
+        { "name": "fundingSource", "type": "Kind" },
+        { "name": "startDate", "type": "CalendarTime" },
+        { "name": "endDate", "type": "CalendarTime" },
+        { "name": "status", "type": "OperationalState" }
+      ]
+    },
+    {
+      "entityName": "Scholarship",
+      "entityAttributes": [
+        { "name": "scholarshipID", "type": "Identifier" },
+        { "name": "scholarshipName", "type": "Description" },
+        { "name": "awardType", "type": "Kind" },
+        { "name": "eligibilityCriteria", "type": "Kind" }
+      ]
+    },
+    {
+      "entityName": "LibraryBranch",
+      "entityAttributes": [
+        { "name": "branchID", "type": "Identifier" },
+        { "name": "branchName", "type": "Description" },
+        { "name": "seatingCapacity", "type": "Count" },
+        { "name": "collectionSize", "type": "Count" },
+        { "name": "studyRoom", "type": "StudyRoom" },
+        { "name": "computerStation", "type": "Workstation" }
+      ]
+    },
+    {
+      "entityName": "StudyRoom",
+      "entityAttributes": [
+        { "name": "roomID", "type": "Identifier" },
+        { "name": "roomCapacity", "type": "Count" },
+        { "name": "hasWhiteboard", "type": "ConfigurationState" },
+        { "name": "hasDisplay", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "OperationsDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "transport", "type": "TransportSystem" },
+        { "name": "parking", "type": "ParkingSystem" },
+        { "name": "utilities", "type": "UtilitySystem" },
+        { "name": "humanResources", "type": "HRSystem" },
+        { "name": "staffMember", "type": "StaffMember" }
+      ]
+    },
+    {
+      "entityName": "TransportSystem",
+      "entityAttributes": [
+        { "name": "systemID", "type": "Identifier" },
+        { "name": "shuttleVehicle", "type": "ShuttleVehicle" },
+        { "name": "shuttleRoute", "type": "ShuttleRoute" }
+      ]
+    },
+    {
+      "entityName": "ShuttleVehicle",
+      "entityAttributes": [
+        { "name": "vehicleID", "type": "Identifier" },
+        { "name": "vehicleType", "type": "Kind" },
+        { "name": "passengerCapacity", "type": "Count" },
+        { "name": "currentPosition", "type": "Position" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "ShuttleRoute",
+      "entityAttributes": [
+        { "name": "routeID", "type": "Identifier" },
+        { "name": "routeName", "type": "Description" },
+        { "name": "stopCount", "type": "Count" },
+        { "name": "routeLength", "type": "Distance" },
+        { "name": "frequency", "type": "Duration" },
+        { "name": "shuttleStop", "type": "ShuttleStop" }
+      ]
+    },
+    {
+      "entityName": "ShuttleStop",
+      "entityAttributes": [
+        { "name": "stopID", "type": "Identifier" },
+        { "name": "stopName", "type": "Description" },
+        { "name": "location", "type": "Position" }
+      ]
+    },
+    {
+      "entityName": "ParkingSystem",
+      "entityAttributes": [
+        { "name": "systemID", "type": "Identifier" },
+        { "name": "parkingFacility", "type": "ParkingFacility" },
+        { "name": "parkingPermit", "type": "ParkingPermit" }
+      ]
+    },
+    {
+      "entityName": "ParkingFacility",
+      "entityAttributes": [
+        { "name": "facilityID", "type": "Identifier" },
+        { "name": "facilityName", "type": "Description" },
+        { "name": "facilityType", "type": "Kind" },
+        { "name": "totalSpaces", "type": "Count" },
+        { "name": "availableSpaces", "type": "Count" },
+        { "name": "location", "type": "Position" }
+      ]
+    },
+    {
+      "entityName": "ParkingPermit",
+      "entityAttributes": [
+        { "name": "permitID", "type": "Identifier" },
+        { "name": "permitType", "type": "Kind" },
+        { "name": "validFrom", "type": "CalendarTime" },
+        { "name": "validTo", "type": "CalendarTime" }
+      ]
+    },
+    {
+      "entityName": "UtilitySystem",
+      "entityAttributes": [
+        { "name": "systemID", "type": "Identifier" },
+        { "name": "utilityMeter", "type": "UtilityMeter" },
+        { "name": "generator", "type": "Generator" },
+        { "name": "solarInstallation", "type": "SolarInstallation" }
+      ]
+    },
+    {
+      "entityName": "UtilityMeter",
+      "entityAttributes": [
+        { "name": "meterID", "type": "Identifier" },
+        { "name": "meterType", "type": "Kind" },
+        { "name": "currentReading", "type": "Energy" },
+        { "name": "currentDemand", "type": "Power" }
+      ]
+    },
+    {
+      "entityName": "Generator",
+      "entityAttributes": [
+        { "name": "generatorID", "type": "Identifier" },
+        { "name": "generatorType", "type": "Kind" },
+        { "name": "ratedPower", "type": "Power" },
+        { "name": "fuelType", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "SolarInstallation",
+      "entityAttributes": [
+        { "name": "installationID", "type": "Identifier" },
+        { "name": "panelCount", "type": "Count" },
+        { "name": "ratedPower", "type": "Power" },
+        { "name": "currentOutput", "type": "Power" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "HRSystem",
+      "entityAttributes": [
+        { "name": "systemID", "type": "Identifier" },
+        { "name": "totalEmployeeCount", "type": "Count" }
+      ]
+    },
+    {
+      "entityName": "StaffMember",
+      "entityAttributes": [
+        { "name": "staffID", "type": "Identifier" },
+        { "name": "name", "type": "Description" },
+        { "name": "jobTitle", "type": "Kind" },
+        { "name": "employmentType", "type": "Kind" },
+        { "name": "contactEmail", "type": "NonPhysicalAddress" },
+        { "name": "employmentStatus", "type": "OperationalState" }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "associationName": "FacultyInDepartment",
+      "associationAttributes": [
+        { "name": "appointmentType", "type": "Kind" },
+        { "name": "startDate", "type": "CalendarTime" }
+      ],
+      "associationParticipants": ["FacultyMember", "Department"]
+    },
+    {
+      "associationName": "StudentEnrolledInProgram",
+      "associationAttributes": [
+        { "name": "enrollmentDate", "type": "CalendarTime" }
+      ],
+      "associationParticipants": ["Student", "AcademicProgram"]
+    },
+    {
+      "associationName": "StudentRegisteredInSection",
+      "associationAttributes": [
+        { "name": "registrationDate", "type": "CalendarTime" },
+        { "name": "status", "type": "Kind" }
+      ],
+      "associationParticipants": ["Student", "CourseSection"]
+    },
+    {
+      "associationName": "FacultyTeachesSection",
+      "associationAttributes": [
+        { "name": "instructorRole", "type": "Kind" }
+      ],
+      "associationParticipants": ["FacultyMember", "CourseSection"]
+    },
+    {
+      "associationName": "TAAssistsSection",
+      "associationAttributes": [
+        { "name": "assignedHours", "type": "Duration" }
+      ],
+      "associationParticipants": ["TeachingAssistant", "CourseSection"]
+    },
+    {
+      "associationName": "TAIsStudent",
+      "associationAttributes": [],
+      "associationParticipants": ["TeachingAssistant", "Student"]
+    },
+    {
+      "associationName": "CourseInProgram",
+      "associationAttributes": [
+        { "name": "requirementType", "type": "Kind" }
+      ],
+      "associationParticipants": ["Course", "AcademicProgram"]
+    },
+    {
+      "associationName": "CoursePrerequisite",
+      "associationAttributes": [
+        { "name": "minimumGrade", "type": "Kind" }
+      ],
+      "associationParticipants": ["Course", "Course"]
+    },
+    {
+      "associationName": "SectionInTerm",
+      "associationAttributes": [],
+      "associationParticipants": ["CourseSection", "AcademicTerm"]
+    },
+    {
+      "associationName": "SectionMeetsInSpace",
+      "associationAttributes": [
+        { "name": "meetingDays", "type": "Kind" },
+        { "name": "startTime", "type": "CalendarTime" },
+        { "name": "endTime", "type": "CalendarTime" }
+      ],
+      "associationParticipants": ["CourseSection", "InstructionalSpace"]
+    },
+    {
+      "associationName": "InstructionalSpaceIsRoom",
+      "associationAttributes": [],
+      "associationParticipants": ["InstructionalSpace", "Room"]
+    },
+    {
+      "associationName": "SectionInLab",
+      "associationAttributes": [],
+      "associationParticipants": ["CourseSection", "ResearchLab"]
+    },
+    {
+      "associationName": "SectionOnPlatform",
+      "associationAttributes": [
+        { "name": "courseShellID", "type": "Identifier" }
+      ],
+      "associationParticipants": ["CourseSection", "SoftwarePlatform"]
+    },
+    {
+      "associationName": "WiFiAPInBuilding",
+      "associationAttributes": [
+        { "name": "floorLevel", "type": "Identifier" }
+      ],
+      "associationParticipants": ["WiFiAccessPoint", "Building"]
+    },
+    {
+      "associationName": "SwitchInBuilding",
+      "associationAttributes": [],
+      "associationParticipants": ["NetworkSwitch", "Building"]
+    },
+    {
+      "associationName": "ComputingLabInRoom",
+      "associationAttributes": [],
+      "associationParticipants": ["ComputingLab", "Room"]
+    },
+    {
+      "associationName": "DataCenterInBuilding",
+      "associationAttributes": [],
+      "associationParticipants": ["DataCenter", "Building"]
+    },
+    {
+      "associationName": "StudentResidingInDorm",
+      "associationAttributes": [
+        { "name": "startDate", "type": "CalendarTime" },
+        { "name": "endDate", "type": "CalendarTime" }
+      ],
+      "associationParticipants": ["Student", "DormRoom"]
+    },
+    {
+      "associationName": "StudentHasMealPlan",
+      "associationAttributes": [],
+      "associationParticipants": ["Student", "MealPlan"]
+    },
+    {
+      "associationName": "StudentReceivesScholarship",
+      "associationAttributes": [
+        { "name": "awardDate", "type": "CalendarTime" }
+      ],
+      "associationParticipants": ["Student", "Scholarship"]
+    },
+    {
+      "associationName": "StudentInOrganization",
+      "associationAttributes": [
+        { "name": "memberRole", "type": "Kind" }
+      ],
+      "associationParticipants": ["Student", "StudentOrganization"]
+    },
+    {
+      "associationName": "StudentOnTeam",
+      "associationAttributes": [
+        { "name": "position", "type": "Kind" }
+      ],
+      "associationParticipants": ["Student", "SportsTeam"]
+    },
+    {
+      "associationName": "StudentHasPermit",
+      "associationAttributes": [],
+      "associationParticipants": ["Student", "ParkingPermit"]
+    },
+    {
+      "associationName": "PermitForFacility",
+      "associationAttributes": [],
+      "associationParticipants": ["ParkingPermit", "ParkingFacility"]
+    },
+    {
+      "associationName": "TeamUsesFacility",
+      "associationAttributes": [
+        { "name": "usageType", "type": "Kind" }
+      ],
+      "associationParticipants": ["SportsTeam", "AthleticFacility"]
+    },
+    {
+      "associationName": "FacultyPIOnGrant",
+      "associationAttributes": [
+        { "name": "piRole", "type": "Kind" }
+      ],
+      "associationParticipants": ["FacultyMember", "Grant"]
+    },
+    {
+      "associationName": "GrantFundsCenter",
+      "associationAttributes": [],
+      "associationParticipants": ["Grant", "ResearchCenter"]
+    },
+    {
+      "associationName": "FacultyInResearchCenter",
+      "associationAttributes": [
+        { "name": "role", "type": "Kind" }
+      ],
+      "associationParticipants": ["FacultyMember", "ResearchCenter"]
+    },
+    {
+      "associationName": "ResearchLabInRoom",
+      "associationAttributes": [],
+      "associationParticipants": ["ResearchLab", "Room"]
+    },
+    {
+      "associationName": "LibraryInBuilding",
+      "associationAttributes": [],
+      "associationParticipants": ["LibraryBranch", "Building"]
+    },
+    {
+      "associationName": "DiningInBuilding",
+      "associationAttributes": [],
+      "associationParticipants": ["DiningHall", "Building"]
+    },
+    {
+      "associationName": "CafeInBuilding",
+      "associationAttributes": [],
+      "associationParticipants": ["Cafe", "Building"]
+    },
+    {
+      "associationName": "ResidenceHallIsBuilding",
+      "associationAttributes": [],
+      "associationParticipants": ["ResidenceHall", "Building"]
+    },
+    {
+      "associationName": "AthleticFacilityOnCampus",
+      "associationAttributes": [
+        { "name": "campusZone", "type": "Kind" }
+      ],
+      "associationParticipants": ["AthleticFacility", "OutdoorSpace"]
+    },
+    {
+      "associationName": "VehicleOnRoute",
+      "associationAttributes": [],
+      "associationParticipants": ["ShuttleVehicle", "ShuttleRoute"]
+    },
+    {
+      "associationName": "MeterOnBuilding",
+      "associationAttributes": [],
+      "associationParticipants": ["UtilityMeter", "Building"]
+    },
+    {
+      "associationName": "SolarOnBuilding",
+      "associationAttributes": [],
+      "associationParticipants": ["SolarInstallation", "Building"]
+    },
+    {
+      "associationName": "GeneratorAtBuilding",
+      "associationAttributes": [],
+      "associationParticipants": ["Generator", "Building"]
+    },
+    {
+      "associationName": "StaffInDepartment",
+      "associationAttributes": [],
+      "associationParticipants": ["StaffMember", "Department"]
+    },
+    {
+      "associationName": "FacultyHasOffice",
+      "associationAttributes": [],
+      "associationParticipants": ["FacultyMember", "Room"]
+    }
+  ]
+}

@@ -1,0 +1,814 @@
+{
+  "modelName": "Coffee_Model_V3_FunctionalDomain",
+  "modelDescription": "Functional-domain decomposition of coffee making and consumption. Entities are organized into eight functional domains: WaterPreparationDomain, BeanStorageAndGrindingDomain, EspressoBrewingDomain (deep decomposition of internal machine components), ManualBrewingDomain (pour over, French press, Aeropress, Moka pot, cold brew, siphon), MilkTexturingDomain, ServingAndConsumptionDomain, MaintenanceDomain, and MeasurementDomain. Cross-domain Associations connect water supply to brewers, grinders to brew methods, and brew output to serving vessels.",
+  "observables": [
+    "Identifier", "Temperature", "Pressure", "Power", "Energy",
+    "Mass", "Position", "Distance", "Duration",
+    "TemporalFrequency", "ScalarVolume", "ScalarArea",
+    "MassFlowRate", "Ratio", "Count", "HealthState",
+    "OperationalState", "Kind", "Description",
+    "Humidity", "ConfigurationState", "Size",
+    "CalendarTime", "Speed", "Mode",
+    "ChemicalConcentration", "Density", "Color", "Extent"
+  ],
+  "entities": [
+    {
+      "entityName": "CoffeeSetup",
+      "entityAttributes": [
+        { "name": "setupID", "type": "Identifier" },
+        { "name": "waterPreparation", "type": "WaterPreparationDomain" },
+        { "name": "beanAndGrinding", "type": "BeanStorageAndGrindingDomain" },
+        { "name": "espressoBrewing", "type": "EspressoBrewingDomain" },
+        { "name": "manualBrewing", "type": "ManualBrewingDomain" },
+        { "name": "milkTexturing", "type": "MilkTexturingDomain" },
+        { "name": "serving", "type": "ServingAndConsumptionDomain" },
+        { "name": "maintenance", "type": "MaintenanceDomain" },
+        { "name": "measurement", "type": "MeasurementDomain" }
+      ]
+    },
+    {
+      "entityName": "WaterPreparationDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "waterFilter", "type": "WaterFilter" },
+        { "name": "waterSoftener", "type": "WaterSoftener" },
+        { "name": "waterReservoir", "type": "WaterReservoir" },
+        { "name": "gooseneckKettle", "type": "GooseneckKettle" },
+        { "name": "standardKettle", "type": "StandardKettle" },
+        { "name": "mineralAdditionKit", "type": "MineralAdditionKit" }
+      ]
+    },
+    {
+      "entityName": "WaterFilter",
+      "entityAttributes": [
+        { "name": "filterID", "type": "Identifier" },
+        { "name": "filterType", "type": "Kind" },
+        { "name": "micronRating", "type": "Distance" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "WaterSoftener",
+      "entityAttributes": [
+        { "name": "softenerID", "type": "Identifier" },
+        { "name": "softenerType", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "WaterReservoir",
+      "entityAttributes": [
+        { "name": "reservoirID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "currentLevel", "type": "Ratio" }
+      ]
+    },
+    {
+      "entityName": "GooseneckKettle",
+      "entityAttributes": [
+        { "name": "kettleID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "powerRating", "type": "Power" },
+        { "name": "hasTemperatureControl", "type": "ConfigurationState" },
+        { "name": "targetTemperature", "type": "Temperature" },
+        { "name": "spoutDiameter", "type": "Distance" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "StandardKettle",
+      "entityAttributes": [
+        { "name": "kettleID", "type": "Identifier" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "powerRating", "type": "Power" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "MineralAdditionKit",
+      "entityAttributes": [
+        { "name": "kitID", "type": "Identifier" },
+        { "name": "mineralCount", "type": "Count" }
+      ]
+    },
+    {
+      "entityName": "BeanStorageAndGrindingDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "beanCanister", "type": "BeanCanister" },
+        { "name": "beanFreezerBag", "type": "BeanFreezerBag" },
+        { "name": "grinder", "type": "CoffeeGrinder" },
+        { "name": "dosingCup", "type": "DosingCup" },
+        { "name": "dosingFunnel", "type": "DosingFunnel" },
+        { "name": "wdt", "type": "WDTTool" },
+        { "name": "tamper", "type": "Tamper" },
+        { "name": "distributor", "type": "Distributor" },
+        { "name": "coffeeScale", "type": "CoffeeScale" }
+      ]
+    },
+    {
+      "entityName": "BeanCanister",
+      "entityAttributes": [
+        { "name": "canisterID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "airtightSeal", "type": "ConfigurationState" },
+        { "name": "hasOneWayValve", "type": "ConfigurationState" },
+        { "name": "uvProtected", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "BeanFreezerBag",
+      "entityAttributes": [
+        { "name": "bagID", "type": "Identifier" },
+        { "name": "capacity", "type": "Mass" },
+        { "name": "vacuumSealable", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "CoffeeGrinder",
+      "entityAttributes": [
+        { "name": "grinderID", "type": "Identifier" },
+        { "name": "grinderType", "type": "Kind" },
+        { "name": "burrSet", "type": "BurrSet" },
+        { "name": "hopper", "type": "GrinderHopper" },
+        { "name": "motorPower", "type": "Power" },
+        { "name": "grindSettingCount", "type": "Count" },
+        { "name": "dosingType", "type": "Kind" },
+        { "name": "retentionAmount", "type": "Mass" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "BurrSet",
+      "entityAttributes": [
+        { "name": "burrID", "type": "Identifier" },
+        { "name": "burrType", "type": "Kind" },
+        { "name": "burrMaterial", "type": "Kind" },
+        { "name": "diameter", "type": "Distance" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "GrinderHopper",
+      "entityAttributes": [
+        { "name": "hopperID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "capacity", "type": "Mass" }
+      ]
+    },
+    {
+      "entityName": "DosingCup",
+      "entityAttributes": [{ "name": "cupID", "type": "Identifier" }, { "name": "diameter", "type": "Distance" }]
+    },
+    {
+      "entityName": "DosingFunnel",
+      "entityAttributes": [{ "name": "funnelID", "type": "Identifier" }, { "name": "diameter", "type": "Distance" }]
+    },
+    {
+      "entityName": "WDTTool",
+      "entityAttributes": [{ "name": "toolID", "type": "Identifier" }, { "name": "needleCount", "type": "Count" }, { "name": "needleDiameter", "type": "Distance" }]
+    },
+    {
+      "entityName": "Tamper",
+      "entityAttributes": [
+        { "name": "tamperID", "type": "Identifier" },
+        { "name": "tamperType", "type": "Kind" },
+        { "name": "baseDiameter", "type": "Distance" },
+        { "name": "calibrated", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "Distributor",
+      "entityAttributes": [{ "name": "distributorID", "type": "Identifier" }, { "name": "diameter", "type": "Distance" }, { "name": "bladeCount", "type": "Count" }]
+    },
+    {
+      "entityName": "CoffeeScale",
+      "entityAttributes": [
+        { "name": "scaleID", "type": "Identifier" },
+        { "name": "maxCapacity", "type": "Mass" },
+        { "name": "resolution", "type": "Mass" },
+        { "name": "hasTimer", "type": "ConfigurationState" },
+        { "name": "waterResistant", "type": "ConfigurationState" }
+      ]
+    },
+    {
+      "entityName": "EspressoBrewingDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "espressoMachine", "type": "EspressoMachine" }
+      ]
+    },
+    {
+      "entityName": "EspressoMachine",
+      "entityAttributes": [
+        { "name": "machineID", "type": "Identifier" },
+        { "name": "machineType", "type": "Kind" },
+        { "name": "boiler", "type": "Boiler" },
+        { "name": "pump", "type": "PumpAssembly" },
+        { "name": "groupHead", "type": "GroupHead" },
+        { "name": "portafilter", "type": "Portafilter" },
+        { "name": "steamWand", "type": "SteamWand" },
+        { "name": "dripTray", "type": "DripTray" },
+        { "name": "pressureGauge", "type": "PressureGauge" },
+        { "name": "pidController", "type": "PIDController" },
+        { "name": "solenoid", "type": "Solenoid" },
+        { "name": "flowMeter", "type": "FlowMeter" },
+        { "name": "powerRating", "type": "Power" },
+        { "name": "warmupTime", "type": "Duration" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Boiler",
+      "entityAttributes": [
+        { "name": "boilerID", "type": "Identifier" },
+        { "name": "boilerType", "type": "Kind" },
+        { "name": "material", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "setTemperature", "type": "Temperature" },
+        { "name": "currentTemperature", "type": "Temperature" },
+        { "name": "pressure", "type": "Pressure" },
+        { "name": "heatingElement", "type": "BoilerHeatingElement" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "BoilerHeatingElement",
+      "entityAttributes": [
+        { "name": "elementID", "type": "Identifier" },
+        { "name": "powerRating", "type": "Power" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "PumpAssembly",
+      "entityAttributes": [
+        { "name": "pumpID", "type": "Identifier" },
+        { "name": "pumpType", "type": "Kind" },
+        { "name": "maxPressure", "type": "Pressure" },
+        { "name": "flowRate", "type": "MassFlowRate" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "Solenoid",
+      "entityAttributes": [{ "name": "solenoidID", "type": "Identifier" }, { "name": "condition", "type": "HealthState" }]
+    },
+    {
+      "entityName": "FlowMeter",
+      "entityAttributes": [{ "name": "meterID", "type": "Identifier" }, { "name": "condition", "type": "HealthState" }]
+    },
+    {
+      "entityName": "GroupHead",
+      "entityAttributes": [
+        { "name": "groupID", "type": "Identifier" },
+        { "name": "groupType", "type": "Kind" },
+        { "name": "material", "type": "Kind" },
+        { "name": "temperature", "type": "Temperature" },
+        { "name": "dispersionScreen", "type": "DispersionScreen" },
+        { "name": "groupGasket", "type": "GroupGasket" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "DispersionScreen",
+      "entityAttributes": [{ "name": "screenID", "type": "Identifier" }, { "name": "material", "type": "Kind" }, { "name": "holePattern", "type": "Kind" }, { "name": "condition", "type": "HealthState" }]
+    },
+    {
+      "entityName": "GroupGasket",
+      "entityAttributes": [{ "name": "gasketID", "type": "Identifier" }, { "name": "material", "type": "Kind" }, { "name": "diameter", "type": "Distance" }, { "name": "condition", "type": "HealthState" }]
+    },
+    {
+      "entityName": "Portafilter",
+      "entityAttributes": [
+        { "name": "portafilterID", "type": "Identifier" },
+        { "name": "portafilterType", "type": "Kind" },
+        { "name": "material", "type": "Kind" },
+        { "name": "diameter", "type": "Distance" },
+        { "name": "basket", "type": "FilterBasket" },
+        { "name": "spout", "type": "PortafilterSpout" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "FilterBasket",
+      "entityAttributes": [
+        { "name": "basketID", "type": "Identifier" },
+        { "name": "basketType", "type": "Kind" },
+        { "name": "doseCapacity", "type": "Mass" },
+        { "name": "diameter", "type": "Distance" },
+        { "name": "holeCount", "type": "Count" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "PortafilterSpout",
+      "entityAttributes": [{ "name": "spoutID", "type": "Identifier" }, { "name": "spoutType", "type": "Kind" }]
+    },
+    {
+      "entityName": "SteamWand",
+      "entityAttributes": [
+        { "name": "wandID", "type": "Identifier" },
+        { "name": "wandType", "type": "Kind" },
+        { "name": "steamTip", "type": "SteamTip" },
+        { "name": "material", "type": "Kind" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "SteamTip",
+      "entityAttributes": [{ "name": "tipID", "type": "Identifier" }, { "name": "holeCount", "type": "Count" }, { "name": "holePattern", "type": "Kind" }]
+    },
+    {
+      "entityName": "DripTray",
+      "entityAttributes": [{ "name": "trayID", "type": "Identifier" }, { "name": "material", "type": "Kind" }, { "name": "capacity", "type": "ScalarVolume" }]
+    },
+    {
+      "entityName": "PressureGauge",
+      "entityAttributes": [{ "name": "gaugeID", "type": "Identifier" }, { "name": "maxReading", "type": "Pressure" }, { "name": "condition", "type": "HealthState" }]
+    },
+    {
+      "entityName": "PIDController",
+      "entityAttributes": [{ "name": "controllerID", "type": "Identifier" }, { "name": "setTemperature", "type": "Temperature" }, { "name": "currentTemperature", "type": "Temperature" }]
+    },
+    {
+      "entityName": "ManualBrewingDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "pourOverSetup", "type": "PourOverSetup" },
+        { "name": "frenchPress", "type": "FrenchPress" },
+        { "name": "aeropressKit", "type": "AeropressKit" },
+        { "name": "mokaPot", "type": "MokaPot" },
+        { "name": "coldBrewMaker", "type": "ColdBrewMaker" },
+        { "name": "siphonBrewer", "type": "SiphonBrewer" },
+        { "name": "dripMachine", "type": "DripBrewMachine" }
+      ]
+    },
+    {
+      "entityName": "PourOverSetup",
+      "entityAttributes": [
+        { "name": "setupID", "type": "Identifier" },
+        { "name": "dripper", "type": "PourOverDripper" },
+        { "name": "paperFilter", "type": "PaperFilter" },
+        { "name": "metalFilter", "type": "MetalPourOverFilter" },
+        { "name": "server", "type": "CoffeeServer" }
+      ]
+    },
+    {
+      "entityName": "PourOverDripper",
+      "entityAttributes": [{ "name": "dripperID", "type": "Identifier" }, { "name": "dripperType", "type": "Kind" }, { "name": "material", "type": "Kind" }, { "name": "ribPattern", "type": "Kind" }, { "name": "drainHoleCount", "type": "Count" }]
+    },
+    {
+      "entityName": "PaperFilter",
+      "entityAttributes": [{ "name": "filterID", "type": "Identifier" }, { "name": "filterShape", "type": "Kind" }, { "name": "bleached", "type": "ConfigurationState" }]
+    },
+    {
+      "entityName": "MetalPourOverFilter",
+      "entityAttributes": [{ "name": "filterID", "type": "Identifier" }, { "name": "meshSize", "type": "Distance" }, { "name": "material", "type": "Kind" }]
+    },
+    {
+      "entityName": "CoffeeServer",
+      "entityAttributes": [{ "name": "serverID", "type": "Identifier" }, { "name": "material", "type": "Kind" }, { "name": "capacity", "type": "ScalarVolume" }, { "name": "hasVolumeMarkings", "type": "ConfigurationState" }]
+    },
+    {
+      "entityName": "FrenchPress",
+      "entityAttributes": [
+        { "name": "pressID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "plunger", "type": "FrenchPressPlunger" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "FrenchPressPlunger",
+      "entityAttributes": [{ "name": "plungerID", "type": "Identifier" }, { "name": "meshScreenCount", "type": "Count" }, { "name": "meshMaterial", "type": "Kind" }, { "name": "condition", "type": "HealthState" }]
+    },
+    {
+      "entityName": "AeropressKit",
+      "entityAttributes": [
+        { "name": "kitID", "type": "Identifier" },
+        { "name": "chamber", "type": "AeropressChamber" },
+        { "name": "plunger", "type": "AeropressPlunger" },
+        { "name": "filterCap", "type": "AeropressFilterCap" }
+      ]
+    },
+    {
+      "entityName": "AeropressChamber",
+      "entityAttributes": [{ "name": "chamberID", "type": "Identifier" }, { "name": "capacity", "type": "ScalarVolume" }]
+    },
+    {
+      "entityName": "AeropressPlunger",
+      "entityAttributes": [{ "name": "plungerID", "type": "Identifier" }, { "name": "sealMaterial", "type": "Kind" }, { "name": "condition", "type": "HealthState" }]
+    },
+    {
+      "entityName": "AeropressFilterCap",
+      "entityAttributes": [{ "name": "capID", "type": "Identifier" }, { "name": "capType", "type": "Kind" }]
+    },
+    {
+      "entityName": "MokaPot",
+      "entityAttributes": [
+        { "name": "potID", "type": "Identifier" },
+        { "name": "material", "type": "Kind" },
+        { "name": "cupSize", "type": "Kind" },
+        { "name": "bottomChamber", "type": "MokaBottomChamber" },
+        { "name": "filterFunnel", "type": "MokaFilterFunnel" },
+        { "name": "topChamber", "type": "MokaTopChamber" },
+        { "name": "safetyValve", "type": "MokaSafetyValve" },
+        { "name": "gasket", "type": "MokaGasket" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "MokaBottomChamber",
+      "entityAttributes": [{ "name": "chamberID", "type": "Identifier" }, { "name": "capacity", "type": "ScalarVolume" }, { "name": "material", "type": "Kind" }]
+    },
+    {
+      "entityName": "MokaFilterFunnel",
+      "entityAttributes": [{ "name": "funnelID", "type": "Identifier" }, { "name": "material", "type": "Kind" }]
+    },
+    {
+      "entityName": "MokaTopChamber",
+      "entityAttributes": [{ "name": "chamberID", "type": "Identifier" }, { "name": "capacity", "type": "ScalarVolume" }]
+    },
+    {
+      "entityName": "MokaSafetyValve",
+      "entityAttributes": [{ "name": "valveID", "type": "Identifier" }, { "name": "releasePressure", "type": "Pressure" }]
+    },
+    {
+      "entityName": "MokaGasket",
+      "entityAttributes": [{ "name": "gasketID", "type": "Identifier" }, { "name": "material", "type": "Kind" }, { "name": "condition", "type": "HealthState" }]
+    },
+    {
+      "entityName": "ColdBrewMaker",
+      "entityAttributes": [{ "name": "makerID", "type": "Identifier" }, { "name": "makerType", "type": "Kind" }, { "name": "material", "type": "Kind" }, { "name": "capacity", "type": "ScalarVolume" }, { "name": "filterType", "type": "Kind" }]
+    },
+    {
+      "entityName": "SiphonBrewer",
+      "entityAttributes": [{ "name": "brewerID", "type": "Identifier" }, { "name": "material", "type": "Kind" }, { "name": "capacity", "type": "ScalarVolume" }, { "name": "heatSourceType", "type": "Kind" }, { "name": "filterType", "type": "Kind" }]
+    },
+    {
+      "entityName": "DripBrewMachine",
+      "entityAttributes": [
+        { "name": "machineID", "type": "Identifier" },
+        { "name": "showerHead", "type": "ShowerHead" },
+        { "name": "brewBasket", "type": "BrewBasket" },
+        { "name": "carafe", "type": "Carafe" },
+        { "name": "hotPlate", "type": "HotPlate" },
+        { "name": "capacity", "type": "ScalarVolume" },
+        { "name": "powerRating", "type": "Power" },
+        { "name": "condition", "type": "HealthState" }
+      ]
+    },
+    {
+      "entityName": "ShowerHead",
+      "entityAttributes": [{ "name": "headID", "type": "Identifier" }, { "name": "holeCount", "type": "Count" }]
+    },
+    {
+      "entityName": "BrewBasket",
+      "entityAttributes": [{ "name": "basketID", "type": "Identifier" }, { "name": "basketType", "type": "Kind" }, { "name": "filterType", "type": "Kind" }]
+    },
+    {
+      "entityName": "Carafe",
+      "entityAttributes": [{ "name": "carafeID", "type": "Identifier" }, { "name": "material", "type": "Kind" }, { "name": "capacity", "type": "ScalarVolume" }, { "name": "insulated", "type": "ConfigurationState" }]
+    },
+    {
+      "entityName": "HotPlate",
+      "entityAttributes": [{ "name": "plateID", "type": "Identifier" }, { "name": "powerRating", "type": "Power" }]
+    },
+    {
+      "entityName": "MilkTexturingDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "milkPitcher", "type": "MilkPitcher" },
+        { "name": "milkFrother", "type": "MilkFrother" },
+        { "name": "milkThermometer", "type": "MilkThermometer" }
+      ]
+    },
+    {
+      "entityName": "MilkPitcher",
+      "entityAttributes": [{ "name": "pitcherID", "type": "Identifier" }, { "name": "material", "type": "Kind" }, { "name": "capacity", "type": "ScalarVolume" }, { "name": "spoutType", "type": "Kind" }]
+    },
+    {
+      "entityName": "MilkFrother",
+      "entityAttributes": [{ "name": "frotherID", "type": "Identifier" }, { "name": "frotherType", "type": "Kind" }, { "name": "capacity", "type": "ScalarVolume" }, { "name": "powerRating", "type": "Power" }]
+    },
+    {
+      "entityName": "MilkThermometer",
+      "entityAttributes": [{ "name": "thermometerID", "type": "Identifier" }, { "name": "accuracy", "type": "Temperature" }]
+    },
+    {
+      "entityName": "ServingAndConsumptionDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "espressoCup", "type": "EspressoCup" },
+        { "name": "coffeeMug", "type": "CoffeeMug" },
+        { "name": "travelMug", "type": "TravelMug" },
+        { "name": "latteGlass", "type": "LatteGlass" },
+        { "name": "cappuccinoCup", "type": "CappuccinoCup" },
+        { "name": "saucer", "type": "Saucer" },
+        { "name": "spoon", "type": "CoffeeSpoon" },
+        { "name": "latteArtPen", "type": "LatteArtPen" },
+        { "name": "cupWarmer", "type": "CupWarmer" }
+      ]
+    },
+    {
+      "entityName": "EspressoCup",
+      "entityAttributes": [{ "name": "cupID", "type": "Identifier" }, { "name": "material", "type": "Kind" }, { "name": "capacity", "type": "ScalarVolume" }, { "name": "wallThickness", "type": "Distance" }]
+    },
+    {
+      "entityName": "CoffeeMug",
+      "entityAttributes": [{ "name": "mugID", "type": "Identifier" }, { "name": "material", "type": "Kind" }, { "name": "capacity", "type": "ScalarVolume" }, { "name": "insulated", "type": "ConfigurationState" }]
+    },
+    {
+      "entityName": "TravelMug",
+      "entityAttributes": [{ "name": "mugID", "type": "Identifier" }, { "name": "material", "type": "Kind" }, { "name": "capacity", "type": "ScalarVolume" }, { "name": "lidType", "type": "Kind" }]
+    },
+    {
+      "entityName": "LatteGlass",
+      "entityAttributes": [{ "name": "glassID", "type": "Identifier" }, { "name": "capacity", "type": "ScalarVolume" }, { "name": "doubleWalled", "type": "ConfigurationState" }]
+    },
+    {
+      "entityName": "CappuccinoCup",
+      "entityAttributes": [{ "name": "cupID", "type": "Identifier" }, { "name": "material", "type": "Kind" }, { "name": "capacity", "type": "ScalarVolume" }]
+    },
+    {
+      "entityName": "Saucer",
+      "entityAttributes": [{ "name": "saucerID", "type": "Identifier" }, { "name": "material", "type": "Kind" }, { "name": "diameter", "type": "Distance" }]
+    },
+    {
+      "entityName": "CoffeeSpoon",
+      "entityAttributes": [{ "name": "spoonID", "type": "Identifier" }, { "name": "material", "type": "Kind" }]
+    },
+    {
+      "entityName": "LatteArtPen",
+      "entityAttributes": [{ "name": "penID", "type": "Identifier" }]
+    },
+    {
+      "entityName": "CupWarmer",
+      "entityAttributes": [{ "name": "warmerID", "type": "Identifier" }, { "name": "powerRating", "type": "Power" }, { "name": "capacity", "type": "Count" }, { "name": "condition", "type": "HealthState" }]
+    },
+    {
+      "entityName": "MaintenanceDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "groupHeadBrush", "type": "GroupHeadBrush" },
+        { "name": "blindFilter", "type": "BlindFilter" },
+        { "name": "steamWandCloth", "type": "SteamWandCloth" },
+        { "name": "grinderBrush", "type": "GrinderBrush" },
+        { "name": "knockBox", "type": "KnockBox" },
+        { "name": "dryingMat", "type": "DryingMat" },
+        { "name": "descalingSolution", "type": "DescalingSolution" }
+      ]
+    },
+    {
+      "entityName": "GroupHeadBrush",
+      "entityAttributes": [{ "name": "brushID", "type": "Identifier" }, { "name": "condition", "type": "HealthState" }]
+    },
+    {
+      "entityName": "BlindFilter",
+      "entityAttributes": [{ "name": "filterID", "type": "Identifier" }, { "name": "diameter", "type": "Distance" }]
+    },
+    {
+      "entityName": "SteamWandCloth",
+      "entityAttributes": [{ "name": "clothID", "type": "Identifier" }, { "name": "condition", "type": "HealthState" }]
+    },
+    {
+      "entityName": "GrinderBrush",
+      "entityAttributes": [{ "name": "brushID", "type": "Identifier" }, { "name": "condition", "type": "HealthState" }]
+    },
+    {
+      "entityName": "KnockBox",
+      "entityAttributes": [{ "name": "boxID", "type": "Identifier" }, { "name": "material", "type": "Kind" }, { "name": "capacity", "type": "ScalarVolume" }]
+    },
+    {
+      "entityName": "DryingMat",
+      "entityAttributes": [{ "name": "matID", "type": "Identifier" }, { "name": "dimensions", "type": "Extent" }]
+    },
+    {
+      "entityName": "DescalingSolution",
+      "entityAttributes": [{ "name": "solutionID", "type": "Identifier" }, { "name": "solutionType", "type": "Kind" }, { "name": "volume", "type": "ScalarVolume" }]
+    },
+    {
+      "entityName": "MeasurementDomain",
+      "entityAttributes": [
+        { "name": "domainID", "type": "Identifier" },
+        { "name": "brewThermometer", "type": "BrewThermometer" },
+        { "name": "tdsMeter", "type": "TDSMeter" },
+        { "name": "brewTimer", "type": "BrewTimer" }
+      ]
+    },
+    {
+      "entityName": "BrewThermometer",
+      "entityAttributes": [{ "name": "thermometerID", "type": "Identifier" }, { "name": "thermometerType", "type": "Kind" }, { "name": "accuracy", "type": "Temperature" }]
+    },
+    {
+      "entityName": "TDSMeter",
+      "entityAttributes": [{ "name": "meterID", "type": "Identifier" }, { "name": "resolution", "type": "Ratio" }, { "name": "condition", "type": "HealthState" }]
+    },
+    {
+      "entityName": "BrewTimer",
+      "entityAttributes": [{ "name": "timerID", "type": "Identifier" }, { "name": "timerType", "type": "Kind" }]
+    }
+  ],
+  "associations": [
+    {
+      "associationName": "WaterFilterFeedsReservoir",
+      "associationAttributes": [],
+      "associationParticipants": ["WaterFilter", "WaterReservoir"]
+    },
+    {
+      "associationName": "ReservoirFeedsEspressoMachine",
+      "associationAttributes": [],
+      "associationParticipants": ["WaterReservoir", "EspressoMachine"]
+    },
+    {
+      "associationName": "KettleSuppliePourOver",
+      "associationAttributes": [{ "name": "pourTemperature", "type": "Temperature" }],
+      "associationParticipants": ["GooseneckKettle", "PourOverDripper"]
+    },
+    {
+      "associationName": "KettleSuppliesFrenchPress",
+      "associationAttributes": [{ "name": "pourTemperature", "type": "Temperature" }],
+      "associationParticipants": ["StandardKettle", "FrenchPress"]
+    },
+    {
+      "associationName": "KettleSuppliesAeropress",
+      "associationAttributes": [{ "name": "pourTemperature", "type": "Temperature" }],
+      "associationParticipants": ["GooseneckKettle", "AeropressKit"]
+    },
+    {
+      "associationName": "KettleSuppliesSiphon",
+      "associationAttributes": [],
+      "associationParticipants": ["StandardKettle", "SiphonBrewer"]
+    },
+    {
+      "associationName": "GrinderToPortafilter",
+      "associationAttributes": [{ "name": "grindSize", "type": "Kind" }],
+      "associationParticipants": ["CoffeeGrinder", "Portafilter"]
+    },
+    {
+      "associationName": "GrinderToPourOver",
+      "associationAttributes": [{ "name": "grindSize", "type": "Kind" }],
+      "associationParticipants": ["CoffeeGrinder", "PourOverDripper"]
+    },
+    {
+      "associationName": "GrinderToFrenchPress",
+      "associationAttributes": [{ "name": "grindSize", "type": "Kind" }],
+      "associationParticipants": ["CoffeeGrinder", "FrenchPress"]
+    },
+    {
+      "associationName": "GrinderToAeropress",
+      "associationAttributes": [{ "name": "grindSize", "type": "Kind" }],
+      "associationParticipants": ["CoffeeGrinder", "AeropressKit"]
+    },
+    {
+      "associationName": "GrinderToMokaPot",
+      "associationAttributes": [{ "name": "grindSize", "type": "Kind" }],
+      "associationParticipants": ["CoffeeGrinder", "MokaPot"]
+    },
+    {
+      "associationName": "GrinderToDripMachine",
+      "associationAttributes": [{ "name": "grindSize", "type": "Kind" }],
+      "associationParticipants": ["CoffeeGrinder", "DripBrewMachine"]
+    },
+    {
+      "associationName": "GrinderToColdBrew",
+      "associationAttributes": [{ "name": "grindSize", "type": "Kind" }],
+      "associationParticipants": ["CoffeeGrinder", "ColdBrewMaker"]
+    },
+    {
+      "associationName": "PortafilterLocksInGroupHead",
+      "associationAttributes": [],
+      "associationParticipants": ["Portafilter", "GroupHead"]
+    },
+    {
+      "associationName": "PIDControlsBoiler",
+      "associationAttributes": [],
+      "associationParticipants": ["PIDController", "Boiler"]
+    },
+    {
+      "associationName": "SteamWandFrothsMilk",
+      "associationAttributes": [{ "name": "steamTemp", "type": "Temperature" }],
+      "associationParticipants": ["SteamWand", "MilkPitcher"]
+    },
+    {
+      "associationName": "StandaloneFrotherFrothsMilk",
+      "associationAttributes": [],
+      "associationParticipants": ["MilkFrother", "MilkPitcher"]
+    },
+    {
+      "associationName": "EspressoDispensesToCup",
+      "associationAttributes": [],
+      "associationParticipants": ["PortafilterSpout", "EspressoCup"]
+    },
+    {
+      "associationName": "EspressoDispensesToLatteGlass",
+      "associationAttributes": [],
+      "associationParticipants": ["PortafilterSpout", "LatteGlass"]
+    },
+    {
+      "associationName": "ServerPoursToCup",
+      "associationAttributes": [],
+      "associationParticipants": ["CoffeeServer", "CoffeeMug"]
+    },
+    {
+      "associationName": "CarafePoursToCup",
+      "associationAttributes": [],
+      "associationParticipants": ["Carafe", "CoffeeMug"]
+    },
+    {
+      "associationName": "FrenchPressPoursToCup",
+      "associationAttributes": [],
+      "associationParticipants": ["FrenchPress", "CoffeeMug"]
+    },
+    {
+      "associationName": "AeropressDispensesToCup",
+      "associationAttributes": [],
+      "associationParticipants": ["AeropressKit", "CoffeeMug"]
+    },
+    {
+      "associationName": "MokaPotPoursToCup",
+      "associationAttributes": [],
+      "associationParticipants": ["MokaPot", "EspressoCup"]
+    },
+    {
+      "associationName": "CupOnSaucer",
+      "associationAttributes": [],
+      "associationParticipants": ["EspressoCup", "Saucer"]
+    },
+    {
+      "associationName": "CupOnCupWarmer",
+      "associationAttributes": [],
+      "associationParticipants": ["EspressoCup", "CupWarmer"]
+    },
+    {
+      "associationName": "CanisterFeedsHopper",
+      "associationAttributes": [],
+      "associationParticipants": ["BeanCanister", "GrinderHopper"]
+    },
+    {
+      "associationName": "BlindFilterBackflushes",
+      "associationAttributes": [],
+      "associationParticipants": ["BlindFilter", "Portafilter"]
+    },
+    {
+      "associationName": "GroundsToKnockBox",
+      "associationAttributes": [],
+      "associationParticipants": ["Portafilter", "KnockBox"]
+    },
+    {
+      "associationName": "ScaleUnderCup",
+      "associationAttributes": [],
+      "associationParticipants": ["CoffeeScale", "EspressoCup"]
+    },
+    {
+      "associationName": "ScaleUnderServer",
+      "associationAttributes": [],
+      "associationParticipants": ["CoffeeScale", "CoffeeServer"]
+    },
+    {
+      "associationName": "FilterInDripper",
+      "associationAttributes": [],
+      "associationParticipants": ["PaperFilter", "PourOverDripper"]
+    },
+    {
+      "associationName": "DripperOnServer",
+      "associationAttributes": [],
+      "associationParticipants": ["PourOverDripper", "CoffeeServer"]
+    },
+    {
+      "associationName": "HotPlateWarmsCarafe",
+      "associationAttributes": [],
+      "associationParticipants": ["HotPlate", "Carafe"]
+    },
+    {
+      "associationName": "DescalingCleansBoiler",
+      "associationAttributes": [],
+      "associationParticipants": ["DescalingSolution", "Boiler"]
+    },
+    {
+      "associationName": "BrushCleansGroupHead",
+      "associationAttributes": [],
+      "associationParticipants": ["GroupHeadBrush", "GroupHead"]
+    },
+    {
+      "associationName": "GrinderBrushCleansBurrs",
+      "associationAttributes": [],
+      "associationParticipants": ["GrinderBrush", "BurrSet"]
+    },
+    {
+      "associationName": "MilkPitcherPoursToLatteGlass",
+      "associationAttributes": [],
+      "associationParticipants": ["MilkPitcher", "LatteGlass"]
+    },
+    {
+      "associationName": "MilkPitcherPoursToCappuccino",
+      "associationAttributes": [],
+      "associationParticipants": ["MilkPitcher", "CappuccinoCup"]
+    }
+  ]
+}

@@ -46,11 +46,34 @@ ontology_matching/inputs/conceptnet-assertions-5.7.0.csv.gz
 ontology_matching/inputs/conceptnet-assertions-5.7.0.csv/
 ontology_matching/models/
 
-# Accidental files
+# Log files
+*.log
+logmap-log.out
+enriched_ontology_matching/logmap-log.out
+
+# Input SVGs and ZIPs (generated diagrams / archives, not pipeline inputs)
+enriched_ontology_matching/inputs/**/*.svg
+enriched_ontology_matching/inputs/*.zip
+enriched_ontology_matching/inputs/CONceptual_ExtractionCategory_Examples/
+
+# Accidental files (empty files created by debug print-to-file accidents)
 '
 0
+0.3
+True
 NT
 Observable
 realizes
 role
-realizes
+float
+str
+thresh
+Path
+np.ndarray
+dict\[str
+dict\[tuple
+enriched_ontology_matching/Path
+enriched_ontology_matching/float
+enriched_ontology_matching/thresh
+enriched_ontology_matching/np.ndarray
+enriched_ontology_matching/{*
