@@ -2,7 +2,7 @@
 run_all_pairs.py
 ----------------
 Runs the enriched ontology matching pipeline for ALL possible within-domain
-pairs across every domain in CONceptual_ExtractionCategory_Examples.
+pairs across every domain in enriched_ontology_matching/inputs/.
 
 For each domain (Automobile, Coffee, Homebrewing, Hospital, SmartHome,
 University) with 6 models, this generates C(6,2)=15 pairs, running the
@@ -20,20 +20,16 @@ Outputs
 Usage
 -----
   # From repo root, using the project venv:
-  ontology_matching/.venv/Scripts/python.exe ^
-      enriched_ontology_matching/run_all_pairs.py
+  .venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --cross-domain
 
   # Skip already-computed pairs (re-use existing CSVs):
-  ontology_matching/.venv/Scripts/python.exe ^
-      enriched_ontology_matching/run_all_pairs.py --skip-existing
+  .venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --cross-domain --skip-existing
 
   # Run only specific domains:
-  ontology_matching/.venv/Scripts/python.exe ^
-      enriched_ontology_matching/run_all_pairs.py --domains Automobile Hospital
+  .venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --domains Automobile Hospital
 
   # Only AML or only LogMap:
-  ontology_matching/.venv/Scripts/python.exe ^
-      enriched_ontology_matching/run_all_pairs.py --matcher aml
+  .venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --matcher aml
 """
 
 from __future__ import annotations
@@ -53,11 +49,7 @@ sys.path.insert(0, str(_DIR))
 # Paths
 # ---------------------------------------------------------------------------
 _REPO_ROOT = _DIR.parent
-_EXAMPLES  = (
-    _DIR / "inputs"
-    / "CONceptual_ExtractionCategory_Examples"
-    / "CONceptual_ExtractionCategory_Examples"
-)
+_EXAMPLES  = _DIR / "inputs"
 _PAIRS_DIR  = _DIR / "pairs"
 _ENRICHED   = _DIR / "outputs" / "enriched"
 _NBR_DIR    = _DIR / "outputs" / "neighbourhood"

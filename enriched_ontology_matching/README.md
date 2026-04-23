@@ -78,26 +78,16 @@ ontology_matching/inputs/conceptnet-assertions-5.7.0.csv/assertions.csv
 The pipeline expects conceptual-model JSON files organised by domain. `run_all_pairs.py` looks for them at:
 
 ```
-ontology_matching/inputs/CONceptual_ExtractionCategory_Examples/
-  CONceptual_ExtractionCategory_Examples/
-    Automobile/
-      automobile_v1.json
-      automobile_v2.json
-      automobile_v3.json
-      automobile_variation_1.json
-      automobile_variation_2.json
-      automobile_variation_3.json
-    Coffee/
-      ...
-    Homebrewing/
-      ...
-    Hospital/
-      ...
-    SmartHome/
-      ...
-    University/
-      ...
+enriched_ontology_matching/inputs/
+  Automobile/       — 6 model JSONs  (V1, V2, V3, Net1, Net2, Net3)
+  Coffee/           — 6 model JSONs
+  Homebrewing/      — 6 model JSONs
+  Hospital/         — 6 model JSONs
+  SmartHome/        — 6 model JSONs
+  University/       — 6 model JSONs
 ```
+
+These files are **already included** in the repository — no download required.
 
 Each JSON file represents a single conceptual model with this schema:
 
@@ -154,13 +144,17 @@ After this step, always use `.venv/Scripts/python.exe` (Windows) or `.venv/bin/p
 
 The fastest way to generate everything is `run_all_pairs.py`. It discovers all model JSONs under each domain, generates every within-domain pair combination, and runs the full five-stage pipeline (L1 → L2 → L0 → L3 → L4 → L5) for each pair.
 
-### Quick start — run all domains
+### Quick start — run all domains (within-domain + cross-domain) and generate HTML
 
 ```bash
-.venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py
+# Step 1 — run all 630 pairs (within-domain and cross-domain)
+.venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --cross-domain
+
+# Step 2 — generate the interactive distance map
+.venv/Scripts/python.exe enriched_ontology_matching/compare_stage.py
 ```
 
-This will:
+`run_all_pairs.py` will:
 
 1. **Discover** all model JSON files per domain (Automobile, Coffee, Homebrewing, Hospital, SmartHome, University)
 2. **Generate pair JSONs** in `enriched_ontology_matching/pairs/` (e.g. `auto_V1_V2.json`)
@@ -172,12 +166,14 @@ This will:
 8. **Combine** all per-pair CSVs into `outputs/enriched/all_domains_combined.csv`
 9. **Generate** a Markdown report at `outputs/all_domains_results.md`
 
+`compare_stage.py` then reads all merged CSVs and writes `outputs/ontology_map.html`.
+
 ### Re-run with cached results
 
 To skip pairs whose outputs already exist (e.g. after adding new models):
 
 ```bash
-.venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --skip-existing
+.venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --cross-domain --skip-existing
 ```
 
 ### Run specific domains only
