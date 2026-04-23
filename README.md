@@ -8,9 +8,9 @@ A multi-layer semantic enrichment pipeline that runs structural matchers (AML + 
 
 | Layer | Name | What it does |
 |-------|------|--------------|
+| **L0** | Neighbourhood Coherence | Validates each pair via `sqrt(WUP × cosine)` geometric mean over local graph neighbours |
 | **L1** | Structural Matching | AML + LogMap find entity pairs; results merged and de-duplicated |
 | **L2** | Semantic Discovery | WordNet + ConceptNet discover equivalence/subsumption candidates among unmatched entities |
-| **L0** | Neighbourhood Coherence | Validates each pair via `sqrt(WUP × cosine)` geometric mean over local graph neighbours |
 | **L3** | Lin-IC Scoring | Corpus-based Lin Information Content (Brown corpus) scores every pair |
 | **L4** | Sentence Embedding | `paraphrase-MiniLM-L6-v2` cosine similarity per entity pair |
 | **L5** | Merge | Joins all layer outputs into one metrics-only CSV per pair |
