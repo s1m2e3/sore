@@ -24,7 +24,8 @@ from sklearn.manifold import MDS
 ROOT = Path(__file__).parent
 MERGED_DIR = ROOT / "outputs" / "merged"
 PAIRS_DIR  = ROOT / "pairs"
-OUT_HTML   = ROOT / "outputs" / "ontology_map.html"
+OUT_HTML      = ROOT / "outputs" / "ontology_map.html"
+SUMMARIES_DIR = ROOT / "summaries"
 
 # ── metric columns in merged CSVs ──────────────────────────────────────────────
 METRICS = ["cosine_avg", "wup", "lin_ic", "coherence_sym"]
@@ -66,11 +67,19 @@ def compute_global_fill_rates(csvs: list[Path]) -> dict[str, float]:
 
 
 def load_pair_metrics(csv_path: Path) -> dict:
+    """Return per-metric means for one ontology pair from its merged metrics CSV.
+
+    Computes the mean of all non-blank values (including 0) for each metric.
+    'composite' is left as None here; the caller fills it in after computing
+    global fill rates so all pairs share the same sparsity weights.
+
+    Raises FileNotFoundError if csv_path does not exist.
     """
-    Return per-metric means (mean of all non-blank values, including 0) for one
-    ontology pair.  'composite' is left as None here; main() fills it in after
-    computing global fill rates.
-    """
+    if not csv_path.exists():
+        raise FileNotFoundError(
+            f"Merged metrics CSV not found: {csv_path}\n"
+            "Run the full pipeline (run_all_pairs.py) to generate merged CSVs first."
+        )
     rows = []
     with open(csv_path, newline="", encoding="utf-8") as fh:
         for r in csv.DictReader(fh):
@@ -111,7 +120,15 @@ def _norm_name(name: str) -> str:
 
 
 def stem_to_pair(stem: str) -> tuple[str, str]:
-    """Split '<OntA>_vs_<OntB>' stem into (OntA, OntB), normalising names."""
+    """Split '<OntA>_vs_<OntB>' stem into (OntA, OntB), normalising names.
+
+    Raises ValueError if the stem does not contain the '_vs_' separator.
+    """
+    if "_vs_" not in stem:
+        raise ValueError(
+            f"CSV stem '{stem}' does not contain the '_vs_' separator. "
+            "Expected format: '<OntologyA>_vs_<OntologyB>_metrics.csv'."
+        )
     idx = stem.index("_vs_")
     a = _norm_name(stem[:idx])
     b = _norm_name(stem[idx + 4:])
@@ -119,6 +136,10 @@ def stem_to_pair(stem: str) -> tuple[str, str]:
 
 
 def domain_of(name: str) -> str:
+    """Return the domain label for an ontology name based on keyword matching.
+
+    Returns one of the KNOWN_DOMAINS values, or 'Other' if no keyword matches.
+    """
     low = name.lower()
     if "automobile" in low or "auto" in low:
         return "Automobile"
@@ -376,6 +397,8 @@ DOMAIN_COLOUR = {
     "Other":       "#616161",   # grey
 }
 
+KNOWN_DOMAINS = [d for d in DOMAIN_COLOUR if d != "Other"]
+
 
 def build_regularised_mds_coords(
     onts: list[str],
@@ -529,6 +552,11 @@ def _compute_topk(onts: list[str], pair_data: dict, k: int) -> set:
 
 def build_html(onts, coords, pair_data, available_jsons, stress: float,
                fill_rates: dict | None = None):
+    """Build the interactive 3D Plotly figure and the JS post-script string.
+
+    Returns (fig, post_script) where post_script is injected into the HTML after
+    Plotly renders to wire up the edge-mode buttons and domain legend toggles.
+    """
     import json as _json
 
     domains = [domain_of(o) for o in onts]
@@ -787,7 +815,111 @@ def build_html(onts, coords, pair_data, available_jsons, stress: float,
     return fig, post_script
 
 
+def domain_distance_summary(domain: str, out_path: Path | None = None) -> dict:
+    """
+    Compute within-domain pairwise distances and return a JSON-serialisable dict.
+
+    Replicates the sparsity-weighted Euclidean distance used by the visualisation
+    but restricted to pairs where both ontologies belong to `domain`.
+    Global fill rates are computed over ALL merged CSVs so the metric weights
+    stay consistent with the visualisation.
+
+    CLI:  python compare_stage.py --domain-summary Automobile [--out results.json]
+    """
+    if domain not in KNOWN_DOMAINS:
+        raise ValueError(
+            f"Unknown domain '{domain}'. "
+            f"Valid options are: {KNOWN_DOMAINS}"
+        )
+
+    all_csvs = sorted(MERGED_DIR.glob("*_metrics.csv"))
+    if not all_csvs:
+        raise FileNotFoundError(
+            f"No merged metrics CSVs found in {MERGED_DIR}.\n"
+            "Run the full pipeline (run_all_pairs.py) to generate them first."
+        )
+
+    fill_rates = compute_global_fill_rates(all_csvs)
+    w_total = sum(fill_rates[m] for m in METRICS) or 1.0
+
+    pair_data: dict[tuple[str, str], dict] = {}
+    for csv_path in all_csvs:
+        stem = csv_path.stem.replace("_metrics", "")
+        try:
+            a, b = stem_to_pair(stem)
+        except ValueError:
+            continue
+        if domain_of(a) != domain or domain_of(b) != domain:
+            continue
+        metrics = load_pair_metrics(csv_path)
+        key = (a, b)
+        rev = (b, a)
+        if rev in pair_data:
+            if metrics["n_pairs"] > pair_data[rev]["n_pairs"]:
+                del pair_data[rev]
+                pair_data[key] = metrics
+        else:
+            pair_data[key] = metrics
+
+    if not pair_data:
+        raise ValueError(
+            f"No within-domain pairs found for domain '{domain}'. "
+            f"Check that merged CSVs exist in {MERGED_DIR} for this domain."
+        )
+
+    for m in pair_data.values():
+        m["composite"] = sum(fill_rates[met] * m[met] for met in METRICS) / w_total
+
+    onts = sorted({o for pair in pair_data for o in pair})
+    dist_matrix = build_distance_matrix(onts, pair_data, fill_rates)
+    ont_idx = {o: i for i, o in enumerate(onts)}
+
+    pairs_out = []
+    distances = []
+    for (a, b), m in pair_data.items():
+        d = float(dist_matrix[ont_idx[a], ont_idx[b]])
+        distances.append(d)
+        pairs_out.append({
+            "ont_a": a,
+            "ont_b": b,
+            "distance": round(d, 6),
+            "composite": round(m["composite"], 6),
+            "n_entity_pairs": m["n_pairs"],
+            "metrics": {
+                met: {
+                    "mean": round(m[met], 6),
+                    "weight": round(fill_rates[met], 6),
+                }
+                for met in METRICS
+            },
+        })
+    pairs_out.sort(key=lambda x: x["distance"])
+
+    result = {
+        "domain": domain,
+        "n_ontologies": len(onts),
+        "n_pairs": len(pair_data),
+        "metric_weights": {m: round(fill_rates[m], 6) for m in METRICS},
+        "average_distance": round(sum(distances) / len(distances), 6),
+        "average_composite": round(
+            sum(m["composite"] for m in pair_data.values()) / len(pair_data), 6
+        ),
+        "pairs": pairs_out,
+    }
+
+    if out_path is not None:
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(out_path, "w", encoding="utf-8") as fh:
+            json.dump(result, fh, indent=2)
+        print(f"Saved: {out_path}")
+
+    return result
+
+
 def main():
+    """Load all merged metrics CSVs, compute the regularised MDS layout, and
+    write the interactive 3D ontology distance map to outputs/ontology_map.html.
+    """
     # ── load merged CSVs ───────────────────────────────────────────────────────
     csvs = sorted(MERGED_DIR.glob("*_metrics.csv"))
     if not csvs:
@@ -858,4 +990,24 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    ap = argparse.ArgumentParser(description="Ontology distance map / domain summary")
+    ap.add_argument(
+        "--domain-summary", metavar="DOMAIN",
+        help="Print within-domain distance JSON for DOMAIN (e.g. Automobile)",
+    )
+    ap.add_argument(
+        "--out", metavar="PATH",
+        help="Write --domain-summary output to this JSON file instead of stdout",
+    )
+    args = ap.parse_args()
+
+    if args.domain_summary:
+        out_path = (
+            Path(args.out) if args.out
+            else SUMMARIES_DIR / f"{args.domain_summary.lower()}_summary.json"
+        )
+        result = domain_distance_summary(args.domain_summary, out_path=out_path)
+        print(json.dumps(result, indent=2))
+    else:
+        main()

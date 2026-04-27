@@ -696,6 +696,11 @@ def run_pipeline(
         _CN_CSV = cn_csv
 
     path = Path(test_json_path)
+    if not path.exists():
+        raise FileNotFoundError(
+            f"Test JSON not found: {path}\n"
+            "Expected a file with 'json_a' and 'json_b' keys produced by run_all_pairs.py."
+        )
     data = json.loads(path.read_text(encoding="utf-8"))
     json_a = data.get("json_a", data)
     json_b = data.get("json_b", {})

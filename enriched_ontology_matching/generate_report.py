@@ -678,6 +678,19 @@ def generate(csv_path: Path, out_path: Path,
              nbr_dir: Path | None = None,
              lin_ic_dir: Path | None = None,
              emb_dir: Path | None = None) -> None:
+    """Generate a Markdown report from the combined enriched-matcher CSV.
+
+    Reads all_domains_combined.csv and joins neighbourhood coherence,
+    Lin-IC, and embedding results (when available) into a per-domain
+    Markdown report.
+
+    Raises FileNotFoundError if csv_path does not exist.
+    """
+    if not Path(csv_path).exists():
+        raise FileNotFoundError(
+            f"Combined CSV not found: {csv_path}\n"
+            "Run run_all_pairs.py first to generate the combined output."
+        )
     rows     = _load_csv(csv_path)
     by_domain: dict[str, list[dict]] = defaultdict(list)
     for r in rows:

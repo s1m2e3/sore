@@ -91,9 +91,26 @@ def _model_short(json_path: Path) -> str:
     return stem[:8]
 
 
-def discover_models(domain: str) -> list[Path]:
-    """Return all JSON model files for a domain, sorted."""
-    return sorted((_EXAMPLES / domain).glob("*.json"))
+def discover_models(domain: str, inputs_dir: Path = _EXAMPLES) -> list[Path]:
+    """Return all JSON model files for a domain directory, sorted by name.
+
+    Raises FileNotFoundError if the domain subdirectory does not exist.
+    Raises ValueError if the directory exists but contains no JSON files.
+    """
+    domain_dir = inputs_dir / domain
+    if not domain_dir.is_dir():
+        raise FileNotFoundError(
+            f"Domain directory not found: {domain_dir}\n"
+            f"Expected structure: {inputs_dir}/<Domain>/*.json\n"
+            f"Available domains: {[d.name for d in inputs_dir.iterdir() if d.is_dir()] if inputs_dir.is_dir() else '(inputs-dir not found)'}"
+        )
+    models = sorted(domain_dir.glob("*.json"))
+    if not models:
+        raise ValueError(
+            f"No JSON files found in {domain_dir}.\n"
+            "Each domain directory must contain at least 2 model JSON files."
+        )
+    return models
 
 
 # ---------------------------------------------------------------------------
@@ -213,8 +230,26 @@ def _run_pair(
 
 
 def main() -> None:
+    """Entry point for the end-to-end enriched ontology matching pipeline.
+
+    For each requested domain, discovers model JSONs under --inputs-dir/<Domain>/,
+    runs all within-domain pairs through the 5-step pipeline (AML+LogMap →
+    Layer 1 characterisation → neighbourhood coherence → Lin-IC → embeddings → merge),
+    combines results, and writes a Markdown report.
+
+    Use --inputs-dir to point at any directory that contains domain subdirectories
+    with JSON model files. Defaults to the built-in inputs/ directory.
+    """
     parser = argparse.ArgumentParser(
         description="Run enriched pipeline on model pairs (within-domain and/or cross-domain)."
+    )
+    parser.add_argument(
+        "--inputs-dir", default=str(_EXAMPLES), metavar="PATH",
+        help=(
+            "Root directory containing domain subdirectories with model JSON files. "
+            "Expected layout: <inputs-dir>/<Domain>/*.json  "
+            f"(default: {_EXAMPLES})"
+        ),
     )
     parser.add_argument(
         "--skip-existing", action="store_true",
@@ -222,7 +257,11 @@ def main() -> None:
     )
     parser.add_argument(
         "--domains", nargs="*", default=None,
-        help="Limit to specific domains (e.g. --domains Automobile Hospital).",
+        help=(
+            "Limit to specific domains (e.g. --domains Automobile Hospital). "
+            f"Known domains: {DOMAINS}. "
+            "Each domain must have a matching subdirectory under --inputs-dir."
+        ),
     )
     parser.add_argument(
         "--matcher", choices=["aml", "logmap", "both"], default="both",
@@ -233,6 +272,13 @@ def main() -> None:
         help="Also run cross-domain pairs (AML+LogMap across all selected domain pairs).",
     )
     args = parser.parse_args()
+
+    inputs_dir = Path(args.inputs_dir)
+    if not inputs_dir.is_dir():
+        raise FileNotFoundError(
+            f"--inputs-dir not found: {inputs_dir}\n"
+            "Create the directory and add domain subdirectories containing model JSON files."
+        )
 
     from enriched_matcher import run_pipeline
     from logmap_runner import _safe_local
@@ -261,17 +307,25 @@ def main() -> None:
     )
 
     domains = args.domains if args.domains else DOMAINS
+    for d in domains:
+        if d not in DOMAINS:
+            raise ValueError(
+                f"Unknown domain '{d}'. "
+                f"Valid options are: {DOMAINS}"
+            )
+
     all_pair_csvs: list[tuple[str, Path]] = []
 
     # ── Within-domain pairs ────────────────────────────────────────────────
     for domain in domains:
-        if domain not in DOMAINS:
-            print(f"[WARN] Unknown domain '{domain}'. Valid: {DOMAINS}")
+        try:
+            models = discover_models(domain, inputs_dir)
+        except (FileNotFoundError, ValueError) as exc:
+            print(f"[SKIP] {domain}: {exc}")
             continue
 
-        models = discover_models(domain)
         if len(models) < 2:
-            print(f"[WARN] {domain}: only {len(models)} model(s) found, skipping.")
+            print(f"[WARN] {domain}: only {len(models)} model(s) found — need at least 2.")
             continue
 
         d_short = _DOMAIN_SHORT.get(domain, domain.lower())
@@ -300,8 +354,8 @@ def main() -> None:
         print(f"{'='*60}")
 
         for domain_a, domain_b in itertools.combinations(valid_domains, 2):
-            models_a = discover_models(domain_a)
-            models_b = discover_models(domain_b)
+            models_a = discover_models(domain_a, inputs_dir)
+            models_b = discover_models(domain_b, inputs_dir)
             d_short_a = _DOMAIN_SHORT.get(domain_a, domain_a.lower())
             d_short_b = _DOMAIN_SHORT.get(domain_b, domain_b.lower())
 

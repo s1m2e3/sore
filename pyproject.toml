@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "enriched-ontology-matching"
+version = "1.0.0"
+description = "Five-layer semantic enrichment pipeline for pairwise ontology matching and domain distance analysis"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "nltk",
+    "requests",
+    "sentence-transformers",
+    "torch",
+    "plotly",
+    "scikit-learn",
+]
+
+[project.scripts]
+eom-run     = "enriched_ontology_matching.run_all_pairs:main"
+eom-compare = "enriched_ontology_matching.compare_stage:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["enriched_ontology_matching*"]
+
+[tool.setuptools.package-data]
+enriched_ontology_matching = [
+    "inputs/**/*.json",
+    "tools/**/*",
+]

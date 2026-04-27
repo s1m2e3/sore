@@ -242,10 +242,18 @@ _LIN_FIELDS = [
 
 
 def run_lin_ic(enriched_csv: Path, out_csv: Path) -> list[dict]:
+    """Read a per-pair enriched CSV, compute Lin-IC for every row, write to out_csv.
+
+    Returns the augmented rows. If the NLTK IC corpus is unavailable all lin_ic
+    values will be 0.0 (pipeline continues without failing).
+
+    Raises FileNotFoundError if enriched_csv does not exist.
     """
-    Read a per-pair enriched CSV, compute Lin-IC for every row,
-    write augmented rows to out_csv.  Returns the augmented rows.
-    """
+    if not Path(enriched_csv).exists():
+        raise FileNotFoundError(
+            f"Enriched CSV not found: {enriched_csv}\n"
+            "Run enriched_matcher.py for this pair first."
+        )
     ic, available = _get_ic()
 
     with open(enriched_csv, newline="", encoding="utf-8") as fh:

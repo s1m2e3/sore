@@ -2,7 +2,7 @@
 
 A five-layer semantic enrichment pipeline that runs structural matchers (AML + LogMap) over pairs of conceptual models and scores every entity pair using WordNet, ConceptNet, neighbourhood graph coherence, Lin Information-Content similarity, and sentence embedding cosine similarity.
 
-The final output is a clean **metrics-only CSV** per pair with one row per entity pair and one column per method.
+The primary use case is **within-domain analysis**: run all pairwise comparisons for a set of ontologies that share the same domain, then read the average pairwise distance between them as a JSON summary. Cross-domain comparisons and the interactive 3-D distance map are also supported as secondary outputs.
 
 ## Pipeline Overview
 
@@ -113,9 +113,9 @@ Network-schema models use `"name"` and `"participants"` instead of `"association
 
 ## Setup
 
-All commands are run from the **repository root**.
+All commands are run from the **repository root** (`sore/`).
 
-### Step 0 — Create virtual environment and install dependencies
+### Step 0 — Create a virtual environment and install the package
 
 ```bash
 # Create the venv
@@ -129,35 +129,49 @@ python -m venv .venv
 # macOS / Linux:
 source .venv/bin/activate
 
-# Install all dependencies
-pip install -r requirements.txt
+# Install the package and all dependencies (editable install — changes to
+# source files are reflected immediately without reinstalling)
+pip install -e .
 
 # Download required NLTK data (one-time)
 python -c "import nltk; nltk.download('wordnet'); nltk.download('omw-1.4'); nltk.download('wordnet_ic'); nltk.download('brown')"
 ```
 
-After this step, always use `.venv/Scripts/python.exe` (Windows) or `.venv/bin/python` (macOS/Linux) to run the pipeline scripts.
+After installation two CLI commands become available in the active environment:
+
+| Command | Description |
+|---------|-------------|
+| `eom-run` | Run the full pipeline (L1→L5) for one or more domains |
+| `eom-compare` | Generate a domain distance summary JSON or the interactive HTML map |
+
+These commands work from any directory once the venv is active.
 
 ---
 
-## Generating All Results (End-to-End)
+## Generating Results (End-to-End)
 
-The fastest way to generate everything is `run_all_pairs.py`. It discovers all model JSONs under each domain, generates every within-domain pair combination, and runs the full five-stage pipeline (L1 → L2 → L0 → L3 → L4 → L5) for each pair.
+The pipeline has two primary steps: run all pairwise comparisons for a domain, then compute the average distance summary.
 
-### Quick start — run all domains (within-domain + cross-domain) and generate HTML
+### Quick start — within-domain analysis (primary use case)
 
 ```bash
-# Step 1 — run all 630 pairs (within-domain and cross-domain)
-.venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --cross-domain
+# Step 1 — run all pairwise comparisons for one domain
+#   --inputs-dir  path to folder containing domain subdirectories with model JSONs
+#   --domains     which domain(s) to process
+eom-run --inputs-dir enriched_ontology_matching/inputs --domains Automobile
 
-# Step 2 — generate the interactive distance map
-.venv/Scripts/python.exe enriched_ontology_matching/compare_stage.py
+# Step 2 — get the average pairwise distance summary as JSON
+eom-compare --domain-summary Automobile
 ```
+
+Output: `enriched_ontology_matching/summaries/Automobile_summary.json`
+
+The JSON contains the domain name, number of ontologies, number of pairs, metric weights (fill-rate-based), `average_distance`, `average_composite`, and a ranked list of all pairs.
 
 `run_all_pairs.py` will:
 
-1. **Discover** all model JSON files per domain (Automobile, Coffee, Homebrewing, Hospital, SmartHome, University)
-2. **Generate pair JSONs** in `enriched_ontology_matching/pairs/` (e.g. `auto_V1_V2.json`)
+1. **Discover** all model JSON files in `<inputs-dir>/Automobile/`
+2. **Generate pair JSONs** in `enriched_ontology_matching/pairs/`
 3. **Run L1+L2** (AML + LogMap + WordNet + ConceptNet) → per-pair CSV in `outputs/enriched/`
 4. **Run L0** (neighbourhood coherence with `sqrt(WUP × cosine)`) → `outputs/neighbourhood/`
 5. **Run L3** (Lin-IC scoring) → `outputs/lin_ic/`
@@ -166,34 +180,76 @@ The fastest way to generate everything is `run_all_pairs.py`. It discovers all m
 8. **Combine** all per-pair CSVs into `outputs/enriched/all_domains_combined.csv`
 9. **Generate** a Markdown report at `outputs/all_domains_results.md`
 
-`compare_stage.py` then reads all merged CSVs and writes `outputs/ontology_map.html`.
+### Bring your own input models
+
+Point `--inputs-dir` at any directory that contains domain subdirectories with model JSON files:
+
+```
+my_models/
+  MyDomain/
+    Model_A.json
+    Model_B.json
+    Model_C.json
+```
+
+```bash
+eom-run --inputs-dir path/to/my_models --domains MyDomain
+
+eom-compare --domain-summary MyDomain --out path/to/my_models/MyDomain_summary.json
+```
+
+### Run multiple domains
+
+```bash
+eom-run --inputs-dir enriched_ontology_matching/inputs --domains Automobile Hospital University
+```
+
+Then generate a summary for each:
+
+```bash
+for domain in Automobile Hospital University; do
+  eom-compare --domain-summary $domain
+done
+```
 
 ### Re-run with cached results
 
 To skip pairs whose outputs already exist (e.g. after adding new models):
 
 ```bash
-.venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --cross-domain --skip-existing
-```
-
-### Run specific domains only
-
-```bash
-.venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --domains Automobile Hospital
+eom-run --inputs-dir enriched_ontology_matching/inputs --domains Automobile --skip-existing
 ```
 
 ### Use only one structural matcher
 
 ```bash
-.venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --matcher aml
+eom-run --matcher aml
 # or: --matcher logmap
 ```
 
 ---
 
+## Cross-Domain Analysis and Interactive Map (Secondary)
+
+The pipeline also supports cross-domain comparisons and an interactive 3-D distance map. These are secondary outputs — run all within-domain pairs first, then add cross-domain pairs.
+
+### Run all 630 pairs (within-domain + cross-domain) and generate HTML
+
+```bash
+# Step 1 — run all 630 pairs (within-domain and cross-domain)
+eom-run --cross-domain
+
+# Step 2 — generate the interactive distance map
+eom-compare
+```
+
+`compare_stage.py` (called without arguments) reads all merged CSVs and writes `outputs/ontology_map.html`.
+
+---
+
 ## Running Individual Stages Manually
 
-Use these commands to run a single pair through each stage independently.
+These commands invoke the underlying scripts directly with Python — useful for debugging a single pair. They assume the venv is active and you are running from the repository root (`sore/`).
 
 ### Step 1 — L1+L2: Structural Matching + Semantic Discovery
 
@@ -299,9 +355,54 @@ Rows with `matched=0` are pairs discovered only by the semantic layers (L2).
 
 ---
 
-## Regenerating the Ontology Distance Map (HTML)
+## Domain Distance Summary JSON
 
-The interactive 2-D map (`outputs/ontology_map.html`) is generated by `compare_stage.py` using sparsity-weighted MDS on the merged metrics. **All pair-to-pair comparisons must be complete before running this step.**
+`compare_stage.py --domain-summary` reads the merged metrics CSVs for all within-domain pairs of a given domain and produces a JSON summary.
+
+```bash
+eom-compare --domain-summary Automobile
+# writes: enriched_ontology_matching/summaries/Automobile_summary.json
+
+# Custom output path:
+eom-compare --domain-summary Automobile --out my_results/auto_summary.json
+```
+
+### Summary JSON schema
+
+```json
+{
+  "domain": "Automobile",
+  "n_ontologies": 6,
+  "n_pairs": 15,
+  "metric_weights": {
+    "cosine_avg": 0.98,
+    "wup": 1.0,
+    "lin_ic": 0.95,
+    "coherence_sym": 0.72
+  },
+  "average_distance": 0.376,
+  "average_composite": 0.675,
+  "pairs": [
+    {
+      "model_a": "Automobile_Model_V1_SystemCentric",
+      "model_b": "Automobile_Model_V2_UserCentric",
+      "distance": 0.21,
+      "composite": 0.84
+    }
+  ]
+}
+```
+
+- **`metric_weights`** — fill-rate of each metric across all available merged CSVs; used to weight the distance and composite calculations
+- **`average_distance`** — sparsity-weighted Euclidean distance averaged over all within-domain pairs (lower = more similar)
+- **`average_composite`** — fill-rate-weighted mean similarity score averaged over all pairs (higher = more similar)
+- **`pairs`** — all within-domain pairs, sorted by `distance` ascending (most similar first)
+
+---
+
+## Regenerating the Ontology Distance Map (HTML, Advanced)
+
+The interactive 2-D map (`outputs/ontology_map.html`) is generated by `compare_stage.py` (called without arguments) using sparsity-weighted MDS on the merged metrics. **All pair-to-pair comparisons must be complete before running this step.**
 
 ### Step 1 — Run all pairs first (if not already done)
 
@@ -309,9 +410,7 @@ Run the full pipeline across all six domains (within-domain) **and** all cross-d
 
 ```bash
 # Within-domain + cross-domain for all 6 domains, skipping completed pairs:
-.venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py \
-    --cross-domain \
-    --skip-existing
+eom-run --cross-domain --skip-existing
 ```
 
 This produces one `outputs/merged/*_metrics.csv` file per pair. For 6 domains × 6 models each, the full run covers **630 pairs** (C(36, 2)). Expect ~2–3 hours on first run; subsequent runs with `--skip-existing` are near-instant.
@@ -328,7 +427,7 @@ ls enriched_ontology_matching/outputs/merged/ | grep "_metrics.csv" | wc -l
 Once all merged CSVs are in place, regenerate the map with:
 
 ```bash
-.venv/Scripts/python.exe enriched_ontology_matching/compare_stage.py
+eom-compare
 ```
 
 Output: `enriched_ontology_matching/outputs/ontology_map.html`
@@ -349,8 +448,8 @@ Open it in any browser — no server required.
 
 | File | Purpose |
 |------|---------|
-| `run_all_pairs.py` | **Main entry point** — batch runner for all within- and cross-domain pairs (L1→L5) |
-| `compare_stage.py` | **HTML map generator** — sparsity-weighted MDS + interactive Plotly visualisation |
+| `run_all_pairs.py` | **Main entry point** — batch runner for within-domain (and optionally cross-domain) pairs (L1→L5); supports `--inputs-dir` and `--domains` |
+| `compare_stage.py` | **Summary + visualisation** — `--domain-summary DOMAIN` outputs a JSON distance summary; no args generates the interactive HTML map |
 | `enriched_matcher.py` | L1 (AML + LogMap structural merge) + L2 (WN+CN discovery) |
 | `neighbourhood_coherence.py` | L0 — graph neighbourhood semantic coherence |
 | `lin_ic_stage.py` | L3 — Lin Information-Content scoring |

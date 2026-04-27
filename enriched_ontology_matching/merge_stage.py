@@ -39,6 +39,7 @@ MERGED_FIELDS = [
 
 
 def _read_csv(path: Path) -> list[dict]:
+    """Read a CSV file and return its rows as dicts. Returns [] if path is None or missing."""
     if not path or not path.exists():
         return []
     with open(path, newline="", encoding="utf-8") as fh:
@@ -46,6 +47,7 @@ def _read_csv(path: Path) -> list[dict]:
 
 
 def _index(rows: list[dict]) -> dict[tuple, dict]:
+    """Build a (entity_a, entity_b) → row dict for fast keyed lookup."""
     return {(r["entity_a"], r["entity_b"]): r for r in rows}
 
 
@@ -56,6 +58,19 @@ def merge_pair(
     emb_csv: Path | None,
     out_csv: Path,
 ) -> list[dict]:
+    """Join per-pair stage CSVs into a single metrics-only flat CSV.
+
+    enriched_csv is required (it defines the entity pairs). The neighbourhood,
+    lin_ic, and emb CSVs are optional — missing files are silently skipped and
+    their metric columns will be empty in the output.
+
+    Raises FileNotFoundError if enriched_csv does not exist.
+    """
+    if not enriched_csv.exists():
+        raise FileNotFoundError(
+            f"Enriched CSV not found: {enriched_csv}\n"
+            "Run enriched_matcher.py for this pair first."
+        )
     base_rows = _read_csv(enriched_csv)
     nbr_idx   = _index(_read_csv(nbr_csv)    if nbr_csv    else [])
     lin_idx   = _index(_read_csv(lin_ic_csv) if lin_ic_csv else [])

@@ -350,8 +350,7 @@ def run_embedding_stage(
     out_csv: Path,
     model_name: str = DEFAULT_MODEL,
 ) -> list[dict]:
-    """
-    Read a per-pair enriched CSV, compute multi-representation cosine
+    """Read a per-pair enriched CSV, compute multi-representation cosine
     similarities for every row, write augmented rows to out_csv.
 
     Parameters
@@ -359,7 +358,12 @@ def run_embedding_stage(
     enriched_csv  : per-pair enriched CSV from enriched_matcher.py
     json_a, json_b : original model JSON files (for entity-name extraction)
     out_csv       : output CSV path
+
+    Raises FileNotFoundError if enriched_csv, json_a, or json_b do not exist.
     """
+    for label, p in [("enriched_csv", enriched_csv), ("json_a", json_a), ("json_b", json_b)]:
+        if not Path(p).exists():
+            raise FileNotFoundError(f"{label} not found: {p}")
     data_a = json.loads(Path(json_a).read_text(encoding="utf-8"))
     data_b = json.loads(Path(json_b).read_text(encoding="utf-8"))
 

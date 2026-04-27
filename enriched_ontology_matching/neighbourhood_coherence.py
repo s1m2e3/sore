@@ -316,6 +316,11 @@ def run_analysis(
     # ── Load model data ──────────────────────────────────────────────────────
     if pair_json is not None:
         p = Path(pair_json)
+        if not p.exists():
+            raise FileNotFoundError(
+                f"Pair JSON not found: {p}\n"
+                "Expected a file with 'json_a' and 'json_b' keys."
+            )
         combined = json.loads(p.read_text(encoding="utf-8"))
         data_a = combined.get("json_a", combined)
         data_b = combined.get("json_b", {})
@@ -324,6 +329,9 @@ def run_analysis(
     elif json_a is not None and json_b is not None:
         path_a = Path(json_a)
         path_b = Path(json_b)
+        for label, p in [("json_a", path_a), ("json_b", path_b)]:
+            if not p.exists():
+                raise FileNotFoundError(f"{label} not found: {p}")
         data_a = json.loads(path_a.read_text(encoding="utf-8"))
         data_b = json.loads(path_b.read_text(encoding="utf-8"))
         name_a = data_a.get("modelName", path_a.stem)

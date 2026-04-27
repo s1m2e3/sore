@@ -864,6 +864,9 @@ def main() -> None:
 
     path_a = Path(args.json_a)
     path_b = Path(args.json_b)
+    for label, p in [("json_a", path_a), ("json_b", path_b)]:
+        if not p.exists():
+            raise FileNotFoundError(f"{label} not found: {p}")
 
     with open(path_a, encoding="utf-8") as f:
         data_a = json.load(f)
