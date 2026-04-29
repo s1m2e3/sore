@@ -5,10 +5,11 @@ build-backend = "setuptools.backends.legacy:build"
 [project]
 name = "enriched-ontology-matching"
 version = "1.0.0"
-description = "Five-layer semantic enrichment pipeline for pairwise ontology matching and domain distance analysis"
+description = "Six-layer semantic enrichment pipeline for pairwise ontology matching and domain distance analysis"
 requires-python = ">=3.10"
 dependencies = [
     "numpy",
+    "scipy",
     "nltk",
     "requests",
     "sentence-transformers",

@@ -32,6 +32,7 @@ CLI
 
 from __future__ import annotations
 
+from collections import deque
 import json
 import re
 import subprocess
@@ -49,24 +50,36 @@ LOGMAP_JAR = _DIR / "tools" / "logmap" / "logmap-matcher-4.0.jar"
 # OWL TBox generation
 # ---------------------------------------------------------------------------
 
+# Shared namespace for observable/measurable types (Temperature, Torque, etc.).
+# Using the same IRI in both ontologies means a property with range obs:Temperature
+# in ontology A and obs:Temperature in ontology B share an identical range IRI,
+# giving AML/LogMap a strong structural anchor without any cross-ontology imports.
+_OBS_NS = "http://sore.project/observables#"
+
+
 def _safe_local(name: str) -> str:
     """Sanitise a string for use as an OWL IRI local fragment."""
     s = re.sub(r"[^A-Za-z0-9_]+", "_", str(name).strip())
     return re.sub(r"_+", "_", s).strip("_") or "Unknown"
 
 
+def _xml_escape(s: str) -> str:
+    return (s.replace("&", "&amp;")
+             .replace("<", "&lt;")
+             .replace(">", "&gt;")
+             .replace('"', "&quot;"))
+
+
 def _entities_from_json(json_data: dict) -> list[str]:
     """
-    Extract all entity and association names from a conceptual-model JSON.
+    Extract entity names from a conceptual-model JSON (entity classes only).
     Supports both Type-A (entityName) and Type-B (name) schemas.
+    Note: associations are no longer classes in the generated OWL TBox;
+    binary ones become ObjectProperties and n-ary ones become reification classes.
     """
     names: list[str] = []
     for ent in json_data.get("entities", []):
         name = ent.get("entityName") or ent.get("name", "")
-        if name:
-            names.append(name)
-    for assoc in json_data.get("associations", []):
-        name = assoc.get("associationName") or assoc.get("name", "")
         if name:
             names.append(name)
     return names
@@ -74,22 +87,70 @@ def _entities_from_json(json_data: dict) -> list[str]:
 
 def json_to_tbox_owl(json_data: dict, output_path: Path) -> None:
     """
-    Write a minimal OWL TBox file where every entity / association in
-    json_data becomes an owl:Class with an rdfs:label.
+    Write a rich OWL TBox that encodes entities, typed attribute properties,
+    and associations as first-class OWL constructs.
+
+    Entity classes
+        Every entity becomes owl:Class with rdfs:label.
+
+    Entity attribute properties
+        Each attribute { name, type } on an entity becomes a property whose
+        domain is the owning entity class:
+          - type names another entity class  → owl:ObjectProperty,
+                                               range = that entity class IRI
+          - type is an observable/measurable → owl:DatatypeProperty,
+                                               range = obs:<Type> (shared namespace)
+
+    Associations
+        Binary (2 participants)
+            → owl:ObjectProperty, domain = participant[0], range = participant[1].
+            Association attributes → owl:DatatypeProperty, domain = participant[0],
+            range = obs:<Type>.  Hanging them on the domain entity keeps the
+            triplet structure queryable without full OWL reification.
+
+        N-ary (3+ participants)
+            → owl:Class (reification node) + one owl:ObjectProperty per
+            participant (assocName__role1 … assocName__roleN) with
+            domain = association class, range = participant class.
+            Association attributes → owl:DatatypeProperty on the association class.
+
+    The shared obs: namespace means that if both ontologies declare a property
+    with range obs:Temperature, AML/LogMap see the same range IRI and treat
+    it as a structural correspondence signal.
 
     The ontology IRI is set to the file:/// URI of output_path so that
     LogMap's OWL API can resolve the file when saving alignment output.
-    Class IRIs are anchored to that same file URI.
 
     Parameters
     ----------
     json_data   : conceptual-model JSON dict (Type-A or Type-B schema)
     output_path : where to write the .owl file (must be absolute)
     """
-    # Use the file's own URI as ontology IRI — required so LogMap's OWL API
-    # can save the alignment output without "URI is not hierarchical" errors.
-    iri_base = output_path.resolve().as_uri()  # e.g. file:///C:/...ontology_a.owl
+    iri_base = output_path.resolve().as_uri()
 
+    # ── Collect entity local names for type discrimination ──────────────────
+    entity_locals: set[str] = {
+        _safe_local(e.get("entityName") or e.get("name", ""))
+        for e in json_data.get("entities", [])
+        if e.get("entityName") or e.get("name")
+    }
+
+    # ── Collect all observable types actually used (for class declarations) ─
+    # An attribute type is "observable" when it is NOT the local name of an
+    # entity class.  We also include the top-level observables list if present.
+    used_obs: set[str] = set(json_data.get("observables", []))
+    for ent in json_data.get("entities", []):
+        for attr in (ent.get("entityAttributes") or ent.get("attributes") or []):
+            t = attr.get("type", "")
+            if t and _safe_local(t) not in entity_locals:
+                used_obs.add(t)
+    for assoc in json_data.get("associations", []):
+        for attr in (assoc.get("associationAttributes") or assoc.get("attributes") or []):
+            t = attr.get("type", "")
+            if t and _safe_local(t) not in entity_locals:
+                used_obs.add(t)
+
+    # ── OWL header ───────────────────────────────────────────────────────────
     lines = [
         '<?xml version="1.0"?>',
         '<rdf:RDF',
@@ -99,15 +160,188 @@ def json_to_tbox_owl(json_data: dict, output_path: Path) -> None:
         f'  xml:base="{iri_base}">',
         f'  <owl:Ontology rdf:about="{iri_base}"/>',
     ]
-    for name in _entities_from_json(json_data):
-        local = _safe_local(name)
-        # Escape XML special chars in the label
-        label = name.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    # ── Observable classes (shared semantic anchors) ─────────────────────────
+    for obs in sorted(used_obs):
+        obs_iri = f"{_OBS_NS}{_safe_local(obs)}"
         lines += [
-            f'  <owl:Class rdf:about="{iri_base}#{local}">',
-            f'    <rdfs:label xml:lang="en">{label}</rdfs:label>',
+            f'  <owl:Class rdf:about="{obs_iri}">',
+            f'    <rdfs:label xml:lang="en">{_xml_escape(obs)}</rdfs:label>',
             f'  </owl:Class>',
         ]
+
+    # ── Entity classes ────────────────────────────────────────────────────────
+    for ent in json_data.get("entities", []):
+        name = ent.get("entityName") or ent.get("name", "")
+        if not name:
+            continue
+        lines += [
+            f'  <owl:Class rdf:about="{iri_base}#{_safe_local(name)}">',
+            f'    <rdfs:label xml:lang="en">{_xml_escape(name)}</rdfs:label>',
+            f'  </owl:Class>',
+        ]
+
+    # ── Entity attribute properties ───────────────────────────────────────────
+    for ent in json_data.get("entities", []):
+        ent_name = ent.get("entityName") or ent.get("name", "")
+        if not ent_name:
+            continue
+        ent_local = _safe_local(ent_name)
+        dom_iri = f"{iri_base}#{ent_local}"
+
+        for attr in (ent.get("entityAttributes") or ent.get("attributes") or []):
+            attr_name = attr.get("name", "")
+            attr_type = attr.get("type", "")
+            if not attr_name or not attr_type:
+                continue
+
+            prop_iri   = f"{iri_base}#{ent_local}__{_safe_local(attr_name)}"
+            prop_label = f"{ent_name}.{attr_name}"
+            type_local = _safe_local(attr_type)
+
+            if type_local in entity_locals:
+                # Structural reference to another entity class
+                lines += [
+                    f'  <owl:ObjectProperty rdf:about="{prop_iri}">',
+                    f'    <rdfs:label xml:lang="en">{_xml_escape(prop_label)}</rdfs:label>',
+                    f'    <rdfs:domain rdf:resource="{dom_iri}"/>',
+                    f'    <rdfs:range rdf:resource="{iri_base}#{type_local}"/>',
+                    f'  </owl:ObjectProperty>',
+                ]
+            else:
+                # Observable / measurable quantity
+                lines += [
+                    f'  <owl:DatatypeProperty rdf:about="{prop_iri}">',
+                    f'    <rdfs:label xml:lang="en">{_xml_escape(prop_label)}</rdfs:label>',
+                    f'    <rdfs:domain rdf:resource="{dom_iri}"/>',
+                    f'    <rdfs:range rdf:resource="{_OBS_NS}{type_local}"/>',
+                    f'  </owl:DatatypeProperty>',
+                ]
+
+    # ── Materialized transitive closure assertions ────────────────────────────
+    # BFS over entity-typed attribute chains so AML/LogMap see indirect
+    # observable reach without needing an OWL reasoner.
+    # E.g. Automobile → Engine → obs:Torque  emits Automobile__indirect__Torque.
+    # Only NEW (not already direct) observable types get extra properties.
+    _d_obs: dict[str, set[str]] = {}
+    _d_ch:  dict[str, set[str]] = {}
+    for _e in json_data.get("entities", []):
+        _n = _e.get("entityName") or _e.get("name", "")
+        if not _n:
+            continue
+        _el = _safe_local(_n)
+        _ch: set[str] = set()
+        _ob: set[str] = set()
+        for _a in (_e.get("entityAttributes") or _e.get("attributes") or []):
+            _t = _a.get("type", "")
+            if not _t:
+                continue
+            if _safe_local(_t) in entity_locals:
+                _ch.add(_safe_local(_t))
+            else:
+                _ob.add(_t)
+        _d_obs[_el] = _ob
+        _d_ch[_el]  = _ch
+
+    for _el in sorted(entity_locals):
+        _vis: set[str] = set()
+        _q: deque[str] = deque([_el])
+        _reach: set[str] = set()
+        while _q:
+            _node = _q.popleft()
+            if _node in _vis:
+                continue
+            _vis.add(_node)
+            _reach.update(_d_obs.get(_node, set()))
+            for _child in _d_ch.get(_node, set()):
+                if _child not in _vis:
+                    _q.append(_child)
+        _indirect = _reach - _d_obs.get(_el, set())
+        if not _indirect:
+            continue
+        _dom = f"{iri_base}#{_el}"
+        for _ot in sorted(_indirect):
+            _ol = _safe_local(_ot)
+            lines += [
+                f'  <owl:DatatypeProperty rdf:about="{iri_base}#{_el}__indirect__{_ol}">',
+                f'    <rdfs:label xml:lang="en">{_xml_escape(_el + " (via containment) " + _ot)}</rdfs:label>',
+                f'    <rdfs:domain rdf:resource="{_dom}"/>',
+                f'    <rdfs:range rdf:resource="{_OBS_NS}{_ol}"/>',
+                f'  </owl:DatatypeProperty>',
+            ]
+
+    # ── Associations ──────────────────────────────────────────────────────────
+    for assoc in json_data.get("associations", []):
+        assoc_name = assoc.get("associationName") or assoc.get("name", "")
+        if not assoc_name:
+            continue
+        assoc_local = _safe_local(assoc_name)
+
+        raw_parts = assoc.get("associationParticipants") or assoc.get("participants") or []
+        parts     = [_safe_local(p) for p in raw_parts if p]
+        assoc_attrs = assoc.get("associationAttributes") or assoc.get("attributes") or []
+
+        if len(parts) == 2:
+            # ── Binary: emit as owl:ObjectProperty with domain/range ─────────
+            dom_iri = f"{iri_base}#{parts[0]}"
+            rng_iri = f"{iri_base}#{parts[1]}"
+            lines += [
+                f'  <owl:ObjectProperty rdf:about="{iri_base}#{assoc_local}">',
+                f'    <rdfs:label xml:lang="en">{_xml_escape(assoc_name)}</rdfs:label>',
+                f'    <rdfs:domain rdf:resource="{dom_iri}"/>',
+                f'    <rdfs:range rdf:resource="{rng_iri}"/>',
+                f'  </owl:ObjectProperty>',
+            ]
+            # Association attributes hang on the domain entity
+            for attr in assoc_attrs:
+                attr_name = attr.get("name", "")
+                attr_type = attr.get("type", "")
+                if not attr_name or not attr_type:
+                    continue
+                prop_iri   = f"{iri_base}#{assoc_local}__{_safe_local(attr_name)}"
+                prop_label = f"{assoc_name}.{attr_name}"
+                lines += [
+                    f'  <owl:DatatypeProperty rdf:about="{prop_iri}">',
+                    f'    <rdfs:label xml:lang="en">{_xml_escape(prop_label)}</rdfs:label>',
+                    f'    <rdfs:domain rdf:resource="{dom_iri}"/>',
+                    f'    <rdfs:range rdf:resource="{_OBS_NS}{_safe_local(attr_type)}"/>',
+                    f'  </owl:DatatypeProperty>',
+                ]
+
+        elif len(parts) >= 3:
+            # ── N-ary: reification class + one ObjectProperty per participant ─
+            assoc_iri = f"{iri_base}#{assoc_local}"
+            lines += [
+                f'  <owl:Class rdf:about="{assoc_iri}">',
+                f'    <rdfs:label xml:lang="en">{_xml_escape(assoc_name)}</rdfs:label>',
+                f'  </owl:Class>',
+            ]
+            for i, p_local in enumerate(parts):
+                raw_name   = raw_parts[i] if i < len(raw_parts) else p_local
+                role_iri   = f"{assoc_iri}__role{i + 1}"
+                role_label = f"{assoc_name} involves {raw_name}"
+                lines += [
+                    f'  <owl:ObjectProperty rdf:about="{role_iri}">',
+                    f'    <rdfs:label xml:lang="en">{_xml_escape(role_label)}</rdfs:label>',
+                    f'    <rdfs:domain rdf:resource="{assoc_iri}"/>',
+                    f'    <rdfs:range rdf:resource="{iri_base}#{p_local}"/>',
+                    f'  </owl:ObjectProperty>',
+                ]
+            for attr in assoc_attrs:
+                attr_name = attr.get("name", "")
+                attr_type = attr.get("type", "")
+                if not attr_name or not attr_type:
+                    continue
+                prop_iri   = f"{assoc_iri}__{_safe_local(attr_name)}"
+                prop_label = f"{assoc_name}.{attr_name}"
+                lines += [
+                    f'  <owl:DatatypeProperty rdf:about="{prop_iri}">',
+                    f'    <rdfs:label xml:lang="en">{_xml_escape(prop_label)}</rdfs:label>',
+                    f'    <rdfs:domain rdf:resource="{assoc_iri}"/>',
+                    f'    <rdfs:range rdf:resource="{_OBS_NS}{_safe_local(attr_type)}"/>',
+                    f'  </owl:DatatypeProperty>',
+                ]
+
     lines.append('</rdf:RDF>')
     output_path.write_text("\n".join(lines), encoding="utf-8")
 

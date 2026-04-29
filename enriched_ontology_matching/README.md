@@ -1,6 +1,6 @@
 # Enriched Ontology Matching Pipeline
 
-A five-layer semantic enrichment pipeline that runs structural matchers (AML + LogMap) over pairs of conceptual models and scores every entity pair using WordNet, ConceptNet, neighbourhood graph coherence, Lin Information-Content similarity, and sentence embedding cosine similarity.
+A six-layer semantic enrichment pipeline that runs structural matchers (AML + LogMap) over pairs of conceptual models and scores every entity pair using WordNet, ConceptNet, neighbourhood graph coherence, Lin Information-Content similarity, sentence embedding cosine similarity, and NLI-based containment entailment.
 
 The primary use case is **within-domain analysis**: run all pairwise comparisons for a set of ontologies that share the same domain, then read the average pairwise distance between them as a JSON summary. Cross-domain comparisons and the interactive 3-D distance map are also supported as secondary outputs.
 
@@ -13,7 +13,8 @@ The primary use case is **within-domain analysis**: run all pairwise comparisons
 | **L2** | Semantic Discovery | WordNet + ConceptNet discover additional equivalence/subsumption candidates among *unmatched* entities |
 | **L3** | Lin-IC Scoring | Corpus-based Lin Information Content (Brown corpus) scores every L1+L2 pair |
 | **L4** | Sentence Embedding | `paraphrase-MiniLM-L6-v2` cosine similarity per entity pair |
-| **L5** | Merge | Joins all layer outputs into one metrics-only CSV |
+| **L5** | Containment Closure | Cross-encoder NLI (`nli-MiniLM2-L6-H768`) scores directional entailment between observable-type signatures for every A×B entity pair |
+| **L6** | Merge | Joins all layer outputs into one metrics-only CSV |
 
 ---
 
@@ -137,11 +138,20 @@ pip install -e .
 python -c "import nltk; nltk.download('wordnet'); nltk.download('omw-1.4'); nltk.download('wordnet_ic'); nltk.download('brown')"
 ```
 
+**GPU note (recommended for L5 NLI):** install the CUDA-enabled PyTorch build before `pip install -e .` for faster NLI inference:
+
+```bash
+pip install torch --index-url https://download.pytorch.org/whl/cu126
+pip install -e .
+```
+
+The NLI model (`cross-encoder/nli-MiniLM2-L6-H768`) is downloaded automatically on first run and cached under `enriched_ontology_matching/models/`. Subsequent runs load it from the local cache.
+
 After installation two CLI commands become available in the active environment:
 
 | Command | Description |
 |---------|-------------|
-| `eom-run` | Run the full pipeline (L1→L5) for one or more domains |
+| `eom-run` | Run the full pipeline (L1→L6) for one or more domains |
 | `eom-compare` | Generate a domain distance summary JSON or the interactive HTML map |
 
 These commands work from any directory once the venv is active.
@@ -176,9 +186,10 @@ The JSON contains the domain name, number of ontologies, number of pairs, metric
 4. **Run L0** (neighbourhood coherence with `sqrt(WUP × cosine)`) → `outputs/neighbourhood/`
 5. **Run L3** (Lin-IC scoring) → `outputs/lin_ic/`
 6. **Run L4** (sentence embedding cosine) → `outputs/embeddings/`
-7. **Run L5** (merge all metrics) → `outputs/merged/<ModelA>_vs_<ModelB>_metrics.csv`
-8. **Combine** all per-pair CSVs into `outputs/enriched/all_domains_combined.csv`
-9. **Generate** a Markdown report at `outputs/all_domains_results.md`
+7. **Run L5** (NLI containment closure — entailment between observable-type signatures) → `outputs/closure/`
+8. **Run L6** (merge all metrics) → `outputs/merged/<ModelA>_vs_<ModelB>_metrics.csv`
+9. **Combine** all per-pair CSVs into `outputs/enriched/all_domains_combined.csv`
+10. **Generate** a Markdown report at `outputs/all_domains_results.md`
 
 ### Bring your own input models
 
@@ -291,7 +302,20 @@ Coherence is computed as `sqrt(WUP × cosine)` per neighbour pair (geometric mea
     --out enriched_ontology_matching/outputs/embeddings/auto_V1_V2_emb.csv
 ```
 
-### Step 5 — L5: Merge into Metrics CSV
+### Step 5 — L5: Containment Closure (NLI Entailment)
+
+Requires the two raw model JSON files (not the pair JSON):
+
+```bash
+.venv/Scripts/python.exe enriched_ontology_matching/containment_closure.py \
+    --json-a enriched_ontology_matching/inputs/Automobile/Automobile_Model_V1_SystemCentric.json \
+    --json-b enriched_ontology_matching/inputs/Automobile/Automobile_Model_V2_ComponentCentric.json \
+    --out    enriched_ontology_matching/outputs/closure/auto_V1_V2_closure.csv
+```
+
+The NLI model is loaded from `enriched_ontology_matching/models/` on subsequent runs. The first run downloads and caches it automatically.
+
+### Step 6 — L6: Merge into Metrics CSV
 
 ```bash
 .venv/Scripts/python.exe enriched_ontology_matching/merge_stage.py \
@@ -299,6 +323,7 @@ Coherence is computed as `sqrt(WUP × cosine)` per neighbour pair (geometric mea
     --nbr      enriched_ontology_matching/outputs/neighbourhood/auto_V1_V2_coherence.csv \
     --lin-ic   enriched_ontology_matching/outputs/lin_ic/auto_V1_V2_lin_ic.csv \
     --emb      enriched_ontology_matching/outputs/embeddings/auto_V1_V2_emb.csv \
+    --closure  enriched_ontology_matching/outputs/closure/auto_V1_V2_closure.csv \
     --out      enriched_ontology_matching/outputs/merged/<stem>_metrics.csv
 ```
 
@@ -308,8 +333,10 @@ Coherence is computed as `sqrt(WUP × cosine)` per neighbour pair (geometric mea
 
 ```
 enriched_ontology_matching/
+├── models/
+│   └── cross-encoder--nli-MiniLM2-L6-H768/    # NLI model cache (auto-downloaded)
 ├── pairs/
-│   └── auto_V1_V2.json                        # generated pair JSON (json_a + json_b)
+│   └── auto_V1_V2.json                         # generated pair JSON (json_a + json_b)
 ├── outputs/
 │   ├── enriched/
 │   │   ├── <ModelA>_vs_<ModelB>.csv            # L1+L2 per-pair CSV
@@ -320,8 +347,10 @@ enriched_ontology_matching/
 │   │   └── <key>_lin_ic.csv                    # L3 Lin-IC scores
 │   ├── embeddings/
 │   │   └── <key>_emb.csv                       # L4 embedding cosine scores
+│   ├── closure/
+│   │   └── <ModelA>_vs_<ModelB>_closure.csv    # L5 NLI entailment scores
 │   ├── merged/
-│   │   └── <ModelA>_vs_<ModelB>_metrics.csv    # final metrics CSV
+│   │   └── <ModelA>_vs_<ModelB>_metrics.csv    # final metrics CSV (L6)
 │   └── all_domains_results.md                  # human-readable summary report
 └── tools/
     ├── logmap/
@@ -337,21 +366,45 @@ enriched_ontology_matching/
 
 ## Merged CSV Format
 
-Each `outputs/merged/*_metrics.csv` has one row per entity pair and 7 columns:
+Each `outputs/merged/*_metrics.csv` has one row per entity pair and 10 columns:
 
 | Column | Type | Description |
 |--------|------|-------------|
 | `entity_a` | string | Entity name from model A |
 | `entity_b` | string | Entity name from model B |
-| `matched` | 0 / 1 | 1 if AML or LogMap (or both) found this pair |
+| `matched` | 0 / 1 | 1 if AML or LogMap (or both) found this pair; also used as a similarity signal in composite scoring, weighted by its global positive rate |
 | `wup` | float 0–1 | Blended WUP score: `(max_wup + avg_wup) / 2` across all token-pair combinations |
 | `lin_ic` | float 0–1 | Lin Information Content similarity (best token pair, Brown corpus) |
 | `coherence_sym` | float 0–1 | Symmetric neighbourhood coherence (`sqrt(WUP × cosine)` geometric mean) |
 | `cosine_avg` | float 0–1 | Token-average sentence embedding cosine similarity |
+| `entailment_a_covers_b` | float 0–1 | P(A's observable-type signature entails B's) from NLI cross-encoder |
+| `entailment_b_covers_a` | float 0–1 | P(B's observable-type signature entails A's) from NLI cross-encoder |
+| `entailment_f1` | float 0–1 | `max(entailment_a_covers_b, entailment_b_covers_a)` — captures the strongest directional relationship (equivalence or subsumption) |
 
-Rows with `matched=0` are pairs discovered only by the semantic layers (L2).
+> **Note on `entailment_f1` naming:** the column is named `entailment_f1` for historical reasons but its value is the directional max, not a harmonic mean. It captures subsumption correctly: a larger concept entails a smaller one (high score in one direction) without requiring symmetry.
 
-> **Note on `wup`**: For multi-word entity names (e.g. `CoffeeMakerAssembly`), names are tokenised and WUP is evaluated over all possible token-pair combinations. The merged `wup` value is `(max_wup + avg_wup) / 2` — a blend that captures both the best single-token match and the overall average, penalising entities with unmatched tokens.
+> **Note on `wup`:** for multi-word entity names (e.g. `CoffeeMakerAssembly`), names are tokenised and WUP is evaluated over all possible token-pair combinations. The merged `wup` value is `(max_wup + avg_wup) / 2` — a blend that captures both the best single-token match and the overall average.
+
+---
+
+## Composite Scoring and Metric Weights
+
+`compare_stage.py` computes a composite similarity score for each ontology pair by taking a weighted mean of the five per-entity-pair metrics across all entity pairs in that pair's merged CSV. The weight for each metric is its **global positive rate** — the fraction of all entity-pair rows (across every merged CSV) where the metric value is non-zero.
+
+This sparsity-based weighting automatically down-weights metrics that are rarely populated (e.g. `coherence_sym` and `entailment_f1` fire on fewer pairs than `wup` or `cosine_avg`) and amplifies them as more domains are processed.
+
+Approximate weights with all six domains fully processed:
+
+| Metric | Positive rate | Norm weight |
+|--------|--------------|-------------|
+| `cosine_avg` | ~1.00 | ~0.29 |
+| `wup` | ~1.00 | ~0.29 |
+| `lin_ic` | ~0.99 | ~0.29 |
+| `matched` | ~0.10 | ~0.03 |
+| `entailment_f1` | ~0.06 | ~0.02 |
+| `coherence_sym` | ~0.32 | ~0.09 |
+
+Weights shift as more domains have their closure stage completed — `entailment_f1` weight increases substantially when ontologies with rich observable-attribute hierarchies (e.g. Coffee, Homebrewing) are included.
 
 ---
 
@@ -375,25 +428,31 @@ eom-compare --domain-summary Automobile --out my_results/auto_summary.json
   "n_ontologies": 6,
   "n_pairs": 15,
   "metric_weights": {
-    "cosine_avg": 0.98,
-    "wup": 1.0,
-    "lin_ic": 0.95,
-    "coherence_sym": 0.72
+    "cosine_avg": 0.999,
+    "wup": 1.000,
+    "lin_ic": 0.989,
+    "coherence_sym": 0.146,
+    "entailment_f1": 0.335,
+    "matched": 0.798
   },
   "average_distance": 0.376,
   "average_composite": 0.675,
   "pairs": [
     {
-      "model_a": "Automobile_Model_V1_SystemCentric",
-      "model_b": "Automobile_Model_V2_UserCentric",
+      "ont_a": "Automobile_Model_V1_SystemCentric",
+      "ont_b": "Automobile_Model_V2_ComponentCentric",
       "distance": 0.21,
-      "composite": 0.84
+      "composite": 0.84,
+      "n_entity_pairs": 291,
+      "metrics": {
+        "cosine_avg": {"mean": 0.912, "weight": 0.999}
+      }
     }
   ]
 }
 ```
 
-- **`metric_weights`** — fill-rate of each metric across all available merged CSVs; used to weight the distance and composite calculations
+- **`metric_weights`** — positive rate of each metric across all available merged CSVs; used to weight the distance and composite calculations
 - **`average_distance`** — sparsity-weighted Euclidean distance averaged over all within-domain pairs (lower = more similar)
 - **`average_composite`** — fill-rate-weighted mean similarity score averaged over all pairs (higher = more similar)
 - **`pairs`** — all within-domain pairs, sorted by `distance` ascending (most similar first)
@@ -402,7 +461,7 @@ eom-compare --domain-summary Automobile --out my_results/auto_summary.json
 
 ## Regenerating the Ontology Distance Map (HTML, Advanced)
 
-The interactive 2-D map (`outputs/ontology_map.html`) is generated by `compare_stage.py` (called without arguments) using sparsity-weighted MDS on the merged metrics. **All pair-to-pair comparisons must be complete before running this step.**
+The interactive 3-D map (`outputs/ontology_map.html`) is generated by `compare_stage.py` (called without arguments) using sparsity-weighted regularised MDS on the merged metrics. **All pair-to-pair comparisons must be complete before running this step.**
 
 ### Step 1 — Run all pairs first (if not already done)
 
@@ -448,13 +507,14 @@ Open it in any browser — no server required.
 
 | File | Purpose |
 |------|---------|
-| `run_all_pairs.py` | **Main entry point** — batch runner for within-domain (and optionally cross-domain) pairs (L1→L5); supports `--inputs-dir` and `--domains` |
+| `run_all_pairs.py` | **Main entry point** — batch runner for within-domain (and optionally cross-domain) pairs (L1→L6); supports `--inputs-dir` and `--domains` |
 | `compare_stage.py` | **Summary + visualisation** — `--domain-summary DOMAIN` outputs a JSON distance summary; no args generates the interactive HTML map |
 | `enriched_matcher.py` | L1 (AML + LogMap structural merge) + L2 (WN+CN discovery) |
 | `neighbourhood_coherence.py` | L0 — graph neighbourhood semantic coherence |
 | `lin_ic_stage.py` | L3 — Lin Information-Content scoring |
 | `semantic_encoder.py` | L4 — sentence embedding cosine similarity |
-| `merge_stage.py` | L5 — join all stages into metrics-only CSV |
+| `containment_closure.py` | L5 — NLI cross-encoder entailment between observable-type signatures; model cached under `models/` |
+| `merge_stage.py` | L6 — join all stages into metrics-only CSV |
 | `aml_runner.py` | Wrapper around the AML JAR |
 | `logmap_runner.py` | Wrapper around the LogMap JAR |
 | `root_comparator.py` | CamelCase splitting, WUP, ConceptNet CSV lookup |

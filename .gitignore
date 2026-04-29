@@ -45,6 +45,7 @@ tools/
 ontology_matching/inputs/conceptnet-assertions-5.7.0.csv.gz
 ontology_matching/inputs/conceptnet-assertions-5.7.0.csv/
 ontology_matching/models/
+enriched_ontology_matching/models/
 
 # Log files
 *.log
@@ -77,3 +78,17 @@ enriched_ontology_matching/float
 enriched_ontology_matching/thresh
 enriched_ontology_matching/np.ndarray
 enriched_ontology_matching/{*
+
+# Stray type-annotation debug files
+5
+reification
+enriched_ontology_matching/dict
+enriched_ontology_matching/list[*
+enriched_ontology_matching/tuple[*
+enriched_ontology_matching/summaries/
+enriched_ontology_matching/list[Path]
+enriched_ontology_matching/list[dict]
+enriched_ontology_matching/tuple[str
+enriched_ontology_matching/list\[Path\]
+enriched_ontology_matching/list\[dict\]
+enriched_ontology_matching/tuple\[str

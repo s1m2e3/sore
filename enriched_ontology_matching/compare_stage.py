@@ -28,7 +28,7 @@ OUT_HTML      = ROOT / "outputs" / "ontology_map.html"
 SUMMARIES_DIR = ROOT / "summaries"
 
 # ── metric columns in merged CSVs ──────────────────────────────────────────────
-METRICS = ["cosine_avg", "wup", "lin_ic", "coherence_sym"]
+METRICS = ["cosine_avg", "wup", "lin_ic", "coherence_sym", "entailment_f1", "matched"]
 CONTINUOUS = METRICS  # alias kept for backward compat
 
 
@@ -89,6 +89,7 @@ def load_pair_metrics(csv_path: Path) -> dict:
         return {"n_pairs": 0, "composite": None, "enriched": False,
                 "wup": 0.0, "lin_ic": 0.0,
                 "coherence_sym": 0.0, "cosine_avg": 0.0,
+                "entailment_f1": 0.0, "matched": 0.0,
                 "match_rate": 0.0}
 
     matched_count = sum(1 for r in rows if _parse_float(r.get("matched")) == 1.0)
@@ -102,14 +103,16 @@ def load_pair_metrics(csv_path: Path) -> dict:
     enriched = any(v is not None for v in col_vals["cosine_avg"])
 
     return {
-        "n_pairs":       len(rows),
-        "composite":     None,   # filled later by main()
-        "enriched":      enriched,
-        "match_rate":    matched_count / len(rows),
-        "cosine_avg":    safe_mean(col_vals["cosine_avg"]),
-        "wup":           safe_mean(col_vals["wup"]),
-        "lin_ic":        safe_mean(col_vals["lin_ic"]),
-        "coherence_sym": safe_mean(col_vals["coherence_sym"]),
+        "n_pairs":               len(rows),
+        "composite":             None,   # filled later by main()
+        "enriched":              enriched,
+        "match_rate":            matched_count / len(rows),
+        "cosine_avg":            safe_mean(col_vals["cosine_avg"]),
+        "wup":                   safe_mean(col_vals["wup"]),
+        "lin_ic":                safe_mean(col_vals["lin_ic"]),
+        "coherence_sym":         safe_mean(col_vals["coherence_sym"]),
+        "entailment_f1":         safe_mean(col_vals["entailment_f1"]),
+        "matched":               safe_mean(col_vals["matched"]),
     }
 
 

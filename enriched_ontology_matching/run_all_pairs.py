@@ -141,10 +141,11 @@ def _run_pair(
     run_lin_ic,
     run_embedding_stage,
     merge_pair,
+    run_closure_stage,
     _safe_local,
 ) -> tuple[str, Path] | None:
     """
-    Run the full 5-step pipeline for a single model pair (a, b).
+    Run the full 6-step pipeline for a single model pair (a, b).
 
     Returns (domain_key, enriched_csv_path) on success, None on failure.
     """
@@ -157,10 +158,11 @@ def _run_pair(
     stem     = f"{_safe_local(name_a)}_vs_{_safe_local(name_b)}"
     pair_csv = _ENRICHED / f"{stem}.csv"
 
-    nbr_csv    = _NBR_DIR    / f"{domain_key}_coherence.csv"
-    lin_ic_csv = _LIN_IC_DIR / f"{domain_key}_lin_ic.csv"
-    emb_csv    = _EMB_DIR    / f"{domain_key}_emb.csv"
-    merged_csv = _MERGED_DIR / f"{stem}_metrics.csv"
+    nbr_csv     = _NBR_DIR    / f"{domain_key}_coherence.csv"
+    lin_ic_csv  = _LIN_IC_DIR / f"{domain_key}_lin_ic.csv"
+    emb_csv     = _EMB_DIR    / f"{domain_key}_emb.csv"
+    closure_csv = _DIR / "outputs" / "closure" / f"{stem}_closure.csv"
+    merged_csv  = _MERGED_DIR / f"{stem}_metrics.csv"
 
     # ── Step 1: Enriched pipeline ────────────────────────────────────────
     if skip_existing and pair_csv.exists():
@@ -211,16 +213,26 @@ def _run_pair(
         except Exception as exc:
             print(f"    [WARN] Embedding failed for {domain_key}: {exc}")
 
-    # ── Step 5: Merge ────────────────────────────────────────────────────
+    # ── Step 5: Containment closure ──────────────────────────────────────
+    if skip_existing and closure_csv.exists():
+        print(f"    [SKIP] Closure for {domain_key}")
+    else:
+        try:
+            run_closure_stage(data_a, data_b, out_csv=closure_csv)
+        except Exception as exc:
+            print(f"    [WARN] Closure failed for {domain_key}: {exc}")
+
+    # ── Step 6: Merge ────────────────────────────────────────────────────
     if skip_existing and merged_csv.exists():
         print(f"    [SKIP] Merge for {domain_key}")
     else:
         try:
             merge_pair(
                 enriched_csv = csv_path,
-                nbr_csv      = nbr_csv      if nbr_csv.exists()     else None,
-                lin_ic_csv   = lin_ic_csv   if lin_ic_csv.exists()  else None,
-                emb_csv      = emb_csv      if emb_csv.exists()     else None,
+                nbr_csv      = nbr_csv      if nbr_csv.exists()      else None,
+                lin_ic_csv   = lin_ic_csv   if lin_ic_csv.exists()   else None,
+                emb_csv      = emb_csv      if emb_csv.exists()      else None,
+                closure_csv  = closure_csv  if closure_csv.exists()  else None,
                 out_csv      = merged_csv,
             )
         except Exception as exc:
@@ -286,6 +298,7 @@ def main() -> None:
     from lin_ic_stage import run_lin_ic
     from semantic_encoder import run_embedding_stage
     from merge_stage import merge_pair
+    from containment_closure import run_closure_stage
 
     _PAIRS_DIR.mkdir(exist_ok=True)
     _ENRICHED.mkdir(parents=True, exist_ok=True)
@@ -293,17 +306,19 @@ def main() -> None:
     _LIN_IC_DIR.mkdir(parents=True, exist_ok=True)
     _EMB_DIR.mkdir(parents=True, exist_ok=True)
     _MERGED_DIR.mkdir(parents=True, exist_ok=True)
+    (_DIR / "outputs" / "closure").mkdir(parents=True, exist_ok=True)
 
     pipeline_kwargs = dict(
-        skip_existing      = args.skip_existing,
-        use_aml            = args.matcher in ("aml",    "both"),
-        use_logmap         = args.matcher in ("logmap", "both"),
-        run_pipeline       = run_pipeline,
-        nbr_analysis       = nbr_analysis,
-        run_lin_ic         = run_lin_ic,
-        run_embedding_stage= run_embedding_stage,
-        merge_pair         = merge_pair,
-        _safe_local        = _safe_local,
+        skip_existing       = args.skip_existing,
+        use_aml             = args.matcher in ("aml",    "both"),
+        use_logmap          = args.matcher in ("logmap", "both"),
+        run_pipeline        = run_pipeline,
+        nbr_analysis        = nbr_analysis,
+        run_lin_ic          = run_lin_ic,
+        run_embedding_stage = run_embedding_stage,
+        merge_pair          = merge_pair,
+        run_closure_stage   = run_closure_stage,
+        _safe_local         = _safe_local,
     )
 
     domains = args.domains if args.domains else DOMAINS
