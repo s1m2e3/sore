@@ -80,22 +80,16 @@ _VERB_TOKENS = {
 }
 
 # ---------------------------------------------------------------------------
-# Lazy sentence-transformer model
+# Sentence-transformer model — reuse semantic_encoder's singleton to avoid
+# loading two copies of the same paraphrase-MiniLM-L6-v2 into VRAM.
 # ---------------------------------------------------------------------------
-_ENCODER = None
-
 
 def _get_encoder():
-    global _ENCODER
-    if _ENCODER is None:
-        try:
-            from sentence_transformers import SentenceTransformer
-            _ENCODER = SentenceTransformer("paraphrase-MiniLM-L6-v2")
-            print("[Encoder] paraphrase-MiniLM-L6-v2 loaded.")
-        except ImportError:
-            print("[Encoder] sentence-transformers not installed — cosine fallback to WUP.")
-            _ENCODER = False
-    return _ENCODER
+    try:
+        from semantic_encoder import _get_encoder as _se_get_encoder, DEFAULT_MODEL
+        return _se_get_encoder(DEFAULT_MODEL)
+    except Exception:
+        return None
 
 
 def _build_emb_cache(names: list[str]) -> dict[str, np.ndarray]:
@@ -161,30 +155,8 @@ def _extract_verb_tokens(assoc_name: str) -> list[str]:
 # Semantic scoring
 # ---------------------------------------------------------------------------
 
-def _semantic_score(na: str, nb: str, emb_cache: dict) -> float:
-    """
-    Geometric mean of WUP and cosine similarity for a neighbour entity pair.
-
-    sqrt(wup * cosine) requires BOTH signals to be high:
-      - WordNet topology accident (high WUP, low cosine) → score stays low
-      - Embedding-only match (low WUP, high cosine) → partial credit
-      - Confirmed semantic match (high WUP, high cosine) → full credit
-    """
-    r   = characterise_entity_pair(na, nb)
-    wup = float(r.get("max_wup", r.get("wup_score", 0.0)))
-
-    va = emb_cache.get(na)
-    vb = emb_cache.get(nb)
-    if va is not None and vb is not None:
-        cos = max(0.0, float(np.dot(va, vb)))
-    else:
-        cos = wup  # graceful fallback when encoder unavailable
-
-    return sqrt(wup * cos)
-
-
 # ---------------------------------------------------------------------------
-# Coherence scorer
+# Coherence scorer — vectorised matrix approach
 # ---------------------------------------------------------------------------
 
 def neighbourhood_coherence(
@@ -197,15 +169,20 @@ def neighbourhood_coherence(
     """
     Compute semantic neighbourhood coherence for a matched entity pair (ea, eb).
 
-    coherence_a2b — mean over na in nbrs_A of max_nb(semantic_score(na, nb))
-    coherence_b2a — mean over nb in nbrs_B of max_na(semantic_score(nb, na))
+    coherence_a2b — mean over na in nbrs_A of max_nb(score(na, nb))
+    coherence_b2a — mean over nb in nbrs_B of max_na(score(nb, na))
     coherence_sym — (coherence_a2b + coherence_b2a) / 2   [0–1, continuous]
 
-    Both directions use sqrt(wup * cosine) per neighbour pair so that WUP
-    inflation from shared WordNet ancestors is killed by low cosine.
+    score(na, nb) = sqrt(wup * cosine).  The geometric mean kills WUP inflation
+    from shared WordNet ancestors when cosine is low.
+
+    Vectorised: builds a (|A| × |B|) WUP matrix via cached characterise_entity_pair
+    calls, then computes the cosine matrix in one BLAS matrix-multiply, applies
+    sqrt element-wise, and extracts row/column max with numpy — replacing the
+    previous 2 × |A| × |B| Python loops.
     """
-    nbrs_a = adj_a.get(ea, set())
-    nbrs_b = adj_b.get(eb, set())
+    nbrs_a = sorted(adj_a.get(ea, set()))
+    nbrs_b = sorted(adj_b.get(eb, set()))
 
     result = {
         "entity_a": ea, "entity_b": eb,
@@ -218,33 +195,56 @@ def neighbourhood_coherence(
     if not nbrs_a or not nbrs_b:
         return result
 
-    # A → B
-    scores_a2b: list[float] = []
-    all_pairs: list[tuple[float, str, str]] = []
-    for na in nbrs_a:
-        best = 0.0
-        best_nb = ""
-        for nb in nbrs_b:
-            s = _semantic_score(na, nb, emb_cache)
-            if s > best:
-                best = s
-                best_nb = nb
-        scores_a2b.append(best)
-        all_pairs.append((best, na, best_nb))
+    na, nb = len(nbrs_a), len(nbrs_b)
 
-    # B → A
-    scores_b2a: list[float] = []
-    for nb in nbrs_b:
-        best = 0.0
-        for na in nbrs_a:
-            s = _semantic_score(nb, na, emb_cache)
-            if s > best:
-                best = s
-        scores_b2a.append(best)
+    # ── WUP matrix  (|A| × |B|) ─────────────────────────────────────────────
+    # characterise_entity_pair is LRU-cached so this is O(1) per call after
+    # the first encounter; the Python loop is unavoidable but fast.
+    wup_mat = np.empty((na, nb), dtype=np.float32)
+    for i, na_name in enumerate(nbrs_a):
+        for j, nb_name in enumerate(nbrs_b):
+            r = characterise_entity_pair(na_name, nb_name)
+            wup_mat[i, j] = float(r.get("max_wup", r.get("wup_score", 0.0)))
 
-    avg_a2b = sum(scores_a2b) / len(scores_a2b)
-    avg_b2a = sum(scores_b2a) / len(scores_b2a)
-    all_pairs.sort(reverse=True)
+    # ── Cosine matrix  (|A| × |B|) — single BLAS call ───────────────────────
+    sample = next(iter(emb_cache.values()), None)
+    if sample is not None:
+        d = sample.shape[0]
+        zero = np.zeros(d, dtype=np.float32)
+        vecs_a = np.stack([emb_cache.get(n, zero) for n in nbrs_a]).astype(np.float32)
+        vecs_b = np.stack([emb_cache.get(n, zero) for n in nbrs_b]).astype(np.float32)
+        cos_mat = np.maximum(0.0, vecs_a @ vecs_b.T)  # (na, nb)
+
+        # Entities without embeddings: fall back to WUP as the cosine proxy
+        missing_a = np.array([n not in emb_cache for n in nbrs_a])
+        missing_b = np.array([n not in emb_cache for n in nbrs_b])
+        fallback   = missing_a[:, None] | missing_b[None, :]
+        cos_mat[fallback] = wup_mat[fallback]
+    else:
+        cos_mat = wup_mat.copy()   # no encoder available: score = WUP
+
+    # ── Score matrix: sqrt(wup × cos) — fully vectorised ────────────────────
+    score_mat = np.sqrt(wup_mat * cos_mat)  # (na, nb)
+
+    # ── Directional coherence: row-max → A→B, col-max → B→A ─────────────────
+    scores_a2b = score_mat.max(axis=1)   # (na,)
+    scores_b2a = score_mat.max(axis=0)   # (nb,)
+    best_nb_idx = score_mat.argmax(axis=1)
+
+    avg_a2b = float(scores_a2b.mean())
+    avg_b2a = float(scores_b2a.mean())
+
+    # Top-5 best pairs for the report column
+    flat = score_mat.ravel()
+    top_k = min(5, flat.size)
+    top_idx = np.argpartition(flat, -top_k)[-top_k:]
+    top_idx = top_idx[np.argsort(flat[top_idx])[::-1]]
+    best_pairs = [
+        (round(float(flat[idx]), 3),
+         nbrs_a[int(idx) // nb],
+         nbrs_b[int(idx) % nb])
+        for idx in top_idx
+    ]
 
     result.update({
         "coherence_a2b": round(avg_a2b, 4),
@@ -252,7 +252,7 @@ def neighbourhood_coherence(
         "coherence_sym": round((avg_a2b + avg_b2a) / 2, 4),
         "avg_best_a2b":  round(avg_a2b, 4),
         "avg_best_b2a":  round(avg_b2a, 4),
-        "best_pairs":    [(round(s, 3), na, nb) for s, na, nb in all_pairs[:5]],
+        "best_pairs":    best_pairs,
     })
     return result
 

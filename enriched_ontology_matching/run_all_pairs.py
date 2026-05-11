@@ -218,7 +218,18 @@ def _run_pair(
         print(f"    [SKIP] Closure for {domain_key}")
     else:
         try:
-            run_closure_stage(data_a, data_b, out_csv=closure_csv)
+            # Only score pairs that appear in the enriched CSV — avoids running
+            # NLI on the full A×B cartesian product (30–90× reduction for large pairs).
+            matched_pairs: list[tuple[str, str]] | None = None
+            if csv_path.exists():
+                import csv as _csv_mod
+                with open(csv_path, newline="", encoding="utf-8") as _fh:
+                    matched_pairs = [
+                        (r["entity_a"], r["entity_b"])
+                        for r in _csv_mod.DictReader(_fh)
+                    ]
+            run_closure_stage(data_a, data_b, out_csv=closure_csv,
+                              matched_pairs=matched_pairs)
         except Exception as exc:
             print(f"    [WARN] Closure failed for {domain_key}: {exc}")
 

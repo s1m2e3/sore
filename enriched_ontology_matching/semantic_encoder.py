@@ -386,30 +386,75 @@ def run_embedding_stage(
         rows_in = list(csv.DictReader(fh))
 
     print(f"[Encoder] Scoring {len(rows_in)} pairs ...")
-    results: list[dict] = []
-    for row in rows_in:
-        ea = row.get("entity_a", "")
-        eb = row.get("entity_b", "")
 
-        ma = embs_a.get(ea)
-        mb = embs_b.get(eb)
-
-        if ma is not None and mb is not None:
-            sims = cosine_multi(ma, mb)
+    # ── Separate pairs into those with precomputed embeddings vs fallbacks ──
+    valid_idx: list[int] = []
+    fallback_idx: list[int] = []
+    for i, row in enumerate(rows_in):
+        ea, eb = row.get("entity_a", ""), row.get("entity_b", "")
+        if embs_a.get(ea) is not None and embs_b.get(eb) is not None:
+            valid_idx.append(i)
         else:
-            # Entity not in the model JSON (e.g. L2 candidate from the other side)
-            # Fall back to name-only encoding on the fly
-            fallback = encode_entities_multi(
-                list({ea, eb} - set(embs_a) - set(embs_b)), model_name
-            )
-            all_embs = {**embs_a, **embs_b, **fallback}
-            ma = all_embs.get(ea)
-            mb = all_embs.get(eb)
-            sims = cosine_multi(ma, mb) if (ma is not None and mb is not None) else {
-                "cosine_whole": 0.0, "cosine_sum": 0.0,
-                "cosine_prod": 0.0, "cosine_avg": 0.0,
+            fallback_idx.append(i)
+
+    # ── Vectorised scoring for the common case ───────────────────────────────
+    # Stack all embedding vectors into matrices and compute all three cosine
+    # variants with a single element-wise multiply + sum (row-wise dot product).
+    # This replaces N individual cosine_multi() calls with 6 numpy operations.
+    cosine_results: dict[int, dict] = {}
+
+    if valid_idx:
+        ea_list = [rows_in[i]["entity_a"] for i in valid_idx]
+        eb_list = [rows_in[i]["entity_b"] for i in valid_idx]
+
+        whole_a = np.stack([embs_a[ea].whole for ea in ea_list])   # (N, d)
+        whole_b = np.stack([embs_b[eb].whole for eb in eb_list])
+        sum_a   = np.stack([embs_a[ea].sum   for ea in ea_list])
+        sum_b   = np.stack([embs_b[eb].sum   for eb in eb_list])
+        prod_a  = np.stack([embs_a[ea].prod  for ea in ea_list])
+        prod_b  = np.stack([embs_b[eb].prod  for eb in eb_list])
+
+        # Row-wise dot products via element-wise multiply + sum (= batch cosine)
+        c_whole = (whole_a * whole_b).sum(axis=1)
+        c_sum   = (sum_a   * sum_b  ).sum(axis=1)
+        c_prod  = (prod_a  * prod_b ).sum(axis=1)
+        c_avg   = (c_whole + c_sum + c_prod) / 3.0
+
+        for k, i in enumerate(valid_idx):
+            cosine_results[i] = {
+                "cosine_whole": round(float(c_whole[k]), 4),
+                "cosine_sum":   round(float(c_sum[k]),   4),
+                "cosine_prod":  round(float(c_prod[k]),  4),
+                "cosine_avg":   round(float(c_avg[k]),   4),
             }
 
+    # ── Per-row fallback for entities not in the pre-encoded set ────────────
+    _fallback_cache: dict[str, "MultiRepEmbedding"] = {}
+    for i in fallback_idx:
+        ea = rows_in[i].get("entity_a", "")
+        eb = rows_in[i].get("entity_b", "")
+        missing = {n for n in (ea, eb)
+                   if n and n not in embs_a and n not in embs_b
+                   and n not in _fallback_cache}
+        if missing:
+            _fallback_cache.update(encode_entities_multi(list(missing), model_name))
+        all_embs = {**embs_a, **embs_b, **_fallback_cache}
+        ma, mb = all_embs.get(ea), all_embs.get(eb)
+        cosine_results[i] = (
+            cosine_multi(ma, mb) if (ma is not None and mb is not None)
+            else {"cosine_whole": 0.0, "cosine_sum": 0.0,
+                  "cosine_prod": 0.0,  "cosine_avg": 0.0}
+        )
+
+    # ── Assemble output rows ─────────────────────────────────────────────────
+    results: list[dict] = []
+    for i, row in enumerate(rows_in):
+        ea = row.get("entity_a", "")
+        eb = row.get("entity_b", "")
+        sims = cosine_results.get(i, {
+            "cosine_whole": 0.0, "cosine_sum": 0.0,
+            "cosine_prod": 0.0,  "cosine_avg": 0.0,
+        })
         results.append({
             "entity_a":       ea,
             "entity_b":       eb,

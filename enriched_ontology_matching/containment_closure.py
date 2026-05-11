@@ -304,16 +304,31 @@ def run_closure_stage(
     json_b: dict,
     out_csv: Path,
     nli_model_name: str = DEFAULT_NLI_MODEL,
+    matched_pairs: list[tuple[str, str]] | None = None,
 ) -> Path:
-    """Compute pairwise neural entailment for all A×B entity pairs and write to out_csv."""
+    """Compute pairwise neural entailment and write to out_csv.
+
+    If matched_pairs is provided, only those (entity_a, entity_b) pairs are
+    scored instead of the full A×B cartesian product.  This is a 30–90× speedup
+    for large model pairs where the enriched CSV has ~100–300 matched entries
+    but the full product is 9,000+.  merge_stage left-joins on (entity_a, entity_b)
+    so restricting the closure CSV to matched pairs has no effect on final output.
+    """
     c_a = ContainmentClosure(json_a)
     c_b = ContainmentClosure(json_b)
 
-    entity_pairs = [
-        (ea, eb)
-        for ea in sorted(c_a.entity_names)
-        for eb in sorted(c_b.entity_names)
-    ]
+    if matched_pairs is not None:
+        # Filter to only pairs whose entities actually exist in both closures
+        entity_pairs = [
+            (ea, eb) for ea, eb in matched_pairs
+            if ea in c_a.entity_names and eb in c_b.entity_names
+        ]
+    else:
+        entity_pairs = [
+            (ea, eb)
+            for ea in sorted(c_a.entity_names)
+            for eb in sorted(c_b.entity_names)
+        ]
 
     if not entity_pairs:
         out_csv.parent.mkdir(parents=True, exist_ok=True)

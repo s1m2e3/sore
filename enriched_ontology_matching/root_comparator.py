@@ -252,6 +252,11 @@ def _cn_request(url: str, params: dict) -> list[dict]:
     return []
 
 
+# Pre-compiled patterns for fast CSV field extraction (avoids json.loads per line)
+_CN_WEIGHT_RE = re.compile(r'"weight"\s*:\s*([0-9]+(?:\.[0-9]+)?)')
+_CN_EN_PREFIX = "/c/en/"
+
+
 def _cn_load_csv(csv_path: str) -> None:
     """
     Build an in-memory index from the ConceptNet assertions CSV.
@@ -278,40 +283,56 @@ def _cn_load_csv(csv_path: str) -> None:
     count = 0
     index: dict[str, list[tuple[str, str, float]]] = {}
 
+    # Inline helpers — defined once outside loop for speed
+    en_prefix = _CN_EN_PREFIX
+    en_prefix_len = len(en_prefix)
+    weight_re = _CN_WEIGHT_RE
+    min_weight = CN_MIN_WEIGHT
+
     def _word_from_node(node_id: str) -> str:
         """Extract plain word from /c/en/word or /c/en/word/pos/… URI."""
-        parts = node_id.split("/")
-        # parts: ['', 'c', 'en', 'word', ...]
-        if len(parts) >= 4 and parts[1] == "c" and parts[2] == "en":
-            return parts[3].replace("_", " ").lower()
-        return ""
+        if not node_id.startswith(en_prefix):
+            return ""
+        # Slice past "/c/en/" and take the first path segment
+        rest = node_id[en_prefix_len:]
+        slash = rest.find("/")
+        word = rest if slash == -1 else rest[:slash]
+        return word.replace("_", " ").lower() if word else ""
 
     def _rel_label(rel_uri: str) -> str:
         """Extract label from /r/RelatedTo → RelatedTo."""
-        parts = rel_uri.split("/")
-        return parts[-1] if parts else rel_uri
+        slash = rel_uri.rfind("/")
+        return rel_uri[slash + 1:] if slash >= 0 else rel_uri
 
     try:
         with open(csv_path, encoding="utf-8", errors="replace") as fh:
             for line in fh:
-                cols = line.rstrip("\n").split("\t")
-                if len(cols) < 5:
+                # Fast tab-split with early English filter on raw bytes
+                tab1 = line.find("\t")
+                if tab1 < 0:
                     continue
-                rel_uri    = cols[1]
-                start_node = cols[2]
-                end_node   = cols[3]
-                meta       = cols[4]
+                tab2 = line.find("\t", tab1 + 1)
+                if tab2 < 0:
+                    continue
+                tab3 = line.find("\t", tab2 + 1)
+                if tab3 < 0:
+                    continue
+                tab4 = line.find("\t", tab3 + 1)
 
-                # English-only filter
-                if not (start_node.startswith("/c/en/") and end_node.startswith("/c/en/")):
+                start_node = line[tab2 + 1:tab3]
+                end_node   = line[tab3 + 1:tab4] if tab4 >= 0 else line[tab3 + 1:].rstrip("\n")
+
+                # English-only filter (cheap prefix check before any parsing)
+                if not (start_node.startswith(en_prefix) and end_node.startswith(en_prefix)):
                     continue
 
-                # Weight filter
-                try:
-                    weight = float(json.loads(meta).get("weight", 0))
-                except Exception:
-                    weight = 0.0
-                if weight < CN_MIN_WEIGHT:
+                rel_uri = line[tab1 + 1:tab2]
+                meta    = line[tab4 + 1:].rstrip("\n") if tab4 >= 0 else ""
+
+                # Weight filter — regex is ~4x faster than json.loads for this field
+                m = weight_re.search(meta)
+                weight = float(m.group(1)) if m else 0.0
+                if weight < min_weight:
                     continue
 
                 sw = _word_from_node(start_node)

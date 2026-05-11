@@ -34,6 +34,7 @@ import csv
 import json
 import re
 import sys
+from functools import lru_cache
 from pathlib import Path
 from typing import Optional
 
@@ -172,6 +173,7 @@ def _cn_relation_type(cn_edges: list[dict]) -> Optional[str]:
     return next(iter(bare))   # any remaining label not in the priority list
 
 
+@lru_cache(maxsize=None)
 def characterise_token_pair(ta: str, tb: str) -> dict:
     """
     Full semantic characterisation of a single token pair (ta, tb).
@@ -186,6 +188,10 @@ def characterise_token_pair(ta: str, tb: str) -> dict:
       gloss_hit,        — True if tb appears in ta's synset definition
       semantic_label,   — final composite label (most specific wins)
       layer2_type,      — "Equivalence" | "Subsumption" | "None"
+
+    Cached: token vocabulary is small (~200/domain), so this eliminates the
+    dominant O(|A|×|B|×|tokens|²) WN/CN overhead across Layer 2 and coherence.
+    The returned dict must NOT be mutated by callers.
     """
     ta = ta.lower().strip()
     tb = tb.lower().strip()
@@ -361,6 +367,7 @@ def _result_from_cn_compound(term_a: str, term_b: str,
     }
 
 
+@lru_cache(maxsize=None)
 def characterise_entity_pair(entity_a: str, entity_b: str) -> dict:
     """
     Characterise a pair of entity names by comparing all token combinations
@@ -372,6 +379,10 @@ def characterise_entity_pair(entity_a: str, entity_b: str) -> dict:
       1. Token-level: split_camel tokens compared via WN + CN (existing logic)
       2. Compound-level: multi-word phrases queried directly in CN (new)
          e.g. "water pump" PartOf "cooling system" would be missed by token pass
+
+    Cached: entity pairs repeat heavily across Layer 2, neighbourhood coherence,
+    and multiple within-domain pairs. Cache hits skip all WN/CN work entirely.
+    The returned dict must NOT be mutated by callers.
     """
     # ── Exact-name short-circuit ────────────────────────────────────────────
     # If both entity names are identical (case-insensitive) skip all WN/CN
@@ -424,6 +435,9 @@ def characterise_entity_pair(entity_a: str, entity_b: str) -> dict:
             if pri > best_pri:
                 best_pri = pri
                 best = r
+        # Synonym/Identical found — no higher priority possible, skip remaining tokens_a
+        if best_pri >= 6:
+            break
 
     # ── Pass 2: compound-level CN lookup ───────────────────────────────────
     # Build candidate (term_a, term_b) pairs that use multi-word compound forms.
@@ -477,6 +491,9 @@ def characterise_entity_pair(entity_a: str, entity_b: str) -> dict:
         # Single-token fallback: max == avg == wup_score
         max_wup = avg_wup = round(best["wup_score"], 4)
 
+    # Copy before mutating: characterise_token_pair results are LRU-cached
+    # and must not be modified in place.
+    best = dict(best)
     best["max_wup"] = max_wup
     best["avg_wup"] = avg_wup
     return best
@@ -579,15 +596,14 @@ def layer2_discover(
     print(f"  [Layer2] Searching {len(unmatched_a)} x {len(unmatched_b)} "
           f"unmatched pairs for semantic links ...")
 
-    rows = []
-    for ea in unmatched_a:
-        for eb in unmatched_b:
-            # Skip any pair involving an association (verb-phrase) name.
-            # Associations are relationships, not concepts, and should never
-            # appear in concept-to-concept equivalence or subsumption mappings.
-            if _is_association(ea) or _is_association(eb):
-                continue
+    # Pre-filter associations at the outer loop level to avoid O(|B|) redundant
+    # _is_association(ea) calls inside the inner loop.
+    concept_a = [e for e in unmatched_a if not _is_association(e)]
+    concept_b = [e for e in unmatched_b if not _is_association(e)]
 
+    rows = []
+    for ea in concept_a:
+        for eb in concept_b:
             char = characterise_entity_pair(ea, eb)
             l2   = char["layer2_type"]
             if l2 == "None":
