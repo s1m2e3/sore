@@ -503,6 +503,58 @@ Open it in any browser — no server required.
 
 ---
 
+## Association Relation Mapping
+
+`relation_normalizer.py` scans all conceptual-model JSONs, extracts every unique association name, and maps it to a canonical ConceptNet / RO / SSN relation using a combined WUP + BERT cosine similarity score.
+
+### Running the normalizer
+
+```bash
+python enriched_ontology_matching/relation_normalizer.py
+```
+
+This writes two outputs:
+
+| Output | Description |
+|--------|-------------|
+| `config/relation_map.json` | Association name → `{canonical, score, wup, bert, method, …}` |
+| `enriched_ontology_matching/association_inventory.csv` | Full table with all scores and participant info |
+
+The CSV is **not committed to the repository** — regenerate it locally whenever you need it.
+
+### Options
+
+```bash
+# Flag mappings below a combined score of 0.5 (default)
+python enriched_ontology_matching/relation_normalizer.py --threshold 0.5
+
+# Adjust WUP vs BERT weighting (default: equal 0.5/0.5)
+python enriched_ontology_matching/relation_normalizer.py --wup-weight 0.7
+
+# Scan a custom input directory
+python enriched_ontology_matching/relation_normalizer.py --input-dir path/to/my_models
+```
+
+### Seeding exemplar phrases (one-time setup)
+
+Before the first run, seed ConceptNet exemplar phrases into `config/canonical_relations.json` so BERT has short-phrase targets instead of long definitions:
+
+```bash
+python enriched_ontology_matching/seed_exemplars.py
+```
+
+This fetches up to 25 surface-form phrases per canonical relation from the ConceptNet 5 API and falls back to definition extraction when the API is unreachable.
+
+### Supporting utilities
+
+| Script | Purpose |
+|--------|---------|
+| `seed_exemplars.py` | Populate `exemplar_phrases` in `canonical_relations.json` from ConceptNet API |
+| `regenerate_domains.py` | Force-regenerate the full pipeline for one or more domains, then produce domain summary JSONs |
+| `summary_to_csv.py` | Convert domain summary JSONs (`summaries/*_summary.json`) to flat CSV files |
+
+---
+
 ## Codebase Map
 
 | File | Purpose |
@@ -519,3 +571,7 @@ Open it in any browser — no server required.
 | `logmap_runner.py` | Wrapper around the LogMap JAR |
 | `root_comparator.py` | CamelCase splitting, WUP, ConceptNet CSV lookup |
 | `generate_report.py` | Renders a human-readable MD report from the combined CSV |
+| `relation_normalizer.py` | Maps association names to canonical relations via WUP + BERT; writes `config/relation_map.json` and `association_inventory.csv` |
+| `seed_exemplars.py` | Seeds ConceptNet exemplar phrases into `config/canonical_relations.json` |
+| `regenerate_domains.py` | Force-regenerates the full pipeline for selected domains |
+| `summary_to_csv.py` | Converts domain summary JSONs to flat CSV files |

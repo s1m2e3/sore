@@ -41,6 +41,10 @@ system.drawio
 limes_configs/
 tools/
 
+# Generated relation-normalizer outputs (regenerate with relation_normalizer.py)
+enriched_ontology_matching/association_inventory.csv
+config/.bert_embedding_cache.pkl
+
 # Large data / model files
 ontology_matching/inputs/conceptnet-assertions-5.7.0.csv.gz
 ontology_matching/inputs/conceptnet-assertions-5.7.0.csv/
