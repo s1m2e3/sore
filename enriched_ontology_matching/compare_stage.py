@@ -27,8 +27,16 @@ PAIRS_DIR  = ROOT / "pairs"
 OUT_HTML      = ROOT / "outputs" / "ontology_map.html"
 SUMMARIES_DIR = ROOT / "summaries"
 
-# ── metric columns in merged CSVs ──────────────────────────────────────────────
-METRICS = ["cosine_avg", "wup", "lin_ic", "coherence_sym", "entailment_f1", "matched"]
+# ── combined metrics (averaged from correlated raw columns) ───────────────────
+# lexical_sim  = avg(cosine_avg, wup)           r=0.768 — merged to single dimension
+# graph_sim    = avg(verb_coherence, gnn_sim)   r=0.778 — merged to single dimension
+# transfer_sim = avg(attr_reach_sim, entailment_f1) r=0.776 — merged to single dimension
+METRICS = [
+    "lexical_sim",    # avg(cosine_avg, wup)
+    "coherence_sym",  # standalone
+    "graph_sim",      # avg(verb_coherence, gnn_sim)
+    "transfer_sim",   # avg(attr_reach_sim, entailment_f1)
+]
 CONTINUOUS = METRICS  # alias kept for backward compat
 
 
@@ -42,11 +50,17 @@ def _parse_float(v) -> float | None:
         return None
 
 
+def _row_avg(*vals) -> float | None:
+    """Mean of non-None values; returns None if all are None."""
+    nz = [v for v in vals if v is not None]
+    return sum(nz) / len(nz) if nz else None
+
+
 def compute_global_fill_rates(csvs: list[Path]) -> dict[str, float]:
     """
-    For each metric, compute the fraction of all entity-pair rows (across every
-    merged CSV) where the value is non-blank and > 0.  This becomes the weight
-    for that metric in the weighted Euclidean distance.
+    For each combined metric, compute the fraction of entity-pair rows where
+    the combined value is non-blank and > 0.  Reads raw CSV columns and merges
+    correlated pairs before counting.
     """
     counts = {m: 0 for m in METRICS}
     total  = 0
@@ -55,8 +69,12 @@ def compute_global_fill_rates(csvs: list[Path]) -> dict[str, float]:
             with open(csv_path, newline="", encoding="utf-8") as fh:
                 for row in csv.DictReader(fh):
                     total += 1
-                    for m in METRICS:
-                        v = _parse_float(row.get(m))
+                    g = lambda col: _parse_float(row.get(col))
+                    lex  = _row_avg(g("cosine_avg"), g("wup"))
+                    coh  = g("coherence_sym")
+                    grph = _row_avg(g("verb_coherence"), g("gnn_sim"))
+                    trf  = _row_avg(g("attr_reach_sim"), g("entailment_f1"))
+                    for m, v in zip(METRICS, [lex, coh, grph, trf]):
                         if v is not None and v > 0:
                             counts[m] += 1
         except Exception:
@@ -64,6 +82,22 @@ def compute_global_fill_rates(csvs: list[Path]) -> dict[str, float]:
     if total == 0:
         return {m: 1.0 for m in METRICS}
     return {m: counts[m] / total for m in METRICS}
+
+
+def blend_weights(fill_rates: dict[str, float]) -> dict[str, float]:
+    """
+    Blend uniform weight (1/N) with sparsity fill rate, then renormalise.
+
+    w_raw[m] = (1/N + fill_rate[m]) / 2
+
+    This ensures sparse metrics are down-weighted relative to fully-populated ones,
+    but no single metric can dominate purely because it is always computable.
+    """
+    n = len(METRICS)
+    uniform = 1.0 / n
+    blended = {m: (uniform + fill_rates[m]) / 2.0 for m in METRICS}
+    total = sum(blended.values()) or 1.0
+    return {m: v / total for m, v in blended.items()}
 
 
 def load_pair_metrics(csv_path: Path) -> dict:
@@ -87,32 +121,35 @@ def load_pair_metrics(csv_path: Path) -> dict:
 
     if not rows:
         return {"n_pairs": 0, "composite": None, "enriched": False,
-                "wup": 0.0, "lin_ic": 0.0,
-                "coherence_sym": 0.0, "cosine_avg": 0.0,
-                "entailment_f1": 0.0, "matched": 0.0,
+                "lexical_sim": 0.0, "coherence_sym": 0.0,
+                "graph_sim": 0.0, "transfer_sim": 0.0,
                 "match_rate": 0.0}
 
     matched_count = sum(1 for r in rows if _parse_float(r.get("matched")) == 1.0)
 
-    col_vals = {m: [_parse_float(r.get(m)) for r in rows] for m in METRICS}
+    def _g(r, col):
+        return _parse_float(r.get(col))
 
     def safe_mean(vals):
         nz = [v for v in vals if v is not None]
         return sum(nz) / len(nz) if nz else 0.0
 
-    enriched = any(v is not None for v in col_vals["cosine_avg"])
+    lexical_rows  = [_row_avg(_g(r, "cosine_avg"), _g(r, "wup")) for r in rows]
+    coherence_rows = [_g(r, "coherence_sym") for r in rows]
+    graph_rows    = [_row_avg(_g(r, "verb_coherence"), _g(r, "gnn_sim")) for r in rows]
+    transfer_rows = [_row_avg(_g(r, "attr_reach_sim"), _g(r, "entailment_f1")) for r in rows]
+
+    enriched = any(v is not None for v in [_g(r, "cosine_avg") for r in rows])
 
     return {
-        "n_pairs":               len(rows),
-        "composite":             None,   # filled later by main()
-        "enriched":              enriched,
-        "match_rate":            matched_count / len(rows),
-        "cosine_avg":            safe_mean(col_vals["cosine_avg"]),
-        "wup":                   safe_mean(col_vals["wup"]),
-        "lin_ic":                safe_mean(col_vals["lin_ic"]),
-        "coherence_sym":         safe_mean(col_vals["coherence_sym"]),
-        "entailment_f1":         safe_mean(col_vals["entailment_f1"]),
-        "matched":               safe_mean(col_vals["matched"]),
+        "n_pairs":       len(rows),
+        "composite":     None,
+        "enriched":      enriched,
+        "match_rate":    matched_count / len(rows),
+        "lexical_sim":   safe_mean(lexical_rows),
+        "coherence_sym": safe_mean(coherence_rows),
+        "graph_sim":     safe_mean(graph_rows),
+        "transfer_sim":  safe_mean(transfer_rows),
     }
 
 
@@ -592,10 +629,10 @@ def build_html(onts, coords, pair_data, available_jsons, stress: float,
         tip = (
             f"<b>{short_name(a)}</b> — <b>{short_name(b)}</b><br>"
             f"Weighted composite: <b>{comp:.3f}</b><br>"
-            f"cosine {metrics['cosine_avg']:.3f} (w={fr.get('cosine_avg',1):.2f})  "
-            f"wup {metrics['wup']:.3f} (w={fr.get('wup',1):.2f})<br>"
-            f"lin_ic {metrics['lin_ic']:.3f} (w={fr.get('lin_ic',1):.2f})  "
-            f"coh {metrics['coherence_sym']:.3f} (w={fr.get('coherence_sym',1):.2f})<br>"
+            f"lexical {metrics['lexical_sim']:.3f} (w={fr.get('lexical_sim',1):.2f})  "
+            f"coherence {metrics['coherence_sym']:.3f} (w={fr.get('coherence_sym',1):.2f})<br>"
+            f"graph {metrics['graph_sim']:.3f} (w={fr.get('graph_sim',1):.2f})  "
+            f"transfer {metrics['transfer_sim']:.3f} (w={fr.get('transfer_sim',1):.2f})<br>"
             f"n_pairs: {metrics['n_pairs']}"
         )
 
@@ -822,10 +859,9 @@ def domain_distance_summary(domain: str, out_path: Path | None = None) -> dict:
     """
     Compute within-domain pairwise distances and return a JSON-serialisable dict.
 
-    Replicates the sparsity-weighted Euclidean distance used by the visualisation
-    but restricted to pairs where both ontologies belong to `domain`.
-    Global fill rates are computed over ALL merged CSVs so the metric weights
-    stay consistent with the visualisation.
+    Fill rates (metric weights) are computed only over the within-domain CSVs so
+    that metrics populated exclusively within-domain (GNN, entailment) are not
+    diluted by cross-domain pairs where those stages were not run.
 
     CLI:  python compare_stage.py --domain-summary Automobile [--out results.json]
     """
@@ -842,18 +878,30 @@ def domain_distance_summary(domain: str, out_path: Path | None = None) -> dict:
             "Run the full pipeline (run_all_pairs.py) to generate them first."
         )
 
-    fill_rates = compute_global_fill_rates(all_csvs)
-    w_total = sum(fill_rates[m] for m in METRICS) or 1.0
-
-    pair_data: dict[tuple[str, str], dict] = {}
+    # Identify within-domain CSVs first so fill rates reflect only this domain's data.
+    domain_csvs = []
     for csv_path in all_csvs:
         stem = csv_path.stem.replace("_metrics", "")
         try:
             a, b = stem_to_pair(stem)
         except ValueError:
             continue
-        if domain_of(a) != domain or domain_of(b) != domain:
-            continue
+        if domain_of(a) == domain and domain_of(b) == domain:
+            domain_csvs.append(csv_path)
+
+    if not domain_csvs:
+        raise ValueError(
+            f"No within-domain pairs found for domain '{domain}'. "
+            f"Check that merged CSVs exist in {MERGED_DIR} for this domain."
+        )
+
+    fill_rates = blend_weights(compute_global_fill_rates(domain_csvs))
+    w_total = sum(fill_rates[m] for m in METRICS) or 1.0
+
+    pair_data: dict[tuple[str, str], dict] = {}
+    for csv_path in domain_csvs:
+        stem = csv_path.stem.replace("_metrics", "")
+        a, b = stem_to_pair(stem)
         metrics = load_pair_metrics(csv_path)
         key = (a, b)
         rev = (b, a)
@@ -863,12 +911,6 @@ def domain_distance_summary(domain: str, out_path: Path | None = None) -> dict:
                 pair_data[key] = metrics
         else:
             pair_data[key] = metrics
-
-    if not pair_data:
-        raise ValueError(
-            f"No within-domain pairs found for domain '{domain}'. "
-            f"Check that merged CSVs exist in {MERGED_DIR} for this domain."
-        )
 
     for m in pair_data.values():
         m["composite"] = sum(fill_rates[met] * m[met] for met in METRICS) / w_total
@@ -929,12 +971,13 @@ def main():
         print(f"No merged CSVs found in {MERGED_DIR}", file=sys.stderr)
         sys.exit(1)
 
-    # ── global fill rates (sparsity weights) ──────────────────────────────────
-    fill_rates = compute_global_fill_rates(csvs)
+    # ── blended weights: 50% uniform (1/N) + 50% sparsity fill rate ──────────
+    raw_fill   = compute_global_fill_rates(csvs)
+    fill_rates = blend_weights(raw_fill)
     w_total    = sum(fill_rates[m] for m in METRICS) or 1.0
-    print("\nGlobal metric fill rates (weight per metric):")
-    for m, fr in fill_rates.items():
-        print(f"  {m:<18}  fill={fr:.3f}  weight={fr/w_total:.3f}")
+    print("\nMetric weights (50% uniform + 50% sparsity, renormalised):")
+    for m in METRICS:
+        print(f"  {m:<18}  fill={raw_fill[m]:.3f}  weight={fill_rates[m]:.3f}")
 
     pair_data: dict[tuple[str, str], dict] = {}
     for csv_path in csvs:

@@ -55,6 +55,7 @@ _ENRICHED   = _DIR / "outputs" / "enriched"
 _NBR_DIR    = _DIR / "outputs" / "neighbourhood"
 _LIN_IC_DIR = _DIR / "outputs" / "lin_ic"
 _EMB_DIR    = _DIR / "outputs" / "embeddings"
+_GNN_DIR    = _DIR / "outputs" / "gnn"
 _MERGED_DIR = _DIR / "outputs" / "merged"
 _COMBINED   = _ENRICHED / "all_domains_combined.csv"
 _MD_OUT     = _DIR / "outputs" / "all_domains_results.md"
@@ -142,6 +143,7 @@ def _run_pair(
     run_embedding_stage,
     merge_pair,
     run_closure_stage,
+    run_gnn_stage,
     _safe_local,
 ) -> tuple[str, Path] | None:
     """
@@ -161,6 +163,7 @@ def _run_pair(
     nbr_csv     = _NBR_DIR    / f"{domain_key}_coherence.csv"
     lin_ic_csv  = _LIN_IC_DIR / f"{domain_key}_lin_ic.csv"
     emb_csv     = _EMB_DIR    / f"{domain_key}_emb.csv"
+    gnn_csv     = _GNN_DIR    / f"{domain_key}_gnn.csv"
     closure_csv = _DIR / "outputs" / "closure" / f"{stem}_closure.csv"
     merged_csv  = _MERGED_DIR / f"{stem}_metrics.csv"
 
@@ -213,7 +216,16 @@ def _run_pair(
         except Exception as exc:
             print(f"    [WARN] Embedding failed for {domain_key}: {exc}")
 
-    # ── Step 5: Containment closure ──────────────────────────────────────
+    # ── Step 5: GNN similarity ───────────────────────────────────────────
+    if skip_existing and gnn_csv.exists():
+        print(f"    [SKIP] GNN for {domain_key}")
+    else:
+        try:
+            run_gnn_stage(data_a, data_b, csv_path, gnn_csv)
+        except Exception as exc:
+            print(f"    [WARN] GNN failed for {domain_key}: {exc}")
+
+    # ── Step 6: Containment closure ──────────────────────────────────────
     if skip_existing and closure_csv.exists():
         print(f"    [SKIP] Closure for {domain_key}")
     else:
@@ -233,7 +245,7 @@ def _run_pair(
         except Exception as exc:
             print(f"    [WARN] Closure failed for {domain_key}: {exc}")
 
-    # ── Step 6: Merge ────────────────────────────────────────────────────
+    # ── Step 7: Merge ────────────────────────────────────────────────────
     if skip_existing and merged_csv.exists():
         print(f"    [SKIP] Merge for {domain_key}")
     else:
@@ -244,6 +256,7 @@ def _run_pair(
                 lin_ic_csv   = lin_ic_csv   if lin_ic_csv.exists()   else None,
                 emb_csv      = emb_csv      if emb_csv.exists()      else None,
                 closure_csv  = closure_csv  if closure_csv.exists()  else None,
+                gnn_csv      = gnn_csv      if gnn_csv.exists()      else None,
                 out_csv      = merged_csv,
             )
         except Exception as exc:
@@ -310,12 +323,14 @@ def main() -> None:
     from semantic_encoder import run_embedding_stage
     from merge_stage import merge_pair
     from containment_closure import run_closure_stage
+    from gnn_matcher import run_gnn_stage
 
     _PAIRS_DIR.mkdir(exist_ok=True)
     _ENRICHED.mkdir(parents=True, exist_ok=True)
     _NBR_DIR.mkdir(parents=True, exist_ok=True)
     _LIN_IC_DIR.mkdir(parents=True, exist_ok=True)
     _EMB_DIR.mkdir(parents=True, exist_ok=True)
+    _GNN_DIR.mkdir(parents=True, exist_ok=True)
     _MERGED_DIR.mkdir(parents=True, exist_ok=True)
     (_DIR / "outputs" / "closure").mkdir(parents=True, exist_ok=True)
 
@@ -329,6 +344,7 @@ def main() -> None:
         run_embedding_stage = run_embedding_stage,
         merge_pair          = merge_pair,
         run_closure_stage   = run_closure_stage,
+        run_gnn_stage       = run_gnn_stage,
         _safe_local         = _safe_local,
     )
 

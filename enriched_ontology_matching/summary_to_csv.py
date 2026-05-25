@@ -27,13 +27,19 @@ from pathlib import Path
 
 _REPO_ROOT   = Path(__file__).resolve().parent.parent
 _SUMMARIES   = _REPO_ROOT / "enriched_ontology_matching" / "summaries"
-_METRICS     = ["cosine_avg", "wup", "lin_ic", "coherence_sym"]
+_METRICS     = [
+    "lexical_sim",
+    "coherence_sym",
+    "graph_sim",
+    "transfer_sim",
+]
 
 FIELDNAMES = [
     "domain", "ont_a", "ont_b",
     "distance", "composite", "n_entity_pairs",
-    "cosine_avg", "wup", "lin_ic", "coherence_sym",
-    "cosine_avg_weight", "wup_weight", "lin_ic_weight", "coherence_sym_weight",
+    "lexical_sim", "coherence_sym", "graph_sim", "transfer_sim",
+    "lexical_sim_weight", "coherence_sym_weight",
+    "graph_sim_weight", "transfer_sim_weight",
 ]
 
 

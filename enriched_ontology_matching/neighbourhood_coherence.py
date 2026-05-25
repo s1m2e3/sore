@@ -57,6 +57,11 @@ sys.path.insert(0, str(_DIR))
 
 from root_comparator import split_camel, _cn_load_csv, _CN_CSV_DEFAULT
 from enriched_matcher import characterise_entity_pair
+from model_normalizer import load_inventory, normalize_model
+from attribute_reach import (
+    collect_obs_vocab, attribute_reach, attribute_reach_similarity,
+    _direct_attrs,
+)
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -135,14 +140,21 @@ def build_adjacency(data: dict) -> dict[str, set[str]]:
 
 
 def build_edge_verbs(data: dict) -> dict[str, set[str]]:
-    """entity → set[verb_token] from association names."""
+    """
+    entity → set[canonical relation type] from every association it participates in.
+
+    Requires data to have been passed through normalize_model() first so every
+    association already carries a ``canonical`` field.  Inverse-expressed
+    associations (A→B vs B←A) both resolve to the same canonical token, making
+    verb_coherence a Jaccard overlap of canonical relation types rather than raw
+    verb strings — inverse pairs score 1.0 instead of 0.0.
+    """
     verbs: dict[str, set[str]] = defaultdict(set)
     for assoc in data.get("associations", []):
-        name  = _assoc_name(assoc)
-        parts = _assoc_participants(assoc)
-        v = _extract_verb_tokens(name)
+        canonical = assoc.get("canonical", "RelatedTo")
+        parts     = _assoc_participants(assoc)
         for p in parts:
-            verbs[p].update(v)
+            verbs[p].add(canonical)
     return dict(verbs)
 
 
@@ -339,6 +351,11 @@ def run_analysis(
     else:
         raise ValueError("Supply either pair_json or both json_a and json_b.")
 
+    # ── Normalize: canonical associations + composition → PartOf ─────────────
+    inventory = load_inventory()
+    data_a = normalize_model(data_a, inventory)
+    data_b = normalize_model(data_b, inventory)
+
     print(f"\n{'='*70}")
     print(f"Neighbourhood Coherence Analysis (semantic-weighted)")
     print(f"  A: {name_a}")
@@ -371,8 +388,20 @@ def run_analysis(
     print("[CN] Pre-loading ConceptNet CSV ...")
     _cn_load_csv(_CN_CSV)
 
+    # ── Attribute reach ───────────────────────────────────────────────────────
+    print("[AttrReach] Building shared observable vocabulary ...")
+    obs_vocab = collect_obs_vocab(data_a, data_b)
+    print(f"[AttrReach] Vocabulary: {len(obs_vocab)} observable types. "
+          f"Computing 2-hop reach ...")
+    reach_a = attribute_reach(data_a, obs_vocab, K=2)
+    reach_b = attribute_reach(data_b, obs_vocab, K=2)
+
+    ent_names_a = {e.get("entityName") or e.get("name","") for e in data_a.get("entities",[])}
+    ent_names_b = {e.get("entityName") or e.get("name","") for e in data_b.get("entities",[])}
+    direct_a = _direct_attrs(data_a, ent_names_a)
+    direct_b = _direct_attrs(data_b, ent_names_b)
+
     # ── Build embedding cache for all neighbour entities ──────────────────────
-    # Collect every entity name that will appear in any neighbour comparison.
     all_neighbor_names: set[str] = set()
     for row in match_rows:
         ea, eb = row["entity_a"], row["entity_b"]
@@ -391,8 +420,15 @@ def run_analysis(
         sem = row.get("semantic_label", "")
         wup = row.get("wup_score", "")
 
-        coh  = neighbourhood_coherence(ea, eb, adj_a, adj_b, emb_cache)
-        vcoh = verb_coherence(ea, eb, verbs_a, verbs_b)
+        coh      = neighbourhood_coherence(ea, eb, adj_a, adj_b, emb_cache)
+        vcoh     = verb_coherence(ea, eb, verbs_a, verbs_b)
+        attr_sim = attribute_reach_similarity(ea, eb, reach_a, reach_b)
+
+        # Leaf-leaf pairs (no association neighbours on either side) carry no
+        # neighbourhood signal — averaging them as 0.0 artificially deflates
+        # coherence for V-models whose attribute entities are structural leaves.
+        # Use "" so downstream averaging (merge_stage) skips them entirely.
+        leaf_pair = coh["n_nbrs_a"] == 0 and coh["n_nbrs_b"] == 0
 
         results.append({
             "entity_a":       ea,
@@ -403,18 +439,27 @@ def run_analysis(
             "avg_wup":        row.get("avg_wup", wup),
             "n_nbrs_a":       coh["n_nbrs_a"],
             "n_nbrs_b":       coh["n_nbrs_b"],
-            "coherence_a2b":  coh["coherence_a2b"],
-            "coherence_b2a":  coh["coherence_b2a"],
-            "coherence_sym":  coh["coherence_sym"],
-            "avg_best_a2b":   coh["avg_best_a2b"],
-            "avg_best_b2a":   coh["avg_best_b2a"],
+            "coherence_a2b":  "" if leaf_pair else coh["coherence_a2b"],
+            "coherence_b2a":  "" if leaf_pair else coh["coherence_b2a"],
+            "coherence_sym":  "" if leaf_pair else coh["coherence_sym"],
+            "avg_best_a2b":   "" if leaf_pair else coh["avg_best_a2b"],
+            "avg_best_b2a":   "" if leaf_pair else coh["avg_best_b2a"],
             "verb_coherence": vcoh,
-            "best_pairs":     " | ".join(
+            "attr_reach_sim": attr_sim,
+            "n_obs_a":        len(direct_a.get(ea, {})),
+            "n_obs_b":        len(direct_b.get(eb, {})),
+            "n_reach_a":      len(reach_a.get(ea, {})),
+            "n_reach_b":      len(reach_b.get(eb, {})),
+            "best_pairs":     "" if leaf_pair else " | ".join(
                 f"{nb}<->{nc}({s})" for s, nb, nc in coh["best_pairs"]
             ),
         })
 
-    results.sort(key=lambda r: r["coherence_sym"], reverse=True)
+    # Sort: non-empty coherence_sym first (descending), then leaf pairs last
+    def _sort_key(r):
+        v = r["coherence_sym"]
+        return (1, 0.0) if v == "" else (0, -float(v))
+    results.sort(key=_sort_key)
     _print_results(results, name_a, name_b, threshold)
 
     if out_csv:
@@ -431,28 +476,32 @@ _COL_FIELDS = [
     "entity_a", "entity_b", "semantic_label", "wup_score", "max_wup", "avg_wup",
     "n_nbrs_a", "n_nbrs_b",
     "coherence_a2b", "coherence_b2a", "coherence_sym",
-    "avg_best_a2b", "avg_best_b2a", "verb_coherence", "best_pairs",
+    "avg_best_a2b", "avg_best_b2a", "verb_coherence",
+    "attr_reach_sim", "n_obs_a", "n_obs_b", "n_reach_a", "n_reach_b",
+    "best_pairs",
 ]
 
 
 def _print_results(results: list[dict], name_a: str, name_b: str, threshold: float) -> None:
     w = 26
     print(f"\n{'Entity A':<{w}} {'Entity B':<{w}} {'Sem':<14} "
-          f"{'WUP':>5} {'Coh_A2B':>8} {'Coh_B2A':>8} "
-          f"{'Coh_sym':>8} {'VerbCoh':>8}  Best neighbour pairs")
+          f"{'WUP':>5} {'Coh_sym':>8} {'VerbCoh':>8} {'AttrSim':>8}  Best neighbour pairs")
     print("-" * 160)
     for r in results:
-        flag = " *" if r["coherence_sym"] >= threshold else ""
+        coh_val = r["coherence_sym"]
+        coh_str = f"{float(coh_val):>8.3f}" if coh_val != "" else f"{'(leaf)':>8}"
+        flag    = " *" if (coh_val != "" and float(coh_val) >= threshold) else ""
         print(
             f"{r['entity_a']:<{w}} {r['entity_b']:<{w}} "
             f"{r['semantic_label']:<14} "
             f"{str(r['wup_score']):>5} "
-            f"{r['coherence_a2b']:>8.3f} {r['coherence_b2a']:>8.3f} "
-            f"{r['coherence_sym']:>8.3f} {r['verb_coherence']:>8.3f}"
-            f"  {r['best_pairs'][:70]}{flag}"
+            f"{coh_str} {r['verb_coherence']:>8.3f} "
+            f"{r['attr_reach_sim']:>8.4f}"
+            f"  {str(r['best_pairs'])[:60]}{flag}"
         )
-    high = sum(1 for r in results if r["coherence_sym"] >= threshold)
-    print(f"\n  Total pairs: {len(results)}  |  "
+    high = sum(1 for r in results if r["coherence_sym"] != "" and float(r["coherence_sym"]) >= threshold)
+    connected = sum(1 for r in results if r["coherence_sym"] != "")
+    print(f"\n  Total pairs: {len(results)}  |  connected (non-leaf): {connected}  |  "
           f"coherence_sym >= {threshold}: {high}")
 
 

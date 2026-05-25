@@ -1,0 +1,229 @@
+[
+  {
+    "id": "PartOf",
+    "inverse_id": "HasPart",
+    "symmetric": false,
+    "conceptnet_iri": "/r/PartOf",
+    "ro_iri": "RO:0001001",
+    "ssn_iri": "ssn:hasSubSystem",
+    "definition": "X is a part of Y. X is a component, subassembly, subsystem, or structural element that constitutes, belongs to, or is contained within Y.",
+    "inverse_definition": "Y has X as a part. Y contains, holds, or is composed of X as a component or subassembly.",
+    "exemplar_phrases": [
+      "is a part of",
+      "is a component",
+      "belongs to",
+      "is contained within",
+      "constitutes"
+    ]
+  },
+  {
+    "id": "HasA",
+    "inverse_id": "BelongsTo",
+    "symmetric": false,
+    "conceptnet_iri": "/r/HasA",
+    "ro_iri": "RO:0000053",
+    "ssn_iri": null,
+    "definition": "X has Y as a component, attribute, or feature. Y is something X possesses, includes, carries, or holds as part of its structure.",
+    "inverse_definition": "Y belongs to X. Y is possessed by, included in, or carried by X as part of its structure.",
+    "exemplar_phrases": [
+      "has",
+      "possesses",
+      "includes",
+      "carries"
+    ]
+  },
+  {
+    "id": "UsedFor",
+    "inverse_id": "IsUsedBy",
+    "symmetric": false,
+    "conceptnet_iri": "/r/UsedFor",
+    "ro_iri": "RO:0000085",
+    "ssn_iri": "sosa:isActedOnBy",
+    "definition": "X is used for Y. X serves as a tool, power source, or operator that enables, activates, powers, drives, supplies, feeds, or runs Y.",
+    "inverse_definition": "Y is used by X. Y is enabled, activated, powered, driven, supplied, or fed by X as a tool or operator.",
+    "exemplar_phrases": [
+      "is used for",
+      "serves as a tool",
+      "power source",
+      "activates",
+      "powers",
+      "drives",
+      "supplies",
+      "feeds",
+      "runs",
+      "enables",
+      "serves"
+    ]
+  },
+  {
+    "id": "Causes",
+    "inverse_id": "IsCausedBy",
+    "symmetric": false,
+    "conceptnet_iri": "/r/Causes",
+    "ro_iri": "RO:0002410",
+    "ssn_iri": null,
+    "definition": "X causes Y. X is an event or action that triggers, fires, produces, initiates, induces, modulates, or results in Y.",
+    "inverse_definition": "Y is caused by X. Y is triggered, produced, initiated, induced, modulated, or results from X.",
+    "exemplar_phrases": [
+      "causes",
+      "is an event",
+      "action",
+      "fires",
+      "produces",
+      "initiates",
+      "induces",
+      "modulates",
+      "results in",
+      "triggers"
+    ]
+  },
+  {
+    "id": "CapableOf",
+    "inverse_id": "IsActedOnBy",
+    "symmetric": false,
+    "conceptnet_iri": "/r/CapableOf",
+    "ro_iri": null,
+    "ssn_iri": "ssn:implements",
+    "definition": "X is capable of acting on Y. X can direct, command, control, regulate, govern, manage, plan, schedule, or coordinate Y.",
+    "inverse_definition": "Y is acted on by X. Y is directed, commanded, controlled, regulated, governed, managed, or coordinated by X.",
+    "exemplar_phrases": [
+      "is capable of acting on",
+      "can direct",
+      "command",
+      "control",
+      "regulate",
+      "govern",
+      "manage",
+      "plan",
+      "schedule",
+      "coordinate",
+      "can"
+    ]
+  },
+  {
+    "id": "IsA",
+    "inverse_id": "HasSubtype",
+    "symmetric": false,
+    "conceptnet_iri": "/r/IsA",
+    "ro_iri": "RO:0000091",
+    "ssn_iri": null,
+    "definition": "X is a Y. X is a subtype, classification, instance, kind, category, or variant of Y. X is a more specific form of Y.",
+    "inverse_definition": "Y has X as a subtype. Y is a more general category that X instantiates or specialises.",
+    "exemplar_phrases": [
+      "is a subtype",
+      "instance",
+      "is a more specific form of"
+    ]
+  },
+  {
+    "id": "AtLocation",
+    "inverse_id": "LocationOf",
+    "symmetric": false,
+    "conceptnet_iri": "/r/AtLocation",
+    "ro_iri": "RO:0001025",
+    "ssn_iri": "sosa:hosts",
+    "definition": "X is at location Y. X is physically installed, placed, mounted, situated, housed, or located in or at Y.",
+    "inverse_definition": "Y is the location of X. Y physically contains, hosts, houses, or situates X.",
+    "exemplar_phrases": [
+      "is at location",
+      "is physically installed",
+      "placed",
+      "mounted",
+      "situated",
+      "housed",
+      "located in",
+      "is at"
+    ]
+  },
+  {
+    "id": "MadeOf",
+    "inverse_id": "IsComponentOf",
+    "symmetric": false,
+    "conceptnet_iri": "/r/MadeOf",
+    "ro_iri": null,
+    "ssn_iri": null,
+    "definition": "X is made of Y. X is built, assembled, fabricated, constructed, or manufactured from Y as its material or constituent.",
+    "inverse_definition": "Y is a component of X. Y is the material or constituent from which X is built, assembled, or manufactured.",
+    "exemplar_phrases": [
+      "is made of",
+      "is built",
+      "assembled",
+      "fabricated",
+      "constructed",
+      "manufactured from"
+    ]
+  },
+  {
+    "id": "ReceivesAction",
+    "inverse_id": "PerformsAction",
+    "symmetric": false,
+    "conceptnet_iri": "/r/ReceivesAction",
+    "ro_iri": null,
+    "ssn_iri": "sosa:observes",
+    "definition": "X receives an action. X is observed, monitored, measured, sensed, detected, read, scanned, tracked, or recorded.",
+    "inverse_definition": "Y performs an action on X. Y observes, monitors, measures, senses, detects, reads, scans, tracks, or records X.",
+    "exemplar_phrases": [
+      "is observed",
+      "is monitored",
+      "is measured",
+      "is sensed",
+      "is detected",
+      "is read",
+      "is scanned",
+      "is tracked",
+      "is recorded",
+      "receives"
+    ]
+  },
+  {
+    "id": "Connects",
+    "inverse_id": "Connects",
+    "symmetric": true,
+    "conceptnet_iri": "/r/RelatedTo",
+    "ro_iri": null,
+    "ssn_iri": null,
+    "definition": "X connects to Y. X physically links, couples, joins, bridges, interfaces, binds, plugs into, or mates with Y.",
+    "inverse_definition": "Y connects to X. (Symmetric — same as Connects.)",
+    "exemplar_phrases": [
+      "connects to",
+      "physically links",
+      "couples",
+      "joins",
+      "bridges",
+      "binds",
+      "plugs into",
+      "mates with"
+    ]
+  },
+  {
+    "id": "HasPrerequisite",
+    "inverse_id": "IsPrerequisiteFor",
+    "symmetric": false,
+    "conceptnet_iri": "/r/HasPrerequisite",
+    "ro_iri": "RO:0002502",
+    "ssn_iri": null,
+    "definition": "X has Y as a prerequisite. X requires, depends on, needs, or relies on Y. Y must exist or occur before X can happen.",
+    "inverse_definition": "Y is a prerequisite for X. Y must exist or occur before X can happen; X requires or depends on Y.",
+    "exemplar_phrases": [
+      "has",
+      "requires",
+      "depends on",
+      "needs",
+      "relies on",
+      "can"
+    ]
+  },
+  {
+    "id": "RelatedTo",
+    "inverse_id": "RelatedTo",
+    "symmetric": true,
+    "conceptnet_iri": "/r/RelatedTo",
+    "ro_iri": null,
+    "ssn_iri": null,
+    "definition": "X is related to Y. X and Y are associated, linked, involved, or connected in some general way. Used as fallback when no specific relation is identified.",
+    "inverse_definition": "Y is related to X. (Symmetric — same as RelatedTo.)",
+    "exemplar_phrases": [
+      "is related to"
+    ]
+  }
+]

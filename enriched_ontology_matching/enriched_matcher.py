@@ -53,6 +53,7 @@ from root_comparator import (
     _CN_CSV_DEFAULT,
     _cn_load_csv,
 )
+from model_normalizer import load_inventory as _norm_load_inventory, normalize_model
 
 # ---------------------------------------------------------------------------
 # Paths / constants
@@ -723,6 +724,11 @@ def run_pipeline(
 
     name_a = json_a.get("modelName", path.stem + "_a")
     name_b = json_b.get("modelName", path.stem + "_b")
+
+    # ── Normalize: canonical associations + composition → PartOf ─────────────
+    _inv = _norm_load_inventory()
+    json_a = normalize_model(json_a, _inv)
+    json_b = normalize_model(json_b, _inv)
 
     print(f"\n{'='*70}")
     print(f"Enriched Matcher: {name_a}")

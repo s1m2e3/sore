@@ -3,386 +3,386 @@
   "n_ontologies": 6,
   "n_pairs": 15,
   "metric_weights": {
-    "cosine_avg": 0.998903,
-    "wup": 0.999935,
-    "lin_ic": 0.991609,
-    "coherence_sym": 0.329557
+    "lexical_sim": 0.420063,
+    "coherence_sym": 0.187879,
+    "graph_sim": 0.196029,
+    "transfer_sim": 0.196029
   },
-  "average_distance": 0.376307,
-  "average_composite": 0.674695,
+  "average_distance": 0.568213,
+  "average_composite": 0.505257,
   "pairs": [
     {
-      "ont_a": "Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network",
-      "ont_b": "Automobile_Model_V2_ComponentCentric",
-      "distance": 0.24375,
-      "composite": 0.785345,
-      "n_entity_pairs": 30,
-      "metrics": {
-        "cosine_avg": {
-          "mean": 0.70942,
-          "weight": 0.998903
-        },
-        "wup": {
-          "mean": 0.873233,
-          "weight": 0.999935
-        },
-        "lin_ic": {
-          "mean": 0.86409,
-          "weight": 0.991609
-        },
-        "coherence_sym": {
-          "mean": 0.511867,
-          "weight": 0.329557
-        }
-      }
-    },
-    {
-      "ont_a": "Automobile_Model_V2_ComponentCentric",
-      "ont_b": "Automobile_Model_V3_FunctionalDomain",
-      "distance": 0.280487,
-      "composite": 0.820659,
-      "n_entity_pairs": 88,
-      "metrics": {
-        "cosine_avg": {
-          "mean": 0.842822,
-          "weight": 0.998903
-        },
-        "wup": {
-          "mean": 0.940713,
-          "weight": 0.999935
-        },
-        "lin_ic": {
-          "mean": 0.889801,
-          "weight": 0.991609
-        },
-        "coherence_sym": {
-          "mean": 0.181175,
-          "weight": 0.329557
-        }
-      }
-    },
-    {
-      "ont_a": "Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network",
-      "ont_b": "Automobile_Model_V1_SystemCentric",
-      "distance": 0.284983,
-      "composite": 0.772341,
-      "n_entity_pairs": 24,
-      "metrics": {
-        "cosine_avg": {
-          "mean": 0.717508,
-          "weight": 0.998903
-        },
-        "wup": {
-          "mean": 0.887733,
-          "weight": 0.999935
-        },
-        "lin_ic": {
-          "mean": 0.866954,
-          "weight": 0.991609
-        },
-        "coherence_sym": {
-          "mean": 0.303733,
-          "weight": 0.329557
-        }
-      }
-    },
-    {
       "ont_a": "Automobile_Component_Network_Model_Mechanical_and_Structural_Network",
-      "ont_b": "Automobile_Model_V1_SystemCentric",
-      "distance": 0.305234,
-      "composite": 0.769522,
-      "n_entity_pairs": 21,
+      "ont_b": "Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network",
+      "distance": 0.445951,
+      "composite": 0.56562,
+      "n_entity_pairs": 19,
       "metrics": {
-        "cosine_avg": {
-          "mean": 0.670476,
-          "weight": 0.998903
-        },
-        "wup": {
-          "mean": 0.917333,
-          "weight": 0.999935
-        },
-        "lin_ic": {
-          "mean": 0.890748,
-          "weight": 0.991609
+        "lexical_sim": {
+          "mean": 0.610734,
+          "weight": 0.420063
         },
         "coherence_sym": {
-          "mean": 0.25649,
-          "weight": 0.329557
+          "mean": 0.5591,
+          "weight": 0.187879
+        },
+        "graph_sim": {
+          "mean": 0.667845,
+          "weight": 0.196029
+        },
+        "transfer_sim": {
+          "mean": 0.372971,
+          "weight": 0.196029
         }
       }
     },
     {
-      "ont_a": "Automobile_Component_Network_Model_Mechanical_and_Structural_Network",
-      "ont_b": "Automobile_Model_V2_ComponentCentric",
-      "distance": 0.312494,
-      "composite": 0.703489,
-      "n_entity_pairs": 32,
+      "ont_a": "Automobile_Component_Network_Model_Packaged_Assemblies_Network",
+      "ont_b": "Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network",
+      "distance": 0.501413,
+      "composite": 0.513004,
+      "n_entity_pairs": 10,
       "metrics": {
-        "cosine_avg": {
-          "mean": 0.609644,
-          "weight": 0.998903
-        },
-        "wup": {
-          "mean": 0.825925,
-          "weight": 0.999935
-        },
-        "lin_ic": {
-          "mean": 0.726375,
-          "weight": 0.991609
+        "lexical_sim": {
+          "mean": 0.635575,
+          "weight": 0.420063
         },
         "coherence_sym": {
-          "mean": 0.547584,
-          "weight": 0.329557
-        }
-      }
-    },
-    {
-      "ont_a": "Automobile_Model_V1_SystemCentric",
-      "ont_b": "Automobile_Model_V2_ComponentCentric",
-      "distance": 0.32581,
-      "composite": 0.760488,
-      "n_entity_pairs": 76,
-      "metrics": {
-        "cosine_avg": {
-          "mean": 0.707579,
-          "weight": 0.998903
+          "mean": 0.52264,
+          "weight": 0.187879
         },
-        "wup": {
-          "mean": 0.900129,
-          "weight": 0.999935
+        "graph_sim": {
+          "mean": 0.41859,
+          "weight": 0.196029
         },
-        "lin_ic": {
-          "mean": 0.878383,
-          "weight": 0.991609
-        },
-        "coherence_sym": {
-          "mean": 0.142424,
-          "weight": 0.329557
-        }
-      }
-    },
-    {
-      "ont_a": "Automobile_Model_V1_SystemCentric",
-      "ont_b": "Automobile_Model_V3_FunctionalDomain",
-      "distance": 0.354467,
-      "composite": 0.733304,
-      "n_entity_pairs": 90,
-      "metrics": {
-        "cosine_avg": {
-          "mean": 0.673347,
-          "weight": 0.998903
-        },
-        "wup": {
-          "mean": 0.886314,
-          "weight": 0.999935
-        },
-        "lin_ic": {
-          "mean": 0.855418,
-          "weight": 0.991609
-        },
-        "coherence_sym": {
-          "mean": 0.083347,
-          "weight": 0.329557
-        }
-      }
-    },
-    {
-      "ont_a": "Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network",
-      "ont_b": "Automobile_Model_V3_FunctionalDomain",
-      "distance": 0.357888,
-      "composite": 0.706235,
-      "n_entity_pairs": 34,
-      "metrics": {
-        "cosine_avg": {
-          "mean": 0.628756,
-          "weight": 0.998903
-        },
-        "wup": {
-          "mean": 0.858903,
-          "weight": 0.999935
-        },
-        "lin_ic": {
-          "mean": 0.811894,
-          "weight": 0.991609
-        },
-        "coherence_sym": {
-          "mean": 0.159932,
-          "weight": 0.329557
+        "transfer_sim": {
+          "mean": 0.33553,
+          "weight": 0.196029
         }
       }
     },
     {
       "ont_a": "Automobile_Component_Network_Model_Mechanical_and_Structural_Network",
       "ont_b": "Automobile_Component_Network_Model_Packaged_Assemblies_Network",
-      "distance": 0.38998,
-      "composite": 0.634742,
-      "n_entity_pairs": 19,
+      "distance": 0.503744,
+      "composite": 0.521506,
+      "n_entity_pairs": 23,
       "metrics": {
-        "cosine_avg": {
-          "mean": 0.564042,
-          "weight": 0.998903
-        },
-        "wup": {
-          "mean": 0.8417,
-          "weight": 0.999935
-        },
-        "lin_ic": {
-          "mean": 0.536568,
-          "weight": 0.991609
+        "lexical_sim": {
+          "mean": 0.692404,
+          "weight": 0.420063
         },
         "coherence_sym": {
-          "mean": 0.516484,
-          "weight": 0.329557
-        }
-      }
-    },
-    {
-      "ont_a": "Automobile_Component_Network_Model_Mechanical_and_Structural_Network",
-      "ont_b": "Automobile_Model_V3_FunctionalDomain",
-      "distance": 0.401169,
-      "composite": 0.640274,
-      "n_entity_pairs": 48,
-      "metrics": {
-        "cosine_avg": {
-          "mean": 0.531825,
-          "weight": 0.998903
+          "mean": 0.5065,
+          "weight": 0.187879
         },
-        "wup": {
-          "mean": 0.819308,
-          "weight": 0.999935
+        "graph_sim": {
+          "mean": 0.375822,
+          "weight": 0.196029
         },
-        "lin_ic": {
-          "mean": 0.706629,
-          "weight": 0.991609
-        },
-        "coherence_sym": {
-          "mean": 0.226113,
-          "weight": 0.329557
+        "transfer_sim": {
+          "mean": 0.315363,
+          "weight": 0.196029
         }
       }
     },
     {
       "ont_a": "Automobile_Component_Network_Model_Packaged_Assemblies_Network",
       "ont_b": "Automobile_Model_V1_SystemCentric",
-      "distance": 0.403247,
-      "composite": 0.643898,
+      "distance": 0.508918,
+      "composite": 0.529044,
       "n_entity_pairs": 23,
       "metrics": {
-        "cosine_avg": {
-          "mean": 0.505957,
-          "weight": 0.998903
-        },
-        "wup": {
-          "mean": 0.813796,
-          "weight": 0.999935
-        },
-        "lin_ic": {
-          "mean": 0.752496,
-          "weight": 0.991609
+        "lexical_sim": {
+          "mean": 0.676746,
+          "weight": 0.420063
         },
         "coherence_sym": {
-          "mean": 0.219743,
-          "weight": 0.329557
-        }
-      }
-    },
-    {
-      "ont_a": "Automobile_Component_Network_Model_Mechanical_and_Structural_Network",
-      "ont_b": "Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network",
-      "distance": 0.437455,
-      "composite": 0.58223,
-      "n_entity_pairs": 20,
-      "metrics": {
-        "cosine_avg": {
-          "mean": 0.45774,
-          "weight": 0.998903
+          "mean": 0.496061,
+          "weight": 0.187879
         },
-        "wup": {
-          "mean": 0.77441,
-          "weight": 0.999935
+        "graph_sim": {
+          "mean": 0.61175,
+          "weight": 0.196029
         },
-        "lin_ic": {
-          "mean": 0.53082,
-          "weight": 0.991609
-        },
-        "coherence_sym": {
-          "mean": 0.531145,
-          "weight": 0.329557
-        }
-      }
-    },
-    {
-      "ont_a": "Automobile_Component_Network_Model_Packaged_Assemblies_Network",
-      "ont_b": "Automobile_Model_V2_ComponentCentric",
-      "distance": 0.468722,
-      "composite": 0.557686,
-      "n_entity_pairs": 25,
-      "metrics": {
-        "cosine_avg": {
-          "mean": 0.452828,
-          "weight": 0.998903
-        },
-        "wup": {
-          "mean": 0.793736,
-          "weight": 0.999935
-        },
-        "lin_ic": {
-          "mean": 0.463968,
-          "weight": 0.991609
-        },
-        "coherence_sym": {
-          "mean": 0.441284,
-          "weight": 0.329557
+        "transfer_sim": {
+          "mean": 0.161448,
+          "weight": 0.196029
         }
       }
     },
     {
       "ont_a": "Automobile_Component_Network_Model_Packaged_Assemblies_Network",
       "ont_b": "Automobile_Model_V3_FunctionalDomain",
-      "distance": 0.512693,
-      "composite": 0.522425,
-      "n_entity_pairs": 42,
+      "distance": 0.533647,
+      "composite": 0.491216,
+      "n_entity_pairs": 77,
       "metrics": {
-        "cosine_avg": {
-          "mean": 0.438607,
-          "weight": 0.998903
-        },
-        "wup": {
-          "mean": 0.778924,
-          "weight": 0.999935
-        },
-        "lin_ic": {
-          "mean": 0.462702,
-          "weight": 0.991609
+        "lexical_sim": {
+          "mean": 0.594371,
+          "weight": 0.420063
         },
         "coherence_sym": {
-          "mean": 0.177914,
-          "weight": 0.329557
+          "mean": 0.414739,
+          "weight": 0.187879
+        },
+        "graph_sim": {
+          "mean": 0.632853,
+          "weight": 0.196029
+        },
+        "transfer_sim": {
+          "mean": 0.201829,
+          "weight": 0.196029
+        }
+      }
+    },
+    {
+      "ont_a": "Automobile_Model_V1_SystemCentric",
+      "ont_b": "Automobile_Model_V3_FunctionalDomain",
+      "distance": 0.561725,
+      "composite": 0.54701,
+      "n_entity_pairs": 382,
+      "metrics": {
+        "lexical_sim": {
+          "mean": 0.900729,
+          "weight": 0.420063
+        },
+        "coherence_sym": {
+          "mean": 0.554216,
+          "weight": 0.187879
+        },
+        "graph_sim": {
+          "mean": 0.197524,
+          "weight": 0.196029
+        },
+        "transfer_sim": {
+          "mean": 0.131619,
+          "weight": 0.196029
+        }
+      }
+    },
+    {
+      "ont_a": "Automobile_Model_V2_ComponentCentric",
+      "ont_b": "Automobile_Model_V3_FunctionalDomain",
+      "distance": 0.586266,
+      "composite": 0.551995,
+      "n_entity_pairs": 368,
+      "metrics": {
+        "lexical_sim": {
+          "mean": 0.953681,
+          "weight": 0.420063
+        },
+        "coherence_sym": {
+          "mean": 0.56637,
+          "weight": 0.187879
+        },
+        "graph_sim": {
+          "mean": 0.091089,
+          "weight": 0.196029
+        },
+        "transfer_sim": {
+          "mean": 0.138366,
+          "weight": 0.196029
+        }
+      }
+    },
+    {
+      "ont_a": "Automobile_Model_V1_SystemCentric",
+      "ont_b": "Automobile_Model_V2_ComponentCentric",
+      "distance": 0.591605,
+      "composite": 0.537425,
+      "n_entity_pairs": 292,
+      "metrics": {
+        "lexical_sim": {
+          "mean": 0.932437,
+          "weight": 0.420063
+        },
+        "coherence_sym": {
+          "mean": 0.536978,
+          "weight": 0.187879
+        },
+        "graph_sim": {
+          "mean": 0.085718,
+          "weight": 0.196029
+        },
+        "transfer_sim": {
+          "mean": 0.143108,
+          "weight": 0.196029
         }
       }
     },
     {
       "ont_a": "Automobile_Component_Network_Model_Packaged_Assemblies_Network",
-      "ont_b": "Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network",
-      "distance": 0.566225,
-      "composite": 0.487795,
-      "n_entity_pairs": 10,
+      "ont_b": "Automobile_Model_V2_ComponentCentric",
+      "distance": 0.599282,
+      "composite": 0.431034,
+      "n_entity_pairs": 31,
       "metrics": {
-        "cosine_avg": {
-          "mean": 0.46352,
-          "weight": 0.998903
-        },
-        "wup": {
-          "mean": 0.80368,
-          "weight": 0.999935
-        },
-        "lin_ic": {
-          "mean": 0.18213,
-          "weight": 0.991609
+        "lexical_sim": {
+          "mean": 0.615948,
+          "weight": 0.420063
         },
         "coherence_sym": {
-          "mean": 0.52264,
-          "weight": 0.329557
+          "mean": 0.456023,
+          "weight": 0.187879
+        },
+        "graph_sim": {
+          "mean": 0.317144,
+          "weight": 0.196029
+        },
+        "transfer_sim": {
+          "mean": 0.124727,
+          "weight": 0.196029
+        }
+      }
+    },
+    {
+      "ont_a": "Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network",
+      "ont_b": "Automobile_Model_V2_ComponentCentric",
+      "distance": 0.60276,
+      "composite": 0.499657,
+      "n_entity_pairs": 96,
+      "metrics": {
+        "lexical_sim": {
+          "mean": 0.814813,
+          "weight": 0.420063
+        },
+        "coherence_sym": {
+          "mean": 0.650831,
+          "weight": 0.187879
+        },
+        "graph_sim": {
+          "mean": 0.140559,
+          "weight": 0.196029
+        },
+        "transfer_sim": {
+          "mean": 0.038534,
+          "weight": 0.196029
+        }
+      }
+    },
+    {
+      "ont_a": "Automobile_Component_Network_Model_Mechanical_and_Structural_Network",
+      "ont_b": "Automobile_Model_V3_FunctionalDomain",
+      "distance": 0.608863,
+      "composite": 0.464228,
+      "n_entity_pairs": 92,
+      "metrics": {
+        "lexical_sim": {
+          "mean": 0.758611,
+          "weight": 0.420063
+        },
+        "coherence_sym": {
+          "mean": 0.516165,
+          "weight": 0.187879
+        },
+        "graph_sim": {
+          "mean": 0.182615,
+          "weight": 0.196029
+        },
+        "transfer_sim": {
+          "mean": 0.065242,
+          "weight": 0.196029
+        }
+      }
+    },
+    {
+      "ont_a": "Automobile_Component_Network_Model_Mechanical_and_Structural_Network",
+      "ont_b": "Automobile_Model_V2_ComponentCentric",
+      "distance": 0.61081,
+      "composite": 0.489813,
+      "n_entity_pairs": 92,
+      "metrics": {
+        "lexical_sim": {
+          "mean": 0.827053,
+          "weight": 0.420063
+        },
+        "coherence_sym": {
+          "mean": 0.571746,
+          "weight": 0.187879
+        },
+        "graph_sim": {
+          "mean": 0.135727,
+          "weight": 0.196029
+        },
+        "transfer_sim": {
+          "mean": 0.042715,
+          "weight": 0.196029
+        }
+      }
+    },
+    {
+      "ont_a": "Automobile_Component_Network_Model_Mechanical_and_Structural_Network",
+      "ont_b": "Automobile_Model_V1_SystemCentric",
+      "distance": 0.612507,
+      "composite": 0.498577,
+      "n_entity_pairs": 69,
+      "metrics": {
+        "lexical_sim": {
+          "mean": 0.859143,
+          "weight": 0.420063
+        },
+        "coherence_sym": {
+          "mean": 0.56182,
+          "weight": 0.187879
+        },
+        "graph_sim": {
+          "mean": 0.110738,
+          "weight": 0.196029
+        },
+        "transfer_sim": {
+          "mean": 0.053162,
+          "weight": 0.196029
+        }
+      }
+    },
+    {
+      "ont_a": "Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network",
+      "ont_b": "Automobile_Model_V1_SystemCentric",
+      "distance": 0.626065,
+      "composite": 0.475133,
+      "n_entity_pairs": 95,
+      "metrics": {
+        "lexical_sim": {
+          "mean": 0.821168,
+          "weight": 0.420063
+        },
+        "coherence_sym": {
+          "mean": 0.549883,
+          "weight": 0.187879
+        },
+        "graph_sim": {
+          "mean": 0.096953,
+          "weight": 0.196029
+        },
+        "transfer_sim": {
+          "mean": 0.040166,
+          "weight": 0.196029
+        }
+      }
+    },
+    {
+      "ont_a": "Automobile_Component_Network_Model_Serviceable_Parts_Interaction_Network",
+      "ont_b": "Automobile_Model_V3_FunctionalDomain",
+      "distance": 0.629643,
+      "composite": 0.463598,
+      "n_entity_pairs": 104,
+      "metrics": {
+        "lexical_sim": {
+          "mean": 0.799533,
+          "weight": 0.420063
+        },
+        "coherence_sym": {
+          "mean": 0.528977,
+          "weight": 0.187879
+        },
+        "graph_sim": {
+          "mean": 0.107926,
+          "weight": 0.196029
+        },
+        "transfer_sim": {
+          "mean": 0.036746,
+          "weight": 0.196029
         }
       }
     }

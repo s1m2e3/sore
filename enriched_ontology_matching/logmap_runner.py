@@ -45,6 +45,10 @@ from pathlib import Path
 _DIR       = Path(__file__).parent
 LOGMAP_JAR = _DIR / "tools" / "logmap" / "logmap-matcher-4.0.jar"
 
+import sys as _sys
+_sys.path.insert(0, str(_DIR))
+from model_normalizer import load_inventory as _norm_load_inventory, normalize_model
+
 
 # ---------------------------------------------------------------------------
 # OWL TBox generation
@@ -126,6 +130,9 @@ def json_to_tbox_owl(json_data: dict, output_path: Path) -> None:
     json_data   : conceptual-model JSON dict (Type-A or Type-B schema)
     output_path : where to write the .owl file (must be absolute)
     """
+    # Normalize: canonical associations + composition → PartOf synthesis
+    json_data = normalize_model(json_data, _norm_load_inventory())
+
     iri_base = output_path.resolve().as_uri()
 
     # ── Collect entity local names for type discrimination ──────────────────

@@ -34,7 +34,10 @@ MERGED_FIELDS = [
     "wup",
     "lin_ic",
     "coherence_sym",
+    "verb_coherence",
+    "attr_reach_sim",
     "cosine_avg",
+    "gnn_sim",
     "entailment_a_covers_b",
     "entailment_b_covers_a",
     "entailment_f1",
@@ -61,6 +64,7 @@ def merge_pair(
     emb_csv: Path | None,
     out_csv: Path,
     closure_csv: Path | None = None,
+    gnn_csv: Path | None = None,
 ) -> list[dict]:
     """Join per-pair stage CSVs into a single metrics-only flat CSV.
 
@@ -80,6 +84,7 @@ def merge_pair(
     lin_idx     = _index(_read_csv(lin_ic_csv)  if lin_ic_csv  else [])
     emb_idx     = _index(_read_csv(emb_csv)     if emb_csv     else [])
     closure_idx = _index(_read_csv(closure_csv) if closure_csv else [])
+    gnn_idx     = _index(_read_csv(gnn_csv)     if gnn_csv     else [])
 
     merged: list[dict] = []
     for row in base_rows:
@@ -90,6 +95,7 @@ def merge_pair(
         lin     = lin_idx.get(key, {})
         emb     = emb_idx.get(key, {})
         closure = closure_idx.get(key, {})
+        gnn     = gnn_idx.get(key, {})
 
         # New format: (max_wup + avg_wup) / 2.
         # Old format fallback: use wup_score (equivalent to per-token max).
@@ -111,7 +117,10 @@ def merge_pair(
             "wup":                   wup_val,
             "lin_ic":                lin.get("lin_ic", ""),
             "coherence_sym":         nbr.get("coherence_sym", ""),
+            "verb_coherence":        nbr.get("verb_coherence", ""),
+            "attr_reach_sim":        nbr.get("attr_reach_sim", ""),
             "cosine_avg":            emb.get("cosine_avg", ""),
+            "gnn_sim":               gnn.get("gnn_sim", ""),
             "entailment_a_covers_b": closure.get("entailment_a_covers_b", ""),
             "entailment_b_covers_a": closure.get("entailment_b_covers_a", ""),
             "entailment_f1":         closure.get("entailment_f1", ""),
@@ -142,6 +151,7 @@ if __name__ == "__main__":
     parser.add_argument("--lin-ic",    default=None,  help="Lin-IC CSV")
     parser.add_argument("--emb",       default=None,  help="Embedding cosine CSV")
     parser.add_argument("--closure",   default=None,  help="Containment closure CSV")
+    parser.add_argument("--gnn",       default=None,  help="GNN similarity CSV")
     parser.add_argument("--out",       required=True, help="Output merged CSV path")
     args = parser.parse_args()
 
@@ -151,5 +161,6 @@ if __name__ == "__main__":
         lin_ic_csv   = Path(getattr(args, "lin_ic")) if args.lin_ic else None,
         emb_csv      = Path(args.emb)      if args.emb      else None,
         closure_csv  = Path(args.closure)  if args.closure  else None,
+        gnn_csv      = Path(args.gnn)      if args.gnn      else None,
         out_csv      = Path(args.out),
     )
