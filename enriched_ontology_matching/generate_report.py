@@ -24,7 +24,6 @@ _CSV_DEFAULT  = _DIR / "outputs" / "enriched" / "all_domains_combined.csv"
 _OUT_DEFAULT  = _DIR / "outputs" / "all_domains_results.md"
 _TEST_DIR     = _DIR
 _NBR_DIR      = _DIR / "outputs" / "neighbourhood"   # neighbourhood coherence CSVs
-_LIN_IC_DIR   = _DIR / "outputs" / "lin_ic"          # Lin-IC scoring CSVs
 _EMB_DIR      = _DIR / "outputs" / "embeddings"      # sentence embedding CSVs
 
 
@@ -65,32 +64,6 @@ def _find_neighbourhood(domain_key: str,
         domain_key,
         domain_key.replace("test_", ""),
     ]:
-        hit = lower_index.get(candidate.lower())
-        if hit is not None:
-            return hit
-    return []
-
-
-def _load_lin_ic_index(lin_ic_dir: Path) -> dict[str, list[dict]]:
-    """
-    Scan lin_ic_dir for *_lin_ic.csv files and return a dict mapping
-    the domain key (e.g. 'auto_V1_V2') to its rows.
-    """
-    index: dict[str, list[dict]] = {}
-    if not lin_ic_dir.is_dir():
-        return index
-    for f in lin_ic_dir.glob("*_lin_ic.csv"):
-        key = f.stem.replace("_lin_ic", "")
-        with open(f, newline="", encoding="utf-8") as fh:
-            index[key] = list(csv.DictReader(fh))
-    return index
-
-
-def _find_lin_ic(domain_key: str,
-                 lin_ic_index: dict[str, list[dict]]) -> list[dict]:
-    """Case-insensitive lookup of Lin-IC rows for a given domain key."""
-    lower_index = {k.lower(): v for k, v in lin_ic_index.items()}
-    for candidate in [domain_key, domain_key.replace("test_", "")]:
         hit = lower_index.get(candidate.lower())
         if hit is not None:
             return hit
@@ -259,104 +232,6 @@ def _neighbourhood_section(nbr_rows: list[dict], threshold: float = 0.5) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Lin-IC subsection
-# ---------------------------------------------------------------------------
-
-def _lin_ic_section(lin_rows: list[dict]) -> str:
-    """
-    Render Layer 3 — Lin-IC Final Scoring subsection.
-
-    Shows L1 matches ranked by max_lin_ic and top L2 equivalence
-    candidates re-ranked by max_lin_ic.  Flags matches where lin_ic
-    is high but ic_lcs is low (generic LCS = weak evidence).
-    """
-    if not lin_rows:
-        return ""
-
-    l1_rows = [r for r in lin_rows if r.get("layer") == "1"]
-    l2_rows = [r for r in lin_rows if r.get("layer") == "2"
-               and r.get("semantic_label") in ("Identical", "Synonym", "Near-Synonym")]
-
-    if not l1_rows and not l2_rows:
-        return ""
-
-    IC_LCS_SPECIFIC = 5.0   # threshold: IC(LCS) >= 5 = specific ancestor
-
-    lines: list[str] = []
-    lines.append("### Layer 3 — Lin-IC Final Scoring\n")
-    lines.append(
-        "IC corpus: Brown (Resnik add-1 smoothing)  &nbsp;|&nbsp; "
-        "**High ic_lcs** (>= 5): specific common ancestor = strong match  &nbsp;|&nbsp; "
-        "**Low ic_lcs** (< 3): only a generic root links the tokens = weak evidence\n"
-    )
-
-    # ── L1 matches ────────────────────────────────────────────────────────
-    if l1_rows:
-        non_trivial = [r for r in l1_rows
-                       if r.get("entity_a", "").lower() != r.get("entity_b", "").lower()]
-        if non_trivial:
-            lines.append("**L1 non-trivial matches ranked by Lin-IC:**\n")
-            ranked = sorted(
-                non_trivial,
-                key=lambda r: float(r.get("max_lin_ic") or 0),
-                reverse=True,
-            )
-            tbl = []
-            for r in ranked:
-                ic_lcs_v = float(r.get("ic_lcs") or 0)
-                flag = " *" if ic_lcs_v >= IC_LCS_SPECIFIC else (
-                       " ?" if ic_lcs_v < 3 else "")
-                lcs_display = r.get("lcs", "")[:28]
-                tbl.append([
-                    r["entity_a"], r["entity_b"],
-                    r.get("semantic_label", ""),
-                    r.get("wup_score", ""), r.get("max_wup", ""),
-                    r.get("lin_ic", ""), r.get("max_lin_ic", ""), r.get("avg_lin_ic", ""),
-                    lcs_display, f"{ic_lcs_v:.2f}{flag}",
-                ])
-            lines.append(_md_table(
-                ["Entity A", "Entity B", "Semantic",
-                 "WUP", "MaxWUP",
-                 "LinIC", "MaxLinIC", "AvgLinIC",
-                 "LCS (common ancestor)", "IC(LCS)"],
-                tbl,
-            ))
-            lines.append(
-                "\n_* IC(LCS) >= 5: specific ancestor — "
-                "? IC(LCS) < 3: generic ancestor only_\n"
-            )
-
-    # ── L2 equivalence candidates ──────────────────────────────────────────
-    if l2_rows:
-        lines.append("**Top L2 equivalence candidates by Lin-IC:**\n")
-        ranked_l2 = sorted(
-            l2_rows,
-            key=lambda r: float(r.get("max_lin_ic") or 0),
-            reverse=True,
-        )[:15]
-        tbl = []
-        for r in ranked_l2:
-            ic_lcs_v = float(r.get("ic_lcs") or 0)
-            flag = " *" if ic_lcs_v >= IC_LCS_SPECIFIC else (
-                   " ?" if ic_lcs_v < 3 else "")
-            tbl.append([
-                r["entity_a"], r["entity_b"],
-                r.get("semantic_label", ""),
-                r.get("lin_ic", ""), r.get("max_lin_ic", ""), r.get("avg_lin_ic", ""),
-                r.get("lcs", "")[:28], f"{ic_lcs_v:.2f}{flag}",
-            ])
-        lines.append(_md_table(
-            ["Entity A", "Entity B", "Semantic",
-             "LinIC", "MaxLinIC", "AvgLinIC",
-             "LCS (common ancestor)", "IC(LCS)"],
-            tbl,
-        ))
-        lines.append("")
-
-    return "\n".join(lines)
-
-
-# ---------------------------------------------------------------------------
 # Embedding cosine similarity subsection
 # ---------------------------------------------------------------------------
 
@@ -452,7 +327,6 @@ def _embedding_section(emb_rows: list[dict]) -> str:
 
 def _domain_section(domain: str, rows: list[dict], meta: dict, idx: int,
                     nbr_rows: list[dict] | None = None,
-                    lin_ic_rows: list[dict] | None = None,
                     emb_rows: list[dict] | None = None) -> str:
     l1    = [r for r in rows if r["layer"] == "1"]
     l2eq  = [r for r in rows if r["layer"] == "2" and r["layer2_type"] == "Equivalence"]
@@ -566,11 +440,7 @@ def _domain_section(domain: str, rows: list[dict], meta: dict, idx: int,
         lines.append("_None found._")
     lines.append("")
 
-    # ── Layer 3: Lin-IC final scoring ────────────────────────────────────────
-    if lin_ic_rows:
-        lines.append(_lin_ic_section(lin_ic_rows))
-
-    # ── Layer 4: Sentence embedding cosine similarity ─────────────────────────
+    # ── Layer 3: Sentence embedding cosine similarity ─────────────────────────
     if emb_rows:
         lines.append(_embedding_section(emb_rows))
 
@@ -676,13 +546,11 @@ def _cross_domain_obs(by_domain: dict[str, list[dict]]) -> str:
 
 def generate(csv_path: Path, out_path: Path,
              nbr_dir: Path | None = None,
-             lin_ic_dir: Path | None = None,
              emb_dir: Path | None = None) -> None:
     """Generate a Markdown report from the combined enriched-matcher CSV.
 
-    Reads all_domains_combined.csv and joins neighbourhood coherence,
-    Lin-IC, and embedding results (when available) into a per-domain
-    Markdown report.
+    Reads all_domains_combined.csv and joins neighbourhood coherence and
+    embedding results (when available) into a per-domain Markdown report.
 
     Raises FileNotFoundError if csv_path does not exist.
     """
@@ -698,13 +566,11 @@ def generate(csv_path: Path, out_path: Path,
 
     metas = {d: _load_domain_meta(d) for d in by_domain}
 
-    # Load neighbourhood coherence, Lin-IC, and embedding CSVs
-    nbr_index    = _load_neighbourhood_index(nbr_dir or _NBR_DIR)
-    lin_ic_index = _load_lin_ic_index(lin_ic_dir or _LIN_IC_DIR)
-    emb_index    = _load_emb_index(emb_dir or _EMB_DIR)
-    nbr_found    = len(nbr_index)
-    lin_found    = len(lin_ic_index)
-    emb_found    = len(emb_index)
+    # Load neighbourhood coherence and embedding CSVs
+    nbr_index = _load_neighbourhood_index(nbr_dir or _NBR_DIR)
+    emb_index = _load_emb_index(emb_dir or _EMB_DIR)
+    nbr_found = len(nbr_index)
+    emb_found = len(emb_index)
 
     cn_info = "5.7.0 local CSV"
 
@@ -712,11 +578,10 @@ def generate(csv_path: Path, out_path: Path,
         "# Enriched Ontology Matching — All Domains Results\n",
         f"**Pipeline**: AML + LogMap (structural) "
         f"-> Layer 1 characterisation (WN+CN) -> Layer 2 discovery (WN+CN) "
-        f"-> Layer 3 Lin-IC scoring -> Layer 4 sentence embedding similarity  ",
+        f"-> Layer 3 sentence embedding similarity  ",
         f"**ConceptNet**: {cn_info}  ",
         f"**Combined output**: `{csv_path.name}` ({len(rows)} total rows)  ",
         f"**Neighbourhood coherence**: {nbr_found} pair(s) &nbsp;|&nbsp; "
-        f"**Lin-IC scored**: {lin_found} pair(s) &nbsp;|&nbsp; "
         f"**Embedding scored**: {emb_found} pair(s)\n",
         "---\n",
         "## Summary\n",
@@ -725,12 +590,10 @@ def generate(csv_path: Path, out_path: Path,
     ]
 
     for idx, (domain, drows) in enumerate(by_domain.items(), start=1):
-        nbr_rows    = _find_neighbourhood(domain, nbr_index)
-        lin_ic_rows = _find_lin_ic(domain, lin_ic_index)
-        emb_rows    = _find_emb(domain, emb_index)
+        nbr_rows = _find_neighbourhood(domain, nbr_index)
+        emb_rows = _find_emb(domain, emb_index)
         lines.append(_domain_section(domain, drows, metas[domain], idx,
                                      nbr_rows=nbr_rows,
-                                     lin_ic_rows=lin_ic_rows,
                                      emb_rows=emb_rows))
 
     lines.append(_cross_domain_obs(by_domain))
@@ -751,14 +614,10 @@ if __name__ == "__main__":
     parser.add_argument("--neighbourhood-dir", default=None,
                         help="Directory containing *_coherence.csv files "
                              f"(default: {_NBR_DIR})")
-    parser.add_argument("--lin-ic-dir", default=None,
-                        help="Directory containing *_lin_ic.csv files "
-                             f"(default: {_LIN_IC_DIR})")
     parser.add_argument("--emb-dir", default=None,
                         help="Directory containing *_emb.csv files "
                              f"(default: {_EMB_DIR})")
     args = parser.parse_args()
     generate(Path(args.csv), Path(args.out),
              nbr_dir=Path(args.neighbourhood_dir) if args.neighbourhood_dir else None,
-             lin_ic_dir=Path(args.lin_ic_dir) if args.lin_ic_dir else None,
              emb_dir=Path(args.emb_dir) if args.emb_dir else None)

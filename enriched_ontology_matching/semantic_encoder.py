@@ -303,12 +303,17 @@ def cosine_multi(
     c_whole = float(np.dot(emb_a.whole, emb_b.whole))
     c_sum   = float(np.dot(emb_a.sum,   emb_b.sum))
     c_prod  = float(np.dot(emb_a.prod,  emb_b.prod))
-    c_avg   = round((c_whole + c_sum + c_prod) / 3, 4)
+    c_avg   = (c_whole + c_sum + c_prod) / 3
+    # Rescale from [-1, 1] to [0, 1]
+    c_whole = (c_whole + 1.0) / 2.0
+    c_sum   = (c_sum   + 1.0) / 2.0
+    c_prod  = (c_prod  + 1.0) / 2.0
+    c_avg   = (c_avg   + 1.0) / 2.0
     return {
         "cosine_whole": round(c_whole, 4),
         "cosine_sum":   round(c_sum,   4),
         "cosine_prod":  round(c_prod,  4),
-        "cosine_avg":   c_avg,
+        "cosine_avg":   round(c_avg,   4),
     }
 
 
@@ -419,6 +424,11 @@ def run_embedding_stage(
         c_sum   = (sum_a   * sum_b  ).sum(axis=1)
         c_prod  = (prod_a  * prod_b ).sum(axis=1)
         c_avg   = (c_whole + c_sum + c_prod) / 3.0
+        # Rescale from [-1, 1] to [0, 1]
+        c_whole = (c_whole + 1.0) / 2.0
+        c_sum   = (c_sum   + 1.0) / 2.0
+        c_prod  = (c_prod  + 1.0) / 2.0
+        c_avg   = (c_avg   + 1.0) / 2.0
 
         for k, i in enumerate(valid_idx):
             cosine_results[i] = {
@@ -442,8 +452,8 @@ def run_embedding_stage(
         ma, mb = all_embs.get(ea), all_embs.get(eb)
         cosine_results[i] = (
             cosine_multi(ma, mb) if (ma is not None and mb is not None)
-            else {"cosine_whole": 0.0, "cosine_sum": 0.0,
-                  "cosine_prod": 0.0,  "cosine_avg": 0.0}
+            else {"cosine_whole": 0.5, "cosine_sum": 0.5,
+                  "cosine_prod": 0.5,  "cosine_avg": 0.5}
         )
 
     # ── Assemble output rows ─────────────────────────────────────────────────
@@ -452,8 +462,8 @@ def run_embedding_stage(
         ea = row.get("entity_a", "")
         eb = row.get("entity_b", "")
         sims = cosine_results.get(i, {
-            "cosine_whole": 0.0, "cosine_sum": 0.0,
-            "cosine_prod": 0.0,  "cosine_avg": 0.0,
+            "cosine_whole": 0.5, "cosine_sum": 0.5,
+            "cosine_prod": 0.5,  "cosine_avg": 0.5,
         })
         results.append({
             "entity_a":       ea,

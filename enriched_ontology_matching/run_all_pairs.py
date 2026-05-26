@@ -53,7 +53,6 @@ _EXAMPLES  = _DIR / "inputs"
 _PAIRS_DIR  = _DIR / "pairs"
 _ENRICHED   = _DIR / "outputs" / "enriched"
 _NBR_DIR    = _DIR / "outputs" / "neighbourhood"
-_LIN_IC_DIR = _DIR / "outputs" / "lin_ic"
 _EMB_DIR    = _DIR / "outputs" / "embeddings"
 _GNN_DIR    = _DIR / "outputs" / "gnn"
 _MERGED_DIR = _DIR / "outputs" / "merged"
@@ -139,7 +138,6 @@ def _run_pair(
     use_logmap: bool,
     run_pipeline,
     nbr_analysis,
-    run_lin_ic,
     run_embedding_stage,
     merge_pair,
     run_closure_stage,
@@ -147,7 +145,7 @@ def _run_pair(
     _safe_local,
 ) -> tuple[str, Path] | None:
     """
-    Run the full 6-step pipeline for a single model pair (a, b).
+    Run the full 5-step pipeline for a single model pair (a, b).
 
     Returns (domain_key, enriched_csv_path) on success, None on failure.
     """
@@ -161,7 +159,6 @@ def _run_pair(
     pair_csv = _ENRICHED / f"{stem}.csv"
 
     nbr_csv     = _NBR_DIR    / f"{domain_key}_coherence.csv"
-    lin_ic_csv  = _LIN_IC_DIR / f"{domain_key}_lin_ic.csv"
     emb_csv     = _EMB_DIR    / f"{domain_key}_emb.csv"
     gnn_csv     = _GNN_DIR    / f"{domain_key}_gnn.csv"
     closure_csv = _DIR / "outputs" / "closure" / f"{stem}_closure.csv"
@@ -198,16 +195,7 @@ def _run_pair(
         except Exception as exc:
             print(f"    [WARN] Coherence failed for {domain_key}: {exc}")
 
-    # ── Step 3: Lin-IC ───────────────────────────────────────────────────
-    if skip_existing and lin_ic_csv.exists():
-        print(f"    [SKIP] Lin-IC for {domain_key}")
-    else:
-        try:
-            run_lin_ic(csv_path, lin_ic_csv)
-        except Exception as exc:
-            print(f"    [WARN] Lin-IC failed for {domain_key}: {exc}")
-
-    # ── Step 4: Sentence embeddings ──────────────────────────────────────
+    # ── Step 3: Sentence embeddings ──────────────────────────────────────
     if skip_existing and emb_csv.exists():
         print(f"    [SKIP] Embeddings for {domain_key}")
     else:
@@ -216,7 +204,7 @@ def _run_pair(
         except Exception as exc:
             print(f"    [WARN] Embedding failed for {domain_key}: {exc}")
 
-    # ── Step 5: GNN similarity ───────────────────────────────────────────
+    # ── Step 4: GNN similarity ───────────────────────────────────────────
     if skip_existing and gnn_csv.exists():
         print(f"    [SKIP] GNN for {domain_key}")
     else:
@@ -225,7 +213,7 @@ def _run_pair(
         except Exception as exc:
             print(f"    [WARN] GNN failed for {domain_key}: {exc}")
 
-    # ── Step 6: Containment closure ──────────────────────────────────────
+    # ── Step 5: Containment closure ──────────────────────────────────────
     if skip_existing and closure_csv.exists():
         print(f"    [SKIP] Closure for {domain_key}")
     else:
@@ -245,7 +233,7 @@ def _run_pair(
         except Exception as exc:
             print(f"    [WARN] Closure failed for {domain_key}: {exc}")
 
-    # ── Step 7: Merge ────────────────────────────────────────────────────
+    # ── Step 6: Merge ────────────────────────────────────────────────────
     if skip_existing and merged_csv.exists():
         print(f"    [SKIP] Merge for {domain_key}")
     else:
@@ -253,7 +241,6 @@ def _run_pair(
             merge_pair(
                 enriched_csv = csv_path,
                 nbr_csv      = nbr_csv      if nbr_csv.exists()      else None,
-                lin_ic_csv   = lin_ic_csv   if lin_ic_csv.exists()   else None,
                 emb_csv      = emb_csv      if emb_csv.exists()      else None,
                 closure_csv  = closure_csv  if closure_csv.exists()  else None,
                 gnn_csv      = gnn_csv      if gnn_csv.exists()      else None,
@@ -270,7 +257,7 @@ def main() -> None:
 
     For each requested domain, discovers model JSONs under --inputs-dir/<Domain>/,
     runs all within-domain pairs through the 5-step pipeline (AML+LogMap →
-    Layer 1 characterisation → neighbourhood coherence → Lin-IC → embeddings → merge),
+    Layer 1 characterisation → neighbourhood coherence → embeddings → merge),
     combines results, and writes a Markdown report.
 
     Use --inputs-dir to point at any directory that contains domain subdirectories
@@ -319,7 +306,6 @@ def main() -> None:
     from enriched_matcher import run_pipeline
     from logmap_runner import _safe_local
     from neighbourhood_coherence import run_analysis as nbr_analysis
-    from lin_ic_stage import run_lin_ic
     from semantic_encoder import run_embedding_stage
     from merge_stage import merge_pair
     from containment_closure import run_closure_stage
@@ -328,7 +314,6 @@ def main() -> None:
     _PAIRS_DIR.mkdir(exist_ok=True)
     _ENRICHED.mkdir(parents=True, exist_ok=True)
     _NBR_DIR.mkdir(parents=True, exist_ok=True)
-    _LIN_IC_DIR.mkdir(parents=True, exist_ok=True)
     _EMB_DIR.mkdir(parents=True, exist_ok=True)
     _GNN_DIR.mkdir(parents=True, exist_ok=True)
     _MERGED_DIR.mkdir(parents=True, exist_ok=True)
@@ -340,7 +325,6 @@ def main() -> None:
         use_logmap          = args.matcher in ("logmap", "both"),
         run_pipeline        = run_pipeline,
         nbr_analysis        = nbr_analysis,
-        run_lin_ic          = run_lin_ic,
         run_embedding_stage = run_embedding_stage,
         merge_pair          = merge_pair,
         run_closure_stage   = run_closure_stage,
@@ -437,8 +421,7 @@ def main() -> None:
     # ── Generate MD report ─────────────────────────────────────────────────
     print(f"\n[Report] Generating {_MD_OUT} ...")
     from generate_report import generate
-    generate(_COMBINED, _MD_OUT, nbr_dir=_NBR_DIR, lin_ic_dir=_LIN_IC_DIR,
-             emb_dir=_EMB_DIR)
+    generate(_COMBINED, _MD_OUT, nbr_dir=_NBR_DIR, emb_dir=_EMB_DIR)
     print("[Done]")
 
 

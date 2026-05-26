@@ -13,12 +13,11 @@ The primary use case is **within-domain analysis**: run all pairwise comparisons
 | **L0** | Neighbourhood Coherence | Validates each pair via `sqrt(WUP × cosine)` geometric mean over local graph neighbours |
 | **L1** | Structural Matching | AML + LogMap find entity pairs; results merged and de-duplicated |
 | **L2** | Semantic Discovery | WordNet + ConceptNet discover equivalence/subsumption candidates among unmatched entities |
-| **L3** | Lin-IC Scoring | Corpus-based Lin Information Content (Brown corpus) scores every L1+L2 pair |
-| **L4** | Sentence Embedding | `paraphrase-MiniLM-L6-v2` cosine similarity per entity pair |
-| **L5** | GNN Similarity | Symmetric GNN aggregates sentence-embedded entity nodes and canonical edge labels over K hops; produces `gnn_sim` for every matched pair |
-| **L6** | Containment Closure | Cross-encoder NLI (`nli-MiniLM2-L6-H768`) scores directional entailment between observable-type signatures for every A×B entity pair |
-| **L7** | Merge | Joins all layer outputs into one metrics-only CSV per pair |
-| **L8** | Distance Visualisation | Sparsity-weighted MDS map of all ontologies as interactive HTML |
+| **L3** | Sentence Embedding | `paraphrase-MiniLM-L6-v2` cosine similarity per entity pair (rescaled to [0, 1]) |
+| **L4** | GNN Similarity | Symmetric GNN aggregates sentence-embedded entity nodes and canonical edge labels over K hops; produces `gnn_sim` for every matched pair |
+| **L5** | Containment Closure | Cross-encoder NLI (`nli-MiniLM2-L6-H768`) scores directional entailment between observable-type signatures for every A×B entity pair |
+| **L6** | Merge | Joins all layer outputs into one metrics-only CSV per pair |
+| **L7** | Distance Visualisation | Sparsity-weighted MDS map of all ontologies as interactive HTML |
 
 ---
 
@@ -94,7 +93,7 @@ source .venv/bin/activate
 pip install -e .
 
 # 3. Download required NLTK data (one-time)
-python -c "import nltk; nltk.download('wordnet'); nltk.download('omw-1.4'); nltk.download('wordnet_ic'); nltk.download('brown')"
+python -c "import nltk; nltk.download('wordnet'); nltk.download('omw-1.4')"
 ```
 
 **GPU note (recommended for L6 NLI):** install the CUDA-enabled PyTorch build before `pip install -e .` for faster NLI inference:
@@ -110,7 +109,7 @@ After installation two CLI commands become available in the active environment:
 
 | Command | Description |
 |---------|-------------|
-| `eom-run` | Run the full pipeline (L1→L7) for one or more domains |
+| `eom-run` | Run the full pipeline (L1→L6) for one or more domains |
 | `eom-compare` | Generate a domain distance summary JSON or the interactive HTML map |
 
 These commands work from any directory once the venv is active.
@@ -169,19 +168,18 @@ eom-compare --domain-summary Automobile
 
 Output: `enriched_ontology_matching/summaries/Automobile_summary.json`
 
-`eom-run` will automatically run all 7 pipeline stages for every pair:
+`eom-run` will automatically run all 6 pipeline stages for every pair:
 
 1. **Discover** all model JSON files in `<inputs-dir>/Automobile/`
 2. **Generate pair JSONs** in `enriched_ontology_matching/pairs/`
 3. **Run L1+L2** (AML + LogMap + WordNet + ConceptNet) → per-pair CSV in `outputs/enriched/`
 4. **Run L0** (neighbourhood coherence with `sqrt(WUP × cosine)`) → `outputs/neighbourhood/`
-5. **Run L3** (Lin-IC scoring) → `outputs/lin_ic/`
-6. **Run L4** (sentence embedding cosine) → `outputs/embeddings/`
-7. **Run L5** (GNN similarity — symmetric K-hop embedding aggregation) → `outputs/gnn/`
-8. **Run L6** (NLI containment closure — entailment between observable-type signatures) → `outputs/closure/`
-9. **Run L7** (merge all metrics) → `outputs/merged/<ModelA>_vs_<ModelB>_metrics.csv`
-10. **Combine** all per-pair CSVs into `outputs/enriched/all_domains_combined.csv`
-11. **Generate** a Markdown report at `outputs/all_domains_results.md`
+5. **Run L3** (sentence embedding cosine, rescaled to [0, 1]) → `outputs/embeddings/`
+6. **Run L4** (GNN similarity — symmetric K-hop embedding aggregation) → `outputs/gnn/`
+7. **Run L5** (NLI containment closure — entailment between observable-type signatures) → `outputs/closure/`
+8. **Run L6** (merge all metrics) → `outputs/merged/<ModelA>_vs_<ModelB>_metrics.csv`
+9. **Combine** all per-pair CSVs into `outputs/enriched/all_domains_combined.csv`
+10. **Generate** a Markdown report at `outputs/all_domains_results.md`
 
 ### Bring your own input models
 
@@ -264,15 +262,7 @@ Add `--matcher logmap` or `--matcher aml` to use only one structural matcher.
     --out-csv     enriched_ontology_matching/outputs/neighbourhood/auto_V1_V2_coherence.csv
 ```
 
-### L3: Lin-IC Scoring
-
-```bash
-.venv/Scripts/python.exe enriched_ontology_matching/lin_ic_stage.py \
-    --csv enriched_ontology_matching/outputs/enriched/<stem>.csv \
-    --out enriched_ontology_matching/outputs/lin_ic/auto_V1_V2_lin_ic.csv
-```
-
-### L4: Sentence Embeddings
+### L3: Sentence Embeddings
 
 ```bash
 .venv/Scripts/python.exe enriched_ontology_matching/semantic_encoder.py \
@@ -280,7 +270,7 @@ Add `--matcher logmap` or `--matcher aml` to use only one structural matcher.
     --out enriched_ontology_matching/outputs/embeddings/auto_V1_V2_emb.csv
 ```
 
-### L5: GNN Similarity
+### L4: GNN Similarity
 
 ```bash
 .venv/Scripts/python.exe enriched_ontology_matching/gnn_matcher.py \
@@ -293,7 +283,7 @@ Output: `enriched_ontology_matching/outputs/gnn/<key>_gnn.csv`
 
 The GNN uses undirected adjacency — inverse-expressed associations (A→B vs B←A) produce the same neighbourhood signal. Entity nodes are embedded with `paraphrase-MiniLM-L6-v2`; edge labels use the canonical relation type.
 
-### L6: Containment Closure (NLI Entailment)
+### L5: Containment Closure (NLI Entailment)
 
 Requires the two raw model JSON files (not the pair JSON):
 
@@ -306,13 +296,12 @@ Requires the two raw model JSON files (not the pair JSON):
 
 The NLI model is downloaded and cached automatically on first run.
 
-### L7: Merge into Metrics CSV
+### L6: Merge into Metrics CSV
 
 ```bash
 .venv/Scripts/python.exe enriched_ontology_matching/merge_stage.py \
     --enriched enriched_ontology_matching/outputs/enriched/<stem>.csv \
     --nbr      enriched_ontology_matching/outputs/neighbourhood/auto_V1_V2_coherence.csv \
-    --lin-ic   enriched_ontology_matching/outputs/lin_ic/auto_V1_V2_lin_ic.csv \
     --emb      enriched_ontology_matching/outputs/embeddings/auto_V1_V2_emb.csv \
     --gnn      enriched_ontology_matching/outputs/gnn/auto_V1_V2_gnn.csv \
     --closure  enriched_ontology_matching/outputs/closure/auto_V1_V2_closure.csv \
@@ -344,16 +333,14 @@ enriched_ontology_matching/
     │   └── all_domains_combined.csv            # all pairs concatenated
     ├── neighbourhood/
     │   └── <key>_coherence.csv                 # L0 coherence scores
-    ├── lin_ic/
-    │   └── <key>_lin_ic.csv                    # L3 Lin-IC scores
     ├── embeddings/
-    │   └── <key>_emb.csv                       # L4 embedding cosine scores
+    │   └── <key>_emb.csv                       # L3 embedding cosine scores
     ├── gnn/
-    │   └── <key>_gnn.csv                       # L5 GNN similarity scores
+    │   └── <key>_gnn.csv                       # L4 GNN similarity scores
     ├── closure/
-    │   └── <ModelA>_vs_<ModelB>_closure.csv    # L6 NLI entailment scores
+    │   └── <ModelA>_vs_<ModelB>_closure.csv    # L5 NLI entailment scores
     ├── merged/
-    │   └── <ModelA>_vs_<ModelB>_metrics.csv    # final metrics CSV (L7, 13 columns)
+    │   └── <ModelA>_vs_<ModelB>_metrics.csv    # final metrics CSV (L6, 12 columns)
     ├── all_domains_results.md                  # human-readable summary report
     └── ontology_map.html                       # interactive distance map
 ```
@@ -364,19 +351,18 @@ enriched_ontology_matching/
 
 ## Merged CSV Format
 
-Each `outputs/merged/*_metrics.csv` has one row per entity pair and 13 columns:
+Each `outputs/merged/*_metrics.csv` has one row per entity pair and 12 columns:
 
 | Column | Type | Description |
 |--------|------|-------------|
 | `entity_a` | string | Entity name from model A |
 | `entity_b` | string | Entity name from model B |
-| `matched` | 0 / 1 | 1 if AML or LogMap confirmed this pair (stored but excluded from composite scoring) |
+| `matched` | 0 / 1 | 1 if AML or LogMap confirmed this pair; used in `lexical_sim` via `max(matched, cosine_avg)` |
 | `wup` | float 0–1 | Blended Wu-Palmer: `(max_wup + avg_wup) / 2` across token combinations |
-| `lin_ic` | float 0–1 | Lin Information Content similarity (best token pair, Brown corpus; stored but excluded from composite scoring) |
 | `coherence_sym` | float 0–1 | Symmetric neighbourhood coherence (`sqrt(WUP × cosine)` geometric mean) |
 | `verb_coherence` | float 0–1 | Jaccard overlap of canonical relation types used by each entity (inverse-expressed associations resolve to the same canonical type, so inverse pairs score 1.0) |
 | `attr_reach_sim` | float 0–1 | Weighted Jaccard similarity between the K-hop observable-type attribute-reach signatures of each entity (`Σ min / Σ max` over all observable types) |
-| `cosine_avg` | float 0–1 | Token-average sentence embedding cosine similarity |
+| `cosine_avg` | float 0–1 | Token-average sentence embedding cosine similarity (rescaled from [−1, 1] to [0, 1]) |
 | `gnn_sim` | float 0–1 | Symmetric GNN similarity: K-hop sentence-embedding aggregation over entity nodes and canonical edge labels |
 | `entailment_a_covers_b` | float 0–1 | P(A's observable-type signature entails B's) from NLI cross-encoder |
 | `entailment_b_covers_a` | float 0–1 | P(B's observable-type signature entails A's) from NLI cross-encoder |
@@ -390,16 +376,16 @@ Each `outputs/merged/*_metrics.csv` has one row per entity pair and 13 columns:
 
 ## Composite Scoring and Metric Weights
 
-Before scoring, `compare_stage.py` consolidates the 13 raw columns into **4 orthogonal dimensions** by averaging pairs of metrics that are highly correlated (r ≥ 0.77). This removes redundant signal so no single underlying phenomenon dominates the composite score.
+Before scoring, `compare_stage.py` consolidates the 12 raw columns into **4 orthogonal dimensions** by averaging pairs of metrics that are highly correlated (r ≥ 0.77). This removes redundant signal so no single underlying phenomenon dominates the composite score.
 
-| Dimension | Raw columns averaged | Pairwise correlation |
-|-----------|---------------------|---------------------|
-| `lexical_sim` | `cosine_avg`, `wup` | r = 0.768 |
+| Dimension | Formula | Pairwise correlation |
+|-----------|---------|---------------------|
+| `lexical_sim` | `avg(max(matched, cosine_avg), wup)` | r = 0.768 between cosine and wup |
 | `coherence_sym` | (standalone) | — |
-| `graph_sim` | `verb_coherence`, `gnn_sim` | r = 0.778 |
-| `transfer_sim` | `attr_reach_sim`, `entailment_f1` | r = 0.776 |
+| `graph_sim` | `avg(verb_coherence, gnn_sim)` | r = 0.778 |
+| `transfer_sim` | `avg(attr_reach_sim, entailment_f1)` | r = 0.776 |
 
-> **Note:** `lin_ic` and `matched` are stored in the merged CSV but are not included in the composite — `lin_ic` is collinear with `lexical_sim`, and `matched` is a binary flag rather than a continuous similarity signal.
+`lexical_sim` uses `max(matched, cosine_avg)` as its first term: the structural-matcher binary confirmation (0/1) and the sentence-embedding cosine (rescaled to [0, 1]) carry the same lexical signal, so the stronger of the two is preferred before averaging with WUP.
 
 Each dimension weight blends uniform weight (1/4) with its sparsity fill rate, then renormalises:
 
@@ -529,11 +515,10 @@ python enriched_ontology_matching/seed_exemplars.py
 | `compare_stage.py` | **Summary + visualisation** — `--domain-summary DOMAIN` outputs a JSON distance summary; no args generates the interactive HTML map |
 | `enriched_matcher.py` | L1 (AML + LogMap structural merge) + L2 (WN+CN discovery) |
 | `neighbourhood_coherence.py` | L0 — graph neighbourhood semantic coherence (`coherence_sym`, `verb_coherence`, `attr_reach_sim`) |
-| `lin_ic_stage.py` | L3 — Lin Information-Content scoring |
-| `semantic_encoder.py` | L4 — sentence embedding cosine similarity |
-| `gnn_matcher.py` | L5 — symmetric GNN similarity: K-hop aggregation over sentence-embedded entity nodes and canonical edge labels |
-| `containment_closure.py` | L6 — NLI cross-encoder entailment between observable-type signatures; model cached under `models/` |
-| `merge_stage.py` | L7 — join all stages into metrics-only CSV (13 columns) |
+| `semantic_encoder.py` | L3 — sentence embedding cosine similarity (rescaled to [0, 1]) |
+| `gnn_matcher.py` | L4 — symmetric GNN similarity: K-hop aggregation over sentence-embedded entity nodes and canonical edge labels |
+| `containment_closure.py` | L5 — NLI cross-encoder entailment between observable-type signatures; model cached under `models/` |
+| `merge_stage.py` | L6 — join all stages into metrics-only CSV (12 columns) |
 | `aml_runner.py` | Wrapper around the AML JAR |
 | `logmap_runner.py` | Wrapper around the LogMap JAR |
 | `root_comparator.py` | CamelCase splitting, WUP, ConceptNet CSV lookup |

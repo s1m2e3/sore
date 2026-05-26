@@ -28,11 +28,11 @@ OUT_HTML      = ROOT / "outputs" / "ontology_map.html"
 SUMMARIES_DIR = ROOT / "summaries"
 
 # ── combined metrics (averaged from correlated raw columns) ───────────────────
-# lexical_sim  = avg(cosine_avg, wup)           r=0.768 — merged to single dimension
+# lexical_sim  = avg(max(matched, cosine_avg), wup)  — structural confirmation or best embedding
 # graph_sim    = avg(verb_coherence, gnn_sim)   r=0.778 — merged to single dimension
 # transfer_sim = avg(attr_reach_sim, entailment_f1) r=0.776 — merged to single dimension
 METRICS = [
-    "lexical_sim",    # avg(cosine_avg, wup)
+    "lexical_sim",    # avg(max(matched, cosine_avg), wup)
     "coherence_sym",  # standalone
     "graph_sim",      # avg(verb_coherence, gnn_sim)
     "transfer_sim",   # avg(attr_reach_sim, entailment_f1)
@@ -70,7 +70,10 @@ def compute_global_fill_rates(csvs: list[Path]) -> dict[str, float]:
                 for row in csv.DictReader(fh):
                     total += 1
                     g = lambda col: _parse_float(row.get(col))
-                    lex  = _row_avg(g("cosine_avg"), g("wup"))
+                    cosine = g("cosine_avg")
+                    matched_f = float(row.get("matched") or 0)
+                    best_cosine = max(matched_f, cosine if cosine is not None else 0.0)
+                    lex  = _row_avg(best_cosine, g("wup"))
                     coh  = g("coherence_sym")
                     grph = _row_avg(g("verb_coherence"), g("gnn_sim"))
                     trf  = _row_avg(g("attr_reach_sim"), g("entailment_f1"))
@@ -134,7 +137,13 @@ def load_pair_metrics(csv_path: Path) -> dict:
         nz = [v for v in vals if v is not None]
         return sum(nz) / len(nz) if nz else 0.0
 
-    lexical_rows  = [_row_avg(_g(r, "cosine_avg"), _g(r, "wup")) for r in rows]
+    lexical_rows  = [
+        _row_avg(
+            max(float(r.get("matched") or 0), _g(r, "cosine_avg") or 0.0),
+            _g(r, "wup"),
+        )
+        for r in rows
+    ]
     coherence_rows = [_g(r, "coherence_sym") for r in rows]
     graph_rows    = [_row_avg(_g(r, "verb_coherence"), _g(r, "gnn_sim")) for r in rows]
     transfer_rows = [_row_avg(_g(r, "attr_reach_sim"), _g(r, "entailment_f1")) for r in rows]

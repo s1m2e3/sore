@@ -1,11 +1,11 @@
 """
 complete_and_crossdomain.py
 ---------------------------
-1. Completes the enriched pipeline (lin_ic + embeddings + re-merge) for
+1. Completes the enriched pipeline (embeddings + re-merge) for
    hospital/university pairs whose enriched CSV already exists.
 2. For every other pair (cross-domain, missing within-hospital) runs a
    pure-semantic pipeline: cosine similarity of entity-name embeddings
-   finds candidate matches, then lin_ic enriches those.
+   finds candidate matches.
 3. Regenerates outputs/ontology_map.html via compare_stage.
 """
 
@@ -23,11 +23,10 @@ sys.path.insert(0, str(ROOT))
 PAIRS_DIR   = ROOT / "pairs"
 ENRICHED    = ROOT / "outputs" / "enriched"
 NBR_DIR     = ROOT / "outputs" / "neighbourhood"
-LIN_IC_DIR  = ROOT / "outputs" / "lin_ic"
 EMB_DIR     = ROOT / "outputs" / "embeddings"
 MERGED_DIR  = ROOT / "outputs" / "merged"
 
-for d in (PAIRS_DIR, ENRICHED, NBR_DIR, LIN_IC_DIR, EMB_DIR, MERGED_DIR):
+for d in (PAIRS_DIR, ENRICHED, NBR_DIR, EMB_DIR, MERGED_DIR):
     d.mkdir(parents=True, exist_ok=True)
 
 
@@ -123,44 +122,6 @@ def embed_names(names: list[str]):
 # Stage runners (import from existing modules)
 # ---------------------------------------------------------------------------
 
-def run_lin_ic_on_pairs(pairs: list[tuple[str, str]], stem: str) -> Path:
-    """Run lin_ic_stage on a list of (entity_a, entity_b) pairs and save CSV."""
-    from lin_ic_stage import lin_ic_entity_pair
-    try:
-        from nltk.corpus import wordnet_ic
-        ic = wordnet_ic.ic("ic-brown-resnik-add1.dat")
-    except Exception:
-        ic = None
-
-    LIN_FIELDS = [
-        "entity_a", "entity_b", "lin_ic", "max_lin_ic", "avg_lin_ic",
-        "lcs", "ic_lcs",
-    ]
-    rows = []
-    for ea, eb in pairs:
-        try:
-            r = lin_ic_entity_pair(ea, eb, ic)
-            rows.append({
-                "entity_a": ea, "entity_b": eb,
-                "lin_ic":     r.get("lin_ic", 0),
-                "max_lin_ic": r.get("max_lin_ic", 0),
-                "avg_lin_ic": r.get("avg_lin_ic", 0),
-                "lcs":        r.get("lcs", ""),
-                "ic_lcs":     r.get("ic_lcs", ""),
-            })
-        except Exception:
-            rows.append({"entity_a": ea, "entity_b": eb,
-                         "lin_ic": 0, "max_lin_ic": 0, "avg_lin_ic": 0,
-                         "lcs": "", "ic_lcs": ""})
-
-    out = LIN_IC_DIR / f"{stem}_lin_ic.csv"
-    with open(out, "w", newline="", encoding="utf-8") as fh:
-        w = csv.DictWriter(fh, fieldnames=LIN_FIELDS)
-        w.writeheader()
-        w.writerows(rows)
-    return out
-
-
 def run_embeddings_on_pairs(pairs: list[tuple[str, str]], stem: str) -> Path:
     """Run sentence-embedding cosine for each pair and save CSV."""
     import numpy as np
@@ -180,9 +141,9 @@ def run_embeddings_on_pairs(pairs: list[tuple[str, str]], stem: str) -> Path:
     for ea, eb in pairs:
         va, vb = emb_map.get(ea), emb_map.get(eb)
         if va is not None and vb is not None:
-            c = float(np.dot(va, vb))
+            c = (float(np.dot(va, vb)) + 1.0) / 2.0
         else:
-            c = 0.0
+            c = 0.5
         rows.append({"entity_a": ea, "entity_b": eb,
                      "cosine_whole": round(c, 4), "cosine_avg": round(c, 4)})
 
@@ -224,18 +185,14 @@ def complete_existing_pairs():
 
         print(f"  [complete] {stem[:70]}")
 
-        lin_csv = LIN_IC_DIR / f"{stem}_lin_ic.csv"
         emb_csv = EMB_DIR / f"{stem}_emb.csv"
 
-        if not lin_csv.exists():
-            lin_csv = run_lin_ic_on_pairs(pairs, stem)
         if not emb_csv.exists():
             emb_csv = run_embeddings_on_pairs(pairs, stem)
 
         merge_pair(
             enriched_csv=enriched_csv,
             nbr_csv=NBR_DIR / f"{stem}_coherence.csv" if (NBR_DIR / f"{stem}_coherence.csv").exists() else None,
-            lin_ic_csv=lin_csv,
             emb_csv=emb_csv,
             out_csv=merged_out,
         )
@@ -399,20 +356,16 @@ def semantic_pair(name_a: str, model_a: dict,
                 "semantic_label": "Semantic", "layer2_type": "",
             })
 
-    lin_csv = run_lin_ic_on_pairs(pairs, stem)
     emb_csv = run_embeddings_on_pairs(pairs, stem)
 
-    lin_idx = {(r["entity_a"], r["entity_b"]): r
-               for r in csv.DictReader(open(lin_csv, encoding="utf-8"))}
     emb_idx = {(r["entity_a"], r["entity_b"]): r
                for r in csv.DictReader(open(emb_csv, encoding="utf-8"))}
 
     FIELDS = ["entity_a", "entity_b", "matched", "avg_wup",
-              "lin_ic", "coherence_sym", "cosine_avg"]
+              "coherence_sym", "cosine_avg"]
     merged_rows = []
     for (ea, eb), sc in top:
         key = (ea, eb)
-        lin = lin_idx.get(key, {})
         emb = emb_idx.get(key, {})
         nbr = nbr_idx.get(key, {})
         merged_rows.append({
@@ -420,9 +373,8 @@ def semantic_pair(name_a: str, model_a: dict,
             "entity_b":      eb,
             "matched":       0,
             "avg_wup":       round(wup_map.get(key, 0.0), 4),
-            "lin_ic":        lin.get("lin_ic", ""),
             "coherence_sym": nbr.get("coherence_sym", ""),
-            "cosine_avg":    emb.get("cosine_avg", round(sc, 4)),
+            "cosine_avg":    emb.get("cosine_avg", round((sc + 1.0) / 2.0, 4)),
         })
 
     with open(merged_out, "w", newline="", encoding="utf-8") as fh:
