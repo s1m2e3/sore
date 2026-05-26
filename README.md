@@ -1,6 +1,8 @@
 # Enriched Ontology Matching Pipeline
 
-A multi-layer semantic enrichment pipeline that runs structural matchers (AML + LogMap) over pairs of conceptual models, scores every entity pair across four complementary similarity metrics, and produces an interactive 2D distance map of all ontologies.
+A multi-layer semantic enrichment pipeline that runs structural matchers (AML + LogMap) over pairs of conceptual models, scores every entity pair across seven complementary metrics, and produces a domain distance summary JSON and an interactive distance map.
+
+The primary use case is **within-domain analysis**: run all pairwise comparisons for a set of ontologies that share the same domain, then read the average pairwise distance between them as a JSON summary. Cross-domain comparisons and the interactive distance map are also supported as secondary outputs.
 
 ---
 
@@ -11,10 +13,10 @@ A multi-layer semantic enrichment pipeline that runs structural matchers (AML + 
 | **L0** | Neighbourhood Coherence | Validates each pair via `sqrt(WUP × cosine)` geometric mean over local graph neighbours |
 | **L1** | Structural Matching | AML + LogMap find entity pairs; results merged and de-duplicated |
 | **L2** | Semantic Discovery | WordNet + ConceptNet discover equivalence/subsumption candidates among unmatched entities |
-| **L3** | Lin-IC Scoring | Corpus-based Lin Information Content (Brown corpus) scores every pair |
+| **L3** | Lin-IC Scoring | Corpus-based Lin Information Content (Brown corpus) scores every L1+L2 pair |
 | **L4** | Sentence Embedding | `paraphrase-MiniLM-L6-v2` cosine similarity per entity pair |
-| **L5** | GNN Similarity | Symmetric GNN aggregates sentence-embedded entity nodes and canonical edge labels over K hops; produces `gnn_sim` |
-| **L6** | Containment Closure | Cross-encoder NLI scores directional entailment between observable-type signatures; produces `entailment_f1` |
+| **L5** | GNN Similarity | Symmetric GNN aggregates sentence-embedded entity nodes and canonical edge labels over K hops; produces `gnn_sim` for every matched pair |
+| **L6** | Containment Closure | Cross-encoder NLI (`nli-MiniLM2-L6-H768`) scores directional entailment between observable-type signatures for every A×B entity pair |
 | **L7** | Merge | Joins all layer outputs into one metrics-only CSV per pair |
 | **L8** | Distance Visualisation | Sparsity-weighted MDS map of all ontologies as interactive HTML |
 
@@ -58,8 +60,7 @@ Extract the full AML release zip into that folder — the `store/` directory (co
 
 ### 5. ConceptNet (optional but recommended for bulk runs)
 
-Without a local file the pipeline falls back to the ConceptNet REST API (rate-limited).
-For bulk runs, download the assertions CSV (≈ 1.5 GB compressed):
+Without a local file the pipeline falls back to the ConceptNet REST API (rate-limited). For bulk runs, download the assertions CSV (≈ 1.5 GB compressed):
 
 ```bash
 wget https://s3.amazonaws.com/conceptnet/downloads/2019/edges/conceptnet-assertions-5.7.0.csv.gz
@@ -76,27 +77,43 @@ ontology_matching/inputs/conceptnet-assertions-5.7.0.csv/assertions.csv
 
 ## Setup
 
-All commands are run from the **repository root**.
+All commands are run from the **repository root** (`sore/`).
 
 ```bash
 # 1. Create and activate a virtual environment
 python -m venv .venv
 
-# Windows PowerShell:
+# Windows (PowerShell):
 .venv\Scripts\Activate.ps1
-# Windows CMD:
+# Windows (CMD):
 .venv\Scripts\activate.bat
 # macOS / Linux:
 source .venv/bin/activate
 
-# 2. Install Python dependencies
-pip install -r requirements.txt
+# 2. Install the package and all dependencies (editable install)
+pip install -e .
 
 # 3. Download required NLTK data (one-time)
 python -c "import nltk; nltk.download('wordnet'); nltk.download('omw-1.4'); nltk.download('wordnet_ic'); nltk.download('brown')"
 ```
 
-After activation, use `.venv/Scripts/python.exe` (Windows) or `.venv/bin/python` (macOS/Linux) for all pipeline commands.
+**GPU note (recommended for L6 NLI):** install the CUDA-enabled PyTorch build before `pip install -e .` for faster NLI inference:
+
+```bash
+pip install torch --index-url https://download.pytorch.org/whl/cu126
+pip install -e .
+```
+
+The NLI model (`cross-encoder/nli-MiniLM2-L6-H768`) is downloaded automatically on first run and cached under `enriched_ontology_matching/models/`. Subsequent runs load it from the local cache.
+
+After installation two CLI commands become available in the active environment:
+
+| Command | Description |
+|---------|-------------|
+| `eom-run` | Run the full pipeline (L1→L7) for one or more domains |
+| `eom-compare` | Generate a domain distance summary JSON or the interactive HTML map |
+
+These commands work from any directory once the venv is active.
 
 ---
 
@@ -114,7 +131,9 @@ enriched_ontology_matching/inputs/
   University/      — 6 model JSONs
 ```
 
-Each JSON follows this schema:
+These files are **already included** in the repository — no download required.
+
+Each JSON file represents a single conceptual model with this schema:
 
 ```json
 {
@@ -136,31 +155,169 @@ Network-variant models (`Net1`/`Net2`/`Net3`) use `"name"` for entities and `"pa
 
 ---
 
-## End-to-End Run
+## Generating Results (End-to-End)
 
-### Step 1 — Run all pairs (within-domain + cross-domain)
-
-```bash
-.venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --cross-domain
-```
-
-This runs the full pipeline (L1→L7) for every pair of models — 630 pairs total (C(36, 2) across all 6 domains × 6 models). Each pair produces one `outputs/merged/*_metrics.csv`.
-
-Options:
-- `--skip-existing` — skip pairs whose merged CSV already exists (safe to re-run)
-- `--domains Automobile Hospital` — limit to specific domains
-- `--matcher aml` / `--matcher logmap` — use only one structural matcher (default: both)
-
-Expected runtime: **2–3 hours** on first run; near-instant with `--skip-existing`.
-
-### Step 2 — Generate the interactive distance map
+### Quick start — within-domain analysis (primary use case)
 
 ```bash
-.venv/Scripts/python.exe enriched_ontology_matching/compare_stage.py
+# Step 1 — run all pairwise comparisons for one domain
+eom-run --inputs-dir enriched_ontology_matching/inputs --domains Automobile
+
+# Step 2 — get the average pairwise distance summary as JSON
+eom-compare --domain-summary Automobile
 ```
 
-Reads all `outputs/merged/*_metrics.csv` and writes `enriched_ontology_matching/outputs/ontology_map.html`.
-Open the file in any browser — no server required.
+Output: `enriched_ontology_matching/summaries/Automobile_summary.json`
+
+`eom-run` will automatically run all 7 pipeline stages for every pair:
+
+1. **Discover** all model JSON files in `<inputs-dir>/Automobile/`
+2. **Generate pair JSONs** in `enriched_ontology_matching/pairs/`
+3. **Run L1+L2** (AML + LogMap + WordNet + ConceptNet) → per-pair CSV in `outputs/enriched/`
+4. **Run L0** (neighbourhood coherence with `sqrt(WUP × cosine)`) → `outputs/neighbourhood/`
+5. **Run L3** (Lin-IC scoring) → `outputs/lin_ic/`
+6. **Run L4** (sentence embedding cosine) → `outputs/embeddings/`
+7. **Run L5** (GNN similarity — symmetric K-hop embedding aggregation) → `outputs/gnn/`
+8. **Run L6** (NLI containment closure — entailment between observable-type signatures) → `outputs/closure/`
+9. **Run L7** (merge all metrics) → `outputs/merged/<ModelA>_vs_<ModelB>_metrics.csv`
+10. **Combine** all per-pair CSVs into `outputs/enriched/all_domains_combined.csv`
+11. **Generate** a Markdown report at `outputs/all_domains_results.md`
+
+### Bring your own input models
+
+```bash
+eom-run --inputs-dir path/to/my_models --domains MyDomain
+eom-compare --domain-summary MyDomain --out path/to/my_models/MyDomain_summary.json
+```
+
+Expected layout: `<inputs-dir>/<Domain>/*.json`
+
+### Run multiple domains
+
+```bash
+eom-run --inputs-dir enriched_ontology_matching/inputs --domains Automobile Hospital University
+
+for domain in Automobile Hospital University; do
+  eom-compare --domain-summary $domain
+done
+```
+
+### Re-run with cached results
+
+```bash
+eom-run --inputs-dir enriched_ontology_matching/inputs --domains Automobile --skip-existing
+```
+
+### Use only one structural matcher
+
+```bash
+eom-run --matcher aml
+# or: --matcher logmap
+```
+
+---
+
+## Cross-Domain Analysis and Interactive Map (Secondary)
+
+Run all within-domain pairs first, then add cross-domain pairs.
+
+```bash
+# Step 1 — run all 630 pairs (within-domain + cross-domain), skip completed ones
+eom-run --cross-domain --skip-existing
+
+# Step 2 — generate the interactive distance map
+eom-compare
+```
+
+Output: `enriched_ontology_matching/outputs/ontology_map.html` — open in any browser, no server required.
+
+To verify all pairs are present before generating the map:
+
+```bash
+ls enriched_ontology_matching/outputs/merged/ | grep "_metrics.csv" | wc -l
+# Should print 630
+```
+
+---
+
+## Running Individual Stages Manually
+
+Useful for debugging a single pair. Assumes the venv is active and commands run from the repository root.
+
+### L1+L2: Structural Matching + Semantic Discovery
+
+```bash
+.venv/Scripts/python.exe enriched_ontology_matching/enriched_matcher.py \
+    enriched_ontology_matching/pairs/auto_V1_V2.json
+```
+
+Output: `enriched_ontology_matching/outputs/enriched/<ModelA>_vs_<ModelB>.csv`
+
+Add `--matcher logmap` or `--matcher aml` to use only one structural matcher.
+
+### L0: Neighbourhood Coherence
+
+```bash
+.venv/Scripts/python.exe enriched_ontology_matching/neighbourhood_coherence.py \
+    --pair        enriched_ontology_matching/pairs/auto_V1_V2.json \
+    --matches-csv enriched_ontology_matching/outputs/enriched/<stem>.csv \
+    --out-csv     enriched_ontology_matching/outputs/neighbourhood/auto_V1_V2_coherence.csv
+```
+
+### L3: Lin-IC Scoring
+
+```bash
+.venv/Scripts/python.exe enriched_ontology_matching/lin_ic_stage.py \
+    --csv enriched_ontology_matching/outputs/enriched/<stem>.csv \
+    --out enriched_ontology_matching/outputs/lin_ic/auto_V1_V2_lin_ic.csv
+```
+
+### L4: Sentence Embeddings
+
+```bash
+.venv/Scripts/python.exe enriched_ontology_matching/semantic_encoder.py \
+    --csv enriched_ontology_matching/outputs/enriched/<stem>.csv \
+    --out enriched_ontology_matching/outputs/embeddings/auto_V1_V2_emb.csv
+```
+
+### L5: GNN Similarity
+
+```bash
+.venv/Scripts/python.exe enriched_ontology_matching/gnn_matcher.py \
+    --a  enriched_ontology_matching/pairs/auto_V1_V2.json --key-a json_a \
+    --b  enriched_ontology_matching/pairs/auto_V1_V2.json --key-b json_b \
+    --hops 2 --top-pairs 20
+```
+
+Output: `enriched_ontology_matching/outputs/gnn/<key>_gnn.csv`
+
+The GNN uses undirected adjacency — inverse-expressed associations (A→B vs B←A) produce the same neighbourhood signal. Entity nodes are embedded with `paraphrase-MiniLM-L6-v2`; edge labels use the canonical relation type.
+
+### L6: Containment Closure (NLI Entailment)
+
+Requires the two raw model JSON files (not the pair JSON):
+
+```bash
+.venv/Scripts/python.exe enriched_ontology_matching/containment_closure.py \
+    --json-a enriched_ontology_matching/inputs/Automobile/Automobile_Model_V1_SystemCentric.json \
+    --json-b enriched_ontology_matching/inputs/Automobile/Automobile_Model_V2_ComponentCentric.json \
+    --out    enriched_ontology_matching/outputs/closure/auto_V1_V2_closure.csv
+```
+
+The NLI model is downloaded and cached automatically on first run.
+
+### L7: Merge into Metrics CSV
+
+```bash
+.venv/Scripts/python.exe enriched_ontology_matching/merge_stage.py \
+    --enriched enriched_ontology_matching/outputs/enriched/<stem>.csv \
+    --nbr      enriched_ontology_matching/outputs/neighbourhood/auto_V1_V2_coherence.csv \
+    --lin-ic   enriched_ontology_matching/outputs/lin_ic/auto_V1_V2_lin_ic.csv \
+    --emb      enriched_ontology_matching/outputs/embeddings/auto_V1_V2_emb.csv \
+    --gnn      enriched_ontology_matching/outputs/gnn/auto_V1_V2_gnn.csv \
+    --closure  enriched_ontology_matching/outputs/closure/auto_V1_V2_closure.csv \
+    --out      enriched_ontology_matching/outputs/merged/<stem>_metrics.csv
+```
 
 ---
 
@@ -168,6 +325,8 @@ Open the file in any browser — no server required.
 
 ```
 enriched_ontology_matching/
+├── models/
+│   └── cross-encoder--nli-MiniLM2-L6-H768/    # NLI model cache (auto-downloaded)
 ├── inputs/
 │   ├── Automobile/      # 6 input model JSONs
 │   ├── Coffee/
@@ -176,22 +335,30 @@ enriched_ontology_matching/
 │   ├── SmartHome/
 │   └── University/
 ├── pairs/
-│   └── auto_V1_V2.json                      # generated pair JSON (json_a + json_b)
+│   └── auto_V1_V2.json                         # generated pair JSON (json_a + json_b)
+├── summaries/
+│   └── Automobile_summary.json                 # domain distance summary JSON
 └── outputs/
     ├── enriched/
-    │   ├── <ModelA>_vs_<ModelB>.csv          # L1+L2 per-pair results
-    │   └── all_domains_combined.csv          # all pairs concatenated
+    │   ├── <ModelA>_vs_<ModelB>.csv            # L1+L2 per-pair results
+    │   └── all_domains_combined.csv            # all pairs concatenated
     ├── neighbourhood/
-    │   └── <key>_coherence.csv              # L0 coherence scores
+    │   └── <key>_coherence.csv                 # L0 coherence scores
     ├── lin_ic/
-    │   └── <key>_lin_ic.csv                 # L3 Lin-IC scores
+    │   └── <key>_lin_ic.csv                    # L3 Lin-IC scores
     ├── embeddings/
-    │   └── <key>_emb.csv                    # L4 embedding cosine scores
+    │   └── <key>_emb.csv                       # L4 embedding cosine scores
+    ├── gnn/
+    │   └── <key>_gnn.csv                       # L5 GNN similarity scores
+    ├── closure/
+    │   └── <ModelA>_vs_<ModelB>_closure.csv    # L6 NLI entailment scores
     ├── merged/
-    │   └── <ModelA>_vs_<ModelB>_metrics.csv # final metrics CSV (7 columns)
-    ├── all_domains_results.md               # human-readable summary
-    └── ontology_map.html                    # interactive 2D distance map
+    │   └── <ModelA>_vs_<ModelB>_metrics.csv    # final metrics CSV (L7, 13 columns)
+    ├── all_domains_results.md                  # human-readable summary report
+    └── ontology_map.html                       # interactive distance map
 ```
+
+`<key>` is a short domain-pair identifier (e.g. `auto_V1_V2`, `hosp_V1_Net1`).
 
 ---
 
@@ -203,38 +370,36 @@ Each `outputs/merged/*_metrics.csv` has one row per entity pair and 13 columns:
 |--------|------|-------------|
 | `entity_a` | string | Entity name from model A |
 | `entity_b` | string | Entity name from model B |
-| `matched` | 0 / 1 | 1 if AML or LogMap confirmed this pair |
+| `matched` | 0 / 1 | 1 if AML or LogMap confirmed this pair (stored but excluded from composite scoring) |
 | `wup` | float 0–1 | Blended Wu-Palmer: `(max_wup + avg_wup) / 2` across token combinations |
-| `lin_ic` | float 0–1 | Lin Information Content similarity (best token pair, Brown corpus) |
-| `coherence_sym` | float 0–1 | Symmetric neighbourhood coherence (`sqrt(WUP × cosine)`) |
-| `verb_coherence` | float 0–1 | Jaccard overlap of canonical relation types used by each entity |
-| `attr_reach_sim` | float 0–1 | Weighted Jaccard similarity between the K-hop observable-type attribute-reach signatures of each entity |
-| `cosine_avg` | float 0–1 | Sentence embedding cosine similarity |
-| `gnn_sim` | float 0–1 | Symmetric GNN similarity: K-hop aggregation over sentence-embedded entity nodes and canonical edge labels |
+| `lin_ic` | float 0–1 | Lin Information Content similarity (best token pair, Brown corpus; stored but excluded from composite scoring) |
+| `coherence_sym` | float 0–1 | Symmetric neighbourhood coherence (`sqrt(WUP × cosine)` geometric mean) |
+| `verb_coherence` | float 0–1 | Jaccard overlap of canonical relation types used by each entity (inverse-expressed associations resolve to the same canonical type, so inverse pairs score 1.0) |
+| `attr_reach_sim` | float 0–1 | Weighted Jaccard similarity between the K-hop observable-type attribute-reach signatures of each entity (`Σ min / Σ max` over all observable types) |
+| `cosine_avg` | float 0–1 | Token-average sentence embedding cosine similarity |
+| `gnn_sim` | float 0–1 | Symmetric GNN similarity: K-hop sentence-embedding aggregation over entity nodes and canonical edge labels |
 | `entailment_a_covers_b` | float 0–1 | P(A's observable-type signature entails B's) from NLI cross-encoder |
 | `entailment_b_covers_a` | float 0–1 | P(B's observable-type signature entails A's) from NLI cross-encoder |
-| `entailment_f1` | float 0–1 | `max(entailment_a_covers_b, entailment_b_covers_a)` — captures the strongest directional relationship |
+| `entailment_f1` | float 0–1 | `max(entailment_a_covers_b, entailment_b_covers_a)` — captures the strongest directional relationship (equivalence or subsumption) |
+
+> **Note on `entailment_f1` naming:** the column is named `entailment_f1` for historical reasons but its value is the directional max, not a harmonic mean.
+
+> **Note on `wup`:** for multi-word entity names (e.g. `CoffeeMakerAssembly`), names are tokenised and WUP is evaluated over all possible token-pair combinations. The merged value is `(max_wup + avg_wup) / 2`.
 
 ---
 
-## Interactive Distance Map
+## Composite Scoring and Metric Weights
 
-`compare_stage.py` renders a **2D MDS (Multidimensional Scaling)** scatter plot where:
+Before scoring, `compare_stage.py` consolidates the 13 raw columns into **4 orthogonal dimensions** by averaging pairs of metrics that are highly correlated (r ≥ 0.77). This removes redundant signal so no single underlying phenomenon dominates the composite score.
 
-- **Node position** encodes sparsity-weighted Euclidean distance between ontologies
-- **Edge width / opacity** encode pairwise composite similarity (thicker = more similar)
-- **Node colour** encodes domain
+| Dimension | Raw columns averaged | Pairwise correlation |
+|-----------|---------------------|---------------------|
+| `lexical_sim` | `cosine_avg`, `wup` | r = 0.768 |
+| `coherence_sym` | (standalone) | — |
+| `graph_sim` | `verb_coherence`, `gnn_sim` | r = 0.778 |
+| `transfer_sim` | `attr_reach_sim`, `entailment_f1` | r = 0.776 |
 
-### Composite Metric
-
-The 13 raw per-entity-pair columns are consolidated into **4 orthogonal dimensions** before scoring. Collinear pairs (r ≥ 0.77) are averaged to remove redundant signal:
-
-| Dimension | Raw columns averaged |
-|-----------|---------------------|
-| `lexical_sim` | `cosine_avg`, `wup` |
-| `coherence_sym` | (standalone) |
-| `graph_sim` | `verb_coherence`, `gnn_sim` |
-| `transfer_sim` | `attr_reach_sim`, `entailment_f1` |
+> **Note:** `lin_ic` and `matched` are stored in the merged CSV but are not included in the composite — `lin_ic` is collinear with `lexical_sim`, and `matched` is a binary flag rather than a continuous similarity signal.
 
 Each dimension weight blends uniform weight (1/4) with its sparsity fill rate, then renormalises:
 
@@ -242,7 +407,69 @@ Each dimension weight blends uniform weight (1/4) with its sparsity fill rate, t
 w_raw[m] = (1/4 + fill_rate[m]) / 2
 ```
 
-These 4 dimension scores and their blended weights are what appear in the domain summary JSON output. `lin_ic` and `matched` are stored in the merged CSV but excluded from composite scoring.
+This ensures sparse dimensions are down-weighted without any fully-populated dimension dominating unconditionally. These 4 dimension scores and their blended weights are what appear in the domain summary JSON.
+
+---
+
+## Domain Distance Summary JSON
+
+`eom-compare --domain-summary` reads the merged metrics CSVs for all within-domain pairs and produces a JSON summary.
+
+```bash
+eom-compare --domain-summary Automobile
+# writes: enriched_ontology_matching/summaries/Automobile_summary.json
+
+# Custom output path:
+eom-compare --domain-summary Automobile --out my_results/auto_summary.json
+```
+
+### Summary JSON schema
+
+```json
+{
+  "domain": "Automobile",
+  "n_ontologies": 6,
+  "n_pairs": 15,
+  "metric_weights": {
+    "lexical_sim":   0.312,
+    "coherence_sym": 0.241,
+    "graph_sim":     0.228,
+    "transfer_sim":  0.219
+  },
+  "average_distance": 0.376,
+  "average_composite": 0.675,
+  "pairs": [
+    {
+      "ont_a": "Automobile_Model_V1_SystemCentric",
+      "ont_b": "Automobile_Model_V2_ComponentCentric",
+      "distance": 0.21,
+      "composite": 0.84,
+      "n_entity_pairs": 291,
+      "metrics": {
+        "lexical_sim":   {"mean": 0.874, "weight": 0.312},
+        "coherence_sym": {"mean": 0.731, "weight": 0.241},
+        "graph_sim":     {"mean": 0.612, "weight": 0.228},
+        "transfer_sim":  {"mean": 0.558, "weight": 0.219}
+      }
+    }
+  ]
+}
+```
+
+- **`metric_weights`** — blended weight for each of the 4 orthogonal dimensions; blend of uniform (1/4) and sparsity fill rate, renormalised to sum to 1
+- **`average_distance`** — weighted Euclidean distance averaged over all within-domain pairs (lower = more similar)
+- **`average_composite`** — dimension-weighted mean similarity score averaged over all pairs (higher = more similar)
+- **`pairs`** — all within-domain pairs sorted by `distance` ascending; each pair reports per-dimension `mean` and `weight`
+
+---
+
+## Interactive Distance Map
+
+`eom-compare` (no arguments) reads all merged CSVs and writes `outputs/ontology_map.html`.
+
+- **Node position** — encodes weighted Euclidean distance between ontologies
+- **Edge width / opacity** — encode pairwise composite similarity (thicker = more similar)
+- **Node colour** — encodes domain (Automobile: blue, Hospital: red, University: green, Coffee: brown, Homebrewing: amber, SmartHome: purple)
 
 ### Edge Views (toggle buttons in the HTML)
 
@@ -258,20 +485,62 @@ Click a domain in the legend to hide/show its nodes and edges. Double-click to i
 
 ---
 
+## Association Relation Mapping
+
+`relation_normalizer.py` scans all conceptual-model JSONs, extracts every unique association name, and maps it to a canonical ConceptNet / RO / SSN relation using a combined WUP + BERT cosine similarity score.
+
+```bash
+python enriched_ontology_matching/relation_normalizer.py
+```
+
+Outputs:
+
+| Output | Description |
+|--------|-------------|
+| `config/relation_map.json` | Association name → `{canonical, score, wup, bert, method, …}` |
+| `enriched_ontology_matching/association_inventory.csv` | Full table with all scores and participant info (not committed) |
+
+Options:
+
+```bash
+# Flag mappings below a combined score threshold (default: 0.5)
+python enriched_ontology_matching/relation_normalizer.py --threshold 0.5
+
+# Adjust WUP vs BERT weighting (default: 0.5/0.5)
+python enriched_ontology_matching/relation_normalizer.py --wup-weight 0.7
+
+# Scan a custom input directory
+python enriched_ontology_matching/relation_normalizer.py --input-dir path/to/my_models
+```
+
+Before the first run, seed ConceptNet exemplar phrases so BERT has short-phrase targets:
+
+```bash
+python enriched_ontology_matching/seed_exemplars.py
+```
+
+---
+
 ## Codebase Map
 
 | File | Purpose |
 |------|---------|
-| `run_all_pairs.py` | **Main entry point** — batch runner for all within- and cross-domain pairs (L1→L5) |
-| `compare_stage.py` | **HTML map generator** — sparsity-weighted MDS + interactive Plotly visualisation |
+| `run_all_pairs.py` | **Main entry point** — batch runner for within-domain (and optionally cross-domain) pairs (L0→L7); supports `--inputs-dir`, `--domains`, `--skip-existing`, `--cross-domain` |
+| `compare_stage.py` | **Summary + visualisation** — `--domain-summary DOMAIN` outputs a JSON distance summary; no args generates the interactive HTML map |
 | `enriched_matcher.py` | L1 (AML + LogMap structural merge) + L2 (WN+CN discovery) |
-| `neighbourhood_coherence.py` | L0 — graph neighbourhood semantic coherence |
+| `neighbourhood_coherence.py` | L0 — graph neighbourhood semantic coherence (`coherence_sym`, `verb_coherence`, `attr_reach_sim`) |
 | `lin_ic_stage.py` | L3 — Lin Information-Content scoring |
 | `semantic_encoder.py` | L4 — sentence embedding cosine similarity |
 | `gnn_matcher.py` | L5 — symmetric GNN similarity: K-hop aggregation over sentence-embedded entity nodes and canonical edge labels |
-| `containment_closure.py` | L6 — NLI cross-encoder entailment between observable-type signatures |
-| `merge_stage.py` | L7 — join all stages into metrics-only CSV |
+| `containment_closure.py` | L6 — NLI cross-encoder entailment between observable-type signatures; model cached under `models/` |
+| `merge_stage.py` | L7 — join all stages into metrics-only CSV (13 columns) |
 | `aml_runner.py` | Wrapper around the AML JAR |
 | `logmap_runner.py` | Wrapper around the LogMap JAR |
 | `root_comparator.py` | CamelCase splitting, WUP, ConceptNet CSV lookup |
 | `generate_report.py` | Renders a human-readable Markdown report from the combined CSV |
+| `relation_normalizer.py` | Maps association names to canonical relations via WUP + BERT; writes `config/relation_map.json` |
+| `seed_exemplars.py` | Seeds ConceptNet exemplar phrases into `config/canonical_relations.json` |
+| `regenerate_domains.py` | Force-regenerates the full pipeline for selected domains and produces summary JSONs |
+| `summary_to_csv.py` | Converts domain summary JSONs (`summaries/*_summary.json`) to flat CSV files |
+| `attribute_reach.py` | K-hop observable-type attribute reach computation (used by neighbourhood_coherence.py) |
+| `model_normalizer.py` | Normalises model JSON schemas (entity/association field name variants) |
