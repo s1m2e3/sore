@@ -513,7 +513,7 @@ python enriched_ontology_matching/seed_exemplars.py
 |------|---------|
 | `run_all_pairs.py` | **Main entry point** — batch runner for within-domain (and optionally cross-domain) pairs (L0→L7); supports `--inputs-dir`, `--domains`, `--skip-existing`, `--cross-domain` |
 | `compare_stage.py` | **Summary + visualisation** — `--domain-summary DOMAIN` outputs a JSON distance summary; no args generates the interactive HTML map |
-| `enriched_matcher.py` | L1 (AML + LogMap structural merge) + L2 (WN+CN discovery) |
+| `enriched_matcher.py` | L1 (AML + LogMap structural merge) + L2 (WN+CN discovery) + L3 (WUP backup for orphan entities — top-k pairs with shared root token, max_wup ≥ 0.9) |
 | `neighbourhood_coherence.py` | L0 — graph neighbourhood semantic coherence (`coherence_sym`, `verb_coherence`, `attr_reach_sim`) |
 | `semantic_encoder.py` | L3 — sentence embedding cosine similarity (rescaled to [0, 1]) |
 | `gnn_matcher.py` | L4 — symmetric GNN similarity: K-hop aggregation over sentence-embedded entity nodes and canonical edge labels |
