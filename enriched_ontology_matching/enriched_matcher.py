@@ -1,7 +1,7 @@
 """
 enriched_matcher.py
 -------------------
-2-Layer semantic enrichment pipeline over AML / LogMap matches.
+3-Layer semantic enrichment pipeline over AML / LogMap matches.
 
 Layer 1 — Characterise
     For every match already found by AML or LogMap, annotate it with the
@@ -15,6 +15,15 @@ Layer 2 — Discover
     semantic analysis.  New candidates are split into two groups:
       • Equivalence  (= relation) — synonym or ≤1-hop hypernym/hyponym
       • Subsumption  (⊑ relation) — deeper hypernym chain or PartOf/MemberOf
+
+Layer 3 — WUP Backup
+    For any entity that still has ZERO candidate partners after L1+L2 (common
+    when the two models operate at different levels of abstraction, e.g. an
+    assembly-level model vs a component-level model), sweep all concept entities
+    on the other side and take the top-k pairs whose blended WUP score
+    (max_wup + avg_wup) / 2 >= threshold.  This ensures every entity has at
+    least one representative pair so it contributes to composite scoring.
+    source = "Layer3_WUP"; layer = 3.
 
 Output: a single CSV written to enriched_ontology_matching/outputs/enriched/
 
@@ -634,6 +643,93 @@ def layer2_discover(
 
 
 # ---------------------------------------------------------------------------
+# Layer 3 — WUP backup for orphan entities
+# ---------------------------------------------------------------------------
+
+def layer3_wup_backup(
+    entities_a: list[str],
+    entities_b: list[str],
+    covered_a: set[str],
+    covered_b: set[str],
+    threshold: float = 0.9,
+    top_k: int = 3,
+) -> list[dict]:
+    """
+    For every entity with zero partners after L1+L2, find its top-k WUP
+    matches on the other side where max_wup >= threshold.
+
+    Using max_wup (not blended) as the gate: a max_wup >= 0.9 means the
+    best token pair is nearly identical in WordNet — typically an exact
+    shared root word (fuel↔fuel, brake↔brake).  This avoids spurious
+    matches driven by the generic WordNet machine/artifact hierarchy
+    inflating blended scores for unrelated concepts.
+
+    entity_a / entity_b orientation is preserved: candidates from A go in
+    entity_a; candidates from B go in entity_b.
+    """
+    orphans_a = [e for e in entities_a if e not in covered_a and not _is_association(e)]
+    orphans_b = [e for e in entities_b if e not in covered_b and not _is_association(e)]
+
+    if not orphans_a and not orphans_b:
+        return []
+
+    print(f"  [Layer3] WUP backup: {len(orphans_a)} orphan(s) in A, "
+          f"{len(orphans_b)} in B (max_wup threshold={threshold}) ...")
+
+    added: set[tuple[str, str]] = set()
+    rows: list[dict] = []
+
+    # For each orphan in A, find best WUP partners in ALL of B
+    concept_b = [e for e in entities_b if not _is_association(e)]
+    for ea in orphans_a:
+        scored = []
+        for eb in concept_b:
+            char = characterise_entity_pair(ea, eb)
+            if char["max_wup"] >= threshold:
+                scored.append((char["max_wup"], eb, char))
+        scored.sort(key=lambda x: -x[0])
+        for _, eb, char in scored[:top_k]:
+            key = (ea, eb)
+            if key in added:
+                continue
+            added.add(key)
+            rows.append({
+                "entity_a":     ea,
+                "entity_b":     eb,
+                "source":       "Layer3_WUP",
+                "matcher_conf": "",
+                "layer":        3,
+                **char,
+            })
+
+    # For each orphan in B, find best WUP partners in ALL of A
+    concept_a = [e for e in entities_a if not _is_association(e)]
+    for eb in orphans_b:
+        scored = []
+        for ea in concept_a:
+            char = characterise_entity_pair(ea, eb)  # always (A, B) orientation
+            if char["max_wup"] >= threshold:
+                scored.append((char["max_wup"], ea, char))
+        scored.sort(key=lambda x: -x[0])
+        for _, ea, char in scored[:top_k]:
+            key = (ea, eb)
+            if key in added:
+                continue
+            added.add(key)
+            rows.append({
+                "entity_a":     ea,
+                "entity_b":     eb,
+                "source":       "Layer3_WUP",
+                "matcher_conf": "",
+                "layer":        3,
+                **char,
+            })
+
+    print(f"  [Layer3] Added {len(rows)} WUP-backup pair(s).")
+    return rows
+
+
+# ---------------------------------------------------------------------------
 # CSV writer
 # ---------------------------------------------------------------------------
 
@@ -698,13 +794,14 @@ def run_pipeline(
     cn_csv: Optional[str] = None,
 ) -> Path:
     """
-    Full 2-layer enrichment pipeline on a test JSON file.
+    Full 3-layer enrichment pipeline on a test JSON file.
 
     1. Load json_a and json_b from the test file.
     2. Run AML and/or LogMap to get candidate matches.
     3. Layer 1: characterise every match with WordNet + ConceptNet.
     4. Layer 2: discover new equivalence / subsumption candidates.
-    5. Write unified CSV.
+    5. Layer 3: WUP backup — add top-k WUP pairs for any entity still orphaned.
+    6. Write unified CSV.
 
     Returns the path to the output CSV.
     """
@@ -798,11 +895,16 @@ def run_pipeline(
 
     layer2_rows = layer2_discover(entities_a, entities_b, matched_a, matched_b)
 
+    # ── Layer 3: WUP backup for orphan entities ──────────────────────────────
+    covered_a = {r["entity_a"] for r in layer1_rows + layer2_rows}
+    covered_b = {r["entity_b"] for r in layer1_rows + layer2_rows}
+    layer3_rows = layer3_wup_backup(entities_a, entities_b, covered_a, covered_b)
+
     # ── Write CSV ────────────────────────────────────────────────────────────
     from logmap_runner import _safe_local
     stem   = f"{_safe_local(name_a)}_vs_{_safe_local(name_b)}"
     out    = _DIR / "outputs" / "enriched" / f"{stem}.csv"
-    all_rows = layer1_rows + layer2_rows
+    all_rows = layer1_rows + layer2_rows + layer3_rows
     write_csv(all_rows, out)
 
     return out
