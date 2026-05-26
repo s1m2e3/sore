@@ -13,8 +13,9 @@ The primary use case is **within-domain analysis**: run all pairwise comparisons
 | **L2** | Semantic Discovery | WordNet + ConceptNet discover additional equivalence/subsumption candidates among *unmatched* entities |
 | **L3** | Lin-IC Scoring | Corpus-based Lin Information Content (Brown corpus) scores every L1+L2 pair |
 | **L4** | Sentence Embedding | `paraphrase-MiniLM-L6-v2` cosine similarity per entity pair |
-| **L5** | Containment Closure | Cross-encoder NLI (`nli-MiniLM2-L6-H768`) scores directional entailment between observable-type signatures for every A×B entity pair |
-| **L6** | Merge | Joins all layer outputs into one metrics-only CSV |
+| **L5** | GNN Similarity | Symmetric GNN aggregates sentence-embedded entity nodes and canonical edge labels over K hops; produces `gnn_sim` for every matched pair |
+| **L6** | Containment Closure | Cross-encoder NLI (`nli-MiniLM2-L6-H768`) scores directional entailment between observable-type signatures for every A×B entity pair |
+| **L7** | Merge | Joins all layer outputs into one metrics-only CSV |
 
 ---
 
@@ -186,10 +187,11 @@ The JSON contains the domain name, number of ontologies, number of pairs, metric
 4. **Run L0** (neighbourhood coherence with `sqrt(WUP × cosine)`) → `outputs/neighbourhood/`
 5. **Run L3** (Lin-IC scoring) → `outputs/lin_ic/`
 6. **Run L4** (sentence embedding cosine) → `outputs/embeddings/`
-7. **Run L5** (NLI containment closure — entailment between observable-type signatures) → `outputs/closure/`
-8. **Run L6** (merge all metrics) → `outputs/merged/<ModelA>_vs_<ModelB>_metrics.csv`
-9. **Combine** all per-pair CSVs into `outputs/enriched/all_domains_combined.csv`
-10. **Generate** a Markdown report at `outputs/all_domains_results.md`
+7. **Run L5** (GNN similarity — symmetric K-hop embedding aggregation over entity and edge neighbourhoods) → `outputs/gnn/`
+8. **Run L6** (NLI containment closure — entailment between observable-type signatures) → `outputs/closure/`
+9. **Run L7** (merge all metrics) → `outputs/merged/<ModelA>_vs_<ModelB>_metrics.csv`
+10. **Combine** all per-pair CSVs into `outputs/enriched/all_domains_combined.csv`
+11. **Generate** a Markdown report at `outputs/all_domains_results.md`
 
 ### Bring your own input models
 
@@ -302,7 +304,20 @@ Coherence is computed as `sqrt(WUP × cosine)` per neighbour pair (geometric mea
     --out enriched_ontology_matching/outputs/embeddings/auto_V1_V2_emb.csv
 ```
 
-### Step 5 — L5: Containment Closure (NLI Entailment)
+### Step 5 — L5: GNN Similarity
+
+```bash
+.venv/Scripts/python.exe enriched_ontology_matching/gnn_matcher.py \
+    --a  enriched_ontology_matching/pairs/auto_V1_V2.json --key-a json_a \
+    --b  enriched_ontology_matching/pairs/auto_V1_V2.json --key-b json_b \
+    --hops 2 --top-pairs 20
+```
+
+Output: `enriched_ontology_matching/outputs/gnn/<key>_gnn.csv`
+
+The GNN uses undirected adjacency so inverse-expressed associations (A→B vs B←A) produce the same neighbourhood signal. Entity nodes are embedded with `paraphrase-MiniLM-L6-v2`; edge labels use the canonical relation type.
+
+### Step 6 — L6: Containment Closure (NLI Entailment)
 
 Requires the two raw model JSON files (not the pair JSON):
 
@@ -315,7 +330,7 @@ Requires the two raw model JSON files (not the pair JSON):
 
 The NLI model is loaded from `enriched_ontology_matching/models/` on subsequent runs. The first run downloads and caches it automatically.
 
-### Step 6 — L6: Merge into Metrics CSV
+### Step 7 — L7: Merge into Metrics CSV
 
 ```bash
 .venv/Scripts/python.exe enriched_ontology_matching/merge_stage.py \
@@ -324,6 +339,7 @@ The NLI model is loaded from `enriched_ontology_matching/models/` on subsequent 
     --lin-ic   enriched_ontology_matching/outputs/lin_ic/auto_V1_V2_lin_ic.csv \
     --emb      enriched_ontology_matching/outputs/embeddings/auto_V1_V2_emb.csv \
     --closure  enriched_ontology_matching/outputs/closure/auto_V1_V2_closure.csv \
+    --gnn      enriched_ontology_matching/outputs/gnn/auto_V1_V2_gnn.csv \
     --out      enriched_ontology_matching/outputs/merged/<stem>_metrics.csv
 ```
 
@@ -347,10 +363,12 @@ enriched_ontology_matching/
 │   │   └── <key>_lin_ic.csv                    # L3 Lin-IC scores
 │   ├── embeddings/
 │   │   └── <key>_emb.csv                       # L4 embedding cosine scores
+│   ├── gnn/
+│   │   └── <key>_gnn.csv                       # L5 GNN similarity scores
 │   ├── closure/
-│   │   └── <ModelA>_vs_<ModelB>_closure.csv    # L5 NLI entailment scores
+│   │   └── <ModelA>_vs_<ModelB>_closure.csv    # L6 NLI entailment scores
 │   ├── merged/
-│   │   └── <ModelA>_vs_<ModelB>_metrics.csv    # final metrics CSV (L6)
+│   │   └── <ModelA>_vs_<ModelB>_metrics.csv    # final metrics CSV (L7)
 │   └── all_domains_results.md                  # human-readable summary report
 └── tools/
     ├── logmap/
@@ -366,7 +384,7 @@ enriched_ontology_matching/
 
 ## Merged CSV Format
 
-Each `outputs/merged/*_metrics.csv` has one row per entity pair and 10 columns:
+Each `outputs/merged/*_metrics.csv` has one row per entity pair and 13 columns:
 
 | Column | Type | Description |
 |--------|------|-------------|
@@ -376,7 +394,10 @@ Each `outputs/merged/*_metrics.csv` has one row per entity pair and 10 columns:
 | `wup` | float 0–1 | Blended WUP score: `(max_wup + avg_wup) / 2` across all token-pair combinations |
 | `lin_ic` | float 0–1 | Lin Information Content similarity (best token pair, Brown corpus) |
 | `coherence_sym` | float 0–1 | Symmetric neighbourhood coherence (`sqrt(WUP × cosine)` geometric mean) |
+| `verb_coherence` | float 0–1 | Jaccard overlap of canonical relation types used by each entity (inverse-expressed associations resolve to the same canonical type, so inverse pairs score 1.0) |
+| `attr_reach_sim` | float 0–1 | Weighted Jaccard similarity between the K-hop observable-type attribute-reach signatures of each entity (`Σ min / Σ max` over all observable types) |
 | `cosine_avg` | float 0–1 | Token-average sentence embedding cosine similarity |
+| `gnn_sim` | float 0–1 | Symmetric GNN similarity: K-hop sentence-embedding aggregation over entity nodes and canonical edge labels (undirected — inverse associations produce the same neighbourhood signal) |
 | `entailment_a_covers_b` | float 0–1 | P(A's observable-type signature entails B's) from NLI cross-encoder |
 | `entailment_b_covers_a` | float 0–1 | P(B's observable-type signature entails A's) from NLI cross-encoder |
 | `entailment_f1` | float 0–1 | `max(entailment_a_covers_b, entailment_b_covers_a)` — captures the strongest directional relationship (equivalence or subsumption) |
@@ -389,22 +410,24 @@ Each `outputs/merged/*_metrics.csv` has one row per entity pair and 10 columns:
 
 ## Composite Scoring and Metric Weights
 
-`compare_stage.py` computes a composite similarity score for each ontology pair by taking a weighted mean of the five per-entity-pair metrics across all entity pairs in that pair's merged CSV. The weight for each metric is its **global positive rate** — the fraction of all entity-pair rows (across every merged CSV) where the metric value is non-zero.
+Before scoring, `compare_stage.py` consolidates the 13 raw per-entity-pair columns into **4 orthogonal dimensions** by averaging pairs of metrics that are highly correlated (r ≥ 0.77). This removes redundant signal so no single underlying phenomenon dominates the composite score.
 
-This sparsity-based weighting automatically down-weights metrics that are rarely populated (e.g. `coherence_sym` and `entailment_f1` fire on fewer pairs than `wup` or `cosine_avg`) and amplifies them as more domains are processed.
+| Dimension | Raw columns averaged | Pairwise correlation |
+|-----------|---------------------|---------------------|
+| `lexical_sim` | `cosine_avg`, `wup` | r = 0.768 |
+| `coherence_sym` | (standalone) | — |
+| `graph_sim` | `verb_coherence`, `gnn_sim` | r = 0.778 |
+| `transfer_sim` | `attr_reach_sim`, `entailment_f1` | r = 0.776 |
 
-Approximate weights with all six domains fully processed:
+> **Note:** `lin_ic` and `matched` are stored in the merged CSV but are not included in the composite — `lin_ic` is collinear with `lexical_sim`, and `matched` is a binary flag rather than a continuous similarity signal.
 
-| Metric | Positive rate | Norm weight |
-|--------|--------------|-------------|
-| `cosine_avg` | ~1.00 | ~0.29 |
-| `wup` | ~1.00 | ~0.29 |
-| `lin_ic` | ~0.99 | ~0.29 |
-| `matched` | ~0.10 | ~0.03 |
-| `entailment_f1` | ~0.06 | ~0.02 |
-| `coherence_sym` | ~0.32 | ~0.09 |
+Each dimension is weighted by a blend of uniform weight (1/4) and its sparsity fill rate:
 
-Weights shift as more domains have their closure stage completed — `entailment_f1` weight increases substantially when ontologies with rich observable-attribute hierarchies (e.g. Coffee, Homebrewing) are included.
+```
+w_raw[m] = (1/4 + fill_rate[m]) / 2
+```
+
+Weights are then renormalised to sum to 1. This ensures sparse dimensions (e.g. `graph_sim` and `transfer_sim` on domains with few associations or observable attributes) are down-weighted without any fully-populated dimension dominating unconditionally.
 
 ---
 
@@ -428,12 +451,10 @@ eom-compare --domain-summary Automobile --out my_results/auto_summary.json
   "n_ontologies": 6,
   "n_pairs": 15,
   "metric_weights": {
-    "cosine_avg": 0.999,
-    "wup": 1.000,
-    "lin_ic": 0.989,
-    "coherence_sym": 0.146,
-    "entailment_f1": 0.335,
-    "matched": 0.798
+    "lexical_sim":   0.312,
+    "coherence_sym": 0.241,
+    "graph_sim":     0.228,
+    "transfer_sim":  0.219
   },
   "average_distance": 0.376,
   "average_composite": 0.675,
@@ -445,17 +466,20 @@ eom-compare --domain-summary Automobile --out my_results/auto_summary.json
       "composite": 0.84,
       "n_entity_pairs": 291,
       "metrics": {
-        "cosine_avg": {"mean": 0.912, "weight": 0.999}
+        "lexical_sim":   {"mean": 0.874, "weight": 0.312},
+        "coherence_sym": {"mean": 0.731, "weight": 0.241},
+        "graph_sim":     {"mean": 0.612, "weight": 0.228},
+        "transfer_sim":  {"mean": 0.558, "weight": 0.219}
       }
     }
   ]
 }
 ```
 
-- **`metric_weights`** — positive rate of each metric across all available merged CSVs; used to weight the distance and composite calculations
-- **`average_distance`** — sparsity-weighted Euclidean distance averaged over all within-domain pairs (lower = more similar)
-- **`average_composite`** — fill-rate-weighted mean similarity score averaged over all pairs (higher = more similar)
-- **`pairs`** — all within-domain pairs, sorted by `distance` ascending (most similar first)
+- **`metric_weights`** — blended weight for each of the 4 orthogonal dimensions (`lexical_sim`, `coherence_sym`, `graph_sim`, `transfer_sim`); blend of uniform weight (1/4) and sparsity fill rate, renormalised to sum to 1
+- **`average_distance`** — weighted Euclidean distance averaged over all within-domain pairs (lower = more similar)
+- **`average_composite`** — dimension-weighted mean similarity score averaged over all pairs (higher = more similar)
+- **`pairs`** — all within-domain pairs, sorted by `distance` ascending (most similar first); each pair reports per-dimension `mean` and `weight`
 
 ---
 
@@ -565,8 +589,9 @@ This fetches up to 25 surface-form phrases per canonical relation from the Conce
 | `neighbourhood_coherence.py` | L0 — graph neighbourhood semantic coherence |
 | `lin_ic_stage.py` | L3 — Lin Information-Content scoring |
 | `semantic_encoder.py` | L4 — sentence embedding cosine similarity |
-| `containment_closure.py` | L5 — NLI cross-encoder entailment between observable-type signatures; model cached under `models/` |
-| `merge_stage.py` | L6 — join all stages into metrics-only CSV |
+| `gnn_matcher.py` | L5 — symmetric GNN similarity: K-hop aggregation over sentence-embedded entity nodes and canonical edge labels |
+| `containment_closure.py` | L6 — NLI cross-encoder entailment between observable-type signatures; model cached under `models/` |
+| `merge_stage.py` | L7 — join all stages into metrics-only CSV |
 | `aml_runner.py` | Wrapper around the AML JAR |
 | `logmap_runner.py` | Wrapper around the LogMap JAR |
 | `root_comparator.py` | CamelCase splitting, WUP, ConceptNet CSV lookup |

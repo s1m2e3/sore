@@ -13,8 +13,10 @@ A multi-layer semantic enrichment pipeline that runs structural matchers (AML + 
 | **L2** | Semantic Discovery | WordNet + ConceptNet discover equivalence/subsumption candidates among unmatched entities |
 | **L3** | Lin-IC Scoring | Corpus-based Lin Information Content (Brown corpus) scores every pair |
 | **L4** | Sentence Embedding | `paraphrase-MiniLM-L6-v2` cosine similarity per entity pair |
-| **L5** | Merge | Joins all layer outputs into one metrics-only CSV per pair |
-| **L6** | Distance Visualisation | Sparsity-weighted MDS map of all ontologies as interactive HTML |
+| **L5** | GNN Similarity | Symmetric GNN aggregates sentence-embedded entity nodes and canonical edge labels over K hops; produces `gnn_sim` |
+| **L6** | Containment Closure | Cross-encoder NLI scores directional entailment between observable-type signatures; produces `entailment_f1` |
+| **L7** | Merge | Joins all layer outputs into one metrics-only CSV per pair |
+| **L8** | Distance Visualisation | Sparsity-weighted MDS map of all ontologies as interactive HTML |
 
 ---
 
@@ -142,7 +144,7 @@ Network-variant models (`Net1`/`Net2`/`Net3`) use `"name"` for entities and `"pa
 .venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --cross-domain
 ```
 
-This runs the full 5-stage pipeline (L1→L5) for every pair of models — 630 pairs total (C(36, 2) across all 6 domains × 6 models). Each pair produces one `outputs/merged/*_metrics.csv`.
+This runs the full pipeline (L1→L7) for every pair of models — 630 pairs total (C(36, 2) across all 6 domains × 6 models). Each pair produces one `outputs/merged/*_metrics.csv`.
 
 Options:
 - `--skip-existing` — skip pairs whose merged CSV already exists (safe to re-run)
@@ -195,7 +197,7 @@ enriched_ontology_matching/
 
 ## Merged CSV Format
 
-Each `outputs/merged/*_metrics.csv` has one row per entity pair and 7 columns:
+Each `outputs/merged/*_metrics.csv` has one row per entity pair and 13 columns:
 
 | Column | Type | Description |
 |--------|------|-------------|
@@ -205,7 +207,13 @@ Each `outputs/merged/*_metrics.csv` has one row per entity pair and 7 columns:
 | `wup` | float 0–1 | Blended Wu-Palmer: `(max_wup + avg_wup) / 2` across token combinations |
 | `lin_ic` | float 0–1 | Lin Information Content similarity (best token pair, Brown corpus) |
 | `coherence_sym` | float 0–1 | Symmetric neighbourhood coherence (`sqrt(WUP × cosine)`) |
+| `verb_coherence` | float 0–1 | Jaccard overlap of canonical relation types used by each entity |
+| `attr_reach_sim` | float 0–1 | Weighted Jaccard similarity between the K-hop observable-type attribute-reach signatures of each entity |
 | `cosine_avg` | float 0–1 | Sentence embedding cosine similarity |
+| `gnn_sim` | float 0–1 | Symmetric GNN similarity: K-hop aggregation over sentence-embedded entity nodes and canonical edge labels |
+| `entailment_a_covers_b` | float 0–1 | P(A's observable-type signature entails B's) from NLI cross-encoder |
+| `entailment_b_covers_a` | float 0–1 | P(B's observable-type signature entails A's) from NLI cross-encoder |
+| `entailment_f1` | float 0–1 | `max(entailment_a_covers_b, entailment_b_covers_a)` — captures the strongest directional relationship |
 
 ---
 
@@ -219,12 +227,22 @@ Each `outputs/merged/*_metrics.csv` has one row per entity pair and 7 columns:
 
 ### Composite Metric
 
+The 13 raw per-entity-pair columns are consolidated into **4 orthogonal dimensions** before scoring. Collinear pairs (r ≥ 0.77) are averaged to remove redundant signal:
+
+| Dimension | Raw columns averaged |
+|-----------|---------------------|
+| `lexical_sim` | `cosine_avg`, `wup` |
+| `coherence_sym` | (standalone) |
+| `graph_sim` | `verb_coherence`, `gnn_sim` |
+| `transfer_sim` | `attr_reach_sim`, `entailment_f1` |
+
+Each dimension weight blends uniform weight (1/4) with its sparsity fill rate, then renormalises:
+
 ```
-composite = Σ_m  fill_rate[m] · v_m  /  Σ_m  fill_rate[m]
+w_raw[m] = (1/4 + fill_rate[m]) / 2
 ```
 
-`fill_rate[m]` is the global fraction of entity-pair rows where metric `m` is populated.
-This automatically down-weights sparse metrics.
+These 4 dimension scores and their blended weights are what appear in the domain summary JSON output. `lin_ic` and `matched` are stored in the merged CSV but excluded from composite scoring.
 
 ### Edge Views (toggle buttons in the HTML)
 
@@ -250,7 +268,9 @@ Click a domain in the legend to hide/show its nodes and edges. Double-click to i
 | `neighbourhood_coherence.py` | L0 — graph neighbourhood semantic coherence |
 | `lin_ic_stage.py` | L3 — Lin Information-Content scoring |
 | `semantic_encoder.py` | L4 — sentence embedding cosine similarity |
-| `merge_stage.py` | L5 — join all stages into metrics-only CSV |
+| `gnn_matcher.py` | L5 — symmetric GNN similarity: K-hop aggregation over sentence-embedded entity nodes and canonical edge labels |
+| `containment_closure.py` | L6 — NLI cross-encoder entailment between observable-type signatures |
+| `merge_stage.py` | L7 — join all stages into metrics-only CSV |
 | `aml_runner.py` | Wrapper around the AML JAR |
 | `logmap_runner.py` | Wrapper around the LogMap JAR |
 | `root_comparator.py` | CamelCase splitting, WUP, ConceptNet CSV lookup |
