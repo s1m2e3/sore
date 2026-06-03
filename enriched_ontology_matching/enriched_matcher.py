@@ -72,6 +72,87 @@ _CN_CSV     = _CN_CSV_DEFAULT
 _EQUIV_RELS = {"Identical", "Synonym", "Near-Synonym", "SimilarTo"}  # → = relation
 _SUBSUM_RELS = {"Hypernym", "Hyponym", "PartOf", "MemberOf"}  # → ⊑ relation
 
+# Canonical association types that express composition / containment
+_PARTOF_CANONICALS = {"PartOf", "HasA", "MadeOf", "Composition", "hasPart"}
+
+
+# ---------------------------------------------------------------------------
+# Spurious match filters
+# ---------------------------------------------------------------------------
+
+def is_same_entity_attribute_match(ea: str, eb: str) -> bool:
+    """
+    Return True when both entity names are attributes of the SAME base entity
+    (i.e., share the same 'EntityName__' prefix).
+
+    Example: SteeringRack__steeringRackID  ↔  SteeringRack__rackType
+    Both are attributes of SteeringRack — matching them to each other is wrong.
+    """
+    if "__" not in ea or "__" not in eb:
+        return False
+    return ea.split("__")[0].lower() == eb.split("__")[0].lower()
+
+def build_partof_parents(model_json: dict) -> dict[str, str]:
+    """
+    Return {child_entity: parent_entity} for every PartOf/composition edge in
+    a NORMALIZED model JSON (run normalize_model() first so canonical is set).
+    """
+    parents: dict[str, str] = {}
+    for assoc in model_json.get("associations", []):
+        if assoc.get("canonical", "") not in _PARTOF_CANONICALS:
+            continue
+        parts = (assoc.get("associationParticipants")
+                 or assoc.get("participants") or [])
+        if len(parts) >= 2:
+            # Convention: parts[0] = child/part, parts[1] = parent/whole
+            parents[parts[0]] = parts[1]
+    return parents
+
+
+def is_parent_name_embedded(ea: str, eb: str,
+                             parents_a: dict[str, str],
+                             parents_b: dict[str, str]) -> bool:
+    """
+    Return True when a proposed cross-model match (ea from A, eb from B) is
+    spurious because ea's name embeds eb's name (or vice versa) and the two
+    entities have a direct PartOf parent-child relationship within one model.
+
+    Pattern caught:
+      Model A: EngineBlock  partOf  Engine
+      Model B: Engine
+      Match proposed: EngineBlock (A) ↔ Engine (B)
+      → spurious: EngineBlock is a PART of Engine, not equivalent to it.
+    """
+    toks_a = set(split_camel(ea))
+    toks_b = set(split_camel(eb))
+
+    # Name-embedding check: one token set is a proper subset of the other
+    if not (toks_b < toks_a or toks_a < toks_b):
+        return False
+
+    # PartOf check: is the match a parent-child pair in either model?
+    # Case 1: ea is a child of eb (or something with the same tokens) in model A
+    parent_a = parents_a.get(ea, "")
+    if parent_a and set(split_camel(parent_a)) == toks_b:
+        return True
+
+    # Case 2: eb is a child of ea (or something with the same tokens) in model B
+    parent_b = parents_b.get(eb, "")
+    if parent_b and set(split_camel(parent_b)) == toks_a:
+        return True
+
+    # Case 3: eb appears as a child in model A with parent named like ea
+    parent_b_in_a = parents_a.get(eb, "")
+    if parent_b_in_a and set(split_camel(parent_b_in_a)) == toks_a:
+        return True
+
+    # Case 4: ea appears as a child in model B with parent named like eb
+    parent_a_in_b = parents_b.get(ea, "")
+    if parent_a_in_b and set(split_camel(parent_a_in_b)) == toks_b:
+        return True
+
+    return False
+
 # ConceptNet relations that imply equivalence
 _CN_EQUIV = {"Synonym", "SimilarTo"}
 # ConceptNet relations that imply directed subsumption (IsA = A is-a B → B is Hypernym)
@@ -584,6 +665,8 @@ def layer2_discover(
     entities_b: list[str],
     already_matched_a: set[str],
     already_matched_b: set[str],
+    parents_a: dict[str, str] | None = None,
+    parents_b: dict[str, str] | None = None,
 ) -> list[dict]:
     """
     For every unmatched entity in A × unmatched entity in B, run
@@ -611,9 +694,18 @@ def layer2_discover(
     concept_a = [e for e in unmatched_a if not _is_association(e)]
     concept_b = [e for e in unmatched_b if not _is_association(e)]
 
+    _par_a = parents_a or {}
+    _par_b = parents_b or {}
+
     rows = []
     for ea in concept_a:
         for eb in concept_b:
+            # Filter spurious matches: same-entity attribute pairs or
+            # parent-name-embedded PartOf pairs.
+            if (is_same_entity_attribute_match(ea, eb)
+                    or is_parent_name_embedded(ea, eb, _par_a, _par_b)):
+                continue
+
             char = characterise_entity_pair(ea, eb)
             l2   = char["layer2_type"]
             if l2 == "None":
@@ -893,7 +985,26 @@ def run_pipeline(
     matched_a  = {m["entity_a"] for m in merged_list}
     matched_b  = {m["entity_b"] for m in merged_list}
 
-    layer2_rows = layer2_discover(entities_a, entities_b, matched_a, matched_b)
+    # Build PartOf parent maps from normalized models for spurious-match filtering
+    parents_a = build_partof_parents(json_a)
+    parents_b = build_partof_parents(json_b)
+
+    # Filter Layer 1 AML/LogMap matches that are spurious
+    filtered_spurious = 0
+    filtered_layer1 = []
+    for row in layer1_rows:
+        ea, eb = row["entity_a"], row["entity_b"]
+        if (is_same_entity_attribute_match(ea, eb)
+                or is_parent_name_embedded(ea, eb, parents_a, parents_b)):
+            filtered_spurious += 1
+        else:
+            filtered_layer1.append(row)
+    if filtered_spurious:
+        print(f"  [Filter] Removed {filtered_spurious} spurious L1 match(es).")
+    layer1_rows = filtered_layer1
+
+    layer2_rows = layer2_discover(entities_a, entities_b, matched_a, matched_b,
+                                  parents_a=parents_a, parents_b=parents_b)
 
     # ── Layer 3: WUP backup for orphan entities ──────────────────────────────
     covered_a = {r["entity_a"] for r in layer1_rows + layer2_rows}

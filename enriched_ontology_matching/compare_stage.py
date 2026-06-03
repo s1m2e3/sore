@@ -22,22 +22,51 @@ from sklearn.manifold import MDS
 
 # ── paths ──────────────────────────────────────────────────────────────────────
 ROOT = Path(__file__).parent
-MERGED_DIR = ROOT / "outputs" / "merged"
+MERGED_DIR    = ROOT / "outputs" / "merged"
+WL_DIR        = ROOT / "outputs" / "wl"
+ATTR_DIST_DIR = ROOT / "outputs" / "attr_dist"
 PAIRS_DIR  = ROOT / "pairs"
 OUT_HTML      = ROOT / "outputs" / "ontology_map.html"
 SUMMARIES_DIR = ROOT / "summaries"
 
-# ── combined metrics (averaged from correlated raw columns) ───────────────────
-# lexical_sim  = avg(max(matched, cosine_avg), wup)  — structural confirmation or best embedding
-# graph_sim    = avg(verb_coherence, gnn_sim)   r=0.778 — merged to single dimension
-# transfer_sim = avg(attr_reach_sim, entailment_f1) r=0.776 — merged to single dimension
+# ── combined metrics ──────────────────────────────────────────────────────────
+# lexical_sim   = max(max(matched, cosine_avg), wup)  — best of string/WUP/embedding
+# coherence_sym = neighbourhood coherence            — standalone (entity-pair level)
+# wl_structural = WL kernel, all nodes anonymous     — local edge-type motifs (pair level)
+# shape_sim     = avg(degree_sim, spectral_sim)      — degree + spectral shape (pair level)
+WUP_THRESHOLD = 0.75  # WUP below this is treated as 0 in lexical_sim
+
 METRICS = [
-    "lexical_sim",    # avg(max(matched, cosine_avg), wup)
-    "coherence_sym",  # standalone
-    "graph_sim",      # avg(verb_coherence, gnn_sim)
-    "transfer_sim",   # avg(attr_reach_sim, entailment_f1)
+    "lexical_sim",    # max(max(matched, cosine_avg), wup≥0.5 else 0)
+    "wl_structural",  # WL kernel: anonymous nodes, edge types preserved
+    "shape_sim",      # global shape: avg(degree_sim, spectral_sim)
+    "attr_weighted",  # attr_dist_sim × avg_entity_wup
 ]
 CONTINUOUS = METRICS  # alias kept for backward compat
+
+
+def _load_wl(merged_csv: Path) -> dict:
+    """Load pair-level WL metrics from the corresponding WL CSV, or return empty dict."""
+    wl_csv = WL_DIR / (merged_csv.stem + "_wl.csv")
+    if not wl_csv.exists():
+        return {}
+    try:
+        rows = list(csv.DictReader(open(wl_csv, newline="", encoding="utf-8")))
+        return rows[0] if rows else {}
+    except Exception:
+        return {}
+
+
+def _load_attr_dist(merged_csv: Path) -> dict:
+    """Load pair-level attr_dist_sim from the attribute reach distribution CSV."""
+    ad_csv = ATTR_DIST_DIR / (merged_csv.stem + "_attr_dist.csv")
+    if not ad_csv.exists():
+        return {}
+    try:
+        rows = list(csv.DictReader(open(ad_csv, newline="", encoding="utf-8")))
+        return rows[0] if rows else {}
+    except Exception:
+        return {}
 
 
 def _parse_float(v) -> float | None:
@@ -56,51 +85,10 @@ def _row_avg(*vals) -> float | None:
     return sum(nz) / len(nz) if nz else None
 
 
-def compute_global_fill_rates(csvs: list[Path]) -> dict[str, float]:
-    """
-    For each combined metric, compute the fraction of entity-pair rows where
-    the combined value is non-blank and > 0.  Reads raw CSV columns and merges
-    correlated pairs before counting.
-    """
-    counts = {m: 0 for m in METRICS}
-    total  = 0
-    for csv_path in csvs:
-        try:
-            with open(csv_path, newline="", encoding="utf-8") as fh:
-                for row in csv.DictReader(fh):
-                    total += 1
-                    g = lambda col: _parse_float(row.get(col))
-                    cosine = g("cosine_avg")
-                    matched_f = float(row.get("matched") or 0)
-                    best_cosine = max(matched_f, cosine if cosine is not None else 0.0)
-                    lex  = _row_avg(best_cosine, g("wup"))
-                    coh  = g("coherence_sym")
-                    grph = _row_avg(g("verb_coherence"), g("gnn_sim"))
-                    trf  = _row_avg(g("attr_reach_sim"), g("entailment_f1"))
-                    for m, v in zip(METRICS, [lex, coh, grph, trf]):
-                        if v is not None and v > 0:
-                            counts[m] += 1
-        except Exception:
-            pass
-    if total == 0:
-        return {m: 1.0 for m in METRICS}
-    return {m: counts[m] / total for m in METRICS}
-
-
-def blend_weights(fill_rates: dict[str, float]) -> dict[str, float]:
-    """
-    Blend uniform weight (1/N) with sparsity fill rate, then renormalise.
-
-    w_raw[m] = (1/N + fill_rate[m]) / 2
-
-    This ensures sparse metrics are down-weighted relative to fully-populated ones,
-    but no single metric can dominate purely because it is always computable.
-    """
-    n = len(METRICS)
-    uniform = 1.0 / n
-    blended = {m: (uniform + fill_rates[m]) / 2.0 for m in METRICS}
-    total = sum(blended.values()) or 1.0
-    return {m: v / total for m, v in blended.items()}
+def equal_weights() -> dict[str, float]:
+    """Return uniform 1/N weight for each metric — no sparsity adjustment."""
+    w = 1.0 / len(METRICS)
+    return {m: w for m in METRICS}
 
 
 def load_pair_metrics(csv_path: Path) -> dict:
@@ -124,9 +112,8 @@ def load_pair_metrics(csv_path: Path) -> dict:
 
     if not rows:
         return {"n_pairs": 0, "composite": None, "enriched": False,
-                "lexical_sim": 0.0, "coherence_sym": 0.0,
-                "graph_sim": 0.0, "transfer_sim": 0.0,
-                "match_rate": 0.0}
+                "lexical_sim": 0.0, "wl_structural": 0.0,
+                "shape_sim": 0.0, "attr_weighted": 0.0, "match_rate": 0.0}
 
     matched_count = sum(1 for r in rows if _parse_float(r.get("matched")) == 1.0)
 
@@ -137,18 +124,27 @@ def load_pair_metrics(csv_path: Path) -> dict:
         nz = [v for v in vals if v is not None]
         return sum(nz) / len(nz) if nz else 0.0
 
-    lexical_rows  = [
-        _row_avg(
+    lexical_rows = [
+        max(
             max(float(r.get("matched") or 0), _g(r, "cosine_avg") or 0.0),
-            _g(r, "wup"),
+            (_g(r, "wup") or 0.0) if (_g(r, "wup") or 0.0) >= WUP_THRESHOLD else 0.0,
         )
         for r in rows
     ]
-    coherence_rows = [_g(r, "coherence_sym") for r in rows]
-    graph_rows    = [_row_avg(_g(r, "verb_coherence"), _g(r, "gnn_sim")) for r in rows]
-    transfer_rows = [_row_avg(_g(r, "attr_reach_sim"), _g(r, "entailment_f1")) for r in rows]
 
     enriched = any(v is not None for v in [_g(r, "cosine_avg") for r in rows])
+
+    # WL metrics are pair-level — load from WL CSV once
+    wl        = _load_wl(csv_path)
+    wl_struct = _parse_float(wl.get("wl_structural")) or 0.0
+    shape     = _parse_float(wl.get("shape_sim"))     or 0.0
+    ad        = _load_attr_dist(csv_path)
+    attr_dist = _parse_float(ad.get("attr_dist_sim")) or 0.0
+
+    # Confidence-weighted attribute similarity: attr_dist × mean entity WUP
+    wup_vals = [_g(r, "wup") for r in rows if _g(r, "wup") is not None]
+    avg_wup  = safe_mean(wup_vals)
+    attr_weighted = round(attr_dist * avg_wup, 4) if attr_dist > 0 and avg_wup > 0 else 0.0
 
     return {
         "n_pairs":       len(rows),
@@ -156,9 +152,9 @@ def load_pair_metrics(csv_path: Path) -> dict:
         "enriched":      enriched,
         "match_rate":    matched_count / len(rows),
         "lexical_sim":   safe_mean(lexical_rows),
-        "coherence_sym": safe_mean(coherence_rows),
-        "graph_sim":     safe_mean(graph_rows),
-        "transfer_sim":  safe_mean(transfer_rows),
+        "wl_structural": wl_struct,
+        "shape_sim":     shape,
+        "attr_weighted": attr_weighted,
     }
 
 
@@ -262,30 +258,31 @@ def json_key_for_pair(a: str, b: str, available_jsons: set[str]) -> str | None:
 
 
 def build_distance_matrix(
-    onts: list[str], pair_data: dict, fill_rates: dict[str, float]
+    onts: list[str], pair_data: dict, fill_rates: dict[str, float] | None = None
 ) -> np.ndarray:
     """
-    Weighted Euclidean distance in metric space.
+    Equal-weight Euclidean distance in metric space.
 
-    For pair (A, B):
-        d(A,B) = sqrt( Σ_m  fill_rate[m] · (1 − v_m)² )
-                 ─────────────────────────────────────────
-                        sqrt( Σ_m  fill_rate[m] )
+    For pair (A, B), only metrics with a non-zero value are included:
+        d(A,B) = sqrt( Σ_available  (1 − v_m)² / N_available )
 
-    fill_rate[m] is the global fraction of entity-pair rows where metric m
-    is populated — sparse metrics contribute less to the distance.
-    Normalising by sqrt(Σ fill_rates) keeps d in [0, 1].
+    Metrics that are unavailable for a pair (attr_weighted = 0 when no
+    observable types exist) are excluded rather than penalising the score.
+    Result is in [0, 1].
     """
-    n      = len(onts)
-    idx    = {o: i for i, o in enumerate(onts)}
-    norm   = math.sqrt(sum(fill_rates[m] for m in METRICS)) or 1.0
-    dist   = np.full((n, n), 1.0)
+    n    = len(onts)
+    idx  = {o: i for i, o in enumerate(onts)}
+    dist = np.full((n, n), 1.0)
     np.fill_diagonal(dist, 0.0)
 
     for (a, b), metrics in pair_data.items():
         i, j = idx[a], idx[b]
-        d_sq = sum(fill_rates[m] * (1.0 - metrics[m]) ** 2 for m in METRICS)
-        d    = min(math.sqrt(d_sq) / norm, 1.0)
+        available = [m for m in METRICS if metrics.get(m, 0) > 0]
+        if not available:
+            d = 1.0
+        else:
+            d_sq = sum((1.0 - metrics[m]) ** 2 for m in available) / len(available)
+            d    = min(math.sqrt(d_sq), 1.0)
         dist[i][j] = d
         dist[j][i] = d
 
@@ -640,8 +637,9 @@ def build_html(onts, coords, pair_data, available_jsons, stress: float,
             f"Weighted composite: <b>{comp:.3f}</b><br>"
             f"lexical {metrics['lexical_sim']:.3f} (w={fr.get('lexical_sim',1):.2f})  "
             f"coherence {metrics['coherence_sym']:.3f} (w={fr.get('coherence_sym',1):.2f})<br>"
-            f"graph {metrics['graph_sim']:.3f} (w={fr.get('graph_sim',1):.2f})  "
-            f"transfer {metrics['transfer_sim']:.3f} (w={fr.get('transfer_sim',1):.2f})<br>"
+            f"wl_structural {metrics['wl_structural']:.3f} (w={fr.get('wl_structural',1):.2f})  "
+            f"shape {metrics['shape_sim']:.3f} (w={fr.get('shape_sim',1):.2f})  "
+            f"attr_wtd {metrics['attr_weighted']:.3f} (w={fr.get('attr_weighted',1):.2f})<br>"
             f"n_pairs: {metrics['n_pairs']}"
         )
 
@@ -904,8 +902,7 @@ def domain_distance_summary(domain: str, out_path: Path | None = None) -> dict:
             f"Check that merged CSVs exist in {MERGED_DIR} for this domain."
         )
 
-    fill_rates = blend_weights(compute_global_fill_rates(domain_csvs))
-    w_total = sum(fill_rates[m] for m in METRICS) or 1.0
+    weights = equal_weights()
 
     pair_data: dict[tuple[str, str], dict] = {}
     for csv_path in domain_csvs:
@@ -922,10 +919,11 @@ def domain_distance_summary(domain: str, out_path: Path | None = None) -> dict:
             pair_data[key] = metrics
 
     for m in pair_data.values():
-        m["composite"] = sum(fill_rates[met] * m[met] for met in METRICS) / w_total
+        available = [m[met] for met in METRICS if m.get(met, 0) > 0]
+        m["composite"] = sum(available) / len(available) if available else 0.0
 
     onts = sorted({o for pair in pair_data for o in pair})
-    dist_matrix = build_distance_matrix(onts, pair_data, fill_rates)
+    dist_matrix = build_distance_matrix(onts, pair_data)
     ont_idx = {o: i for i, o in enumerate(onts)}
 
     pairs_out = []
@@ -942,7 +940,7 @@ def domain_distance_summary(domain: str, out_path: Path | None = None) -> dict:
             "metrics": {
                 met: {
                     "mean": round(m[met], 6),
-                    "weight": round(fill_rates[met], 6),
+                    "weight": round(weights[met], 6),
                 }
                 for met in METRICS
             },
@@ -953,7 +951,7 @@ def domain_distance_summary(domain: str, out_path: Path | None = None) -> dict:
         "domain": domain,
         "n_ontologies": len(onts),
         "n_pairs": len(pair_data),
-        "metric_weights": {m: round(fill_rates[m], 6) for m in METRICS},
+        "metric_weights": {m: round(weights[m], 6) for m in METRICS},
         "average_distance": round(sum(distances) / len(distances), 6),
         "average_composite": round(
             sum(m["composite"] for m in pair_data.values()) / len(pair_data), 6
@@ -980,13 +978,10 @@ def main():
         print(f"No merged CSVs found in {MERGED_DIR}", file=sys.stderr)
         sys.exit(1)
 
-    # ── blended weights: 50% uniform (1/N) + 50% sparsity fill rate ──────────
-    raw_fill   = compute_global_fill_rates(csvs)
-    fill_rates = blend_weights(raw_fill)
-    w_total    = sum(fill_rates[m] for m in METRICS) or 1.0
-    print("\nMetric weights (50% uniform + 50% sparsity, renormalised):")
+    weights = equal_weights()
+    print("\nMetric weights (equal, 1/N each):")
     for m in METRICS:
-        print(f"  {m:<18}  fill={raw_fill[m]:.3f}  weight={fill_rates[m]:.3f}")
+        print(f"  {m:<18}  weight={weights[m]:.3f}")
 
     pair_data: dict[tuple[str, str], dict] = {}
     for csv_path in csvs:
@@ -1011,12 +1006,10 @@ def main():
         print("No valid pairs loaded.", file=sys.stderr)
         sys.exit(1)
 
-    # ── fill in weighted composite for each pair ───────────────────────────────
-    # weighted_composite = fill-rate-weighted mean of metric values (display score)
+    # ── composite = mean of available (non-zero) metrics ─────────────────────
     for metrics in pair_data.values():
-        metrics["composite"] = (
-            sum(fill_rates[m] * metrics[m] for m in METRICS) / w_total
-        )
+        available = [metrics[m] for m in METRICS if metrics.get(m, 0) > 0]
+        metrics["composite"] = sum(available) / len(available) if available else 0.0
 
     for (a, b), metrics in sorted(pair_data.items(),
                                   key=lambda kv: -kv[1]["composite"]):
@@ -1033,12 +1026,12 @@ def main():
 
     # ── regularised MDS: full pairwise + centroid cohesion ────────────────────
     print("\nBuilding regularised MDS layout (lambda=0.3) ...")
-    coords, stress = build_regularised_mds_coords(onts, pair_data, fill_rates,
+    coords, stress = build_regularised_mds_coords(onts, pair_data, weights,
                                                    lambda_centroid=0.3)
     print(f"Overall Kruskal stress (final embedding): {stress:.4f}")
 
     # ── build and save plot ────────────────────────────────────────────────────
-    fig, post_script = build_html(onts, coords, pair_data, json_files, stress, fill_rates)
+    fig, post_script = build_html(onts, coords, pair_data, json_files, stress, weights)
     OUT_HTML.parent.mkdir(parents=True, exist_ok=True)
     fig.write_html(str(OUT_HTML), include_plotlyjs="cdn", post_script=post_script)
     print(f"Saved: {OUT_HTML}")

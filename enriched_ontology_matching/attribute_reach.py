@@ -451,6 +451,182 @@ def run_analysis(
     return results
 
 
+# ── Anonymous attribute reach distribution stage ─────────────────────────────
+
+def run_attr_dist_stage(
+    data_a:        dict,
+    data_b:        dict,
+    out_csv:       Path,
+    K:             int   = 2,
+    encoder_model: str   = _DEFAULT_MODEL,
+) -> float:
+    """
+    Compute anonymous embedded attribute reach distribution similarity for one
+    ontology pair and write a single-row summary CSV.
+
+    Match-independent, name-independent:
+      1. Collect union observable-type vocabulary from both normalized models.
+      2. Embed each type name with sentence-transformers.
+      3. For every entity (anonymous — names never used as keys in output),
+         compute its K-hop reach signature via BFS through PartOf/Connects edges.
+      4. Sum reach-weighted type embeddings over ALL entities → one dense
+         vector per model.
+      5. attr_dist_sim = cosine(agg_A, agg_B).
+
+    Imputation is disabled: only declared and structurally propagated attributes
+    contribute, keeping the metric purely structural/semantic rather than
+    name-dependent.
+
+    Returns attr_dist_sim (float, 0.0 when no vocab exists).
+    """
+    import re
+    import numpy as np
+
+    inv    = load_inventory()
+    norm_a = normalize_model(data_a, inv)
+    norm_b = normalize_model(data_b, inv)
+
+    vocab = collect_obs_vocab(norm_a, norm_b)
+    if not vocab:
+        out_csv.parent.mkdir(parents=True, exist_ok=True)
+        with open(out_csv, "w", newline="", encoding="utf-8") as fh:
+            csv.DictWriter(fh, fieldnames=["attr_dist_sim"]).writeheader()
+            csv.DictWriter(fh, fieldnames=["attr_dist_sim"]).writerow({"attr_dist_sim": 0.0})
+        return 0.0
+
+    # BFS reach with imputation disabled (threshold > 1 never fires)
+    reach_a = attribute_reach(norm_a, vocab, K=K, impute_threshold=1.1)
+    reach_b = attribute_reach(norm_b, vocab, K=K, impute_threshold=1.1)
+
+    # Embed observable type names
+    readable = [" ".join(re.findall(r'[A-Z][a-z]*|[a-z]+', t)) or t for t in vocab]
+    enc       = _get_encoder(encoder_model)
+    type_embs = enc.encode(readable, normalize_embeddings=True,
+                            show_progress_bar=False, batch_size=64)
+    type_emb_map = {t: type_embs[i] for i, t in enumerate(vocab)}
+    dim = type_embs.shape[1]
+
+    def _agg(reach: dict) -> np.ndarray:
+        agg = np.zeros(dim, dtype=np.float64)
+        for sig in reach.values():
+            for obs_type, weight in sig.items():
+                if obs_type in type_emb_map:
+                    agg += weight * type_emb_map[obs_type]
+        return agg
+
+    agg_a = _agg(reach_a)
+    agg_b = _agg(reach_b)
+    na, nb = np.linalg.norm(agg_a), np.linalg.norm(agg_b)
+    sim = round(float(np.dot(agg_a, agg_b) / (na * nb)), 4) if na > 1e-10 and nb > 1e-10 else 0.0
+
+    out_csv.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_csv, "w", newline="", encoding="utf-8") as fh:
+        w = csv.DictWriter(fh, fieldnames=["attr_dist_sim"])
+        w.writeheader()
+        w.writerow({"attr_dist_sim": sim})
+
+    print(f"[AttrDist] attr_dist_sim={sim:.4f}  vocab={len(vocab)}  "
+          f"entities_a={len(reach_a)}  entities_b={len(reach_b)}", file=sys.stderr)
+    return sim
+
+
+# ── WUP-based anonymous attribute reach distribution ─────────────────────────
+
+def run_attr_wup_stage(
+    data_a: dict,
+    data_b: dict,
+    out_csv: Path,
+    K: int = 2,
+) -> float:
+    """
+    WUP-based anonymous attribute reach distribution similarity.
+
+    Replaces BERT embedding cosine with WordNet Wu-Palmer similarity so that
+    semantically distinct observable types (Power vs BloodPressure) score near
+    zero while genuinely related types (Power vs HorsePower) get partial credit.
+
+    Algorithm:
+      1. Collect union observable-type vocab from both normalized models.
+      2. Compute K-hop BFS reach for all entities in each model (imputation off).
+      3. Aggregate total reach weight per observable type → freq_A, freq_B.
+      4. For each type_a: best_wup = max WUP against all types in vocab_B.
+         Weighted soft recall A→B = Σ freq_A[t] × best_wup(t) / Σ freq_A[t]
+      5. Same symmetrically B→A.
+      6. attr_wup_sim = (recall_A→B + recall_B→A) / 2.
+
+    Returns 0.0 when neither model has observable types.
+    """
+    from root_comparator import best_wup as _best_wup
+
+    inv    = load_inventory()
+    norm_a = normalize_model(data_a, inv)
+    norm_b = normalize_model(data_b, inv)
+
+    vocab = collect_obs_vocab(norm_a, norm_b)
+    if not vocab:
+        out_csv.parent.mkdir(parents=True, exist_ok=True)
+        with open(out_csv, "w", newline="", encoding="utf-8") as fh:
+            w = csv.DictWriter(fh, fieldnames=["attr_wup_sim"])
+            w.writeheader(); w.writerow({"attr_wup_sim": 0.0})
+        return 0.0
+
+    reach_a = attribute_reach(norm_a, vocab, K=K, impute_threshold=1.1)
+    reach_b = attribute_reach(norm_b, vocab, K=K, impute_threshold=1.1)
+
+    # Aggregate total reach weight per observable type (anonymous — entity names dropped)
+    def _freq(reach: dict) -> dict[str, float]:
+        f: dict[str, float] = {}
+        for sig in reach.values():
+            for t, w in sig.items():
+                f[t] = f.get(t, 0.0) + w
+        return f
+
+    freq_a = _freq(reach_a)
+    freq_b = _freq(reach_b)
+
+    if not freq_a or not freq_b:
+        sim = 0.0
+    else:
+        vocab_a = list(freq_a.keys())
+        vocab_b = list(freq_b.keys())
+
+        # Precompute WUP matrix between all type pairs (vocab small: ~10-60 types)
+        wup_cache: dict[tuple[str, str], float] = {}
+        for ta in vocab_a:
+            for tb in vocab_b:
+                key = (ta.lower(), tb.lower())
+                if key not in wup_cache:
+                    if ta.lower() == tb.lower():
+                        wup_cache[key] = 1.0
+                    else:
+                        wup_cache[key] = _best_wup(ta.lower(), tb.lower())[0]
+
+        # Weighted soft recall A→B
+        total_a = sum(freq_a.values())
+        recall_ab = sum(
+            freq_a[ta] * max((wup_cache.get((ta.lower(), tb.lower()), 0.0) for tb in vocab_b), default=0.0)
+            for ta in vocab_a
+        ) / total_a if total_a > 0 else 0.0
+
+        # Weighted soft recall B→A
+        total_b = sum(freq_b.values())
+        recall_ba = sum(
+            freq_b[tb] * max((wup_cache.get((ta.lower(), tb.lower()), 0.0) for ta in vocab_a), default=0.0)
+            for tb in vocab_b
+        ) / total_b if total_b > 0 else 0.0
+
+        sim = round((recall_ab + recall_ba) / 2, 4)
+
+    out_csv.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_csv, "w", newline="", encoding="utf-8") as fh:
+        w = csv.DictWriter(fh, fieldnames=["attr_wup_sim"])
+        w.writeheader(); w.writerow({"attr_wup_sim": sim})
+
+    print(f"[AttrWUP] attr_wup_sim={sim:.4f}  vocab_a={len(freq_a)}  vocab_b={len(freq_b)}",
+          file=sys.stderr)
+    return sim
+
+
 # ── Output helpers ────────────────────────────────────────────────────────────
 
 _CSV_FIELDS = [

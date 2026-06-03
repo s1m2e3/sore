@@ -1,6 +1,6 @@
 # Enriched Ontology Matching Pipeline
 
-A multi-layer semantic enrichment pipeline that runs structural matchers (AML + LogMap) over pairs of conceptual models, scores every entity pair across seven complementary metrics, and produces a domain distance summary JSON and an interactive distance map.
+A semantic enrichment pipeline that runs structural matchers (AML + LogMap) over pairs of conceptual models, scores every entity pair across four complementary metrics, and produces a domain distance summary JSON and an interactive distance map.
 
 The primary use case is **within-domain analysis**: run all pairwise comparisons for a set of ontologies that share the same domain, then read the average pairwise distance between them as a JSON summary. Cross-domain comparisons and the interactive distance map are also supported as secondary outputs.
 
@@ -8,16 +8,29 @@ The primary use case is **within-domain analysis**: run all pairwise comparisons
 
 ## Pipeline Overview
 
-| Layer | Name | What it does |
-|-------|------|--------------|
-| **L0** | Neighbourhood Coherence | Validates each pair via `sqrt(WUP × cosine)` geometric mean over local graph neighbours |
-| **L1** | Structural Matching | AML + LogMap find entity pairs; results merged and de-duplicated |
-| **L2** | Semantic Discovery | WordNet + ConceptNet discover equivalence/subsumption candidates among unmatched entities |
-| **L3** | Sentence Embedding | `paraphrase-MiniLM-L6-v2` cosine similarity per entity pair (rescaled to [0, 1]) |
-| **L4** | GNN Similarity | Symmetric GNN aggregates sentence-embedded entity nodes and canonical edge labels over K hops; produces `gnn_sim` for every matched pair |
-| **L5** | Containment Closure | Cross-encoder NLI (`nli-MiniLM2-L6-H768`) scores directional entailment between observable-type signatures for every A×B entity pair |
-| **L6** | Merge | Joins all layer outputs into one metrics-only CSV per pair |
-| **L7** | Distance Visualisation | Sparsity-weighted MDS map of all ontologies as interactive HTML |
+| Step | Name | What it does |
+|------|------|--------------|
+| **1** | Structural Matching | AML + LogMap find entity pairs; results merged and de-duplicated |
+| **2** | Semantic Discovery | WordNet + ConceptNet discover equivalence/subsumption candidates among unmatched entities |
+| **3** | WUP Backup (L3) | Top-k pairs with a shared root token get Wu-Palmer scores when no matcher confirms them |
+| **4** | Sentence Embedding | `paraphrase-MiniLM-L6-v2` cosine similarity per entity pair (rescaled to [0, 1]) |
+| **5** | WL + Shape | Weisfeiler-Leman kernel similarity and graph-shape sub-metrics (degree, spectral, clustering, betweenness) |
+| **6** | Attribute Reach | K-hop observable-type attribute reach distribution; weighted by entity WUP confidence |
+| **7** | Merge | Joins enriched-matcher + embedding outputs into one metrics-only CSV per pair |
+| **8** | Distance Visualisation | Sparsity-weighted MDS map of all ontologies as interactive HTML |
+
+---
+
+## Four Scoring Dimensions
+
+The pipeline produces four orthogonal metrics, one per composite dimension:
+
+| Metric | Source | What it discriminates |
+|--------|--------|-----------------------|
+| **`lexical`** — `matched`, `wup`, `cosine_avg` | `enriched_matcher.py` + `semantic_encoder.py` | **Name-level similarity.** `matched` (0/1) signals structural-matcher confirmation; `wup` captures Wu-Palmer path distance in WordNet across CamelCase tokens; `cosine_avg` is the sentence-embedding cosine of entity name strings. Together these separate entities that share vocabulary from those that do not, regardless of graph position. |
+| **`wl_structural`** | `wl_kernel_matcher.py` | **Local edge-type motifs.** The Weisfeiler-Leman graph kernel hashes anonymous node labels while preserving edge types (canonical relation names). A high score means the two models reuse the same relational patterns in the same local neighbourhood — it distinguishes models by *modelling style* (process-centric vs entity-centric) rather than by terminology. |
+| **`shape_sim`** | `wl_kernel_matcher.py` | **Global graph topology.** Composed of four sub-metrics averaged together: `degree_sim` (degree-sequence cosine), `spectral_sim` (leading eigenvalue ratio), `clustering_sim` (mean clustering coefficient similarity), and `betweenness_sim` (normalised betweenness centrality cosine). Shape separates models by *scope and density* — a star topology vs a chain vs a clique will score very differently even if they name entities identically. |
+| **`attr_weighted`** | `attribute_reach.py` | **Attribute reachability × lexical confidence.** `attr_dist_sim` is the cosine distance between the K-hop observable-type attribute-reach distributions of each model; it is then scaled by `avg_entity_wup` (the mean Wu-Palmer score across matched entity pairs). The product down-weights the structural attribute signal when lexical confidence is low, making this metric reliable only when the entity correspondence is already meaningful. Together `attr_weighted` and `wl_structural` discriminate domain (what the model is about) from modelling approach (how it is structured). |
 
 ---
 
@@ -96,15 +109,6 @@ pip install -e .
 python -c "import nltk; nltk.download('wordnet'); nltk.download('omw-1.4')"
 ```
 
-**GPU note (recommended for L6 NLI):** install the CUDA-enabled PyTorch build before `pip install -e .` for faster NLI inference:
-
-```bash
-pip install torch --index-url https://download.pytorch.org/whl/cu126
-pip install -e .
-```
-
-The NLI model (`cross-encoder/nli-MiniLM2-L6-H768`) is downloaded automatically on first run and cached under `enriched_ontology_matching/models/`. Subsequent runs load it from the local cache.
-
 After installation two CLI commands become available in the active environment:
 
 | Command | Description |
@@ -168,18 +172,50 @@ eom-compare --domain-summary Automobile
 
 Output: `enriched_ontology_matching/summaries/Automobile_summary.json`
 
-`eom-run` will automatically run all 6 pipeline stages for every pair:
+`eom-run` will automatically run all pipeline stages for every pair:
 
 1. **Discover** all model JSON files in `<inputs-dir>/Automobile/`
 2. **Generate pair JSONs** in `enriched_ontology_matching/pairs/`
-3. **Run L1+L2** (AML + LogMap + WordNet + ConceptNet) → per-pair CSV in `outputs/enriched/`
-4. **Run L0** (neighbourhood coherence with `sqrt(WUP × cosine)`) → `outputs/neighbourhood/`
-5. **Run L3** (sentence embedding cosine, rescaled to [0, 1]) → `outputs/embeddings/`
-6. **Run L4** (GNN similarity — symmetric K-hop embedding aggregation) → `outputs/gnn/`
-7. **Run L5** (NLI containment closure — entailment between observable-type signatures) → `outputs/closure/`
-8. **Run L6** (merge all metrics) → `outputs/merged/<ModelA>_vs_<ModelB>_metrics.csv`
-9. **Combine** all per-pair CSVs into `outputs/enriched/all_domains_combined.csv`
-10. **Generate** a Markdown report at `outputs/all_domains_results.md`
+3. **Run enriched matching** (AML + LogMap + WordNet + ConceptNet + WUP backup) → per-pair CSV in `outputs/enriched/`
+4. **Run sentence embeddings** (cosine_avg, rescaled to [0, 1]) → `outputs/embeddings/`
+5. **Merge** enriched + embeddings → `outputs/merged/<ModelA>_vs_<ModelB>_metrics.csv`
+6. **Combine** all per-pair CSVs into `outputs/enriched/all_domains_combined.csv`
+
+After step 5 (merge), run the WL and attribute reach stages for each pair to populate `outputs/wl/` and `outputs/attr_dist/`. `compare_stage.py` reads those pre-computed files when building the distance map or domain summary — it does **not** recompute them on-the-fly. See **Steps 4 and 5** under "Running Individual Stages Manually" for the per-pair commands, or run the batch helper below:
+
+```bash
+# Batch: re-run WL + attr_dist for all merged pairs in one shot
+python - <<'EOF'
+import json, sys
+from pathlib import Path
+sys.path.insert(0, 'enriched_ontology_matching')
+from logmap_runner import _safe_local
+from wl_kernel_matcher import run_wl_stage
+from attribute_reach import run_attr_dist_stage
+
+inputs  = Path('enriched_ontology_matching/inputs')
+merged  = Path('enriched_ontology_matching/outputs/merged')
+wl_dir  = Path('enriched_ontology_matching/outputs/wl');        wl_dir.mkdir(exist_ok=True)
+ad_dir  = Path('enriched_ontology_matching/outputs/attr_dist'); ad_dir.mkdir(exist_ok=True)
+
+model_data = {}
+for d in inputs.iterdir():
+    if not d.is_dir(): continue
+    for jf in d.glob('*.json'):
+        data = json.loads(jf.read_text(encoding='utf-8'))
+        name = data.get('modelName', '')
+        if name: model_data[_safe_local(name)] = data
+
+for f in sorted(merged.glob('*_metrics.csv')):
+    stem = f.stem.replace('_metrics', '')
+    if '_vs_' not in stem: continue
+    a_key, b_key = stem.split('_vs_')[0], stem.split('_vs_')[1]
+    da, db = model_data.get(a_key), model_data.get(b_key)
+    if not da or not db: continue
+    run_wl_stage(da, db, f, wl_dir / (f.stem + '_wl.csv'))
+    run_attr_dist_stage(da, db, ad_dir / (f.stem + '_attr_dist.csv'))
+EOF
+```
 
 ### Bring your own input models
 
@@ -242,7 +278,7 @@ ls enriched_ontology_matching/outputs/merged/ | grep "_metrics.csv" | wc -l
 
 Useful for debugging a single pair. Assumes the venv is active and commands run from the repository root.
 
-### L1+L2: Structural Matching + Semantic Discovery
+### Step 1: Structural Matching + Semantic Discovery
 
 ```bash
 .venv/Scripts/python.exe enriched_ontology_matching/enriched_matcher.py \
@@ -253,60 +289,54 @@ Output: `enriched_ontology_matching/outputs/enriched/<ModelA>_vs_<ModelB>.csv`
 
 Add `--matcher logmap` or `--matcher aml` to use only one structural matcher.
 
-### L0: Neighbourhood Coherence
+### Step 2: Sentence Embeddings
 
 ```bash
-.venv/Scripts/python.exe enriched_ontology_matching/neighbourhood_coherence.py \
-    --pair        enriched_ontology_matching/pairs/auto_V1_V2.json \
+python enriched_ontology_matching/semantic_encoder.py \
+    --a           enriched_ontology_matching/inputs/Automobile/automobile_model_v1.json \
+    --b           enriched_ontology_matching/inputs/Automobile/automobile_model_v2.json \
     --matches-csv enriched_ontology_matching/outputs/enriched/<stem>.csv \
-    --out-csv     enriched_ontology_matching/outputs/neighbourhood/auto_V1_V2_coherence.csv
+    --out-csv     enriched_ontology_matching/outputs/embeddings/auto_V1_V2_emb.csv
 ```
 
-### L3: Sentence Embeddings
+### Step 3: Merge into Metrics CSV
 
 ```bash
-.venv/Scripts/python.exe enriched_ontology_matching/semantic_encoder.py \
-    --csv enriched_ontology_matching/outputs/enriched/<stem>.csv \
-    --out enriched_ontology_matching/outputs/embeddings/auto_V1_V2_emb.csv
-```
-
-### L4: GNN Similarity
-
-```bash
-.venv/Scripts/python.exe enriched_ontology_matching/gnn_matcher.py \
-    --a  enriched_ontology_matching/pairs/auto_V1_V2.json --key-a json_a \
-    --b  enriched_ontology_matching/pairs/auto_V1_V2.json --key-b json_b \
-    --hops 2 --top-pairs 20
-```
-
-Output: `enriched_ontology_matching/outputs/gnn/<key>_gnn.csv`
-
-The GNN uses undirected adjacency — inverse-expressed associations (A→B vs B←A) produce the same neighbourhood signal. Entity nodes are embedded with `paraphrase-MiniLM-L6-v2`; edge labels use the canonical relation type.
-
-### L5: Containment Closure (NLI Entailment)
-
-Requires the two raw model JSON files (not the pair JSON):
-
-```bash
-.venv/Scripts/python.exe enriched_ontology_matching/containment_closure.py \
-    --json-a enriched_ontology_matching/inputs/Automobile/Automobile_Model_V1_SystemCentric.json \
-    --json-b enriched_ontology_matching/inputs/Automobile/Automobile_Model_V2_ComponentCentric.json \
-    --out    enriched_ontology_matching/outputs/closure/auto_V1_V2_closure.csv
-```
-
-The NLI model is downloaded and cached automatically on first run.
-
-### L6: Merge into Metrics CSV
-
-```bash
-.venv/Scripts/python.exe enriched_ontology_matching/merge_stage.py \
+python enriched_ontology_matching/merge_stage.py \
     --enriched enriched_ontology_matching/outputs/enriched/<stem>.csv \
-    --nbr      enriched_ontology_matching/outputs/neighbourhood/auto_V1_V2_coherence.csv \
     --emb      enriched_ontology_matching/outputs/embeddings/auto_V1_V2_emb.csv \
-    --gnn      enriched_ontology_matching/outputs/gnn/auto_V1_V2_gnn.csv \
-    --closure  enriched_ontology_matching/outputs/closure/auto_V1_V2_closure.csv \
     --out      enriched_ontology_matching/outputs/merged/<stem>_metrics.csv
 ```
+
+### Step 4: WL Kernel + Shape Metrics
+
+```bash
+python enriched_ontology_matching/wl_kernel_matcher.py \
+    --a       enriched_ontology_matching/inputs/Automobile/automobile_model_v1.json \
+    --b       enriched_ontology_matching/inputs/Automobile/automobile_model_v2.json \
+    --metrics enriched_ontology_matching/outputs/merged/<stem>_metrics.csv \
+    --out     enriched_ontology_matching/outputs/wl/<stem>_metrics_wl.csv
+```
+
+Output: one-row CSV with `wl_structural`, `shape_sim` (and sub-components: `degree_sim`, `spectral_sim`, `clustering_sim`, `betweenness_sim`).
+
+### Step 5: Attribute Reach Distribution
+
+```bash
+python - <<'EOF'
+import json, sys
+from pathlib import Path
+sys.path.insert(0, 'enriched_ontology_matching')
+from attribute_reach import run_attr_dist_stage
+
+da = json.loads(Path('enriched_ontology_matching/inputs/Automobile/automobile_model_v1.json').read_text())
+db = json.loads(Path('enriched_ontology_matching/inputs/Automobile/automobile_model_v2.json').read_text())
+run_attr_dist_stage(da, db,
+    out_csv=Path('enriched_ontology_matching/outputs/attr_dist/<stem>_metrics_attr_dist.csv'))
+EOF
+```
+
+Output: one-row CSV with `attr_dist_sim`. `compare_stage.py` multiplies this by `avg_entity_wup` from the merged CSV to produce `attr_weighted`.
 
 ---
 
@@ -314,8 +344,6 @@ The NLI model is downloaded and cached automatically on first run.
 
 ```
 enriched_ontology_matching/
-├── models/
-│   └── cross-encoder--nli-MiniLM2-L6-H768/    # NLI model cache (auto-downloaded)
 ├── inputs/
 │   ├── Automobile/      # 6 input model JSONs
 │   ├── Coffee/
@@ -329,19 +357,16 @@ enriched_ontology_matching/
 │   └── Automobile_summary.json                 # domain distance summary JSON
 └── outputs/
     ├── enriched/
-    │   ├── <ModelA>_vs_<ModelB>.csv            # L1+L2 per-pair results
+    │   ├── <ModelA>_vs_<ModelB>.csv            # Step 1 per-pair results
     │   └── all_domains_combined.csv            # all pairs concatenated
-    ├── neighbourhood/
-    │   └── <key>_coherence.csv                 # L0 coherence scores
     ├── embeddings/
-    │   └── <key>_emb.csv                       # L3 embedding cosine scores
-    ├── gnn/
-    │   └── <key>_gnn.csv                       # L4 GNN similarity scores
-    ├── closure/
-    │   └── <ModelA>_vs_<ModelB>_closure.csv    # L5 NLI entailment scores
+    │   └── <key>_emb.csv                       # Step 2 embedding cosine scores
     ├── merged/
-    │   └── <ModelA>_vs_<ModelB>_metrics.csv    # final metrics CSV (L6, 12 columns)
-    ├── all_domains_results.md                  # human-readable summary report
+    │   └── <ModelA>_vs_<ModelB>_metrics.csv    # Step 3 final metrics CSV (5 columns)
+    ├── wl/
+    │   └── <ModelA>_vs_<ModelB>_wl.csv         # WL kernel + shape scores (computed by compare_stage)
+    ├── attr_dist/
+    │   └── <ModelA>_vs_<ModelB>_attr_dist.csv  # attribute reach scores (computed by compare_stage)
     └── ontology_map.html                       # interactive distance map
 ```
 
@@ -351,41 +376,40 @@ enriched_ontology_matching/
 
 ## Merged CSV Format
 
-Each `outputs/merged/*_metrics.csv` has one row per entity pair and 12 columns:
+Each `outputs/merged/*_metrics.csv` has one row per entity pair and 5 columns:
 
 | Column | Type | Description |
 |--------|------|-------------|
 | `entity_a` | string | Entity name from model A |
 | `entity_b` | string | Entity name from model B |
-| `matched` | 0 / 1 | 1 if AML or LogMap confirmed this pair; used in `lexical_sim` via `max(matched, cosine_avg)` |
-| `wup` | float 0–1 | Blended Wu-Palmer: `(max_wup + avg_wup) / 2` across token combinations |
-| `coherence_sym` | float 0–1 | Symmetric neighbourhood coherence (`sqrt(WUP × cosine)` geometric mean) |
-| `verb_coherence` | float 0–1 | Jaccard overlap of canonical relation types used by each entity (inverse-expressed associations resolve to the same canonical type, so inverse pairs score 1.0) |
-| `attr_reach_sim` | float 0–1 | Weighted Jaccard similarity between the K-hop observable-type attribute-reach signatures of each entity (`Σ min / Σ max` over all observable types) |
-| `cosine_avg` | float 0–1 | Token-average sentence embedding cosine similarity (rescaled from [−1, 1] to [0, 1]) |
-| `gnn_sim` | float 0–1 | Symmetric GNN similarity: K-hop sentence-embedding aggregation over entity nodes and canonical edge labels |
-| `entailment_a_covers_b` | float 0–1 | P(A's observable-type signature entails B's) from NLI cross-encoder |
-| `entailment_b_covers_a` | float 0–1 | P(B's observable-type signature entails A's) from NLI cross-encoder |
-| `entailment_f1` | float 0–1 | `max(entailment_a_covers_b, entailment_b_covers_a)` — captures the strongest directional relationship (equivalence or subsumption) |
+| `matched` | 0 / 1 | 1 if AML or LogMap confirmed this pair; contributes to `lexical_sim` via `max(matched, cosine_avg)` |
+| `wup` | float 0–1 | Blended Wu-Palmer: `(max_wup + avg_wup) / 2` across CamelCase token combinations |
+| `cosine_avg` | float 0–1 | Token-average sentence-embedding cosine similarity (rescaled from [−1, 1] to [0, 1]) |
 
-> **Note on `entailment_f1` naming:** the column is named `entailment_f1` for historical reasons but its value is the directional max, not a harmonic mean.
-
-> **Note on `wup`:** for multi-word entity names (e.g. `CoffeeMakerAssembly`), names are tokenised and WUP is evaluated over all possible token-pair combinations. The merged value is `(max_wup + avg_wup) / 2`.
+> **Note on `wup`:** for multi-word entity names (e.g. `CoffeeMakerAssembly`), names are CamelCase-tokenised and WUP is evaluated over all possible token-pair combinations. The merged value is `(max_wup + avg_wup) / 2`.
 
 ---
 
 ## Composite Scoring and Metric Weights
 
-Before scoring, `compare_stage.py` consolidates the 12 raw columns into **4 orthogonal dimensions** by averaging pairs of metrics that are highly correlated (r ≥ 0.77). This removes redundant signal so no single underlying phenomenon dominates the composite score.
+`compare_stage.py` combines four orthogonal dimensions into a single weighted composite score. Each dimension captures a different aspect of model similarity:
 
-| Dimension | Formula | Pairwise correlation |
-|-----------|---------|---------------------|
-| `lexical_sim` | `avg(max(matched, cosine_avg), wup)` | r = 0.768 between cosine and wup |
-| `coherence_sym` | (standalone) | — |
-| `graph_sim` | `avg(verb_coherence, gnn_sim)` | r = 0.778 |
-| `transfer_sim` | `avg(attr_reach_sim, entailment_f1)` | r = 0.776 |
+| Dimension | Inputs | What it captures |
+|-----------|--------|-----------------|
+| `lexical_sim` | `matched`, `cosine_avg`, `wup` from merged CSV | Name-level similarity: `max(max(matched, cosine_avg), wup≥0.75 else 0)` |
+| `wl_structural` | `wl_structural` from `outputs/wl/` CSV | Local edge-type motifs: WL kernel over edge-type-labelled graphs |
+| `shape_sim` | `shape_sim` from `outputs/wl/` CSV | Global graph topology: `avg(degree_sim, spectral_sim, clustering_sim, betweenness_sim)` |
+| `attr_weighted` | `attr_dist_sim` × `avg_entity_wup` from `outputs/attr_dist/` | Attribute reachability scaled by lexical confidence: `attr_dist_sim × avg_wup` |
 
-`lexical_sim` uses `max(matched, cosine_avg)` as its first term: the structural-matcher binary confirmation (0/1) and the sentence-embedding cosine (rescaled to [0, 1]) carry the same lexical signal, so the stronger of the two is preferred before averaging with WUP.
+`lexical_sim` gates WUP at 0.75: scores below this threshold are treated as 0 so weakly-similar token pairs do not inflate the lexical signal.
+
+`shape_sim` sub-components:
+- **`degree_sim`** — cosine similarity of degree sequences (hub/leaf structure)
+- **`spectral_sim`** — ratio of leading eigenvalues of the adjacency matrices
+- **`clustering_sim`** — similarity of mean clustering coefficients (triangle density)
+- **`betweenness_sim`** — cosine of normalised betweenness-centrality vectors (bridge nodes)
+
+`attr_weighted` multiplies attribute-reach distribution similarity by the mean WUP across matched entity pairs, so it is reliable only when the entity correspondence is already semantically meaningful.
 
 Each dimension weight blends uniform weight (1/4) with its sparsity fill rate, then renormalises:
 
@@ -393,7 +417,7 @@ Each dimension weight blends uniform weight (1/4) with its sparsity fill rate, t
 w_raw[m] = (1/4 + fill_rate[m]) / 2
 ```
 
-This ensures sparse dimensions are down-weighted without any fully-populated dimension dominating unconditionally. These 4 dimension scores and their blended weights are what appear in the domain summary JSON.
+This ensures sparse dimensions are down-weighted without any fully-populated dimension dominating unconditionally. These 4 dimension scores and their blended weights appear in the domain summary JSON.
 
 ---
 
@@ -418,9 +442,9 @@ eom-compare --domain-summary Automobile --out my_results/auto_summary.json
   "n_pairs": 15,
   "metric_weights": {
     "lexical_sim":   0.312,
-    "coherence_sym": 0.241,
-    "graph_sim":     0.228,
-    "transfer_sim":  0.219
+    "wl_structural": 0.241,
+    "shape_sim":     0.228,
+    "attr_weighted": 0.219
   },
   "average_distance": 0.376,
   "average_composite": 0.675,
@@ -433,9 +457,9 @@ eom-compare --domain-summary Automobile --out my_results/auto_summary.json
       "n_entity_pairs": 291,
       "metrics": {
         "lexical_sim":   {"mean": 0.874, "weight": 0.312},
-        "coherence_sym": {"mean": 0.731, "weight": 0.241},
-        "graph_sim":     {"mean": 0.612, "weight": 0.228},
-        "transfer_sim":  {"mean": 0.558, "weight": 0.219}
+        "wl_structural": {"mean": 0.731, "weight": 0.241},
+        "shape_sim":     {"mean": 0.612, "weight": 0.228},
+        "attr_weighted": {"mean": 0.558, "weight": 0.219}
       }
     }
   ]
@@ -471,61 +495,18 @@ Click a domain in the legend to hide/show its nodes and edges. Double-click to i
 
 ---
 
-## Association Relation Mapping
-
-`relation_normalizer.py` scans all conceptual-model JSONs, extracts every unique association name, and maps it to a canonical ConceptNet / RO / SSN relation using a combined WUP + BERT cosine similarity score.
-
-```bash
-python enriched_ontology_matching/relation_normalizer.py
-```
-
-Outputs:
-
-| Output | Description |
-|--------|-------------|
-| `config/relation_map.json` | Association name → `{canonical, score, wup, bert, method, …}` |
-| `enriched_ontology_matching/association_inventory.csv` | Full table with all scores and participant info (not committed) |
-
-Options:
-
-```bash
-# Flag mappings below a combined score threshold (default: 0.5)
-python enriched_ontology_matching/relation_normalizer.py --threshold 0.5
-
-# Adjust WUP vs BERT weighting (default: 0.5/0.5)
-python enriched_ontology_matching/relation_normalizer.py --wup-weight 0.7
-
-# Scan a custom input directory
-python enriched_ontology_matching/relation_normalizer.py --input-dir path/to/my_models
-```
-
-Before the first run, seed ConceptNet exemplar phrases so BERT has short-phrase targets:
-
-```bash
-python enriched_ontology_matching/seed_exemplars.py
-```
-
----
-
 ## Codebase Map
 
 | File | Purpose |
 |------|---------|
-| `run_all_pairs.py` | **Main entry point** — batch runner for within-domain (and optionally cross-domain) pairs (L0→L7); supports `--inputs-dir`, `--domains`, `--skip-existing`, `--cross-domain` |
-| `compare_stage.py` | **Summary + visualisation** — `--domain-summary DOMAIN` outputs a JSON distance summary; no args generates the interactive HTML map |
-| `enriched_matcher.py` | L1 (AML + LogMap structural merge) + L2 (WN+CN discovery) + L3 (WUP backup for orphan entities — top-k pairs with shared root token, max_wup ≥ 0.9) |
-| `neighbourhood_coherence.py` | L0 — graph neighbourhood semantic coherence (`coherence_sym`, `verb_coherence`, `attr_reach_sim`) |
-| `semantic_encoder.py` | L3 — sentence embedding cosine similarity (rescaled to [0, 1]) |
-| `gnn_matcher.py` | L4 — symmetric GNN similarity: K-hop aggregation over sentence-embedded entity nodes and canonical edge labels |
-| `containment_closure.py` | L5 — NLI cross-encoder entailment between observable-type signatures; model cached under `models/` |
-| `merge_stage.py` | L6 — join all stages into metrics-only CSV (12 columns) |
+| `run_all_pairs.py` | **Main entry point** — batch runner for within-domain (and optionally cross-domain) pairs; supports `--inputs-dir`, `--domains`, `--skip-existing`, `--cross-domain` |
+| `compare_stage.py` | **Summary + visualisation** — `--domain-summary DOMAIN` outputs a JSON distance summary; no args generates the interactive HTML map; reads pre-computed WL and attr_dist CSVs from `outputs/wl/` and `outputs/attr_dist/` |
+| `enriched_matcher.py` | Structural matching (AML + LogMap), semantic discovery (WN + CN), WUP backup for orphan entities |
+| `semantic_encoder.py` | Sentence-embedding cosine similarity (`cosine_avg`, rescaled to [0, 1]) |
+| `wl_kernel_matcher.py` | WL graph kernel (`wl_structural`) and graph-shape sub-metrics (`degree_sim`, `spectral_sim`, `clustering_sim`, `betweenness_sim` → `shape_sim`) |
+| `attribute_reach.py` | K-hop observable-type attribute reach distribution; `run_attr_dist_stage` produces `attr_dist_sim` used by `compare_stage.py` to compute `attr_weighted` |
+| `merge_stage.py` | Joins enriched-matcher + embedding CSVs into a 5-column metrics-only CSV |
 | `aml_runner.py` | Wrapper around the AML JAR |
 | `logmap_runner.py` | Wrapper around the LogMap JAR |
 | `root_comparator.py` | CamelCase splitting, WUP, ConceptNet CSV lookup |
-| `generate_report.py` | Renders a human-readable Markdown report from the combined CSV |
-| `relation_normalizer.py` | Maps association names to canonical relations via WUP + BERT; writes `config/relation_map.json` |
-| `seed_exemplars.py` | Seeds ConceptNet exemplar phrases into `config/canonical_relations.json` |
-| `regenerate_domains.py` | Force-regenerates the full pipeline for selected domains and produces summary JSONs |
-| `summary_to_csv.py` | Converts domain summary JSONs (`summaries/*_summary.json`) to flat CSV files |
-| `attribute_reach.py` | K-hop observable-type attribute reach computation (used by neighbourhood_coherence.py) |
 | `model_normalizer.py` | Normalises model JSON schemas (entity/association field name variants) |

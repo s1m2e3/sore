@@ -6,16 +6,21 @@ pairs across every domain in enriched_ontology_matching/inputs/.
 
 For each domain (Automobile, Coffee, Homebrewing, Hospital, SmartHome,
 University) with 6 models, this generates C(6,2)=15 pairs, running the
-full 2-layer AML+LogMap+WordNet+ConceptNet pipeline on each.
+full pipeline on each.
 
 Total: 6 domains × 15 pairs = 90 pairs.
+
+Pipeline stages per pair
+------------------------
+  Step 1 — Enriched matching (AML + LogMap + WN + CN) → per-pair CSV
+  Step 2 — Sentence embeddings (cosine_avg)
+  Step 3 — Merge enriched + embeddings → metrics CSV
 
 Outputs
 -------
   enriched_ontology_matching/pairs/<domain_key>.json        — test JSON per pair
   enriched_ontology_matching/outputs/enriched/<stem>.csv    — per-pair CSV
   enriched_ontology_matching/outputs/enriched/all_domains_combined.csv
-  enriched_ontology_matching/outputs/all_domains_results.md
 
 Usage
 -----
@@ -52,12 +57,11 @@ _REPO_ROOT = _DIR.parent
 _EXAMPLES  = _DIR / "inputs"
 _PAIRS_DIR  = _DIR / "pairs"
 _ENRICHED   = _DIR / "outputs" / "enriched"
-_NBR_DIR    = _DIR / "outputs" / "neighbourhood"
 _EMB_DIR    = _DIR / "outputs" / "embeddings"
-_GNN_DIR    = _DIR / "outputs" / "gnn"
 _MERGED_DIR = _DIR / "outputs" / "merged"
+_WL_DIR     = _DIR / "outputs" / "wl"
+_AD_DIR     = _DIR / "outputs" / "attr_dist"
 _COMBINED   = _ENRICHED / "all_domains_combined.csv"
-_MD_OUT     = _DIR / "outputs" / "all_domains_results.md"
 
 # ---------------------------------------------------------------------------
 # Domain registry
@@ -137,15 +141,21 @@ def _run_pair(
     use_aml: bool,
     use_logmap: bool,
     run_pipeline,
-    nbr_analysis,
     run_embedding_stage,
     merge_pair,
-    run_closure_stage,
-    run_gnn_stage,
+    run_wl_stage,
+    run_attr_dist_stage,
     _safe_local,
 ) -> tuple[str, Path] | None:
     """
     Run the full 5-step pipeline for a single model pair (a, b).
+
+    Steps:
+      1. Enriched matching (AML + LogMap + WN + CN) → per-pair CSV
+      2. Sentence embeddings (cosine_avg)
+      3. Merge enriched + embeddings → metrics CSV
+      4. WL kernel + shape metrics → wl CSV
+      5. Attribute reach distribution → attr_dist CSV
 
     Returns (domain_key, enriched_csv_path) on success, None on failure.
     """
@@ -158,11 +168,10 @@ def _run_pair(
     stem     = f"{_safe_local(name_a)}_vs_{_safe_local(name_b)}"
     pair_csv = _ENRICHED / f"{stem}.csv"
 
-    nbr_csv     = _NBR_DIR    / f"{domain_key}_coherence.csv"
-    emb_csv     = _EMB_DIR    / f"{domain_key}_emb.csv"
-    gnn_csv     = _GNN_DIR    / f"{domain_key}_gnn.csv"
-    closure_csv = _DIR / "outputs" / "closure" / f"{stem}_closure.csv"
-    merged_csv  = _MERGED_DIR / f"{stem}_metrics.csv"
+    emb_csv    = _EMB_DIR    / f"{domain_key}_emb.csv"
+    merged_csv = _MERGED_DIR / f"{stem}_metrics.csv"
+    wl_csv     = _WL_DIR     / f"{stem}_metrics_wl.csv"
+    ad_csv     = _AD_DIR     / f"{stem}_metrics_attr_dist.csv"
 
     # ── Step 1: Enriched pipeline ────────────────────────────────────────
     if skip_existing and pair_csv.exists():
@@ -185,17 +194,7 @@ def _run_pair(
             print(f"  [ERROR] {domain_key}: {exc}")
             return None
 
-    # ── Step 2: Neighbourhood coherence ─────────────────────────────────
-    if skip_existing and nbr_csv.exists():
-        print(f"    [SKIP] Coherence for {domain_key}")
-    else:
-        try:
-            nbr_analysis(json_a=a, json_b=b, matches_csv=csv_path,
-                         out_csv=nbr_csv, threshold=0.5)
-        except Exception as exc:
-            print(f"    [WARN] Coherence failed for {domain_key}: {exc}")
-
-    # ── Step 3: Sentence embeddings ──────────────────────────────────────
+    # ── Step 2: Sentence embeddings ──────────────────────────────────────
     if skip_existing and emb_csv.exists():
         print(f"    [SKIP] Embeddings for {domain_key}")
     else:
@@ -204,50 +203,40 @@ def _run_pair(
         except Exception as exc:
             print(f"    [WARN] Embedding failed for {domain_key}: {exc}")
 
-    # ── Step 4: GNN similarity ───────────────────────────────────────────
-    if skip_existing and gnn_csv.exists():
-        print(f"    [SKIP] GNN for {domain_key}")
-    else:
-        try:
-            run_gnn_stage(data_a, data_b, csv_path, gnn_csv)
-        except Exception as exc:
-            print(f"    [WARN] GNN failed for {domain_key}: {exc}")
-
-    # ── Step 5: Containment closure ──────────────────────────────────────
-    if skip_existing and closure_csv.exists():
-        print(f"    [SKIP] Closure for {domain_key}")
-    else:
-        try:
-            # Only score pairs that appear in the enriched CSV — avoids running
-            # NLI on the full A×B cartesian product (30–90× reduction for large pairs).
-            matched_pairs: list[tuple[str, str]] | None = None
-            if csv_path.exists():
-                import csv as _csv_mod
-                with open(csv_path, newline="", encoding="utf-8") as _fh:
-                    matched_pairs = [
-                        (r["entity_a"], r["entity_b"])
-                        for r in _csv_mod.DictReader(_fh)
-                    ]
-            run_closure_stage(data_a, data_b, out_csv=closure_csv,
-                              matched_pairs=matched_pairs)
-        except Exception as exc:
-            print(f"    [WARN] Closure failed for {domain_key}: {exc}")
-
-    # ── Step 6: Merge ────────────────────────────────────────────────────
+    # ── Step 3: Merge ────────────────────────────────────────────────────
     if skip_existing and merged_csv.exists():
         print(f"    [SKIP] Merge for {domain_key}")
     else:
         try:
             merge_pair(
                 enriched_csv = csv_path,
-                nbr_csv      = nbr_csv      if nbr_csv.exists()      else None,
-                emb_csv      = emb_csv      if emb_csv.exists()      else None,
-                closure_csv  = closure_csv  if closure_csv.exists()  else None,
-                gnn_csv      = gnn_csv      if gnn_csv.exists()      else None,
+                emb_csv      = emb_csv if emb_csv.exists() else None,
                 out_csv      = merged_csv,
             )
         except Exception as exc:
             print(f"    [WARN] Merge failed for {domain_key}: {exc}")
+
+    # ── Step 4: WL kernel + shape metrics ────────────────────────────────
+    if skip_existing and wl_csv.exists():
+        print(f"    [SKIP] WL for {domain_key}")
+    else:
+        try:
+            data_a = json.loads(a.read_text(encoding="utf-8"))
+            data_b = json.loads(b.read_text(encoding="utf-8"))
+            run_wl_stage(data_a, data_b, merged_csv, wl_csv)
+        except Exception as exc:
+            print(f"    [WARN] WL failed for {domain_key}: {exc}")
+
+    # ── Step 5: Attribute reach distribution ─────────────────────────────
+    if skip_existing and ad_csv.exists():
+        print(f"    [SKIP] AttrDist for {domain_key}")
+    else:
+        try:
+            data_a = json.loads(a.read_text(encoding="utf-8"))
+            data_b = json.loads(b.read_text(encoding="utf-8"))
+            run_attr_dist_stage(data_a, data_b, ad_csv)
+        except Exception as exc:
+            print(f"    [WARN] AttrDist failed for {domain_key}: {exc}")
 
     return (domain_key, csv_path)
 
@@ -256,9 +245,8 @@ def main() -> None:
     """Entry point for the end-to-end enriched ontology matching pipeline.
 
     For each requested domain, discovers model JSONs under --inputs-dir/<Domain>/,
-    runs all within-domain pairs through the 5-step pipeline (AML+LogMap →
-    Layer 1 characterisation → neighbourhood coherence → embeddings → merge),
-    combines results, and writes a Markdown report.
+    runs all within-domain pairs through the 3-step pipeline (enriched matching →
+    embeddings → merge), and combines results into a single CSV.
 
     Use --inputs-dir to point at any directory that contains domain subdirectories
     with JSON model files. Defaults to the built-in inputs/ directory.
@@ -305,31 +293,28 @@ def main() -> None:
 
     from enriched_matcher import run_pipeline
     from logmap_runner import _safe_local
-    from neighbourhood_coherence import run_analysis as nbr_analysis
     from semantic_encoder import run_embedding_stage
     from merge_stage import merge_pair
-    from containment_closure import run_closure_stage
-    from gnn_matcher import run_gnn_stage
+    from wl_kernel_matcher import run_wl_stage
+    from attribute_reach import run_attr_dist_stage
 
     _PAIRS_DIR.mkdir(exist_ok=True)
     _ENRICHED.mkdir(parents=True, exist_ok=True)
-    _NBR_DIR.mkdir(parents=True, exist_ok=True)
     _EMB_DIR.mkdir(parents=True, exist_ok=True)
-    _GNN_DIR.mkdir(parents=True, exist_ok=True)
     _MERGED_DIR.mkdir(parents=True, exist_ok=True)
-    (_DIR / "outputs" / "closure").mkdir(parents=True, exist_ok=True)
+    _WL_DIR.mkdir(parents=True, exist_ok=True)
+    _AD_DIR.mkdir(parents=True, exist_ok=True)
 
     pipeline_kwargs = dict(
-        skip_existing       = args.skip_existing,
-        use_aml             = args.matcher in ("aml",    "both"),
-        use_logmap          = args.matcher in ("logmap", "both"),
-        run_pipeline        = run_pipeline,
-        nbr_analysis        = nbr_analysis,
-        run_embedding_stage = run_embedding_stage,
-        merge_pair          = merge_pair,
-        run_closure_stage   = run_closure_stage,
-        run_gnn_stage       = run_gnn_stage,
-        _safe_local         = _safe_local,
+        skip_existing        = args.skip_existing,
+        use_aml              = args.matcher in ("aml",    "both"),
+        use_logmap           = args.matcher in ("logmap", "both"),
+        run_pipeline         = run_pipeline,
+        run_embedding_stage  = run_embedding_stage,
+        merge_pair           = merge_pair,
+        run_wl_stage         = run_wl_stage,
+        run_attr_dist_stage  = run_attr_dist_stage,
+        _safe_local          = _safe_local,
     )
 
     domains = args.domains if args.domains else DOMAINS
@@ -417,11 +402,6 @@ def main() -> None:
                     w.writerow({k: row.get(k, "") for k in _COMBINED_FIELDS})
                     total_rows += 1
     print(f"[Combine] {total_rows} rows written.")
-
-    # ── Generate MD report ─────────────────────────────────────────────────
-    print(f"\n[Report] Generating {_MD_OUT} ...")
-    from generate_report import generate
-    generate(_COMBINED, _MD_OUT, nbr_dir=_NBR_DIR, emb_dir=_EMB_DIR)
     print("[Done]")
 
 
