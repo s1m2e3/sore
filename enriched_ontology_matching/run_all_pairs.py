@@ -66,15 +66,16 @@ _COMBINED   = _ENRICHED / "all_domains_combined.csv"
 # ---------------------------------------------------------------------------
 # Domain registry
 # ---------------------------------------------------------------------------
-DOMAINS = ["Automobile", "Coffee", "Homebrewing", "Hospital", "SmartHome", "University"]
+DOMAINS = ["Automobile", "Automobile_Synthetic", "Coffee", "Homebrewing", "Hospital", "SmartHome", "University"]
 
 _DOMAIN_SHORT: dict[str, str] = {
-    "Automobile":  "auto",
-    "Coffee":      "coffee",
-    "Homebrewing": "brew",
-    "Hospital":    "hosp",
-    "SmartHome":   "smarthome",
-    "University":  "univ",
+    "Automobile":          "auto",
+    "Automobile_Synthetic": "autosyn",
+    "Coffee":              "coffee",
+    "Homebrewing":         "brew",
+    "Hospital":            "hosp",
+    "SmartHome":           "smarthome",
+    "University":          "univ",
 }
 
 

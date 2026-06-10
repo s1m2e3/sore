@@ -1,0 +1,142 @@
+{
+  "modelName": "Auto_SAME_DEEP",
+  "modelDescription": "Standard automobile vocabulary, deep narrow composition chain topology.",
+  "observables": ["Identifier","Temperature","Pressure","Torque","Power","AngularVelocity","Force","Mass","Distance","MassFlowRate","Ratio","Count","Energy","ElectricPotential","ElectricCurrent","Angle","Position","OperationalState","Kind"],
+  "entities": [
+    {
+      "entityName": "Vehicle",
+      "entityAttributes": [
+        {"name": "vehicleID", "type": "Identifier"},
+        {"name": "mass", "type": "Mass"},
+        {"name": "length", "type": "Distance"},
+        {"name": "operationalState", "type": "OperationalState"},
+        {"name": "engine", "type": "Engine"},
+        {"name": "fuelSystem", "type": "FuelSystem"},
+        {"name": "electricalSystem", "type": "ElectricalSystem"}
+      ]
+    },
+    {
+      "entityName": "Engine",
+      "entityAttributes": [
+        {"name": "engineID", "type": "Identifier"},
+        {"name": "power", "type": "Power"},
+        {"name": "torque", "type": "Torque"},
+        {"name": "rpm", "type": "AngularVelocity"},
+        {"name": "temperature", "type": "Temperature"},
+        {"name": "oilPressure", "type": "Pressure"},
+        {"name": "transmission", "type": "Transmission"},
+        {"name": "coolingSystem", "type": "CoolingSystem"}
+      ]
+    },
+    {
+      "entityName": "Transmission",
+      "entityAttributes": [
+        {"name": "transmissionID", "type": "Identifier"},
+        {"name": "gearRatio", "type": "Ratio"},
+        {"name": "inputTorque", "type": "Torque"},
+        {"name": "outputTorque", "type": "Torque"},
+        {"name": "differential", "type": "Differential"}
+      ]
+    },
+    {
+      "entityName": "Differential",
+      "entityAttributes": [
+        {"name": "differentialID", "type": "Identifier"},
+        {"name": "splitRatio", "type": "Ratio"},
+        {"name": "outputTorque", "type": "Torque"},
+        {"name": "axle", "type": "Axle"}
+      ]
+    },
+    {
+      "entityName": "Axle",
+      "entityAttributes": [
+        {"name": "axleID", "type": "Identifier"},
+        {"name": "axleLoad", "type": "Force"},
+        {"name": "rotationalSpeed", "type": "AngularVelocity"},
+        {"name": "shaftMass", "type": "Mass"},
+        {"name": "wheel", "type": "Wheel"}
+      ]
+    },
+    {
+      "entityName": "Wheel",
+      "entityAttributes": [
+        {"name": "wheelID", "type": "Identifier"},
+        {"name": "radius", "type": "Distance"},
+        {"name": "mass", "type": "Mass"},
+        {"name": "angularVelocity", "type": "AngularVelocity"}
+      ]
+    },
+    {
+      "entityName": "Suspension",
+      "entityAttributes": [
+        {"name": "suspensionID", "type": "Identifier"},
+        {"name": "dampingForce", "type": "Force"},
+        {"name": "compressionRatio", "type": "Ratio"},
+        {"name": "mass", "type": "Mass"}
+      ]
+    },
+    {
+      "entityName": "BrakeSystem",
+      "entityAttributes": [
+        {"name": "brakeID", "type": "Identifier"},
+        {"name": "brakePressure", "type": "Pressure"},
+        {"name": "decelerationForce", "type": "Force"},
+        {"name": "operationalState", "type": "OperationalState"},
+        {"name": "suspension", "type": "Suspension"}
+      ]
+    },
+    {
+      "entityName": "SteeringSystem",
+      "entityAttributes": [
+        {"name": "steeringID", "type": "Identifier"},
+        {"name": "steeringAngle", "type": "Angle"},
+        {"name": "steeringTorque", "type": "Torque"},
+        {"name": "position", "type": "Position"},
+        {"name": "brakeSystem", "type": "BrakeSystem"}
+      ]
+    },
+    {
+      "entityName": "FuelSystem",
+      "entityAttributes": [
+        {"name": "fuelSystemID", "type": "Identifier"},
+        {"name": "fuelPressure", "type": "Pressure"},
+        {"name": "massFlowRate", "type": "MassFlowRate"},
+        {"name": "fuelEnergy", "type": "Energy"},
+        {"name": "exhaustSystem", "type": "ExhaustSystem"}
+      ]
+    },
+    {
+      "entityName": "CoolingSystem",
+      "entityAttributes": [
+        {"name": "coolingID", "type": "Identifier"},
+        {"name": "coolantTemperature", "type": "Temperature"},
+        {"name": "coolantPressure", "type": "Pressure"},
+        {"name": "coolantFlowRate", "type": "MassFlowRate"}
+      ]
+    },
+    {
+      "entityName": "ElectricalSystem",
+      "entityAttributes": [
+        {"name": "electricalID", "type": "Identifier"},
+        {"name": "voltage", "type": "ElectricPotential"},
+        {"name": "current", "type": "ElectricCurrent"},
+        {"name": "storedEnergy", "type": "Energy"},
+        {"name": "steeringSystem", "type": "SteeringSystem"}
+      ]
+    },
+    {
+      "entityName": "ExhaustSystem",
+      "entityAttributes": [
+        {"name": "exhaustID", "type": "Identifier"},
+        {"name": "exhaustTemperature", "type": "Temperature"},
+        {"name": "exhaustPressure", "type": "Pressure"},
+        {"name": "massFlowRate", "type": "MassFlowRate"}
+      ]
+    }
+  ],
+  "associations": [
+    {"associationName": "FuelDelivery", "associationParticipants": ["FuelSystem", "Engine"]},
+    {"associationName": "ExhaustGasFlow", "associationParticipants": ["Engine", "ExhaustSystem"]},
+    {"associationName": "PowerSupply", "associationParticipants": ["ElectricalSystem", "Engine"]}
+  ]
+}

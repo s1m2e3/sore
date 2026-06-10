@@ -91,12 +91,16 @@ def equal_weights() -> dict[str, float]:
     return {m: w for m in METRICS}
 
 
-def load_pair_metrics(csv_path: Path) -> dict:
+def load_pair_metrics(csv_path: Path, n_entities: int | None = None) -> dict:
     """Return per-metric means for one ontology pair from its merged metrics CSV.
 
     Computes the mean of all non-blank values (including 0) for each metric.
     'composite' is left as None here; the caller fills it in after computing
     global fill rates so all pairs share the same sparsity weights.
+
+    If n_entities is given, lexical_sim = min(sum(lexical_rows) / n_entities, 1.0),
+    normalising for the fraction of entities actually matched rather than the mean
+    over AML-output rows only.  Default (None) preserves the original mean behaviour.
 
     Raises FileNotFoundError if csv_path does not exist.
     """
@@ -146,12 +150,17 @@ def load_pair_metrics(csv_path: Path) -> dict:
     avg_wup  = safe_mean(wup_vals)
     attr_weighted = round(attr_dist * avg_wup, 4) if attr_dist > 0 and avg_wup > 0 else 0.0
 
+    if n_entities is not None and n_entities > 0:
+        lex = min(sum(v for v in lexical_rows if v is not None) / n_entities, 1.0)
+    else:
+        lex = safe_mean(lexical_rows)
+
     return {
         "n_pairs":       len(rows),
         "composite":     None,
         "enriched":      enriched,
         "match_rate":    matched_count / len(rows),
-        "lexical_sim":   safe_mean(lexical_rows),
+        "lexical_sim":   lex,
         "wl_structural": wl_struct,
         "shape_sim":     shape,
         "attr_weighted": attr_weighted,

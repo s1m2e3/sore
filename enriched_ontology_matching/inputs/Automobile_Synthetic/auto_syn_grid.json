@@ -1,0 +1,146 @@
+{
+  "modelName": "Auto_SYN_GRID",
+  "modelDescription": "Synonym automobile vocabulary, 3x4 grid mesh topology with uniform degree distribution.",
+  "observables": ["Identifier","Temperature","Pressure","Torque","Power","AngularVelocity","Force","Mass","Distance","MassFlowRate","Ratio","Count","Energy","ElectricPotential","ElectricCurrent","Angle","Position","OperationalState","Kind"],
+  "entities": [
+    {
+      "entityName": "Automobile",
+      "entityAttributes": [
+        {"name": "vin", "type": "Identifier"},
+        {"name": "curbWeight", "type": "Mass"},
+        {"name": "bodyLength", "type": "Distance"},
+        {"name": "operationalMode", "type": "OperationalState"}
+      ]
+    },
+    {
+      "entityName": "Motor",
+      "entityAttributes": [
+        {"name": "motorID", "type": "Identifier"},
+        {"name": "outputPower", "type": "Power"},
+        {"name": "outputTorque", "type": "Torque"},
+        {"name": "rotationRate", "type": "AngularVelocity"},
+        {"name": "operatingTemp", "type": "Temperature"},
+        {"name": "lubricantPressure", "type": "Pressure"}
+      ]
+    },
+    {
+      "entityName": "Gearbox",
+      "entityAttributes": [
+        {"name": "gearboxID", "type": "Identifier"},
+        {"name": "transmissionRatio", "type": "Ratio"},
+        {"name": "driveInTorque", "type": "Torque"},
+        {"name": "driveOutTorque", "type": "Torque"}
+      ]
+    },
+    {
+      "entityName": "FinalDrive",
+      "entityAttributes": [
+        {"name": "finalDriveID", "type": "Identifier"},
+        {"name": "differentialRatio", "type": "Ratio"},
+        {"name": "halfShaftTorque", "type": "Torque"}
+      ]
+    },
+    {
+      "entityName": "PropellantSystem",
+      "entityAttributes": [
+        {"name": "propellantID", "type": "Identifier"},
+        {"name": "injectPressure", "type": "Pressure"},
+        {"name": "fuelFlowRate", "type": "MassFlowRate"},
+        {"name": "chemicalEnergy", "type": "Energy"}
+      ]
+    },
+    {
+      "entityName": "ThermalSystem",
+      "entityAttributes": [
+        {"name": "thermalID", "type": "Identifier"},
+        {"name": "coolantTemp", "type": "Temperature"},
+        {"name": "radiatorPressure", "type": "Pressure"},
+        {"name": "circulationRate", "type": "MassFlowRate"}
+      ]
+    },
+    {
+      "entityName": "ElectricNetwork",
+      "entityAttributes": [
+        {"name": "networkID", "type": "Identifier"},
+        {"name": "busVoltage", "type": "ElectricPotential"},
+        {"name": "loadCurrent", "type": "ElectricCurrent"},
+        {"name": "batteryEnergy", "type": "Energy"}
+      ]
+    },
+    {
+      "entityName": "DriveAxle",
+      "entityAttributes": [
+        {"name": "axleID", "type": "Identifier"},
+        {"name": "bearingLoad", "type": "Force"},
+        {"name": "shaftSpeed", "type": "AngularVelocity"},
+        {"name": "axleMass", "type": "Mass"}
+      ]
+    },
+    {
+      "entityName": "EmissionSystem",
+      "entityAttributes": [
+        {"name": "emissionID", "type": "Identifier"},
+        {"name": "gasTemperature", "type": "Temperature"},
+        {"name": "backPressure", "type": "Pressure"},
+        {"name": "gasFlowRate", "type": "MassFlowRate"}
+      ]
+    },
+    {
+      "entityName": "RetardingSystem",
+      "entityAttributes": [
+        {"name": "retarderID", "type": "Identifier"},
+        {"name": "clampingPressure", "type": "Pressure"},
+        {"name": "brakingForce", "type": "Force"},
+        {"name": "systemState", "type": "OperationalState"}
+      ]
+    },
+    {
+      "entityName": "DirectingAssembly",
+      "entityAttributes": [
+        {"name": "directorID", "type": "Identifier"},
+        {"name": "headingAngle", "type": "Angle"},
+        {"name": "columnTorque", "type": "Torque"},
+        {"name": "rackPosition", "type": "Position"}
+      ]
+    },
+    {
+      "entityName": "Tyre",
+      "entityAttributes": [
+        {"name": "tyreID", "type": "Identifier"},
+        {"name": "outerRadius", "type": "Distance"},
+        {"name": "tyreWeight", "type": "Mass"},
+        {"name": "spinRate", "type": "AngularVelocity"}
+      ]
+    },
+    {
+      "entityName": "DampingAssembly",
+      "entityAttributes": [
+        {"name": "dampingID", "type": "Identifier"},
+        {"name": "damperForce", "type": "Force"},
+        {"name": "springDeflection", "type": "Ratio"},
+        {"name": "assemblyMass", "type": "Mass"}
+      ]
+    }
+  ],
+  "associations": [
+    {"associationName": "Row0AutoMobile", "associationParticipants": ["Automobile", "Motor"]},
+    {"associationName": "Row0MotorGearbox", "associationParticipants": ["Motor", "Gearbox"]},
+    {"associationName": "Row0GearboxFinalDrive", "associationParticipants": ["Gearbox", "FinalDrive"]},
+    {"associationName": "Row1PropellantThermal", "associationParticipants": ["PropellantSystem", "ThermalSystem"]},
+    {"associationName": "Row1ThermalElectric", "associationParticipants": ["ThermalSystem", "ElectricNetwork"]},
+    {"associationName": "Row1ElectricAxle", "associationParticipants": ["ElectricNetwork", "DriveAxle"]},
+    {"associationName": "Row2EmissionRetarder", "associationParticipants": ["EmissionSystem", "RetardingSystem"]},
+    {"associationName": "Row2RetarderDirector", "associationParticipants": ["RetardingSystem", "DirectingAssembly"]},
+    {"associationName": "Row2DirectorTyre", "associationParticipants": ["DirectingAssembly", "Tyre"]},
+    {"associationName": "Col01AutoPropellant", "associationParticipants": ["Automobile", "PropellantSystem"]},
+    {"associationName": "Col01MotorThermal", "associationParticipants": ["Motor", "ThermalSystem"]},
+    {"associationName": "Col01GearboxElectric", "associationParticipants": ["Gearbox", "ElectricNetwork"]},
+    {"associationName": "Col01FinalDriveAxle", "associationParticipants": ["FinalDrive", "DriveAxle"]},
+    {"associationName": "Col12PropellantEmission", "associationParticipants": ["PropellantSystem", "EmissionSystem"]},
+    {"associationName": "Col12ThermalRetarder", "associationParticipants": ["ThermalSystem", "RetardingSystem"]},
+    {"associationName": "Col12ElectricDirector", "associationParticipants": ["ElectricNetwork", "DirectingAssembly"]},
+    {"associationName": "Col12AxleTyre", "associationParticipants": ["DriveAxle", "Tyre"]},
+    {"associationName": "DampingTyreLink", "associationParticipants": ["DampingAssembly", "Tyre"]},
+    {"associationName": "DampingDirectorLink", "associationParticipants": ["DampingAssembly", "DirectingAssembly"]}
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "modelName": "Auto_SYN_HUB",
+  "modelDescription": "Synonym automobile vocabulary, hub-spoke topology with Motor as central hub.",
+  "observables": ["Identifier","Temperature","Pressure","Torque","Power","AngularVelocity","Force","Mass","Distance","MassFlowRate","Ratio","Count","Energy","ElectricPotential","ElectricCurrent","Angle","Position","OperationalState","Kind"],
+  "entities": [
+    {
+      "entityName": "Automobile",
+      "entityAttributes": [
+        {"name": "vin", "type": "Identifier"},
+        {"name": "curbWeight", "type": "Mass"},
+        {"name": "bodyLength", "type": "Distance"},
+        {"name": "operationalMode", "type": "OperationalState"}
+      ]
+    },
+    {
+      "entityName": "Motor",
+      "entityAttributes": [
+        {"name": "motorID", "type": "Identifier"},
+        {"name": "outputPower", "type": "Power"},
+        {"name": "outputTorque", "type": "Torque"},
+        {"name": "rotationRate", "type": "AngularVelocity"},
+        {"name": "operatingTemp", "type": "Temperature"},
+        {"name": "lubricantPressure", "type": "Pressure"}
+      ]
+    },
+    {
+      "entityName": "Gearbox",
+      "entityAttributes": [
+        {"name": "gearboxID", "type": "Identifier"},
+        {"name": "transmissionRatio", "type": "Ratio"},
+        {"name": "driveInTorque", "type": "Torque"},
+        {"name": "driveOutTorque", "type": "Torque"}
+      ]
+    },
+    {
+      "entityName": "FinalDrive",
+      "entityAttributes": [
+        {"name": "finalDriveID", "type": "Identifier"},
+        {"name": "differentialRatio", "type": "Ratio"},
+        {"name": "halfShaftTorque", "type": "Torque"}
+      ]
+    },
+    {
+      "entityName": "DriveAxle",
+      "entityAttributes": [
+        {"name": "axleID", "type": "Identifier"},
+        {"name": "bearingLoad", "type": "Force"},
+        {"name": "shaftSpeed", "type": "AngularVelocity"},
+        {"name": "axleMass", "type": "Mass"}
+      ]
+    },
+    {
+      "entityName": "Tyre",
+      "entityAttributes": [
+        {"name": "tyreID", "type": "Identifier"},
+        {"name": "outerRadius", "type": "Distance"},
+        {"name": "tyreWeight", "type": "Mass"},
+        {"name": "spinRate", "type": "AngularVelocity"}
+      ]
+    },
+    {
+      "entityName": "DampingAssembly",
+      "entityAttributes": [
+        {"name": "dampingID", "type": "Identifier"},
+        {"name": "damperForce", "type": "Force"},
+        {"name": "springDeflection", "type": "Ratio"},
+        {"name": "assemblyMass", "type": "Mass"}
+      ]
+    },
+    {
+      "entityName": "RetardingSystem",
+      "entityAttributes": [
+        {"name": "retarderID", "type": "Identifier"},
+        {"name": "clampingPressure", "type": "Pressure"},
+        {"name": "brakingForce", "type": "Force"},
+        {"name": "systemState", "type": "OperationalState"}
+      ]
+    },
+    {
+      "entityName": "DirectingAssembly",
+      "entityAttributes": [
+        {"name": "directorID", "type": "Identifier"},
+        {"name": "headingAngle", "type": "Angle"},
+        {"name": "columnTorque", "type": "Torque"},
+        {"name": "rackPosition", "type": "Position"}
+      ]
+    },
+    {
+      "entityName": "PropellantSystem",
+      "entityAttributes": [
+        {"name": "propellantID", "type": "Identifier"},
+        {"name": "injectPressure", "type": "Pressure"},
+        {"name": "fuelFlowRate", "type": "MassFlowRate"},
+        {"name": "chemicalEnergy", "type": "Energy"}
+      ]
+    },
+    {
+      "entityName": "ThermalSystem",
+      "entityAttributes": [
+        {"name": "thermalID", "type": "Identifier"},
+        {"name": "coolantTemp", "type": "Temperature"},
+        {"name": "radiatorPressure", "type": "Pressure"},
+        {"name": "circulationRate", "type": "MassFlowRate"}
+      ]
+    },
+    {
+      "entityName": "ElectricNetwork",
+      "entityAttributes": [
+        {"name": "networkID", "type": "Identifier"},
+        {"name": "busVoltage", "type": "ElectricPotential"},
+        {"name": "loadCurrent", "type": "ElectricCurrent"},
+        {"name": "batteryEnergy", "type": "Energy"}
+      ]
+    },
+    {
+      "entityName": "EmissionSystem",
+      "entityAttributes": [
+        {"name": "emissionID", "type": "Identifier"},
+        {"name": "gasTemperature", "type": "Temperature"},
+        {"name": "backPressure", "type": "Pressure"},
+        {"name": "gasFlowRate", "type": "MassFlowRate"}
+      ]
+    }
+  ],
+  "associations": [
+    {"associationName": "MotorChassis", "associationParticipants": ["Motor", "Automobile"]},
+    {"associationName": "DrivelineCoupling", "associationParticipants": ["Motor", "Gearbox"]},
+    {"associationName": "MotorFinalDriveLink", "associationParticipants": ["Motor", "FinalDrive"]},
+    {"associationName": "MotorAxleLink", "associationParticipants": ["Motor", "DriveAxle"]},
+    {"associationName": "MotorTyreLink", "associationParticipants": ["Motor", "Tyre"]},
+    {"associationName": "MotorDampingLink", "associationParticipants": ["Motor", "DampingAssembly"]},
+    {"associationName": "MotorRetarderLink", "associationParticipants": ["Motor", "RetardingSystem"]},
+    {"associationName": "MotorDirectorLink", "associationParticipants": ["Motor", "DirectingAssembly"]},
+    {"associationName": "FuelInjection", "associationParticipants": ["Motor", "PropellantSystem"]},
+    {"associationName": "RadiatorLoop", "associationParticipants": ["Motor", "ThermalSystem"]},
+    {"associationName": "ElectricalFeed", "associationParticipants": ["Motor", "ElectricNetwork"]},
+    {"associationName": "TailpipeConnection", "associationParticipants": ["Motor", "EmissionSystem"]},
+    {"associationName": "HalfShaftCoupling", "associationParticipants": ["Gearbox", "FinalDrive"]},
+    {"associationName": "AxleTyreMount", "associationParticipants": ["DriveAxle", "Tyre"]},
+    {"associationName": "RetarderTyreContact", "associationParticipants": ["RetardingSystem", "Tyre"]}
+  ]
+}

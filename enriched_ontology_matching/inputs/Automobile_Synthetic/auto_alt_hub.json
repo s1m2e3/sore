@@ -1,0 +1,144 @@
+{
+  "modelName": "Auto_ALT_HUB",
+  "modelDescription": "Suspension subsystem vocabulary, hub-spoke topology with CoilSpring as central hub.",
+  "observables": ["Identifier","Temperature","Pressure","Torque","Power","AngularVelocity","Force","Mass","Distance","MassFlowRate","Ratio","Count","Energy","ElectricPotential","ElectricCurrent","Angle","Position","OperationalState","Kind"],
+  "entities": [
+    {
+      "entityName": "SubframeMount",
+      "entityAttributes": [
+        {"name": "mountID", "type": "Identifier"},
+        {"name": "mountingLoad", "type": "Force"},
+        {"name": "rigidity", "type": "Ratio"},
+        {"name": "mass", "type": "Mass"},
+        {"name": "operationalState", "type": "OperationalState"}
+      ]
+    },
+    {
+      "entityName": "CoilSpring",
+      "entityAttributes": [
+        {"name": "springID", "type": "Identifier"},
+        {"name": "springRate", "type": "Ratio"},
+        {"name": "freeLength", "type": "Distance"},
+        {"name": "springForce", "type": "Force"},
+        {"name": "mass", "type": "Mass"}
+      ]
+    },
+    {
+      "entityName": "ShockBody",
+      "entityAttributes": [
+        {"name": "shockID", "type": "Identifier"},
+        {"name": "strokeLength", "type": "Distance"},
+        {"name": "housingMass", "type": "Mass"},
+        {"name": "operationalState", "type": "OperationalState"}
+      ]
+    },
+    {
+      "entityName": "InnerChamber",
+      "entityAttributes": [
+        {"name": "chamberID", "type": "Identifier"},
+        {"name": "chamberPressure", "type": "Pressure"},
+        {"name": "strokeDistance", "type": "Distance"},
+        {"name": "fluidTemperature", "type": "Temperature"}
+      ]
+    },
+    {
+      "entityName": "PivotBall",
+      "entityAttributes": [
+        {"name": "pivotID", "type": "Identifier"},
+        {"name": "articulationAngle", "type": "Angle"},
+        {"name": "radialLoad", "type": "Force"},
+        {"name": "mass", "type": "Mass"}
+      ]
+    },
+    {
+      "entityName": "RotatingHub",
+      "entityAttributes": [
+        {"name": "hubID", "type": "Identifier"},
+        {"name": "spinRate", "type": "AngularVelocity"},
+        {"name": "hubLoad", "type": "Force"},
+        {"name": "hubMass", "type": "Mass"}
+      ]
+    },
+    {
+      "entityName": "Upright",
+      "entityAttributes": [
+        {"name": "uprightID", "type": "Identifier"},
+        {"name": "camberAngle", "type": "Angle"},
+        {"name": "lateralForce", "type": "Force"},
+        {"name": "uprightMass", "type": "Mass"}
+      ]
+    },
+    {
+      "entityName": "LowerWishbone",
+      "entityAttributes": [
+        {"name": "lowerArmID", "type": "Identifier"},
+        {"name": "pivotAngle", "type": "Angle"},
+        {"name": "lateralForce", "type": "Force"},
+        {"name": "armLength", "type": "Distance"}
+      ]
+    },
+    {
+      "entityName": "UpperWishbone",
+      "entityAttributes": [
+        {"name": "upperArmID", "type": "Identifier"},
+        {"name": "pivotAngle", "type": "Angle"},
+        {"name": "lateralForce", "type": "Force"},
+        {"name": "armLength", "type": "Distance"}
+      ]
+    },
+    {
+      "entityName": "TorsionBar",
+      "entityAttributes": [
+        {"name": "barID", "type": "Identifier"},
+        {"name": "torsionalStiffness", "type": "Ratio"},
+        {"name": "twistAngle", "type": "Angle"},
+        {"name": "restoringMoment", "type": "Torque"},
+        {"name": "mass", "type": "Mass"}
+      ]
+    },
+    {
+      "entityName": "DampingValve",
+      "entityAttributes": [
+        {"name": "valveID", "type": "Identifier"},
+        {"name": "valvePressure", "type": "Pressure"},
+        {"name": "flowRate", "type": "MassFlowRate"},
+        {"name": "orificeRatio", "type": "Ratio"}
+      ]
+    },
+    {
+      "entityName": "TrackRod",
+      "entityAttributes": [
+        {"name": "rodID", "type": "Identifier"},
+        {"name": "axialForce", "type": "Force"},
+        {"name": "rodLength", "type": "Distance"},
+        {"name": "toeAngle", "type": "Angle"}
+      ]
+    },
+    {
+      "entityName": "DroplinkArm",
+      "entityAttributes": [
+        {"name": "droplinkID", "type": "Identifier"},
+        {"name": "linkForce", "type": "Force"},
+        {"name": "linkLength", "type": "Distance"},
+        {"name": "mass", "type": "Mass"}
+      ]
+    }
+  ],
+  "associations": [
+    {"associationName": "SpringMountCouple", "associationParticipants": ["CoilSpring", "SubframeMount"]},
+    {"associationName": "SpringShockCouple", "associationParticipants": ["CoilSpring", "ShockBody"]},
+    {"associationName": "SpringChamberCouple", "associationParticipants": ["CoilSpring", "InnerChamber"]},
+    {"associationName": "SpringPivotCouple", "associationParticipants": ["CoilSpring", "PivotBall"]},
+    {"associationName": "SpringHubCouple", "associationParticipants": ["CoilSpring", "RotatingHub"]},
+    {"associationName": "SpringUprightCouple", "associationParticipants": ["CoilSpring", "Upright"]},
+    {"associationName": "SpringLowerCouple", "associationParticipants": ["CoilSpring", "LowerWishbone"]},
+    {"associationName": "SpringUpperCouple", "associationParticipants": ["CoilSpring", "UpperWishbone"]},
+    {"associationName": "SpringBarCouple", "associationParticipants": ["CoilSpring", "TorsionBar"]},
+    {"associationName": "SpringValveCouple", "associationParticipants": ["CoilSpring", "DampingValve"]},
+    {"associationName": "SpringRodCouple", "associationParticipants": ["CoilSpring", "TrackRod"]},
+    {"associationName": "SpringDroplinkCouple", "associationParticipants": ["CoilSpring", "DroplinkArm"]},
+    {"associationName": "ShockChamberCouple", "associationParticipants": ["ShockBody", "InnerChamber"]},
+    {"associationName": "PivotHubCouple", "associationParticipants": ["PivotBall", "RotatingHub"]},
+    {"associationName": "LowerHubCouple", "associationParticipants": ["LowerWishbone", "RotatingHub"]}
+  ]
+}

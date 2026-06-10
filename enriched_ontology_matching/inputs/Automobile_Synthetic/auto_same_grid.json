@@ -1,0 +1,146 @@
+{
+  "modelName": "Auto_SAME_GRID",
+  "modelDescription": "Standard automobile vocabulary, 3x4 grid mesh topology with uniform degree distribution.",
+  "observables": ["Identifier","Temperature","Pressure","Torque","Power","AngularVelocity","Force","Mass","Distance","MassFlowRate","Ratio","Count","Energy","ElectricPotential","ElectricCurrent","Angle","Position","OperationalState","Kind"],
+  "entities": [
+    {
+      "entityName": "Vehicle",
+      "entityAttributes": [
+        {"name": "vehicleID", "type": "Identifier"},
+        {"name": "mass", "type": "Mass"},
+        {"name": "length", "type": "Distance"},
+        {"name": "operationalState", "type": "OperationalState"}
+      ]
+    },
+    {
+      "entityName": "Engine",
+      "entityAttributes": [
+        {"name": "engineID", "type": "Identifier"},
+        {"name": "power", "type": "Power"},
+        {"name": "torque", "type": "Torque"},
+        {"name": "rpm", "type": "AngularVelocity"},
+        {"name": "temperature", "type": "Temperature"},
+        {"name": "oilPressure", "type": "Pressure"}
+      ]
+    },
+    {
+      "entityName": "Transmission",
+      "entityAttributes": [
+        {"name": "transmissionID", "type": "Identifier"},
+        {"name": "gearRatio", "type": "Ratio"},
+        {"name": "inputTorque", "type": "Torque"},
+        {"name": "outputTorque", "type": "Torque"}
+      ]
+    },
+    {
+      "entityName": "Differential",
+      "entityAttributes": [
+        {"name": "differentialID", "type": "Identifier"},
+        {"name": "splitRatio", "type": "Ratio"},
+        {"name": "outputTorque", "type": "Torque"}
+      ]
+    },
+    {
+      "entityName": "FuelSystem",
+      "entityAttributes": [
+        {"name": "fuelSystemID", "type": "Identifier"},
+        {"name": "fuelPressure", "type": "Pressure"},
+        {"name": "massFlowRate", "type": "MassFlowRate"},
+        {"name": "fuelEnergy", "type": "Energy"}
+      ]
+    },
+    {
+      "entityName": "CoolingSystem",
+      "entityAttributes": [
+        {"name": "coolingID", "type": "Identifier"},
+        {"name": "coolantTemperature", "type": "Temperature"},
+        {"name": "coolantPressure", "type": "Pressure"},
+        {"name": "coolantFlowRate", "type": "MassFlowRate"}
+      ]
+    },
+    {
+      "entityName": "ElectricalSystem",
+      "entityAttributes": [
+        {"name": "electricalID", "type": "Identifier"},
+        {"name": "voltage", "type": "ElectricPotential"},
+        {"name": "current", "type": "ElectricCurrent"},
+        {"name": "storedEnergy", "type": "Energy"}
+      ]
+    },
+    {
+      "entityName": "Axle",
+      "entityAttributes": [
+        {"name": "axleID", "type": "Identifier"},
+        {"name": "axleLoad", "type": "Force"},
+        {"name": "rotationalSpeed", "type": "AngularVelocity"},
+        {"name": "shaftMass", "type": "Mass"}
+      ]
+    },
+    {
+      "entityName": "ExhaustSystem",
+      "entityAttributes": [
+        {"name": "exhaustID", "type": "Identifier"},
+        {"name": "exhaustTemperature", "type": "Temperature"},
+        {"name": "exhaustPressure", "type": "Pressure"},
+        {"name": "massFlowRate", "type": "MassFlowRate"}
+      ]
+    },
+    {
+      "entityName": "BrakeSystem",
+      "entityAttributes": [
+        {"name": "brakeID", "type": "Identifier"},
+        {"name": "brakePressure", "type": "Pressure"},
+        {"name": "decelerationForce", "type": "Force"},
+        {"name": "operationalState", "type": "OperationalState"}
+      ]
+    },
+    {
+      "entityName": "SteeringSystem",
+      "entityAttributes": [
+        {"name": "steeringID", "type": "Identifier"},
+        {"name": "steeringAngle", "type": "Angle"},
+        {"name": "steeringTorque", "type": "Torque"},
+        {"name": "position", "type": "Position"}
+      ]
+    },
+    {
+      "entityName": "Wheel",
+      "entityAttributes": [
+        {"name": "wheelID", "type": "Identifier"},
+        {"name": "radius", "type": "Distance"},
+        {"name": "mass", "type": "Mass"},
+        {"name": "angularVelocity", "type": "AngularVelocity"}
+      ]
+    },
+    {
+      "entityName": "Suspension",
+      "entityAttributes": [
+        {"name": "suspensionID", "type": "Identifier"},
+        {"name": "dampingForce", "type": "Force"},
+        {"name": "compressionRatio", "type": "Ratio"},
+        {"name": "mass", "type": "Mass"}
+      ]
+    }
+  ],
+  "associations": [
+    {"associationName": "Row0VehicleEngine", "associationParticipants": ["Vehicle", "Engine"]},
+    {"associationName": "Row0EngineTransmission", "associationParticipants": ["Engine", "Transmission"]},
+    {"associationName": "Row0TransmissionDifferential", "associationParticipants": ["Transmission", "Differential"]},
+    {"associationName": "Row1FuelCooling", "associationParticipants": ["FuelSystem", "CoolingSystem"]},
+    {"associationName": "Row1CoolingElectrical", "associationParticipants": ["CoolingSystem", "ElectricalSystem"]},
+    {"associationName": "Row1ElectricalAxle", "associationParticipants": ["ElectricalSystem", "Axle"]},
+    {"associationName": "Row2ExhaustBrake", "associationParticipants": ["ExhaustSystem", "BrakeSystem"]},
+    {"associationName": "Row2BrakeSteering", "associationParticipants": ["BrakeSystem", "SteeringSystem"]},
+    {"associationName": "Row2SteeringWheel", "associationParticipants": ["SteeringSystem", "Wheel"]},
+    {"associationName": "Col01VehicleFuel", "associationParticipants": ["Vehicle", "FuelSystem"]},
+    {"associationName": "Col01EngineCooling", "associationParticipants": ["Engine", "CoolingSystem"]},
+    {"associationName": "Col01TransmissionElectrical", "associationParticipants": ["Transmission", "ElectricalSystem"]},
+    {"associationName": "Col01DifferentialAxle", "associationParticipants": ["Differential", "Axle"]},
+    {"associationName": "Col12FuelExhaust", "associationParticipants": ["FuelSystem", "ExhaustSystem"]},
+    {"associationName": "Col12CoolingBrake", "associationParticipants": ["CoolingSystem", "BrakeSystem"]},
+    {"associationName": "Col12ElectricalSteering", "associationParticipants": ["ElectricalSystem", "SteeringSystem"]},
+    {"associationName": "Col12AxleWheel", "associationParticipants": ["Axle", "Wheel"]},
+    {"associationName": "SuspensionWheelLink", "associationParticipants": ["Suspension", "Wheel"]},
+    {"associationName": "SuspensionSteeringLink", "associationParticipants": ["Suspension", "SteeringSystem"]}
+  ]
+}
