@@ -171,58 +171,23 @@ eom-run --inputs-dir enriched_ontology_matching/inputs --domains Automobile
 eom-compare --domain-summary Automobile
 ```
 
-Output: `enriched_ontology_matching/summaries/Automobile_summary.json`
+Output: `enriched_ontology_matching/summaries/automobile_summary.json`
 
-`eom-run` will automatically run all pipeline stages for every pair:
+`eom-run` runs all 5 pipeline stages automatically for every pair:
 
-1. **Discover** all model JSON files in `<inputs-dir>/Automobile/`
-2. **Generate pair JSONs** in `enriched_ontology_matching/pairs/`
-3. **Run enriched matching** (AML + LogMap + WordNet + ConceptNet + WUP backup) → per-pair CSV in `outputs/enriched/`
-4. **Run sentence embeddings** (cosine_avg, rescaled to [0, 1]) → `outputs/embeddings/`
-5. **Merge** enriched + embeddings → `outputs/merged/<ModelA>_vs_<ModelB>_metrics.csv`
-6. **Combine** all per-pair CSVs into `outputs/enriched/all_domains_combined.csv`
+1. **Enriched matching** (AML + LogMap + WordNet + ConceptNet + WUP backup) → per-pair CSV in `outputs/enriched/`
+2. **Sentence embeddings** (cosine_avg, rescaled to [0, 1]) → `outputs/embeddings/`
+3. **Merge** enriched + embeddings → `outputs/merged/<stem>_metrics.csv`
+4. **WL kernel + shape** → `outputs/wl/<stem>_metrics_wl.csv`
+5. **Attribute reach distribution** → `outputs/attr_dist/<stem>_metrics_attr_dist.csv`
 
-After step 5 (merge), run the WL and attribute reach stages for each pair to populate `outputs/wl/` and `outputs/attr_dist/`. `compare_stage.py` reads those pre-computed files when building the distance map or domain summary — it does **not** recompute them on-the-fly. See **Steps 4 and 5** under "Running Individual Stages Manually" for the per-pair commands, or run the batch helper below:
-
-```bash
-# Batch: re-run WL + attr_dist for all merged pairs in one shot
-python - <<'EOF'
-import json, sys
-from pathlib import Path
-sys.path.insert(0, 'enriched_ontology_matching')
-from logmap_runner import _safe_local
-from wl_kernel_matcher import run_wl_stage
-from attribute_reach import run_attr_dist_stage
-
-inputs  = Path('enriched_ontology_matching/inputs')
-merged  = Path('enriched_ontology_matching/outputs/merged')
-wl_dir  = Path('enriched_ontology_matching/outputs/wl');        wl_dir.mkdir(exist_ok=True)
-ad_dir  = Path('enriched_ontology_matching/outputs/attr_dist'); ad_dir.mkdir(exist_ok=True)
-
-model_data = {}
-for d in inputs.iterdir():
-    if not d.is_dir(): continue
-    for jf in d.glob('*.json'):
-        data = json.loads(jf.read_text(encoding='utf-8'))
-        name = data.get('modelName', '')
-        if name: model_data[_safe_local(name)] = data
-
-for f in sorted(merged.glob('*_metrics.csv')):
-    stem = f.stem.replace('_metrics', '')
-    if '_vs_' not in stem: continue
-    a_key, b_key = stem.split('_vs_')[0], stem.split('_vs_')[1]
-    da, db = model_data.get(a_key), model_data.get(b_key)
-    if not da or not db: continue
-    run_wl_stage(da, db, f, wl_dir / (f.stem + '_wl.csv'))
-    run_attr_dist_stage(da, db, ad_dir / (f.stem + '_attr_dist.csv'))
-EOF
-```
+Then combines all per-pair enriched CSVs into `outputs/enriched/all_domains_combined.csv`.
 
 ### Bring your own input models
 
 ```bash
 eom-run --inputs-dir path/to/my_models --domains MyDomain
-eom-compare --domain-summary MyDomain --out path/to/my_models/MyDomain_summary.json
+eom-compare --domain-summary MyDomain --out path/to/my_models/mydomain_summary.json
 ```
 
 Expected layout: `<inputs-dir>/<Domain>/*.json`
@@ -257,7 +222,7 @@ eom-run --matcher aml
 Run all within-domain pairs first, then add cross-domain pairs.
 
 ```bash
-# Step 1 — run all 630 pairs (within-domain + cross-domain), skip completed ones
+# Step 1 — run all within-domain + cross-domain pairs, skip completed ones
 eom-run --cross-domain --skip-existing
 
 # Step 2 — generate the interactive distance map
@@ -265,13 +230,6 @@ eom-compare
 ```
 
 Output: `enriched_ontology_matching/outputs/ontology_map.html` — open in any browser, no server required.
-
-To verify all pairs are present before generating the map:
-
-```bash
-ls enriched_ontology_matching/outputs/merged/ | grep "_metrics.csv" | wc -l
-# Should print 630
-```
 
 ---
 
@@ -324,17 +282,9 @@ Output: one-row CSV with `wl_structural`, `shape_sim` (and sub-components: `degr
 ### Step 5: Attribute Reach Distribution
 
 ```bash
-python - <<'EOF'
-import json, sys
-from pathlib import Path
-sys.path.insert(0, 'enriched_ontology_matching')
-from attribute_reach import run_attr_dist_stage
-
-da = json.loads(Path('enriched_ontology_matching/inputs/Automobile/automobile_model_v1.json').read_text())
-db = json.loads(Path('enriched_ontology_matching/inputs/Automobile/automobile_model_v2.json').read_text())
-run_attr_dist_stage(da, db,
-    out_csv=Path('enriched_ontology_matching/outputs/attr_dist/<stem>_metrics_attr_dist.csv'))
-EOF
+python enriched_ontology_matching/attribute_reach.py \
+    --pair    enriched_ontology_matching/pairs/<domain_key>.json \
+    --out-csv enriched_ontology_matching/outputs/attr_dist/<stem>_metrics_attr_dist.csv
 ```
 
 Output: one-row CSV with `attr_dist_sim`. `compare_stage.py` multiplies this by `avg_entity_wup` from the merged CSV to produce `attr_weighted`.
