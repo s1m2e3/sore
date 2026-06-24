@@ -17,7 +17,7 @@ The primary use case is **within-domain analysis**: run all pairwise comparisons
 | **5** | WL + Shape | Weisfeiler-Leman kernel similarity and graph-shape sub-metrics (degree, spectral, clustering, betweenness) |
 | **6** | Attribute Reach | K-hop observable-type attribute reach distribution; weighted by entity WUP confidence |
 | **7** | Merge | Joins enriched-matcher + embedding outputs into one metrics-only CSV per pair |
-| **8** | Distance Visualisation | Sparsity-weighted MDS map of all ontologies as interactive HTML |
+| **8** | Distance Visualisation | Equal-weight MDS map of all ontologies as interactive HTML |
 
 ---
 
@@ -126,12 +126,13 @@ Domain model JSON files are included in the repo under `enriched_ontology_matchi
 
 ```
 enriched_ontology_matching/inputs/
-  Automobile/      — 6 model JSONs  (V1, V2, V3, Net1, Net2, Net3)
-  Coffee/          — 6 model JSONs
-  Homebrewing/     — 6 model JSONs
-  Hospital/        — 6 model JSONs
-  SmartHome/       — 6 model JSONs
-  University/      — 6 model JSONs
+  Automobile/           — 6 model JSONs  (V1, V2, V3, Net1, Net2, Net3)
+  Automobile_Synthetic/ — 15 model JSONs (3×5 factorial: SAME/SYN/ALT × DEEP/WIDE/HUB/BIP/GRID)
+  Coffee/               — 6 model JSONs
+  Homebrewing/          — 6 model JSONs
+  Hospital/             — 6 model JSONs
+  SmartHome/            — 6 model JSONs
+  University/           — 6 model JSONs
 ```
 
 These files are **already included** in the repository — no download required.
@@ -405,19 +406,13 @@ Each `outputs/merged/*_metrics.csv` has one row per entity pair and 5 columns:
 
 `shape_sim` sub-components:
 - **`degree_sim`** — cosine similarity of degree sequences (hub/leaf structure)
-- **`spectral_sim`** — ratio of leading eigenvalues of the adjacency matrices
+- **`spectral_sim`** — cosine of sorted Laplacian eigenvalues (community structure)
 - **`clustering_sim`** — similarity of mean clustering coefficients (triangle density)
 - **`betweenness_sim`** — cosine of normalised betweenness-centrality vectors (bridge nodes)
 
 `attr_weighted` multiplies attribute-reach distribution similarity by the mean WUP across matched entity pairs, so it is reliable only when the entity correspondence is already semantically meaningful.
 
-Each dimension weight blends uniform weight (1/4) with its sparsity fill rate, then renormalises:
-
-```
-w_raw[m] = (1/4 + fill_rate[m]) / 2
-```
-
-This ensures sparse dimensions are down-weighted without any fully-populated dimension dominating unconditionally. These 4 dimension scores and their blended weights appear in the domain summary JSON.
+All four dimensions receive **equal weight (1/4 each)**. Metrics that return zero for a given pair (e.g. `attr_weighted = 0` when neither model has observable types) are excluded from that pair's composite mean rather than penalising the score. These 4 dimension scores appear in the domain summary JSON.
 
 ---
 
@@ -441,10 +436,10 @@ eom-compare --domain-summary Automobile --out my_results/auto_summary.json
   "n_ontologies": 6,
   "n_pairs": 15,
   "metric_weights": {
-    "lexical_sim":   0.312,
-    "wl_structural": 0.241,
-    "shape_sim":     0.228,
-    "attr_weighted": 0.219
+    "lexical_sim":   0.25,
+    "wl_structural": 0.25,
+    "shape_sim":     0.25,
+    "attr_weighted": 0.25
   },
   "average_distance": 0.376,
   "average_composite": 0.675,
@@ -456,17 +451,17 @@ eom-compare --domain-summary Automobile --out my_results/auto_summary.json
       "composite": 0.84,
       "n_entity_pairs": 291,
       "metrics": {
-        "lexical_sim":   {"mean": 0.874, "weight": 0.312},
-        "wl_structural": {"mean": 0.731, "weight": 0.241},
-        "shape_sim":     {"mean": 0.612, "weight": 0.228},
-        "attr_weighted": {"mean": 0.558, "weight": 0.219}
+        "lexical_sim":   {"mean": 0.874, "weight": 0.25},
+        "wl_structural": {"mean": 0.731, "weight": 0.25},
+        "shape_sim":     {"mean": 0.612, "weight": 0.25},
+        "attr_weighted": {"mean": 0.558, "weight": 0.25}
       }
     }
   ]
 }
 ```
 
-- **`metric_weights`** — blended weight for each of the 4 orthogonal dimensions; blend of uniform (1/4) and sparsity fill rate, renormalised to sum to 1
+- **`metric_weights`** — equal weight (0.25) for each of the 4 dimensions; metrics unavailable for a pair are excluded from that pair's composite mean rather than counting as 0
 - **`average_distance`** — weighted Euclidean distance averaged over all within-domain pairs (lower = more similar)
 - **`average_composite`** — dimension-weighted mean similarity score averaged over all pairs (higher = more similar)
 - **`pairs`** — all within-domain pairs sorted by `distance` ascending; each pair reports per-dimension `mean` and `weight`
