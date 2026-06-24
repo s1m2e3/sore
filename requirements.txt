@@ -1,0 +1,13 @@
+# Core pipeline (eom-run, eom-compare)
+numpy
+scipy
+nltk
+requests
+sentence-transformers
+torch
+plotly
+scikit-learn
+
+# Probe visualizer (scripts/probe_visualizer.py)
+networkx
+matplotlib
