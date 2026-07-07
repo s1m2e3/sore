@@ -13,8 +13,9 @@ Total: 6 domains × 15 pairs = 90 pairs.
 Pipeline stages per pair
 ------------------------
   Step 1 — Enriched matching (AML + LogMap + WN + CN) → per-pair CSV
-  Step 2 — Sentence embeddings (cosine_avg)
-  Step 3 — Merge enriched + embeddings → metrics CSV
+  Step 2 — Sentence embeddings (cosine_avg) — name-based fallback signal
+  Step 3 — Attribute-type embeddings (type_embed_sim) — primary matching signal
+  Step 4 — Merge enriched + embeddings + type-embeddings → metrics CSV
 
 Outputs
 -------
@@ -58,6 +59,7 @@ _EXAMPLES  = _DIR / "inputs"
 _PAIRS_DIR  = _DIR / "pairs"
 _ENRICHED   = _DIR / "outputs" / "enriched"
 _EMB_DIR    = _DIR / "outputs" / "embeddings"
+_TYPE_DIR   = _DIR / "outputs" / "type_embed"
 _MERGED_DIR = _DIR / "outputs" / "merged"
 _WL_DIR     = _DIR / "outputs" / "wl"
 _AD_DIR     = _DIR / "outputs" / "attr_dist"
@@ -143,20 +145,22 @@ def _run_pair(
     use_logmap: bool,
     run_pipeline,
     run_embedding_stage,
+    run_type_embed_stage,
     merge_pair,
     run_wl_stage,
     run_attr_dist_stage,
     _safe_local,
 ) -> tuple[str, Path] | None:
     """
-    Run the full 5-step pipeline for a single model pair (a, b).
+    Run the full 6-step pipeline for a single model pair (a, b).
 
     Steps:
       1. Enriched matching (AML + LogMap + WN + CN) → per-pair CSV
-      2. Sentence embeddings (cosine_avg)
-      3. Merge enriched + embeddings → metrics CSV
-      4. WL kernel + shape metrics → wl CSV
-      5. Attribute reach distribution → attr_dist CSV
+      2. Sentence embeddings (cosine_avg) — name-based, used as matching fallback
+      3. Attribute-type embeddings (type_embed_sim) — primary matching signal
+      4. Merge enriched + embeddings + type-embeddings → metrics CSV
+      5. WL kernel + shape metrics → wl CSV
+      6. Attribute reach distribution → attr_dist CSV
 
     Returns (domain_key, enriched_csv_path) on success, None on failure.
     """
@@ -170,6 +174,7 @@ def _run_pair(
     pair_csv = _ENRICHED / f"{stem}.csv"
 
     emb_csv    = _EMB_DIR    / f"{domain_key}_emb.csv"
+    type_csv   = _TYPE_DIR   / f"{domain_key}_type_emb.csv"
     merged_csv = _MERGED_DIR / f"{stem}_metrics.csv"
     wl_csv     = _WL_DIR     / f"{stem}_metrics_wl.csv"
     ad_csv     = _AD_DIR     / f"{stem}_metrics_attr_dist.csv"
@@ -204,7 +209,16 @@ def _run_pair(
         except Exception as exc:
             print(f"    [WARN] Embedding failed for {domain_key}: {exc}")
 
-    # ── Step 3: Merge ────────────────────────────────────────────────────
+    # ── Step 3: Attribute-type embeddings ────────────────────────────────
+    if skip_existing and type_csv.exists():
+        print(f"    [SKIP] Type-embed for {domain_key}")
+    else:
+        try:
+            run_type_embed_stage(csv_path, a, b, type_csv)
+        except Exception as exc:
+            print(f"    [WARN] Type-embed failed for {domain_key}: {exc}")
+
+    # ── Step 4: Merge ────────────────────────────────────────────────────
     if skip_existing and merged_csv.exists():
         print(f"    [SKIP] Merge for {domain_key}")
     else:
@@ -212,12 +226,13 @@ def _run_pair(
             merge_pair(
                 enriched_csv = csv_path,
                 emb_csv      = emb_csv if emb_csv.exists() else None,
+                type_csv     = type_csv if type_csv.exists() else None,
                 out_csv      = merged_csv,
             )
         except Exception as exc:
             print(f"    [WARN] Merge failed for {domain_key}: {exc}")
 
-    # ── Step 4: WL kernel + shape metrics ────────────────────────────────
+    # ── Step 5: WL kernel + shape metrics ────────────────────────────────
     if skip_existing and wl_csv.exists():
         print(f"    [SKIP] WL for {domain_key}")
     else:
@@ -228,7 +243,7 @@ def _run_pair(
         except Exception as exc:
             print(f"    [WARN] WL failed for {domain_key}: {exc}")
 
-    # ── Step 5: Attribute reach distribution ─────────────────────────────
+    # ── Step 6: Attribute reach distribution ─────────────────────────────
     if skip_existing and ad_csv.exists():
         print(f"    [SKIP] AttrDist for {domain_key}")
     else:
@@ -297,25 +312,27 @@ def main() -> None:
     from semantic_encoder import run_embedding_stage
     from merge_stage import merge_pair
     from wl_kernel_matcher import run_wl_stage
-    from attribute_reach import run_attr_dist_stage
+    from attribute_reach import run_attr_dist_stage, run_type_embed_stage
 
     _PAIRS_DIR.mkdir(exist_ok=True)
     _ENRICHED.mkdir(parents=True, exist_ok=True)
     _EMB_DIR.mkdir(parents=True, exist_ok=True)
+    _TYPE_DIR.mkdir(parents=True, exist_ok=True)
     _MERGED_DIR.mkdir(parents=True, exist_ok=True)
     _WL_DIR.mkdir(parents=True, exist_ok=True)
     _AD_DIR.mkdir(parents=True, exist_ok=True)
 
     pipeline_kwargs = dict(
-        skip_existing        = args.skip_existing,
-        use_aml              = args.matcher in ("aml",    "both"),
-        use_logmap           = args.matcher in ("logmap", "both"),
-        run_pipeline         = run_pipeline,
-        run_embedding_stage  = run_embedding_stage,
-        merge_pair           = merge_pair,
-        run_wl_stage         = run_wl_stage,
-        run_attr_dist_stage  = run_attr_dist_stage,
-        _safe_local          = _safe_local,
+        skip_existing         = args.skip_existing,
+        use_aml               = args.matcher in ("aml",    "both"),
+        use_logmap            = args.matcher in ("logmap", "both"),
+        run_pipeline          = run_pipeline,
+        run_embedding_stage   = run_embedding_stage,
+        run_type_embed_stage  = run_type_embed_stage,
+        merge_pair            = merge_pair,
+        run_wl_stage          = run_wl_stage,
+        run_attr_dist_stage   = run_attr_dist_stage,
+        _safe_local           = _safe_local,
     )
 
     domains = args.domains if args.domains else DOMAINS

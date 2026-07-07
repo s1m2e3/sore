@@ -1,0 +1,22 @@
+{
+  "modelName": "ToyComposition_Nested",
+  "modelDescription": "Toy model to verify type matching survives compositional restructuring. Same domain as ToyComposition_Base, but Car's engine-related attributes have been pushed one level down into a composed Engine entity. Attribute NAMES also differ from the base model; attribute TYPES are identical.",
+  "observables": ["Temperature", "Pressure", "Speed"],
+  "entities": [
+    {
+      "entityName": "Car",
+      "entityAttributes": [
+        { "name": "engine", "type": "Engine" }
+      ]
+    },
+    {
+      "entityName": "Engine",
+      "entityAttributes": [
+        { "name": "heatLevel",           "type": "Temperature" },
+        { "name": "compressionPressure", "type": "Pressure" },
+        { "name": "rotationSpeed",       "type": "Speed" }
+      ]
+    }
+  ],
+  "associations": []
+}

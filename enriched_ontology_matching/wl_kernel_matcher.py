@@ -62,7 +62,10 @@ _INVENTORY  = _DIR / "association_inventory.csv"
 # Match declaration uses a 4-dimension composite score mirroring compare_stage.py,
 # applied at the entity-pair level.  This ensures ALL available signals are used:
 #
-#   dim_lexical   = avg(cosine_avg, wup)                  — always present
+#   dim_lexical   = avg(primary_sim, wup)                 — always present.
+#                   primary_sim is type_embed_sim (attribute-type embedding
+#                   similarity) when confident, else cosine_avg (name-based)
+#                   as fallback — see merge_stage.TYPE_FALLBACK_THRESHOLD.
 #   dim_coherence = coherence_sym                         — when available
 #   dim_graph     = avg(verb_coherence, gnn_sim)          — when available
 #   dim_transfer  = avg(attr_reach_sim, entailment_f1)    — when available
@@ -94,7 +97,8 @@ def _row_composite(row: dict) -> float | None:
     Compute 4-dimension composite score for one entity-pair row, mirroring
     compare_stage.py so that ALL available signals contribute.
 
-      dim_lexical   = avg(cosine_avg, wup)
+      dim_lexical   = avg(primary_sim, wup)   [primary_sim falls back to cosine_avg
+                       for merged CSVs generated before primary_sim existed]
       dim_coherence = coherence_sym
       dim_graph     = avg(verb_coherence, gnn_sim)
       dim_transfer  = avg(attr_reach_sim, entailment_f1)
@@ -107,7 +111,6 @@ def _row_composite(row: dict) -> float | None:
         except (TypeError, ValueError):
             return None
 
-    cos = _sf(row.get("cosine_avg"))
     wup = _sf(row.get("wup"))
     coh = _sf(row.get("coherence_sym"))
     vc  = _sf(row.get("verb_coherence"))
@@ -121,8 +124,10 @@ def _row_composite(row: dict) -> float | None:
     def _sfz(v) -> float | None:
         try: return float(v)
         except: return None
-    cos0, wup0 = _sfz(row.get("cosine_avg")), _sfz(row.get("wup"))
-    lex_parts = [v for v in [cos0, wup0] if v is not None]
+    prim = row.get("primary_sim")
+    prim0 = _sfz(prim) if prim not in (None, "") else _sfz(row.get("cosine_avg"))
+    wup0 = _sfz(row.get("wup"))
+    lex_parts = [v for v in [prim0, wup0] if v is not None]
     if lex_parts:
         dims.append(sum(lex_parts) / len(lex_parts))
 
@@ -190,13 +195,15 @@ def declare_entity_matches(
                     try: return float(v)
                     except: return None
                 candidates.append({
-                    "entity_a":   ea,
-                    "entity_b":   eb,
-                    "cosine_avg": _sfz(row.get("cosine_avg")) or 0.0,
-                    "wup":        _sfz(row.get("wup")) or 0.0,
-                    "composite":  comp or 0.0,
-                    "rule":       "matched" if is_matched else "composite",
-                    "_sort_key":  (1 if is_matched else 0, comp or 0.0),
+                    "entity_a":       ea,
+                    "entity_b":       eb,
+                    "cosine_avg":     _sfz(row.get("cosine_avg")) or 0.0,
+                    "type_embed_sim": _sfz(row.get("type_embed_sim")) or 0.0,
+                    "primary_sim":    _sfz(row.get("primary_sim")) or 0.0,
+                    "wup":            _sfz(row.get("wup")) or 0.0,
+                    "composite":      comp or 0.0,
+                    "rule":           "matched" if is_matched else "composite",
+                    "_sort_key":      (1 if is_matched else 0, comp or 0.0),
                 })
 
     candidates.sort(key=lambda x: (-x["_sort_key"][0], -x["_sort_key"][1]))
@@ -931,7 +938,8 @@ if __name__ == "__main__":
         print(f"\nDeclared entity matches ({len(matches)}):")
         for m in matches:
             print(
-                f"  [{m['rule']:8s}  cos={m['cosine_avg']:.3f}  wup={m['wup']:.3f}]"
+                f"  [{m['rule']:8s}  type={m['type_embed_sim']:.3f}  "
+                f"cos={m['cosine_avg']:.3f}  primary={m['primary_sim']:.3f}  wup={m['wup']:.3f}]"
                 f"  {m['entity_a']:<35} <->  {m['entity_b']}"
             )
 

@@ -1,0 +1,25 @@
+{
+  "modelName": "ToyAssoc_Linked",
+  "modelDescription": "Toy model to verify type matching propagates across a genuine (non-composition) association. Same domain as ToyAssoc_Base, but Car's engine-related attributes have been moved to a separate FuelSystem entity, linked to Car via an explicit 'UsedFor' association (not composition/PartOf). Car itself has NO direct attributes, so its entire type-reach must come from the association. Attribute NAMES differ from the base model; attribute TYPES are identical.",
+  "observables": ["Temperature", "Pressure", "Speed"],
+  "entities": [
+    {
+      "entityName": "Car",
+      "entityAttributes": []
+    },
+    {
+      "entityName": "FuelSystem",
+      "entityAttributes": [
+        { "name": "heatLevel",           "type": "Temperature" },
+        { "name": "compressionPressure", "type": "Pressure" },
+        { "name": "rotationSpeed",       "type": "Speed" }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "associationName": "FuelSystemToEngineSupply",
+      "associationParticipants": ["Car", "FuelSystem"]
+    }
+  ]
+}

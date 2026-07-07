@@ -30,17 +30,19 @@ OUT_HTML      = ROOT / "outputs" / "ontology_map.html"
 SUMMARIES_DIR = ROOT / "summaries"
 
 # ── combined metrics ──────────────────────────────────────────────────────────
-# lexical_sim   = max(max(matched, cosine_avg), wup)  — best of string/WUP/embedding
+# lexical_sim   = max(max(matched, primary_sim), wup)  — best of string/WUP/embedding.
+#                 primary_sim is type_embed_sim (attribute-type) when confident,
+#                 else cosine_avg (name) as fallback — see merge_stage.py.
 # coherence_sym = neighbourhood coherence            — standalone (entity-pair level)
 # wl_structural = WL kernel, all nodes anonymous     — local edge-type motifs (pair level)
 # shape_sim     = avg(degree_sim, spectral_sim)      — degree + spectral shape (pair level)
 WUP_THRESHOLD = 0.75  # WUP below this is treated as 0 in lexical_sim
 
 METRICS = [
-    "lexical_sim",    # max(max(matched, cosine_avg), wup≥0.5 else 0)
+    "lexical_sim",    # max(max(matched, primary_sim), wup≥0.75 else 0)
     "wl_structural",  # WL kernel: anonymous nodes, edge types preserved
     "shape_sim",      # global shape: avg(degree_sim, spectral_sim)
-    "attr_weighted",  # attr_dist_sim × avg_entity_wup
+    "attr_weighted",  # attr_dist_sim, unmodified — purely attribute-type-based
 ]
 CONTINUOUS = METRICS  # alias kept for backward compat
 
@@ -128,15 +130,21 @@ def load_pair_metrics(csv_path: Path, n_entities: int | None = None) -> dict:
         nz = [v for v in vals if v is not None]
         return sum(nz) / len(nz) if nz else 0.0
 
+    def _primary(r):
+        """primary_sim (type-embedding, name fallback); cosine_avg for old CSVs
+        generated before primary_sim existed."""
+        v = _g(r, "primary_sim")
+        return v if v is not None else _g(r, "cosine_avg")
+
     lexical_rows = [
         max(
-            max(float(r.get("matched") or 0), _g(r, "cosine_avg") or 0.0),
+            max(float(r.get("matched") or 0), _primary(r) or 0.0),
             (_g(r, "wup") or 0.0) if (_g(r, "wup") or 0.0) >= WUP_THRESHOLD else 0.0,
         )
         for r in rows
     ]
 
-    enriched = any(v is not None for v in [_g(r, "cosine_avg") for r in rows])
+    enriched = any(_primary(r) is not None for r in rows)
 
     # WL metrics are pair-level — load from WL CSV once
     wl        = _load_wl(csv_path)
@@ -145,10 +153,11 @@ def load_pair_metrics(csv_path: Path, n_entities: int | None = None) -> dict:
     ad        = _load_attr_dist(csv_path)
     attr_dist = _parse_float(ad.get("attr_dist_sim")) or 0.0
 
-    # Confidence-weighted attribute similarity: attr_dist × mean entity WUP
-    wup_vals = [_g(r, "wup") for r in rows if _g(r, "wup") is not None]
-    avg_wup  = safe_mean(wup_vals)
-    attr_weighted = round(attr_dist * avg_wup, 4) if attr_dist > 0 and avg_wup > 0 else 0.0
+    # attr_weighted = attr_dist_sim, unmodified. attr_dist_sim is already purely
+    # type-based (K-hop reach + type-name embeddings, see attribute_reach.py) —
+    # it no longer gets scaled by avg entity-name WUP, since that made this
+    # metric depend on entity naming instead of only on attribute types.
+    attr_weighted = round(attr_dist, 4) if attr_dist > 0 else 0.0
 
     if n_entities is not None and n_entities > 0:
         lex = min(sum(v for v in lexical_rows if v is not None) / n_entities, 1.0)

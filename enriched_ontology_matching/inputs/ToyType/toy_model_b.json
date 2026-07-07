@@ -1,0 +1,17 @@
+{
+  "modelName": "ToyModel_B_NamingVariant2",
+  "modelDescription": "Toy model to verify attribute-type-based entity matching. One entity, attribute names deliberately unlike Model A; attribute TYPES deliberately identical to Model A.",
+  "observables": ["Temperature", "Pressure", "Identifier", "Mass"],
+  "entities": [
+    {
+      "entityName": "ReactorUnit",
+      "entityAttributes": [
+        { "name": "heatLevel",   "type": "Temperature" },
+        { "name": "gasPressure", "type": "Pressure" },
+        { "name": "moduleCode",  "type": "Identifier" },
+        { "name": "bulkWeight",  "type": "Mass" }
+      ]
+    }
+  ],
+  "associations": []
+}

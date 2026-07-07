@@ -6,10 +6,13 @@ pipeline.  Mirrors the approach in ontology_matching/synonym_matcher.py
 (paraphrase-MiniLM-L6-v2, L2-normalised embeddings) but adapted for the
 two JSON formats used in enriched_ontology_matching (V-model and Network).
 
-Entity description strategy (name-first, same as synonym_matcher):
-  1. CamelCase-readable entity name  — gets maximum encoder attention
-  2. Association verbs used by the entity  — relational role context
-  3. Direct neighbours in the association graph  — topological context
+Entity representation strategy: an entity's vector is built from the TYPES of
+its declared attributes (e.g. Engine.{oilPressure:Pressure, rpm:AngularVelocity}
+-> ["Pressure", "AngularVelocity"]), not from its own name or its attributes'
+names. Composition references (an attribute whose type is another entity's
+name) are excluded — only genuine observable/datatype types count.
+Entities with zero declared attributes (e.g. bare Net-model nodes) fall back
+to their own CamelCase-split name, since there is no type evidence to use.
 
 API
 ---
@@ -183,16 +186,19 @@ def build_descriptions(data: dict) -> dict[str, str]:
 
 
 # ---------------------------------------------------------------------------
-# Multi-representation embeddings for CamelCase entity names
+# Multi-representation embeddings, sourced from attribute TYPES
 # ---------------------------------------------------------------------------
 #
-# For entity "EngineBlock" (tokens: [engine, block]) we produce three vectors:
+# For entity "Engine" with attribute types [Pressure, AngularVelocity] we
+# produce three vectors:
 #
-#   whole : encode("engine block")               — holistic compound meaning
-#   sum   : normalize(E_engine + E_block)        — additive token composition
-#   prod  : normalize(E_engine ⊙ E_block)        — interactive token composition
+#   whole : encode("pressure angular velocity")        — holistic compound meaning
+#   sum   : normalize(E_pressure + E_angularvelocity)   — additive type composition
+#   prod  : normalize(E_pressure ⊙ E_angularvelocity)   — interactive type composition
 #
-# For single-token names all three are identical.
+# Entities with no declared attribute types fall back to their own
+# CamelCase-split name (same construction, but tokens come from the name).
+# For a single-type/single-token entity all three are identical.
 # Cosine similarity is reported for each representation and as an average.
 # ---------------------------------------------------------------------------
 
@@ -203,30 +209,70 @@ def _l2_norm(v: np.ndarray) -> np.ndarray:
 
 
 class MultiRepEmbedding:
-    """Holds three complementary unit-vector representations of one entity name."""
+    """Holds three complementary unit-vector representations of one entity."""
     __slots__ = ("whole", "sum", "prod", "tokens")
 
     def __init__(self, whole: np.ndarray, sum_: np.ndarray,
                  prod: np.ndarray, tokens: list[str]):
-        self.whole  = whole   # encode(full readable name)
+        self.whole  = whole   # encode(joined readable tokens)
         self.sum    = sum_    # normalized sum of token embeddings
         self.prod   = prod    # normalized element-wise product of token embeddings
-        self.tokens = tokens  # CamelCase tokens used
+        self.tokens = tokens  # attribute-type tokens used (or name tokens, as fallback)
 
 
 def _get_entity_tokens(name: str) -> list[str]:
-    """CamelCase-split, lower-cased, filtering stop tokens."""
+    """CamelCase-split, lower-cased, filtering stop tokens. Name-based fallback
+    for entities with no declared attribute types."""
     raw = [t.lower() for t in split_camel(name)]
     filtered = [t for t in raw if t not in _STOP_TOKENS and len(t) > 1]
     return filtered or raw[:1]  # fallback to at least one token
 
 
+def _get_type_tokens(types: list[str]) -> list[str]:
+    """Readable-ize each attribute type (CamelCase -> spaced, lower-cased) as
+    ONE token per type — types are not split into sub-words the way entity
+    names are, since e.g. "ElectricPotential" is a single concept, not two."""
+    return [_readable(t) for t in types if t]
+
+
+def _attr_type_map(data: dict) -> dict[str, list[str]]:
+    """
+    entity_name -> list of its direct attribute TYPES.
+
+    Excludes attributes whose type is a composition reference to another
+    entity in the same model (e.g. Engine.cylinderBlock: CylinderBlock) —
+    only genuine observable/datatype types count, mirroring
+    attribute_reach.collect_obs_vocab's entity-type exclusion.
+    """
+    entity_names = {
+        e.get("entityName") or e.get("name", "") for e in data.get("entities", [])
+    }
+    entity_names.discard("")
+    result: dict[str, list[str]] = {}
+    for e in data.get("entities", []):
+        name = e.get("entityName") or e.get("name", "")
+        if not name:
+            continue
+        result[name] = [
+            attr.get("type", "")
+            for attr in (e.get("entityAttributes") or e.get("attributes") or [])
+            if attr.get("type") and attr.get("type") not in entity_names
+        ]
+    return result
+
+
 def encode_entities_multi(
     entity_names: list[str],
     model_name: str = DEFAULT_MODEL,
+    attr_types: dict[str, list[str]] | None = None,
 ) -> dict[str, MultiRepEmbedding]:
     """
-    Encode a list of entity names with three representations each.
+    Encode a list of entities with three representations each.
+
+    attr_types, when given, maps entity_name -> its attribute-type list
+    (see _attr_type_map); those types become the tokens embedded for that
+    entity. Entities absent from attr_types, or with an empty type list,
+    fall back to CamelCase-splitting their own name.
 
     All token encodings are batched in a single GPU call for efficiency.
 
@@ -234,16 +280,22 @@ def encode_entities_multi(
     """
     if not entity_names:
         return {}
+    attr_types = attr_types or {}
 
     # Step 1: collect all texts to encode in one batch
-    #   - whole-name texts (one per entity)
+    #   - whole texts (one per entity)
     #   - unique token texts (deduplicated across all entities)
     whole_texts: list[str] = []
     token_sets:  list[list[str]] = []
 
     for name in entity_names:
-        tokens = _get_entity_tokens(name)
-        whole_texts.append(_readable(name))
+        types = attr_types.get(name) or []
+        if types:
+            tokens = _get_type_tokens(types)
+            whole_texts.append(" ".join(tokens))
+        else:
+            tokens = _get_entity_tokens(name)
+            whole_texts.append(_readable(name))
         token_sets.append(tokens)
 
     unique_tokens = list({t for ts in token_sets for t in ts})
@@ -358,10 +410,14 @@ def run_embedding_stage(
     """Read a per-pair enriched CSV, compute multi-representation cosine
     similarities for every row, write augmented rows to out_csv.
 
+    Each entity's vector is built from its attribute TYPES (see
+    _attr_type_map); entities with no declared attributes fall back to their
+    own name.
+
     Parameters
     ----------
     enriched_csv  : per-pair enriched CSV from enriched_matcher.py
-    json_a, json_b : original model JSON files (for entity-name extraction)
+    json_a, json_b : original model JSON files (for entity/attribute extraction)
     out_csv       : output CSV path
 
     Raises FileNotFoundError if enriched_csv, json_a, or json_b do not exist.
@@ -380,11 +436,14 @@ def run_embedding_stage(
     names_a = [n for n in names_a if n]
     names_b = [n for n in names_b if n]
 
-    print(f"[Encoder] Encoding {len(names_a)} entities from A ...")
-    embs_a = encode_entities_multi(names_a, model_name)
+    attr_types_a = _attr_type_map(data_a)
+    attr_types_b = _attr_type_map(data_b)
 
-    print(f"[Encoder] Encoding {len(names_b)} entities from B ...")
-    embs_b = encode_entities_multi(names_b, model_name)
+    print(f"[Encoder] Encoding {len(names_a)} entities from A (by attribute type) ...")
+    embs_a = encode_entities_multi(names_a, model_name, attr_types=attr_types_a)
+
+    print(f"[Encoder] Encoding {len(names_b)} entities from B (by attribute type) ...")
+    embs_b = encode_entities_multi(names_b, model_name, attr_types=attr_types_b)
 
     # Read enriched CSV
     with open(enriched_csv, newline="", encoding="utf-8") as fh:

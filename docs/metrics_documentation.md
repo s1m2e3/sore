@@ -238,14 +238,11 @@ shape_sim = (degree_sim + spectral_sim + clustering_sim + betweenness_sim) / 4
 
 **Source:** `compare_stage.py → load_pair_metrics()`.
 
-Combines `attr_dist_sim` (attribute distribution similarity from §2.4) with the mean entity WUP score as a confidence weight:
-
 ```
-avg_wup       = mean{ wup_r : r in rows, wup_r is non-null }
-attr_weighted = attr_dist_sim × avg_wup
+attr_weighted = attr_dist_sim
 ```
 
-The multiplication by `avg_wup` scales down the attribute similarity score when entity WUP is low — reflecting that the attribute comparison is less meaningful when entity names are semantically unrelated. When `attr_dist_sim = 0` or `avg_wup = 0`, `attr_weighted = 0`.
+`attr_dist_sim` (§2.4) is already purely attribute-type-based (K-hop reach + type-name embeddings — no entity names involved anywhere in its computation). `attr_weighted` is that value unmodified. It previously multiplied by the mean entity WUP score as a "confidence weight," but that made this metric depend on entity *naming* rather than only on attribute *types* — removed so `attr_weighted` measures exactly one thing. When `attr_dist_sim = 0`, `attr_weighted = 0`.
 
 **Range:** [0, 1].
 

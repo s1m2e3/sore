@@ -1,0 +1,16 @@
+{
+  "modelName": "ToyComposition_Base",
+  "modelDescription": "Toy model to verify type matching survives compositional restructuring. Car carries its engine-related attributes directly.",
+  "observables": ["Temperature", "Pressure", "Speed"],
+  "entities": [
+    {
+      "entityName": "Car",
+      "entityAttributes": [
+        { "name": "engineTemp",  "type": "Temperature" },
+        { "name": "oilPressure", "type": "Pressure" },
+        { "name": "topSpeed",    "type": "Speed" }
+      ]
+    }
+  ],
+  "associations": []
+}

@@ -893,7 +893,9 @@ def run_pipeline(
     3. Layer 1: characterise every match with WordNet + ConceptNet.
     4. Layer 2: discover new equivalence / subsumption candidates.
     5. Layer 3: WUP backup — add top-k WUP pairs for any entity still orphaned.
-    6. Write unified CSV.
+    6. Layer 3b: attribute-type backup — add top-k type_embed_sim pairs for any
+       entity WUP also missed (rescues unrelated-name/matching-type entities).
+    7. Write unified CSV.
 
     Returns the path to the output CSV.
     """
@@ -1011,11 +1013,21 @@ def run_pipeline(
     covered_b = {r["entity_b"] for r in layer1_rows + layer2_rows}
     layer3_rows = layer3_wup_backup(entities_a, entities_b, covered_a, covered_b)
 
+    # ── Layer 3b: attribute-TYPE backup for entities WUP also missed ─────────
+    # AML/LogMap/WUP are all name-based candidate generators; entities with
+    # identical attribute types but unrelated names never become a candidate
+    # pair without this layer (see attribute_reach.layer3_type_backup).
+    from attribute_reach import layer3_type_backup
+    covered_a2 = covered_a | {r["entity_a"] for r in layer3_rows}
+    covered_b2 = covered_b | {r["entity_b"] for r in layer3_rows}
+    layer3_type_rows = layer3_type_backup(entities_a, entities_b, covered_a2, covered_b2,
+                                          json_a, json_b)
+
     # ── Write CSV ────────────────────────────────────────────────────────────
     from logmap_runner import _safe_local
     stem   = f"{_safe_local(name_a)}_vs_{_safe_local(name_b)}"
     out    = _DIR / "outputs" / "enriched" / f"{stem}.csv"
-    all_rows = layer1_rows + layer2_rows + layer3_rows
+    all_rows = layer1_rows + layer2_rows + layer3_rows + layer3_type_rows
     write_csv(all_rows, out)
 
     return out

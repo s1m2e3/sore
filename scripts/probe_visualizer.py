@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-scripts/probe_visualizer.py  (v2)
+scripts/probe_visualizer.py  (v3)
 ==================================
 Generate:
   docs/probe_visualizations.pdf  — 4 pages, one per series
@@ -10,16 +10,28 @@ Nodes are drawn as text-sized rounded boxes (not fixed-size circles).
 Below each node a yellow attribute box lists its observable types.
 Inter-column arrows are anchored to actual axes positions after layout.
 
+Metrics displayed are the REAL pipeline metrics — lexical_sim, wl_structural,
+shape_sim, attr_weighted, composite — computed by running each probe pair
+through the actual enriched_ontology_matching pipeline (the same modules
+run_all_pairs.py uses): enriched_matcher.py (AML + LogMap + WordNet +
+ConceptNet + Layer3/Layer3-Type backup), semantic_encoder.py (attribute-TYPE
+cosine similarity), attribute_reach.py (K-hop attribute-type reach embedding),
+merge_stage.py (type-primary/name-fallback blend), wl_kernel_matcher.py
+(edge-aware WL kernel + graph shape), and compare_stage.py (top-level metric
+assembly). There is no separate/simplified reimplementation of these metrics
+in this file anymore — v2 had one (wl_sim/shape_sim/lexical_sim/attr_sim,
+hand-rolled and silently divergent from the real pipeline); it's gone.
+
 Usage:  python scripts/probe_visualizer.py
 """
 from __future__ import annotations
 
-import json, math, sys
-from collections import Counter, deque, defaultdict
+import json
+import math
+import sys
 from pathlib import Path
 
 try:
-    import numpy as np
     import networkx as nx
     import matplotlib
     matplotlib.use("Agg")
@@ -29,11 +41,21 @@ try:
     import matplotlib.patches as mpatches
     import matplotlib.text as mtext
 except ImportError as exc:
-    sys.exit(f"Missing dependency: {exc}\n  pip install numpy networkx matplotlib")
+    sys.exit(f"Missing dependency: {exc}\n  pip install networkx matplotlib")
 
 REPO  = Path(__file__).resolve().parent.parent
-PAIRS = REPO / "enriched_ontology_matching" / "pairs"
+EOM   = REPO / "enriched_ontology_matching"
+PAIRS = EOM / "pairs"
 OUT_PDF = REPO / "docs" / "probe_visualizations.pdf"
+
+sys.path.insert(0, str(EOM))
+from logmap_runner import _safe_local                       # noqa: E402
+from enriched_matcher import run_pipeline                   # noqa: E402
+from semantic_encoder import run_embedding_stage             # noqa: E402
+from attribute_reach import run_type_embed_stage, run_attr_dist_stage  # noqa: E402
+from merge_stage import merge_pair                            # noqa: E402
+from wl_kernel_matcher import run_wl_stage                    # noqa: E402
+from compare_stage import load_pair_metrics                   # noqa: E402
 
 # ── Series definitions ─────────────────────────────────────────────────────────
 SERIES = [
@@ -103,7 +125,7 @@ SERIES = [
     ),
 ]
 
-# ── Graph construction ─────────────────────────────────────────────────────────
+# ── Graph construction (visual only — not part of any metric) ─────────────────
 def build_graph(model: dict) -> nx.DiGraph:
     G = nx.DiGraph()
     enames = {e["entityName"] for e in model["entities"]}
@@ -115,17 +137,19 @@ def build_graph(model: dict) -> nx.DiGraph:
             if t in enames and t != e["entityName"] and not G.has_edge(e["entityName"], t):
                 G.add_edge(e["entityName"], t, kind="comp")
     for assoc in model.get("associations", []):
-        pp = assoc["associationParticipants"]
+        # Standard schema (matches model_normalizer.py / attribute_reach.py /
+        # every real domain JSON): associationParticipants is a plain list of
+        # entity-name strings, not role-tagged dicts.
+        pp = assoc.get("associationParticipants") or assoc.get("participants") or []
         if len(pp) < 2:
             continue
-        src = next((p["entityName"] for p in pp if p.get("participantRole") == "source"), pp[0]["entityName"])
-        tgt = next((p["entityName"] for p in pp if p.get("participantRole") == "target"), pp[1]["entityName"])
+        src, tgt = pp[0], pp[1]
         if src != tgt and not G.has_edge(src, tgt):
-            G.add_edge(src, tgt, kind="assoc", name=assoc["associationName"])
+            G.add_edge(src, tgt, kind="assoc", name=assoc.get("associationName") or assoc.get("name", "assoc"))
     return G
 
 
-# ── Layouts ────────────────────────────────────────────────────────────────────
+# ── Layouts (visual only) ───────────────────────────────────────────────────────
 def tree_layout(G: nx.DiGraph, h_gap: float = 3.0, v_gap: float = 3.2) -> dict[str, tuple[float, float]]:
     """Reingold-Tilford style: each leaf gets 1 slot; parents span their subtree."""
     roots = [n for n in G.nodes() if G.in_degree(n) == 0] or list(G.nodes())[:1]
@@ -172,69 +196,70 @@ def ring_layout(node_list: list[str], radius: float = 2.0) -> dict[str, tuple[fl
     }
 
 
-# ── Metrics ────────────────────────────────────────────────────────────────────
-def wl_sim(G1: nx.DiGraph, G2: nx.DiGraph, h: int = 3) -> float:
-    def fv(G):
-        lbl = {n: str(G.degree(n)) for n in G.nodes()}
-        cs = []
-        for _ in range(h + 1):
-            cs.append(Counter(lbl.values()))
-            nw = {}
-            for n in G.nodes():
-                nb = sorted(lbl[x] for x in list(G.predecessors(n)) + list(G.successors(n)))
-                nw[n] = str(hash((lbl[n], tuple(nb))) % 10**9)
-            lbl = nw
-        return cs
-    c1, c2 = fv(G1), fv(G2)
-    ks = sorted({k for c in c1 + c2 for k in c})
-    a = np.array([sum(c.get(k, 0) for c in c1) for k in ks], dtype=float)
-    b = np.array([sum(c.get(k, 0) for c in c2) for k in ks], dtype=float)
-    na, nb = np.linalg.norm(a), np.linalg.norm(b)
-    return float(np.dot(a, b) / (na * nb)) if na and nb else 0.0
+# ── Real pipeline metrics ───────────────────────────────────────────────────────
+# Runs each probe pair through the actual production pipeline (same modules
+# run_all_pairs.py uses) and reads back lexical_sim / wl_structural /
+# shape_sim / attr_weighted / composite via compare_stage.load_pair_metrics().
+# Cached per pair-file so re-rendering a page doesn't re-run AML/LogMap/etc.
+
+_METRICS_CACHE: dict[str, dict] = {}
 
 
-def shape_sim(G1: nx.DiGraph, G2: nx.DiGraph) -> float:
-    def sg(G):
-        U = G.to_undirected()
-        if len(U) < 2: return 0.0
-        ev = np.sort(np.linalg.eigvalsh(nx.laplacian_matrix(U).toarray().astype(float)))
-        return float(ev[1]) if len(ev) > 1 else 0.0
-    def dv(G):
-        return sorted(d for _, d in G.degree())
-    d1, d2 = dv(G1), dv(G2)
-    ml = max(len(d1), len(d2))
-    d1 += [0] * (ml - len(d1)); d2 += [0] * (ml - len(d2))
-    denom = sum(max(a, b) for a, b in zip(d1, d2)) or 1.0
-    dsim = 1.0 - sum(abs(a - b) for a, b in zip(d1, d2)) / (2.0 * denom)
-    m = max(sg(G1), sg(G2), 1e-9)
-    return (dsim + 1.0 - abs(sg(G1) - sg(G2)) / m) / 2.0
+def compute_real_metrics(pair_path: Path) -> dict:
+    key = pair_path.stem
+    if key in _METRICS_CACHE:
+        return _METRICS_CACHE[key]
+
+    pair   = json.loads(pair_path.read_text(encoding="utf-8"))
+    data_a = pair["json_a"]
+    data_b = pair["json_b"]
+    name_a = data_a.get("modelName", "A")
+    name_b = data_b.get("modelName", "B")
+    stem   = f"{_safe_local(name_a)}_vs_{_safe_local(name_b)}"
+
+    out_dir      = EOM / "outputs"
+    enriched_dir = out_dir / "enriched"
+    emb_dir      = out_dir / "embeddings"
+    type_dir     = out_dir / "type_embed"
+    merged_dir   = out_dir / "merged"
+    wl_dir       = out_dir / "wl"
+    ad_dir       = out_dir / "attr_dist"
+    for d in (enriched_dir, emb_dir, type_dir, merged_dir, wl_dir, ad_dir):
+        d.mkdir(parents=True, exist_ok=True)
+
+    # semantic_encoder / attribute_reach need json_a/json_b as standalone files
+    json_a_path = PAIRS / f"{stem}__a.json"
+    json_b_path = PAIRS / f"{stem}__b.json"
+    json_a_path.write_text(json.dumps(data_a), encoding="utf-8")
+    json_b_path.write_text(json.dumps(data_b), encoding="utf-8")
+
+    print(f"  [Pipeline] {stem} ...", file=sys.stderr)
+    enriched_csv = run_pipeline(pair_path, use_aml=True, use_logmap=True)
+
+    emb_csv  = emb_dir  / f"{stem}_emb.csv"
+    type_csv = type_dir / f"{stem}_type_emb.csv"
+    run_embedding_stage(enriched_csv, json_a_path, json_b_path, emb_csv)
+    run_type_embed_stage(enriched_csv, json_a_path, json_b_path, type_csv)
+
+    merged_csv = merged_dir / f"{stem}_metrics.csv"
+    merge_pair(enriched_csv=enriched_csv, emb_csv=emb_csv, type_csv=type_csv, out_csv=merged_csv)
+
+    wl_csv = wl_dir / f"{stem}_metrics_wl.csv"
+    run_wl_stage(data_a, data_b, merged_csv, wl_csv)
+
+    ad_csv = ad_dir / f"{stem}_metrics_attr_dist.csv"
+    run_attr_dist_stage(data_a, data_b, ad_csv)
+
+    metrics = load_pair_metrics(merged_csv)
+    available = [metrics[m] for m in ("lexical_sim", "wl_structural", "shape_sim", "attr_weighted")
+                 if metrics.get(m, 0) > 0]
+    metrics["composite"] = sum(available) / len(available) if available else 0.0
+
+    _METRICS_CACHE[key] = metrics
+    return metrics
 
 
-def lexical_sim(ma, mb) -> float:
-    na = {e["entityName"] for e in ma["entities"]}
-    nb = {e["entityName"] for e in mb["entities"]}
-    return len(na & nb) / len(na | nb) if (na | nb) else 1.0
-
-
-def attr_sim(ma, mb) -> float:
-    def obs(m):
-        en = {e["entityName"] for e in m["entities"]}
-        return Counter(a["type"] for e in m["entities"]
-                       for a in e.get("entityAttributes", []) if a["type"] not in en)
-    ca, cb = obs(ma), obs(mb)
-    keys = set(ca) | set(cb)
-    return (sum(min(ca.get(k, 0), cb.get(k, 0)) for k in keys) /
-            sum(max(ca.get(k, 0), cb.get(k, 0)) for k in keys)) if keys else 1.0
-
-
-def compute_metrics(ma, mb) -> dict:
-    Ga, Gb = build_graph(ma), build_graph(mb)
-    lex, wl, sh, att = lexical_sim(ma, mb), wl_sim(Ga, Gb), shape_sim(Ga, Gb), attr_sim(ma, mb)
-    dist = math.sqrt(((1-lex)**2 + (1-wl)**2 + (1-sh)**2 + (1-att)**2) / 4)
-    return dict(lex=lex, wl=wl, sh=sh, att=att, dist=dist)
-
-
-# ── Step-delta: what changed from the previous variant ────────────────────────
+# ── Step-delta: what changed from the previous variant (visual only) ──────────
 def compute_delta(prev_model: dict, curr_model: dict) -> dict:
     """Diff curr against prev. Returns changed nodes, attr types, and edge sets."""
     prev_names = {e["entityName"] for e in prev_model["entities"]}
@@ -468,20 +493,20 @@ def _draw_graph(
 def _metric_text(m: dict | None) -> str:
     if m is None:
         return (
-            " lexical :  1.00\n"
-            " wl_strct:  1.00\n"
-            " shape   :  1.00\n"
-            " attr    :  1.00\n"
+            " lexical  :  1.00\n"
+            " wl_struct:  1.00\n"
+            " shape    :  1.00\n"
+            " attr_wtd :  1.00\n"
             "-----------------\n"
-            " dist    :  0.00"
+            " composite:  1.00"
         )
     return (
-        f" lexical :  {m['lex']:.2f}\n"
-        f" wl_strct:  {m['wl']:.2f}\n"
-        f" shape   :  {m['sh']:.2f}\n"
-        f" attr    :  {m['att']:.2f}\n"
+        f" lexical  :  {m['lexical_sim']:.2f}\n"
+        f" wl_struct:  {m['wl_structural']:.2f}\n"
+        f" shape    :  {m['shape_sim']:.2f}\n"
+        f" attr_wtd :  {m['attr_weighted']:.2f}\n"
         f"-----------------\n"
-        f" dist    :  {m['dist']:.2f}"
+        f" composite:  {m['composite']:.2f}"
     )
 
 
@@ -539,7 +564,7 @@ def _render_page(series: dict) -> plt.Figure:
             with open(PAIRS / fname) as f:
                 pair = json.load(f)
             model   = pair["json_b"]
-            metrics = compute_metrics(pair["json_a"], pair["json_b"])
+            metrics = compute_real_metrics(PAIRS / fname)
             delta   = compute_delta(prev_model, model) if prev_model else None
 
         _draw_graph(ax_g, model, is_base, use_ring, fixed_pos,
@@ -594,8 +619,9 @@ def _add_footnote(fig: plt.Figure) -> None:
         "Node: green = baseline, blue = variant  |  "
         "Edge: dark = composition, red = association  |  "
         "Yellow box = observable attribute types  |  "
-        "Metrics: lexical=Jaccard(names), wl_struct=WL-kernel, "
-        "shape=avg(deg-sim,spectral), attr=Jaccard(obs-types)",
+        "Metrics: REAL pipeline output (enriched_matcher + semantic_encoder + "
+        "attribute_reach + wl_kernel_matcher + compare_stage) — "
+        "lexical_sim, wl_structural, shape_sim, attr_weighted, composite",
         ha="center", va="bottom", fontsize=6.5, color="#666666", style="italic",
     )
 
