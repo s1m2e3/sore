@@ -59,17 +59,12 @@ _REPO_ROOT  = _DIR.parent
 _INVENTORY  = _DIR / "association_inventory.csv"
 
 # ── Thresholds ────────────────────────────────────────────────────────────────
-# Match declaration uses a 4-dimension composite score mirroring compare_stage.py,
-# applied at the entity-pair level.  This ensures ALL available signals are used:
+# Match declaration uses a composite score computed at the entity-pair level:
 #
-#   dim_lexical   = avg(primary_sim, wup)                 — always present.
-#                   primary_sim is type_embed_sim (attribute-type embedding
-#                   similarity) when confident, else cosine_avg (name-based)
-#                   as fallback — see merge_stage.TYPE_FALLBACK_THRESHOLD.
-#   dim_coherence = coherence_sym                         — when available
-#   dim_graph     = avg(verb_coherence, gnn_sim)          — when available
-#   dim_transfer  = avg(attr_reach_sim, entailment_f1)    — when available
-#   composite     = mean of available dimensions
+#   composite = avg(primary_sim, wup)   — primary_sim is type_embed_sim
+#               (attribute-type embedding similarity) when confident, else
+#               cosine_avg (name-based) as fallback — see
+#               merge_stage.TYPE_FALLBACK_THRESHOLD.
 #
 # Match sources (priority order):
 #   1. matched=1  (AML + LogMap)     — always kept regardless of composite
@@ -94,58 +89,22 @@ def _load_canonical_map(path: Path = _INVENTORY) -> dict[str, str]:
 
 def _row_composite(row: dict) -> float | None:
     """
-    Compute 4-dimension composite score for one entity-pair row, mirroring
-    compare_stage.py so that ALL available signals contribute.
-
-      dim_lexical   = avg(primary_sim, wup)   [primary_sim falls back to cosine_avg
-                       for merged CSVs generated before primary_sim existed]
-      dim_coherence = coherence_sym
-      dim_graph     = avg(verb_coherence, gnn_sim)
-      dim_transfer  = avg(attr_reach_sim, entailment_f1)
-      composite     = mean of available dimensions
+    Composite score for one entity-pair row: avg(primary_sim, wup).
+    primary_sim falls back to cosine_avg for merged CSVs generated before
+    primary_sim existed.
     """
-    def _sf(v) -> float | None:
+    def _sfz(v) -> float | None:
         try:
-            f = float(v)
-            return f if f > 0 else None
+            return float(v)
         except (TypeError, ValueError):
             return None
 
-    wup = _sf(row.get("wup"))
-    coh = _sf(row.get("coherence_sym"))
-    vc  = _sf(row.get("verb_coherence"))
-    gnn = _sf(row.get("gnn_sim"))
-    ar  = _sf(row.get("attr_reach_sim"))
-    ef  = _sf(row.get("entailment_f1"))
-
-    dims: list[float] = []
-
-    # dim 1: lexical — always use raw values (include 0)
-    def _sfz(v) -> float | None:
-        try: return float(v)
-        except: return None
     prim = row.get("primary_sim")
     prim0 = _sfz(prim) if prim not in (None, "") else _sfz(row.get("cosine_avg"))
     wup0 = _sfz(row.get("wup"))
     lex_parts = [v for v in [prim0, wup0] if v is not None]
-    if lex_parts:
-        dims.append(sum(lex_parts) / len(lex_parts))
 
-    # dim 2: neighbourhood coherence
-    if coh is not None:
-        dims.append(coh)
-
-    # dim 3: graph structure
-    graph_parts = [v for v in [vc, gnn] if v is not None]
-    if graph_parts:
-        dims.append(sum(graph_parts) / len(graph_parts))
-
-    # dim 4: transfer / attribute reach
-    transfer_parts = [v for v in [ar, ef] if v is not None]
-    if transfer_parts:
-        dims.append(sum(transfer_parts) / len(transfer_parts))
-
-    return sum(dims) / len(dims) if dims else None
+    return sum(lex_parts) / len(lex_parts) if lex_parts else None
 
 
 def declare_entity_matches(

@@ -42,32 +42,33 @@ Tier 2 — Name-based imputation (Net-model fallback)
 
 Similarity
 ----------
-Weighted Jaccard between two reach signatures (continuous [0, 1]):
-    sim(A, B) = Σ min(w_a, w_b) / Σ max(w_a, w_b)  for all observable types
+Embedding-based cosine similarity between two entities' weighted reach
+vectors (continuous [0, 1]), see type_embed_similarity(). Unlike an exact
+string-match Jaccard, this captures near-synonym types (Power vs HorsePower)
+via embedding distance.
 
 This degrades gracefully: when both sides have rich signatures the score is
 informative; when one side is imputation-only the weights are lower (0.3×),
 dragging the score down — correctly reflecting lower evidential confidence.
 
-Usage (standalone)
-------------------
-    python enriched_ontology_matching/attribute_reach.py \\
-        --pair enriched_ontology_matching/pairs/auto_V1_vs_brew_Net1.json \\
-        --matches-csv enriched_ontology_matching/outputs/enriched/auto_V1_vs_brew_Net1.csv \\
-        --hops 2
-
 Usage (from other modules)
 --------------------------
-    from attribute_reach import attribute_reach, attribute_reach_similarity, collect_obs_vocab
+    from attribute_reach import attribute_reach, type_embed_similarity, collect_obs_vocab, _embed_vocab
 
     vocab  = collect_obs_vocab(data_a, data_b)
     reach_a = attribute_reach(data_a, obs_vocab=vocab, K=2)
     reach_b = attribute_reach(data_b, obs_vocab=vocab, K=2)
-    sim = attribute_reach_similarity("Engine", "Motor", reach_a, reach_b)
+    type_emb_map, dim = _embed_vocab(vocab)
+    sim = type_embed_similarity("Engine", "Motor", reach_a, reach_b, type_emb_map, dim)
+
+Pipeline integration (called from run_all_pairs.py / enriched_matcher.py):
+    run_type_embed_stage(enriched_csv, json_a, json_b, out_csv)   — per-entity-pair type_embed_sim
+    run_attr_dist_stage(data_a, data_b, out_csv)                  — whole-model attr_dist_sim
+    layer3_type_backup(entities_a, entities_b, covered_a, covered_b, json_a, json_b)
+        — candidate-generation backup for entities with matching types but unrelated names
 """
 from __future__ import annotations
 
-import argparse
 import csv
 import json
 import re
@@ -180,9 +181,8 @@ def type_embed_similarity(
     their weighted attribute-type embedding vectors (direct + K-hop reach +
     name-imputed for attribute-less Net-model entities).
 
-    Unlike attribute_reach_similarity (exact string-match weighted Jaccard),
-    this captures near-synonym types (e.g. Power vs HorsePower) via embedding
-    distance.
+    Unlike an exact string-match weighted Jaccard, this captures near-synonym
+    types (e.g. Power vs HorsePower) via embedding distance.
 
     Returns None when either entity has no observable-type evidence at all
     (zero vector) — the caller should fall back to a different signal (e.g.
@@ -553,129 +553,6 @@ def attribute_reach(
     return reach
 
 
-# ── Similarity ────────────────────────────────────────────────────────────────
-
-def attribute_reach_similarity(
-    ea:      str,
-    eb:      str,
-    reach_a: dict[str, dict[str, float]],
-    reach_b: dict[str, dict[str, float]],
-) -> float:
-    """
-    Weighted Jaccard similarity between the attribute reach signatures of ea and eb.
-
-    sim = Σ min(w_a, w_b) / Σ max(w_a, w_b)  for all observable types.
-
-    Returns 0.0 when both signatures are empty (metric not applicable).
-    The caller can detect this case by checking that both reach vectors are {}.
-    """
-    sig_a = reach_a.get(ea, {})
-    sig_b = reach_b.get(eb, {})
-
-    if not sig_a and not sig_b:
-        return 0.0
-
-    all_types  = set(sig_a) | set(sig_b)
-    numerator  = sum(min(sig_a.get(t, 0.0), sig_b.get(t, 0.0)) for t in all_types)
-    denominator = sum(max(sig_a.get(t, 0.0), sig_b.get(t, 0.0)) for t in all_types)
-
-    return round(numerator / denominator, 4) if denominator > 0 else 0.0
-
-
-# ── Standalone analysis ───────────────────────────────────────────────────────
-
-def run_analysis(
-    pair_json:   Path | str,
-    matches_csv: Path | str | None = None,
-    K:           int  = 2,
-    out_csv:     Path | str | None = None,
-) -> list[dict]:
-    """
-    Compute attribute-reach similarity for all matched entity pairs in a comparison JSON.
-
-    Parameters
-    ----------
-    pair_json   : path to a {json_a, json_b} pair file.
-    matches_csv : pre-computed enriched CSV with entity_a / entity_b columns.
-                  If None, all entity cross-products are evaluated.
-    K           : hop depth (1 or 2).
-    out_csv     : optional path to write results.
-
-    Returns list of dicts with keys:
-        entity_a, entity_b, attr_reach_sim,
-        n_obs_a (direct), n_obs_b (direct),
-        n_reach_a (total reach), n_reach_b (total reach),
-        imputed_a (bool), imputed_b (bool)
-    """
-    p = Path(pair_json)
-    combined = json.loads(p.read_text(encoding="utf-8"))
-    raw_a    = combined.get("json_a", combined)
-    raw_b    = combined.get("json_b", {})
-    name_a   = raw_a.get("modelName", p.stem + "_a")
-    name_b   = raw_b.get("modelName", p.stem + "_b")
-
-    inv    = load_inventory()
-    data_a = normalize_model(raw_a, inv)
-    data_b = normalize_model(raw_b, inv)
-
-    vocab = collect_obs_vocab(data_a, data_b)
-    print(f"[AttrReach] Shared observable vocabulary: {len(vocab)} types", file=sys.stderr)
-    print(f"[AttrReach] Computing {K}-hop reach for '{name_a}' ...", file=sys.stderr)
-    reach_a = attribute_reach(data_a, vocab, K=K)
-    print(f"[AttrReach] Computing {K}-hop reach for '{name_b}' ...", file=sys.stderr)
-    reach_b = attribute_reach(data_b, vocab, K=K)
-
-    # Determine entity pairs to score
-    if matches_csv and Path(matches_csv).exists():
-        with open(matches_csv, newline="", encoding="utf-8") as fh:
-            pairs = [(r["entity_a"], r["entity_b"]) for r in csv.DictReader(fh)]
-        print(f"[AttrReach] Scoring {len(pairs)} matched pairs from CSV.", file=sys.stderr)
-    else:
-        ents_a = [e.get("entityName") or e.get("name", "")
-                  for e in data_a.get("entities", []) if e.get("entityName") or e.get("name")]
-        ents_b = [e.get("entityName") or e.get("name", "")
-                  for e in data_b.get("entities", []) if e.get("entityName") or e.get("name")]
-        pairs = [(ea, eb) for ea in ents_a for eb in ents_b]
-        print(f"[AttrReach] Scoring all {len(pairs)} cross-product pairs.", file=sys.stderr)
-
-    # Collect direct-attribute counts for diagnostics
-    entity_names_a = {
-        e.get("entityName") or e.get("name", "")
-        for e in data_a.get("entities", [])
-    }
-    entity_names_a.discard("")
-    direct_a = _direct_attrs(data_a, entity_names_a)
-
-    entity_names_b = {
-        e.get("entityName") or e.get("name", "")
-        for e in data_b.get("entities", [])
-    }
-    entity_names_b.discard("")
-    direct_b = _direct_attrs(data_b, entity_names_b)
-
-    results = []
-    for ea, eb in pairs:
-        sim = attribute_reach_similarity(ea, eb, reach_a, reach_b)
-        results.append({
-            "entity_a":       ea,
-            "entity_b":       eb,
-            "attr_reach_sim": sim,
-            "n_obs_a":        len(direct_a.get(ea, {})),
-            "n_obs_b":        len(direct_b.get(eb, {})),
-            "n_reach_a":      len(reach_a.get(ea, {})),
-            "n_reach_b":      len(reach_b.get(eb, {})),
-            "imputed_a":      len(direct_a.get(ea, {})) == 0 and len(reach_a.get(ea, {})) > 0,
-            "imputed_b":      len(direct_b.get(eb, {})) == 0 and len(reach_b.get(eb, {})) > 0,
-        })
-
-    results.sort(key=lambda r: -r["attr_reach_sim"])
-
-    if out_csv:
-        _write_csv(results, Path(out_csv))
-
-    return results
-
-
 # ── Anonymous attribute reach distribution stage ─────────────────────────────
 
 def run_attr_dist_stage(
@@ -742,165 +619,3 @@ def run_attr_dist_stage(
     print(f"[AttrDist] attr_dist_sim={sim:.4f}  vocab={len(vocab)}  "
           f"entities_a={len(reach_a)}  entities_b={len(reach_b)}", file=sys.stderr)
     return sim
-
-
-# ── WUP-based anonymous attribute reach distribution ─────────────────────────
-
-def run_attr_wup_stage(
-    data_a: dict,
-    data_b: dict,
-    out_csv: Path,
-    K: int = 2,
-) -> float:
-    """
-    WUP-based anonymous attribute reach distribution similarity.
-
-    Replaces BERT embedding cosine with WordNet Wu-Palmer similarity so that
-    semantically distinct observable types (Power vs BloodPressure) score near
-    zero while genuinely related types (Power vs HorsePower) get partial credit.
-
-    Algorithm:
-      1. Collect union observable-type vocab from both normalized models.
-      2. Compute K-hop BFS reach for all entities in each model (imputation off).
-      3. Aggregate total reach weight per observable type → freq_A, freq_B.
-      4. For each type_a: best_wup = max WUP against all types in vocab_B.
-         Weighted soft recall A→B = Σ freq_A[t] × best_wup(t) / Σ freq_A[t]
-      5. Same symmetrically B→A.
-      6. attr_wup_sim = (recall_A→B + recall_B→A) / 2.
-
-    Returns 0.0 when neither model has observable types.
-    """
-    from root_comparator import best_wup as _best_wup
-
-    inv    = load_inventory()
-    norm_a = normalize_model(data_a, inv)
-    norm_b = normalize_model(data_b, inv)
-
-    vocab = collect_obs_vocab(norm_a, norm_b)
-    if not vocab:
-        out_csv.parent.mkdir(parents=True, exist_ok=True)
-        with open(out_csv, "w", newline="", encoding="utf-8") as fh:
-            w = csv.DictWriter(fh, fieldnames=["attr_wup_sim"])
-            w.writeheader(); w.writerow({"attr_wup_sim": 0.0})
-        return 0.0
-
-    reach_a = attribute_reach(norm_a, vocab, K=K, impute_threshold=1.1)
-    reach_b = attribute_reach(norm_b, vocab, K=K, impute_threshold=1.1)
-
-    # Aggregate total reach weight per observable type (anonymous — entity names dropped)
-    def _freq(reach: dict) -> dict[str, float]:
-        f: dict[str, float] = {}
-        for sig in reach.values():
-            for t, w in sig.items():
-                f[t] = f.get(t, 0.0) + w
-        return f
-
-    freq_a = _freq(reach_a)
-    freq_b = _freq(reach_b)
-
-    if not freq_a or not freq_b:
-        sim = 0.0
-    else:
-        vocab_a = list(freq_a.keys())
-        vocab_b = list(freq_b.keys())
-
-        # Precompute WUP matrix between all type pairs (vocab small: ~10-60 types)
-        wup_cache: dict[tuple[str, str], float] = {}
-        for ta in vocab_a:
-            for tb in vocab_b:
-                key = (ta.lower(), tb.lower())
-                if key not in wup_cache:
-                    if ta.lower() == tb.lower():
-                        wup_cache[key] = 1.0
-                    else:
-                        wup_cache[key] = _best_wup(ta.lower(), tb.lower())[0]
-
-        # Weighted soft recall A→B
-        total_a = sum(freq_a.values())
-        recall_ab = sum(
-            freq_a[ta] * max((wup_cache.get((ta.lower(), tb.lower()), 0.0) for tb in vocab_b), default=0.0)
-            for ta in vocab_a
-        ) / total_a if total_a > 0 else 0.0
-
-        # Weighted soft recall B→A
-        total_b = sum(freq_b.values())
-        recall_ba = sum(
-            freq_b[tb] * max((wup_cache.get((ta.lower(), tb.lower()), 0.0) for ta in vocab_a), default=0.0)
-            for tb in vocab_b
-        ) / total_b if total_b > 0 else 0.0
-
-        sim = round((recall_ab + recall_ba) / 2, 4)
-
-    out_csv.parent.mkdir(parents=True, exist_ok=True)
-    with open(out_csv, "w", newline="", encoding="utf-8") as fh:
-        w = csv.DictWriter(fh, fieldnames=["attr_wup_sim"])
-        w.writeheader(); w.writerow({"attr_wup_sim": sim})
-
-    print(f"[AttrWUP] attr_wup_sim={sim:.4f}  vocab_a={len(freq_a)}  vocab_b={len(freq_b)}",
-          file=sys.stderr)
-    return sim
-
-
-# ── Output helpers ────────────────────────────────────────────────────────────
-
-_CSV_FIELDS = [
-    "entity_a", "entity_b", "attr_reach_sim",
-    "n_obs_a", "n_obs_b", "n_reach_a", "n_reach_b",
-    "imputed_a", "imputed_b",
-]
-
-
-def _write_csv(results: list[dict], path: Path) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", newline="", encoding="utf-8") as fh:
-        w = csv.DictWriter(fh, fieldnames=_CSV_FIELDS, extrasaction="ignore")
-        w.writeheader()
-        w.writerows(results)
-    print(f"[AttrReach] Written {len(results)} rows → {path}", file=sys.stderr)
-
-
-def _print_results(results: list[dict], top_n: int = 30) -> None:
-    w = 30
-    print(f"\n{'Entity A':<{w}} {'Entity B':<{w}} {'Sim':>6}  "
-          f"{'ObsA':>5} {'ReachA':>7}  {'ObsB':>5} {'ReachB':>7}  Imputed")
-    print("-" * 105)
-    for r in results[:top_n]:
-        imp = ("A" if r["imputed_a"] else "") + ("B" if r["imputed_b"] else "")
-        print(
-            f"{r['entity_a']:<{w}} {r['entity_b']:<{w}} "
-            f"{r['attr_reach_sim']:>6.4f}  "
-            f"{r['n_obs_a']:>5} {r['n_reach_a']:>7}  "
-            f"{r['n_obs_b']:>5} {r['n_reach_b']:>7}  {imp}"
-        )
-
-
-# ── CLI ───────────────────────────────────────────────────────────────────────
-
-if __name__ == "__main__":
-    ap = argparse.ArgumentParser(
-        description=(
-            "Attribute-reach similarity: entity similarity via typed observable "
-            "attributes propagated through structural associations (K hops). "
-            "Handles V-models (explicit attributes) and Net-models (no attributes) "
-            "via name-based imputation for empty reach vectors."
-        )
-    )
-    ap.add_argument("--pair",        required=True,
-                    help="Path to pair JSON with json_a / json_b keys.")
-    ap.add_argument("--matches-csv", default=None,
-                    help="Pre-computed enriched CSV; if omitted all pairs are scored.")
-    ap.add_argument("--hops",        type=int, default=2,
-                    help="Maximum hop depth (default: 2).")
-    ap.add_argument("--out-csv",     default=None,
-                    help="Output CSV path.")
-    ap.add_argument("--top",         type=int, default=30,
-                    help="Rows to print (default: 30).")
-    args = ap.parse_args()
-
-    results = run_analysis(
-        pair_json   = args.pair,
-        matches_csv = args.matches_csv,
-        K           = args.hops,
-        out_csv     = args.out_csv,
-    )
-    _print_results(results, top_n=args.top)

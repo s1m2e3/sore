@@ -33,9 +33,9 @@ SUMMARIES_DIR = ROOT / "summaries"
 # lexical_sim   = max(max(matched, primary_sim), wup)  — best of string/WUP/embedding.
 #                 primary_sim is type_embed_sim (attribute-type) when confident,
 #                 else cosine_avg (name) as fallback — see merge_stage.py.
-# coherence_sym = neighbourhood coherence            — standalone (entity-pair level)
 # wl_structural = WL kernel, all nodes anonymous     — local edge-type motifs (pair level)
 # shape_sim     = avg(degree_sim, spectral_sim)      — degree + spectral shape (pair level)
+# attr_weighted = attr_dist_sim, unmodified          — purely attribute-type-based (pair level)
 WUP_THRESHOLD = 0.75  # WUP below this is treated as 0 in lexical_sim
 
 METRICS = [
@@ -654,8 +654,7 @@ def build_html(onts, coords, pair_data, available_jsons, stress: float,
             f"<b>{short_name(a)}</b> — <b>{short_name(b)}</b><br>"
             f"Weighted composite: <b>{comp:.3f}</b><br>"
             f"lexical {metrics['lexical_sim']:.3f} (w={fr.get('lexical_sim',1):.2f})  "
-            f"coherence {metrics['coherence_sym']:.3f} (w={fr.get('coherence_sym',1):.2f})<br>"
-            f"wl_structural {metrics['wl_structural']:.3f} (w={fr.get('wl_structural',1):.2f})  "
+            f"wl_structural {metrics['wl_structural']:.3f} (w={fr.get('wl_structural',1):.2f})<br>"
             f"shape {metrics['shape_sim']:.3f} (w={fr.get('shape_sim',1):.2f})  "
             f"attr_wtd {metrics['attr_weighted']:.3f} (w={fr.get('attr_weighted',1):.2f})<br>"
             f"n_pairs: {metrics['n_pairs']}"
