@@ -8,8 +8,15 @@ outputs/
 cache/
 
 # Enriched ontology matching — generated intermediate and result files
-enriched_ontology_matching/pairs/
+# (pairs/* not pairs/ so the probe-fixture exceptions below can re-include
+# individual files; git won't apply negations inside a wholly-ignored dir)
+enriched_ontology_matching/pairs/*
 enriched_ontology_matching/outputs/
+
+# Probe-visualizer fixtures (docs/probe_*.png reproduction) — small, hand-authored
+# synthetic model JSONs with no generator script, so they're committed as-is.
+!enriched_ontology_matching/pairs/probe_*.json
+!enriched_ontology_matching/pairs/Probe_*.json
 
 # Build artifacts
 __pycache__/

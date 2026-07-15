@@ -1,0 +1,124 @@
+{
+  "json_a": {
+    "modelName": "Probe_Chain_Baseline",
+    "modelDescription": "5-entity powertrain chain, standard names, deep composition topology (T0: pure chain Vehicle→Engine→Crankshaft→Driveshaft→Wheel).",
+    "observables": ["Identifier","Temperature","Pressure","Torque","Power","AngularVelocity","Force","Mass","Distance","Ratio","Count","Energy","ElectricPotential","ElectricCurrent","Angle","Position","OperationalState","Kind"],
+    "entities": [
+      {
+        "entityName": "Vehicle",
+        "entityAttributes": [
+          {"name": "vehicleID", "type": "Identifier"},
+          {"name": "mass", "type": "Mass"},
+          {"name": "length", "type": "Distance"},
+          {"name": "operationalState", "type": "OperationalState"},
+          {"name": "engine", "type": "Engine"}
+        ]
+      },
+      {
+        "entityName": "Engine",
+        "entityAttributes": [
+          {"name": "engineID", "type": "Identifier"},
+          {"name": "power", "type": "Power"},
+          {"name": "torque", "type": "Torque"},
+          {"name": "rpm", "type": "AngularVelocity"},
+          {"name": "temperature", "type": "Temperature"},
+          {"name": "oilPressure", "type": "Pressure"},
+          {"name": "crankshaft", "type": "Crankshaft"}
+        ]
+      },
+      {
+        "entityName": "Crankshaft",
+        "entityAttributes": [
+          {"name": "crankshaftID", "type": "Identifier"},
+          {"name": "rotationalSpeed", "type": "AngularVelocity"},
+          {"name": "torqueOutput", "type": "Torque"},
+          {"name": "mass", "type": "Mass"},
+          {"name": "length", "type": "Distance"},
+          {"name": "driveshaft", "type": "Driveshaft"}
+        ]
+      },
+      {
+        "entityName": "Driveshaft",
+        "entityAttributes": [
+          {"name": "driveshaftID", "type": "Identifier"},
+          {"name": "rotationalSpeed", "type": "AngularVelocity"},
+          {"name": "transmittedTorque", "type": "Torque"},
+          {"name": "length", "type": "Distance"},
+          {"name": "mass", "type": "Mass"},
+          {"name": "wheel", "type": "Wheel"}
+        ]
+      },
+      {
+        "entityName": "Wheel",
+        "entityAttributes": [
+          {"name": "wheelID", "type": "Identifier"},
+          {"name": "radius", "type": "Distance"},
+          {"name": "mass", "type": "Mass"},
+          {"name": "angularVelocity", "type": "AngularVelocity"}
+        ]
+      }
+    ],
+    "associations": []
+  },
+  "json_b": {
+    "modelName": "Probe_S3_T4",
+    "modelDescription": "Topology T4: caterpillar — Vehicle has 3 direct children (Engine, Crankshaft, Driveshaft) and Driveshaft retains Wheel as its child. Same entities and attributes.",
+    "observables": ["Identifier","Temperature","Pressure","Torque","Power","AngularVelocity","Force","Mass","Distance","Ratio","Count","Energy","ElectricPotential","ElectricCurrent","Angle","Position","OperationalState","Kind"],
+    "entities": [
+      {
+        "entityName": "Vehicle",
+        "entityAttributes": [
+          {"name": "vehicleID", "type": "Identifier"},
+          {"name": "mass", "type": "Mass"},
+          {"name": "length", "type": "Distance"},
+          {"name": "operationalState", "type": "OperationalState"},
+          {"name": "engine", "type": "Engine"},
+          {"name": "crankshaft", "type": "Crankshaft"},
+          {"name": "driveshaft", "type": "Driveshaft"}
+        ]
+      },
+      {
+        "entityName": "Engine",
+        "entityAttributes": [
+          {"name": "engineID", "type": "Identifier"},
+          {"name": "power", "type": "Power"},
+          {"name": "torque", "type": "Torque"},
+          {"name": "rpm", "type": "AngularVelocity"},
+          {"name": "temperature", "type": "Temperature"},
+          {"name": "oilPressure", "type": "Pressure"}
+        ]
+      },
+      {
+        "entityName": "Crankshaft",
+        "entityAttributes": [
+          {"name": "crankshaftID", "type": "Identifier"},
+          {"name": "rotationalSpeed", "type": "AngularVelocity"},
+          {"name": "torqueOutput", "type": "Torque"},
+          {"name": "mass", "type": "Mass"},
+          {"name": "length", "type": "Distance"}
+        ]
+      },
+      {
+        "entityName": "Driveshaft",
+        "entityAttributes": [
+          {"name": "driveshaftID", "type": "Identifier"},
+          {"name": "rotationalSpeed", "type": "AngularVelocity"},
+          {"name": "transmittedTorque", "type": "Torque"},
+          {"name": "length", "type": "Distance"},
+          {"name": "mass", "type": "Mass"},
+          {"name": "wheel", "type": "Wheel"}
+        ]
+      },
+      {
+        "entityName": "Wheel",
+        "entityAttributes": [
+          {"name": "wheelID", "type": "Identifier"},
+          {"name": "radius", "type": "Distance"},
+          {"name": "mass", "type": "Mass"},
+          {"name": "angularVelocity", "type": "AngularVelocity"}
+        ]
+      }
+    ],
+    "associations": []
+  }
+}

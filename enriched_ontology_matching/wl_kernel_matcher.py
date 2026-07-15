@@ -61,10 +61,9 @@ _INVENTORY  = _DIR / "association_inventory.csv"
 # ── Thresholds ────────────────────────────────────────────────────────────────
 # Match declaration uses a composite score computed at the entity-pair level:
 #
-#   composite = avg(primary_sim, wup)   — primary_sim is type_embed_sim
-#               (attribute-type embedding similarity) when confident, else
-#               cosine_avg (name-based) as fallback — see
-#               merge_stage.TYPE_FALLBACK_THRESHOLD.
+#   composite = avg(primary, wup)   — primary is type_embed_sim (attribute-type
+#               embedding similarity) when it meets _TYPE_FALLBACK_THRESHOLD,
+#               else cosine_avg (name-based) as fallback.
 #
 # Match sources (priority order):
 #   1. matched=1  (AML + LogMap)     — always kept regardless of composite
@@ -72,6 +71,11 @@ _INVENTORY  = _DIR / "association_inventory.csv"
 #
 COMPOSITE_THRESHOLD = 0.65   # generous supplement on top of matched=1
 WL_HOPS             = 3
+
+# type_embed_sim at or above this counts as confident type evidence and wins
+# outright over the name-based cosine_avg. Below it (or absent), fall back to
+# cosine_avg — the model has too little attribute-type signal to trust it.
+_TYPE_FALLBACK_THRESHOLD = 0.5
 
 
 # ── Inventory ─────────────────────────────────────────────────────────────────
@@ -89,9 +93,10 @@ def _load_canonical_map(path: Path = _INVENTORY) -> dict[str, str]:
 
 def _row_composite(row: dict) -> float | None:
     """
-    Composite score for one entity-pair row: avg(primary_sim, wup).
-    primary_sim falls back to cosine_avg for merged CSVs generated before
-    primary_sim existed.
+    Composite score for one entity-pair row: avg(primary, wup).
+    primary is type_embed_sim when it meets _TYPE_FALLBACK_THRESHOLD (types are
+    the intended matching signal), else cosine_avg as a name-based fallback for
+    entities with no attribute-type evidence or a weak type signal.
     """
     def _sfz(v) -> float | None:
         try:
@@ -99,8 +104,11 @@ def _row_composite(row: dict) -> float | None:
         except (TypeError, ValueError):
             return None
 
-    prim = row.get("primary_sim")
-    prim0 = _sfz(prim) if prim not in (None, "") else _sfz(row.get("cosine_avg"))
+    type_sim = _sfz(row.get("type_embed_sim"))
+    if type_sim is not None and type_sim >= _TYPE_FALLBACK_THRESHOLD:
+        prim0 = type_sim
+    else:
+        prim0 = _sfz(row.get("cosine_avg"))
     wup0 = _sfz(row.get("wup"))
     lex_parts = [v for v in [prim0, wup0] if v is not None]
 
@@ -158,7 +166,6 @@ def declare_entity_matches(
                     "entity_b":       eb,
                     "cosine_avg":     _sfz(row.get("cosine_avg")) or 0.0,
                     "type_embed_sim": _sfz(row.get("type_embed_sim")) or 0.0,
-                    "primary_sim":    _sfz(row.get("primary_sim")) or 0.0,
                     "wup":            _sfz(row.get("wup")) or 0.0,
                     "composite":      comp or 0.0,
                     "rule":           "matched" if is_matched else "composite",
@@ -898,7 +905,7 @@ if __name__ == "__main__":
         for m in matches:
             print(
                 f"  [{m['rule']:8s}  type={m['type_embed_sim']:.3f}  "
-                f"cos={m['cosine_avg']:.3f}  primary={m['primary_sim']:.3f}  wup={m['wup']:.3f}]"
+                f"cos={m['cosine_avg']:.3f}  composite={m['composite']:.3f}  wup={m['wup']:.3f}]"
                 f"  {m['entity_a']:<35} <->  {m['entity_b']}"
             )
 

@@ -22,12 +22,16 @@ assembly). There is no separate/simplified reimplementation of these metrics
 in this file anymore — v2 had one (wl_sim/shape_sim/lexical_sim/attr_sim,
 hand-rolled and silently divergent from the real pipeline); it's gone.
 
-Usage:  python scripts/probe_visualizer.py
+Usage:
+  python scripts/probe_visualizer.py
+  python scripts/probe_visualizer.py --series 1 3
+  python scripts/probe_visualizer.py --pairs-dir path/to/fixtures --out-dir path/to/out
 """
 from __future__ import annotations
 
 import json
 import math
+import re
 import sys
 from pathlib import Path
 
@@ -63,30 +67,25 @@ SERIES = [
         title            = "Series 1 — Naming Drift",
         subtitle         = "Controlled change: entity names  ·  Expected: lexical ↓, wl_struct / shape / attr stable",
         ring             = False,
-        show_attrs       = False,
+        show_attrs       = True,
         show_edge_labels = False,
         layout_h_gap     = 2.2,
         layout_v_gap     = 2.2,
         steps        = [
-            ("V0\nbaseline",  None),
-            ("V1\n1 rename",  "probe_s1_v0_vs_v1.json"),
-            ("V2\n2 renames", "probe_s1_v0_vs_v2.json"),
-            ("V3\n3 renames", "probe_s1_v0_vs_v3.json"),
-            ("V4\n4 renames", "probe_s1_v0_vs_v4.json"),
-            ("V5\n5 renames", "probe_s1_v0_vs_v5.json"),
+            ("V1\nbaseline",  None),
+            ("V2\n3 renames", "probe_s1_v0_vs_v3.json"),
+            ("V3\n5 renames", "probe_s1_v0_vs_v5.json"),
         ],
     ),
     dict(
         title    = "Series 2 — Attribute Drift",
         subtitle = "Controlled change: observable types  ·  Expected: attr ↓, lexical / wl_struct / shape stable",
         ring     = False,
+        show_attrs = True,
         steps    = [
-            ("V0\nbaseline",   None),
-            ("V1\n1 entity",   "probe_s2_v0_vs_v1.json"),
-            ("V2\n2 entities", "probe_s2_v0_vs_v2.json"),
-            ("V3\n3 entities", "probe_s2_v0_vs_v3.json"),
-            ("V4\n4 entities", "probe_s2_v0_vs_v4.json"),
-            ("V5\n5 entities", "probe_s2_v0_vs_v5.json"),
+            ("V1\nbaseline",   None),
+            ("V2\n3 entities", "probe_s2_v0_vs_v3.json"),
+            ("V3\n5 entities", "probe_s2_v0_vs_v5.json"),
         ],
     ),
     dict(
@@ -94,16 +93,15 @@ SERIES = [
         subtitle      = "Controlled change: composition depth  ·  Expected: wl_struct + shape ↓, lexical / attr stable",
         ring          = False,
         edge_front    = True,
-        show_attrs    = False,
-        layout_h_gap  = 2.2,
-        layout_v_gap  = 2.2,
+        show_attrs    = True,
+        layout_h_gap  = 2.5,
+        layout_v_gap  = 3.6,
+        adaptive_width = True,
+        fig_width_scale = 5.0,
         steps         = [
-            ("T0\nchain",        None),
-            ("T1\n+pendant",     "probe_s3_t0_vs_t1.json"),
-            ("T2\n2 branches",   "probe_s3_t0_vs_t2.json"),
-            ("T3\nbranch+2pend", "probe_s3_t0_vs_t3.json"),
-            ("T4\ncaterpillar",  "probe_s3_t0_vs_t4.json"),
-            ("T5\nstar",         "probe_s3_t0_vs_t5.json"),
+            ("T1\nchain",        None),
+            ("T2\nbranch+2pend", "probe_s3_t0_vs_t3.json"),
+            ("T3\nstar",         "probe_s3_t0_vs_t5.json"),
         ],
     ),
     dict(
@@ -111,16 +109,15 @@ SERIES = [
         subtitle         = "Controlled change: edge density  ·  Expected: wl_struct + shape ↓, lexical / attr stable",
         ring             = True,
         edge_front       = True,
-        show_attrs       = False,
-        show_edge_labels = False,
-        ring_radius      = 2.2,
+        show_attrs       = True,
+        show_edge_labels = True,
+        ring_radius      = 6.5,
+        fig_width_scale  = 9.0,
+        fig_height       = 13,
         steps       = [
-            ("R0\n5-cycle",   None),
-            ("R1\n+1 chord",  "probe_s4_r0_vs_r1.json"),
-            ("R2\n+2 chords", "probe_s4_r0_vs_r2.json"),
-            ("R3\n+3 chords", "probe_s4_r0_vs_r3.json"),
-            ("R4\n+4 chords", "probe_s4_r0_vs_r4.json"),
-            ("R5\nK5",        "probe_s4_r0_vs_r5.json"),
+            ("R1\n5-cycle",   None),
+            ("R2\n+3 chords", "probe_s4_r0_vs_r3.json"),
+            ("R3\nK5",        "probe_s4_r0_vs_r5.json"),
         ],
     ),
 ]
@@ -147,6 +144,44 @@ def build_graph(model: dict) -> nx.DiGraph:
         if src != tgt and not G.has_edge(src, tgt):
             G.add_edge(src, tgt, kind="assoc", name=assoc.get("associationName") or assoc.get("name", "assoc"))
     return G
+
+
+_CAMEL_SPLIT_RE = re.compile(r"(?<=[a-z0-9])(?=[A-Z])")
+
+
+def _relation_label(name: str, src: str, tgt: str) -> str:
+    """Strip the src/tgt entity-name substrings from an association name so
+    only the relation verb remains (e.g. 'EngineDrivesTransmission' with
+    src='Engine', tgt='Transmission' -> 'Drives'), then space out camelCase."""
+    label = name
+    if label.lower().startswith(src.lower()):
+        label = label[len(src):]
+    if label.lower().endswith(tgt.lower()):
+        label = label[: len(label) - len(tgt)] if len(label) > len(tgt) else label
+    if not label:
+        label = name
+    return _CAMEL_SPLIT_RE.sub(" ", label)
+
+
+def _max_row_width(model: dict) -> int:
+    """Max number of sibling nodes sharing the same tree depth (BFS level width).
+    Used to size a step's column so branching layouts (star/branch) get enough
+    horizontal room while chain-like layouts stay narrow."""
+    G = build_graph(model)
+    if not G.nodes():
+        return 1
+    roots = [n for n in G.nodes() if G.in_degree(n) == 0] or list(G.nodes())[:1]
+    seen = set(roots)
+    frontier = list(roots)
+    max_w = len(frontier)
+    while frontier:
+        nxt = [c for n in frontier for c in G.successors(n) if c not in seen]
+        for c in nxt:
+            seen.add(c)
+        if nxt:
+            max_w = max(max_w, len(nxt))
+        frontier = nxt
+    return max(max_w, 1)
 
 
 # ── Layouts (visual only) ───────────────────────────────────────────────────────
@@ -364,7 +399,12 @@ def _draw_graph(
         else:
             xr = max(max(xs) - min(xs), 1.0)
             yr = max(max(ys) - min(ys), 1.0)
-            ax.set_xlim(min(xs) - xr * x_pad, max(xs) + xr * x_pad)
+            # Cap padding at a constant multiple of node spacing (layout_h_gap)
+            # instead of letting it scale with the tree's total width — otherwise
+            # wide/branching layouts (many siblings) accumulate huge proportional
+            # padding on top of an already-large xr, bloating the figure.
+            pad_x = min(xr * x_pad, layout_h_gap * 0.4)
+            ax.set_xlim(min(xs) - pad_x, max(xs) + pad_x)
             ax.set_ylim(min(ys) - yr * y_bot, max(ys) + yr * y_top)
 
     # ── Edges (drawn first, behind nodes) ──────────────────────────────────
@@ -411,7 +451,7 @@ def _draw_graph(
             ln = math.sqrt(dx * dx + dy * dy) or 1.0
             lx = mx + (-dy / ln) * rad * ln * 0.5
             ly = my + ( dx / ln) * rad * ln * 0.5
-            elabel = "partOf" if is_comp else data.get("name", "assoc")
+            elabel = "partOf" if is_comp else _relation_label(data.get("name", "assoc"), u, v)
             ax.text(
                 lx, ly, elabel,
                 ha="center", va="center",
@@ -430,7 +470,7 @@ def _draw_graph(
         entity = next((e for e in model["entities"] if e["entityName"] == node), None)
         obs = []
         if entity:
-            obs = [_TYPE_SHORT.get(a["type"], a["type"])
+            obs = [(a["name"], _TYPE_SHORT.get(a["type"], a["type"]))
                    for a in entity.get("entityAttributes", [])
                    if a["type"] not in enames]
 
@@ -446,11 +486,12 @@ def _draw_graph(
         )
 
         if obs and show_attrs:
-            n_a   = min(len(obs), 8)
+            labels = [f"{attr_name}:: {attr_type}" for attr_name, attr_type in obs]
+            n_a   = min(len(labels), 8)
             lh    = 12   # display units per row
             n_rows = (n_a + 1) // 2   # two attrs per row
             # Two-column layout: shorter box, wider, edges stay visible
-            col_w = max(len(t) for t in obs[:n_a]) * 5 + 4
+            col_w = max(len(t) for t in labels[:n_a]) * 5 + 4
             pad   = 4
             iw = 2 * col_w + 3 * pad
             ih = n_rows * lh + 8
@@ -461,14 +502,15 @@ def _draw_graph(
                 boxstyle="round,pad=2",
                 facecolor="#fffde7", edgecolor="#c8a000", linewidth=0.9,
             ))
-            for idx, t in enumerate(obs[:n_a]):
+            for idx, label in enumerate(labels[:n_a]):
                 row = idx // 2
                 col = idx % 2
-                txt_color = _C_CHANGED if t in node_changed_types else "#111111"
+                attr_type = obs[idx][1]
+                txt_color = _C_CHANGED if attr_type in node_changed_types else "#111111"
                 x_pos = pad + col_w / 2 + col * (col_w + pad)
                 y_pos = ih - 4 - row * lh - lh / 2
                 inner_da.add_artist(mtext.Text(
-                    x_pos, y_pos, t,
+                    x_pos, y_pos, label,
                     ha="center", va="center", fontsize=5.5, color=txt_color,
                 ))
             packed = VPacker(children=[name_ta, inner_da], pad=4, sep=4, align="center")
@@ -522,13 +564,9 @@ def _render_page(series: dict) -> plt.Figure:
     layout_v_gap     = series.get("layout_v_gap", 3.2)
     ring_radius      = series.get("ring_radius", 2.0)
 
-    fig = plt.figure(figsize=(28, 10))
-    fig.patch.set_facecolor("white")
-
-    fig.text(0.5, 0.99, series["title"],
-             ha="center", va="top", fontsize=17, fontweight="bold")
-    fig.text(0.5, 0.962, series["subtitle"],
-             ha="center", va="top", fontsize=10, color="#555555", style="italic")
+    fig_width_scale = series.get("fig_width_scale", 4.7)
+    fig_height      = series.get("fig_height", 10)
+    adaptive_width  = series.get("adaptive_width", False)
 
     # Load baseline
     baseline_model = None
@@ -538,13 +576,38 @@ def _render_page(series: dict) -> plt.Figure:
                 baseline_model = json.load(f)["json_a"]
             break
 
+    # Preload each step's model — needed up front so column widths can be
+    # sized by branching factor before the figure/gridspec are created.
+    step_models = []
+    for _, fname in steps:
+        if fname is None:
+            step_models.append(baseline_model)
+        else:
+            with open(PAIRS / fname) as f:
+                step_models.append(json.load(f)["json_b"])
+
+    if adaptive_width and not use_ring:
+        width_ratios = [_max_row_width(m) for m in step_models]
+        fig_width = fig_width_scale * sum(width_ratios) + 3
+    else:
+        width_ratios = [1] * n
+        fig_width = fig_width_scale * n + 3
+
+    fig = plt.figure(figsize=(fig_width, fig_height))
+    fig.patch.set_facecolor("white")
+
+    fig.text(0.5, 0.99, series["title"],
+             ha="center", va="top", fontsize=17, fontweight="bold")
+    fig.text(0.5, 0.962, series["subtitle"],
+             ha="center", va="top", fontsize=10, color="#555555", style="italic")
+
     fixed_pos = None
     if use_ring and baseline_model:
         fixed_pos = ring_layout([e["entityName"] for e in baseline_model["entities"]], radius=ring_radius)
 
     gs = fig.add_gridspec(
         2, n,
-        height_ratios=[4.0, 1.0],
+        height_ratios=[4.0, 1.0], width_ratios=width_ratios,
         hspace=0.01, wspace=0.10,
         left=0.01, right=0.99, top=0.90, bottom=0.03,
     )
@@ -558,12 +621,10 @@ def _render_page(series: dict) -> plt.Figure:
         axes_graph.append(ax_g)
 
         is_base = fname is None
+        model = step_models[col]
         if is_base:
-            model, metrics, delta = baseline_model, None, None
+            metrics, delta = None, None
         else:
-            with open(PAIRS / fname) as f:
-                pair = json.load(f)
-            model   = pair["json_b"]
             metrics = compute_real_metrics(PAIRS / fname)
             delta   = compute_delta(prev_model, model) if prev_model else None
 
@@ -628,10 +689,43 @@ def _add_footnote(fig: plt.Figure) -> None:
 
 # ── Entry point ────────────────────────────────────────────────────────────────
 def main() -> None:
-    OUT_PDF.parent.mkdir(parents=True, exist_ok=True)
+    global PAIRS
+    import argparse
 
-    with PdfPages(OUT_PDF) as pdf:
-        for i, series in enumerate(SERIES):
+    ap = argparse.ArgumentParser(
+        description=(
+            "Regenerate docs/probe_visualizations.pdf and docs/probe_s{1-4}.png "
+            "by running each probe pair through the real pipeline "
+            "(enriched_matcher + semantic_encoder + attribute_reach + "
+            "wl_kernel_matcher + compare_stage)."
+        )
+    )
+    ap.add_argument(
+        "--series", type=int, nargs="+", choices=[1, 2, 3, 4], default=None,
+        help="Which series to render (1=Naming, 2=Attribute, 3=Topology, 4=Density). "
+             "Default: all four. The PDF always contains only the rendered series.",
+    )
+    ap.add_argument(
+        "--pairs-dir", type=Path, default=PAIRS,
+        help=f"Directory containing the probe pair-fixture JSONs (default: {PAIRS}).",
+    )
+    ap.add_argument(
+        "--out-dir", type=Path, default=OUT_PDF.parent,
+        help=f"Directory to write probe_visualizations.pdf and probe_s*.png into "
+             f"(default: {OUT_PDF.parent}).",
+    )
+    args = ap.parse_args()
+
+    PAIRS = args.pairs_dir
+    out_dir = args.out_dir
+    out_pdf = out_dir / "probe_visualizations.pdf"
+
+    selected = [(i, SERIES[i - 1]) for i in (args.series or [1, 2, 3, 4])]
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    with PdfPages(out_pdf) as pdf:
+        for i, series in selected:
             safe = series["title"].encode("ascii", errors="replace").decode("ascii")
             print(f"  Rendering {safe} ...", end=" ", flush=True)
 
@@ -639,15 +733,16 @@ def main() -> None:
             _add_footnote(fig)
 
             # PNG per series (for visual inspection)
-            png_path = OUT_PDF.parent / f"probe_s{i + 1}.png"
+            png_path = out_dir / f"probe_s{i}.png"
             fig.savefig(png_path, bbox_inches="tight", dpi=130)
 
             pdf.savefig(fig, bbox_inches="tight", dpi=130)
             plt.close(fig)
             print("done")
 
-    print(f"\nSaved PDF: {OUT_PDF}")
-    print(f"Saved PNGs: {OUT_PDF.parent}/probe_s1.png .. probe_s4.png")
+    print(f"\nSaved PDF: {out_pdf}")
+    rendered = ", ".join(f"probe_s{i}.png" for i, _ in selected)
+    print(f"Saved PNGs: {out_dir}/{{{rendered}}}")
 
 
 if __name__ == "__main__":
