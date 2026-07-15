@@ -8,23 +8,17 @@ The primary use case is **within-domain analysis**: all pairwise comparisons are
 
 ## Pipeline Overview
 
-Each ontology pair is processed through the sequence below. Steps 1 through 8 operate at the entity level and produce `lexical_sim`; steps 9 through 11 operate on each model's association graph as a whole, without reference to entity names, and produce `wl_structural`, `shape_sim`, and `attr_weighted`.
+The pipeline has two entry points. `run_all_pairs.py` (the `eom-run` command) orchestrates entity matching and metric estimation for every model pair, calling the following modules:
 
-| Step | Module | What happens |
-|------|--------|--------------|
-| 1 | `aml_runner.py`, `logmap_runner.py` | AML and LogMap independently propose candidate entity correspondences. Results are merged and deduplicated, with `matched=1` recorded wherever either matcher, or both, confirms a pair. |
-| 2 | `enriched_matcher.py`, Layer 1 (Characterise) | Every AML/LogMap match is annotated with a WordNet and ConceptNet relationship label (Synonym, Hypernym, PartOf, and similar) and a blended Wu-Palmer score (`wup`). Spurious matches, such as same-entity attribute pairs and parent-name-embedded PartOf pairs, are filtered out. |
-| 3 | `enriched_matcher.py`, Layer 2 (Discover) | For entities that neither matcher found, the same WordNet and ConceptNet token-level and compound-level analysis proposes new Equivalence, Subsumption, or ConceptNet-relation candidates. |
-| 4 | `enriched_matcher.py`, Layer 3 (WUP backup) | Any entity still without a candidate partner is paired with its top-k WordNet WUP matches (`max_wup ≥ 0.9`), providing a purely lexical rescue for entities that AML, LogMap, and WordNet-based discovery all failed to match. |
-| 5 | `attribute_reach.py`, Layer 3b (attribute-type backup) | Any entity still orphaned is paired using attribute-type embedding similarity (`type_embed_sim ≥ 0.5`) rather than name, rescuing entities that share observable types but have unrelated names. |
-| 6 | `semantic_encoder.py` | Sentence-embedding cosine similarity (`cosine_avg`) is computed for every candidate pair, built from attribute-type tokens, with entity-name tokens used as a fallback. |
-| 7 | `attribute_reach.py`, `run_type_embed_stage` | Attribute-type embedding similarity (`type_embed_sim`) is computed for every candidate pair using K-hop attribute reach. |
-| 8 | `merge_stage.py` | Joins the outputs of steps 1 through 7 into one row per candidate pair. `compare_stage.py` then assembles `lexical_sim` from `matched` and `wup`. |
-| 9 | `wl_kernel_matcher.py` | Both models' association graphs are anonymized, with every node initialized to `hash("N")` and the canonical relation type retained on every edge, and compared using a K=3-hop Weisfeiler-Lehman kernel, producing `wl_structural`. |
-| 10 | `wl_kernel_matcher.py`, `graph_shape_sim` | Four global topology signatures, namely degree sequence, Laplacian spectrum, clustering coefficients, and betweenness centrality, are each compared using cosine similarity of sorted vectors and averaged, producing `shape_sim`. |
-| 11 | `attribute_reach.py`, `run_attr_dist_stage` | Each model's declared observable-attribute types are K-hop propagated, embedded, and aggregated into one vector per model, then compared using the stricter of an embedding cosine similarity and a WordNet-WUP soft-cosine kernel, producing `attr_dist_sim`, reported as `attr_weighted`. |
+| Script | Produces |
+|--------|----------|
+| `enriched_matcher.py` | Candidate entity matches (AML, LogMap) and their semantic characterisation (WordNet, ConceptNet), feeding `lexical_sim` |
+| `semantic_encoder.py` | Sentence-embedding similarity between candidate entity pairs (`cosine_avg`) |
+| `attribute_reach.py` | Attribute-type similarity, both per entity pair (`type_embed_sim`) and per model pair (`attr_dist_sim`, reported as `attr_weighted`) |
+| `merge_stage.py` | Merges the above into one metrics CSV per model pair |
+| `wl_kernel_matcher.py` | Graph-theoretic structural comparison (`wl_structural`, `shape_sim`) |
 
-**Assembly.** `compare_stage.py` combines the four scores, `lexical_sim`, `wl_structural`, `shape_sim`, and `attr_weighted`, into an equal-weight composite similarity and a Euclidean distance for each pair, excluding whichever metric is unavailable for that pair. These values are then aggregated across all pairs in a domain to produce the summary JSON, or across every pair on disk to produce the interactive MDS map.
+`compare_stage.py` (the `eom-compare` command) is the second entry point: it reads these outputs and produces either a domain distance summary JSON or the interactive distance map.
 
 ---
 
