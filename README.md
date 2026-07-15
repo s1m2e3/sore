@@ -30,22 +30,34 @@ Every entity or model pair is scored on four independent dimensions. Each dimens
 
 **Purpose.** This metric measures whether the vocabulary matches, independent of graph position or attribute content.
 
-For each candidate entity pair `(eₐ, e_b)` in the merged CSV:
+For each candidate entity pair $(e_a, e_b)$ in the merged CSV, let $T_a, T_b$ be their camelCase-split token sets. The Wu-Palmer similarity of two tokens, based on their lowest common subsumer (LCS) in the WordNet noun hierarchy, is:
 
-```
-wup(eₐ, e_b)      = (max_wup + avg_wup) / 2
+$$
+\mathrm{WUP}(t_i, t_j) = \frac{2 \cdot \mathrm{depth}(\mathrm{LCS}(t_i, t_j))}{\mathrm{depth}(t_i) + \mathrm{depth}(t_j)}
+$$
 
-    where, for camelCase-split token sets Tₐ, T_b:
-      max_wup = max{ WUP(tᵢ, tⱼ) : tᵢ∈Tₐ, tⱼ∈T_b }
-      avg_wup = mean{ WUP(tᵢ, tⱼ) : tᵢ∈Tₐ, tⱼ∈T_b }
-      WUP(tᵢ,tⱼ) = 2·depth(LCS(tᵢ,tⱼ)) / (depth(tᵢ) + depth(tⱼ))   [WordNet Wu-Palmer]
+This is aggregated across all token pairs two ways, then blended:
 
-row_lex(eₐ, e_b)  = max( matched,  wup  if wup ≥ 0.75 else 0 )
+$$
+\mathrm{max\_wup} = \max_{t_i \in T_a,\, t_j \in T_b} \mathrm{WUP}(t_i, t_j), \qquad
+\mathrm{avg\_wup} = \operatorname{mean}_{t_i \in T_a,\, t_j \in T_b} \mathrm{WUP}(t_i, t_j)
+$$
 
-    where matched ∈ {0, 1}: 1 if AML or LogMap independently confirmed the pair
+$$
+\mathrm{wup}(e_a, e_b) = \frac{\mathrm{max\_wup} + \mathrm{avg\_wup}}{2}
+$$
 
-lexical_sim       = mean over all candidate rows of row_lex
-```
+Each candidate row then contributes:
+
+$$
+\mathrm{row\_lex}(e_a, e_b) = \max\Big(\mathrm{matched},\ \ \mathrm{wup} \cdot \mathbb{1}[\mathrm{wup} \ge 0.75]\Big)
+$$
+
+where $\mathrm{matched} \in \{0, 1\}$, equal to 1 if AML or LogMap independently confirmed the pair. The metric is the mean over all $N$ candidate rows:
+
+$$
+\mathrm{lexical\_sim} = \frac{1}{N}\sum_{r=1}^{N} \mathrm{row\_lex}(r)
+$$
 
 `type_embed_sim` and `cosine_avg` are deliberately excluded from `lexical_sim`, since that attribute-type signal already forms the entire basis of `attr_weighted`; including it here would double-count the signal. The 0.75 WUP threshold exists because WordNet's generic machine or artifact hierarchy assigns unrelated engineering nouns, such as fuse, filter, and blower, a WUP similarity of approximately 0.89. Below this threshold, such pairs contribute a value of zero rather than being registered as a false match.
 
@@ -53,82 +65,109 @@ lexical_sim       = mean over all candidate rows of row_lex
 
 **Purpose.** This metric measures whether the two models reuse the same relation patterns within the same local neighborhood, that is, whether they share the same modeling style (process-centric versus entity-centric), regardless of entity nomenclature.
 
-Edge-aware Weisfeiler-Lehman kernel, K=3 hops, with all nodes anonymous:
+Edge-aware Weisfeiler-Lehman kernel, $K=3$ hops, with all nodes anonymous. Every node $v$ starts with the same label, then is iteratively refined using its neighbourhood:
 
-```
-label_v⁽⁰⁾   = hash("N")                                     for every node v
-label_v⁽ᵏ⁺¹⁾ = md5( label_v⁽ᵏ⁾ | sorted[(label_u⁽ᵏ⁾, edge_type) : u ∈ N(v)] )
+$$
+\ell_v^{(0)} = \mathrm{hash}(\text{"N"}) \quad \text{for every node } v
+$$
 
-freq_X = histogram of {label_v⁽ᵏ⁾ : v ∈ X, k = 0..K}          (pooled over all K+1 hops)
+$$
+\ell_v^{(k+1)} = \mathrm{md5}\Big(\ell_v^{(k)} \,\|\, \mathrm{sorted}\{(\ell_u^{(k)},\, \mathrm{edge\_type}(u,v)) : u \in N(v)\}\Big)
+$$
 
-wl_structural = cosine(freq_A, freq_B) = (freq_A · freq_B) / (‖freq_A‖ ‖freq_B‖)
-```
+where $\mathrm{edge\_type}(u,v)$ is the canonical relation name defined in `association_inventory.csv` (for example, PartOf, Connects, UsedFor); it is the only information that distinguishes two nodes, since entity names are not used in this computation. Label frequencies are pooled over all $K+1$ hops:
 
-`edge_type` is the canonical relation name defined in `association_inventory.csv` (for example, PartOf, Connects, UsedFor). It is the only information that distinguishes two nodes; entity names are not used in this computation.
+$$
+\mathrm{freq}_X = \text{histogram of } \{\ell_v^{(k)} : v \in X,\ k = 0, \dots, K\}
+$$
+
+$$
+\mathrm{wl\_structural} = \cos(\mathrm{freq}_A, \mathrm{freq}_B) = \frac{\mathrm{freq}_A \cdot \mathrm{freq}_B}{\lVert \mathrm{freq}_A \rVert\, \lVert \mathrm{freq}_B \rVert}
+$$
 
 ### 3. `shape_sim`: global graph topology
 
 **Purpose.** This metric distinguishes models by scope and density, for example star, chain, or clique topologies, providing a signal orthogonal to both vocabulary and local relational motifs.
 
-Four sub-metrics, each a cosine similarity of sorted vectors, are averaged:
+Four sub-metrics, each a cosine similarity of sorted vectors, are averaged. Vectors of unequal length are zero-padded before computing the cosine similarity.
 
-```
-degree_sim      = cosine( sorted_desc(deg_A), sorted_desc(deg_B) )
-spectral_sim    = cosine( sorted(λ_A), sorted(λ_B) )     λ = eigenvalues of L = I − D^(−1/2) A D^(−1/2)
-clustering_sim  = cosine( sorted_desc(C_A), sorted_desc(C_B) )
-                    C(v) = triangles(v) / (d(v)(d(v)−1)/2)
-betweenness_sim = cosine( sorted_desc(BC_A), sorted_desc(BC_B) )   [Brandes' O(VE), normalised]
+$$
+\mathrm{degree\_sim} = \cos\big(\mathrm{sort}_{\text{desc}}(\deg_A),\ \mathrm{sort}_{\text{desc}}(\deg_B)\big)
+$$
 
-shape_sim = ( degree_sim + spectral_sim + clustering_sim + betweenness_sim ) / 4
-```
+$$
+\mathrm{spectral\_sim} = \cos\big(\mathrm{sort}(\lambda_A),\ \mathrm{sort}(\lambda_B)\big), \qquad \lambda = \mathrm{eig}\big(L\big),\ \ L = I - D^{-1/2} A D^{-1/2}
+$$
 
-Vectors of unequal length are zero-padded before computing the cosine similarity.
+$$
+\mathrm{clustering\_sim} = \cos\big(\mathrm{sort}_{\text{desc}}(C_A),\ \mathrm{sort}_{\text{desc}}(C_B)\big), \qquad C(v) = \frac{\mathrm{triangles}(v)}{d(v)\big(d(v)-1\big)/2}
+$$
+
+$$
+\mathrm{betweenness\_sim} = \cos\big(\mathrm{sort}_{\text{desc}}(\mathrm{BC}_A),\ \mathrm{sort}_{\text{desc}}(\mathrm{BC}_B)\big)
+$$
+
+$$
+\mathrm{shape\_sim} = \frac{\mathrm{degree\_sim} + \mathrm{spectral\_sim} + \mathrm{clustering\_sim} + \mathrm{betweenness\_sim}}{4}
+$$
+
+Betweenness centrality $\mathrm{BC}$ is computed via Brandes' $O(VE)$ algorithm and normalised to $[0,1]$.
 
 ### 4. `attr_weighted`: attribute reachability
 
 **Purpose.** This metric measures whether the two models describe the same observable quantities, for example temperature, torque, and pressure, independent of both entity names and graph shape.
 
-```
-V            = union of observable types declared across both models (data["observables"] ∪ entityAttribute.type)
+Let $V$ be the union of observable types declared across both models (`data["observables"]` union `entityAttribute.type`). For each entity $e$, $\mathrm{reach}(e)$ is the $K$-hop ($K=2$) weighted propagation of its own and its neighbours' declared attribute types through structurally weighted edges:
 
-reach(e)     = K-hop (K=2) weighted BFS propagation of e's own and neighbours' declared
-               attribute types, through structurally-weighted edges:
-                 PartOf/HasA=0.6, MadeOf=0.5, Connects/UsedFor=0.4, AtLocation=0.3,
-                 CapableOf/Causes/IsA/ReceivesAction=0.25, HasPrerequisite=0.2, RelatedTo=skip
-               path weight = product of edge weights; MAX kept across paths to the same type
-               (name-based imputation is disabled for this whole-model stage, keeping the
-               computation purely structural)
+$$
+\text{PartOf/HasA} = 0.6,\quad \text{MadeOf} = 0.5,\quad \text{Connects/UsedFor} = 0.4,\quad \text{AtLocation} = 0.3,
+$$
 
-agg_X        = Σ_{e∈X} Σ_{t∈reach(e)} weight(e,t) · embed(t)      embed = paraphrase-MiniLM-L6-v2
+$$
+\text{CapableOf/Causes/IsA/ReceivesAction} = 0.25,\quad \text{HasPrerequisite} = 0.2,\quad \text{RelatedTo skipped}
+$$
 
-embed_sim    = cosine(agg_A, agg_B)
+The weight of a path is the product of its edge weights, and the maximum is kept across multiple paths reaching the same type. Name-based imputation is disabled at this stage, keeping the computation purely structural. Each model is then aggregated into a single vector, using sentence-transformer embeddings ($\mathrm{embed}$, `paraphrase-MiniLM-L6-v2`):
 
-wup_sim      = soft-cosine(w_A, w_B; S)  =  (w_Aᵀ S w_B) / √(w_Aᵀ S w_A · w_Bᵀ S w_B)
-                 S = |V|×|V| pairwise WUP-similarity kernel over the closed type vocabulary
-                 w_X = raw (non-embedded) summed attribute weight vector for model X
+$$
+\mathrm{agg}_X = \sum_{e \in X} \sum_{t \in \mathrm{reach}(e)} w(e,t) \cdot \mathrm{embed}(t)
+$$
 
-attr_dist_sim = min(embed_sim, wup_sim), the stricter of the two; WUP alone tends to be too
-                forgiving for engineering and physics nouns
+$$
+\mathrm{embed\_sim} = \cos(\mathrm{agg}_A, \mathrm{agg}_B)
+$$
 
-attr_weighted = attr_dist_sim, unmodified; no longer scaled by entity-name WUP
-```
+A second, independent signal is computed as a soft cosine over the same attribute-type vocabulary, using a WUP similarity kernel $S \in \mathbb{R}^{|V|\times|V|}$ in place of the identity matrix, where $w_X$ is the raw (non-embedded) summed attribute-weight vector for model $X$:
+
+$$
+\mathrm{wup\_sim} = \frac{w_A^\top S\, w_B}{\sqrt{w_A^\top S\, w_A \cdot w_B^\top S\, w_B}}
+$$
+
+The metric takes the stricter of the two, since WUP alone tends to be too forgiving for engineering and physics nouns:
+
+$$
+\mathrm{attr\_dist\_sim} = \min(\mathrm{embed\_sim},\, \mathrm{wup\_sim})
+$$
+
+$$
+\mathrm{attr\_weighted} = \mathrm{attr\_dist\_sim}
+$$
 
 `attr_weighted` shares no data with `lexical_sim`. The kernel `wup_sim` above is computed over the closed observable-type vocabulary `V` (for example, Temperature, Torque, and Pressure), and is entirely independent of the entity-name WUP score used in `lexical_sim` (Section 1). Both computations call the same underlying WordNet Wu-Palmer function, but over disjoint inputs, attribute-type tokens in one case and entity-name tokens in the other, with no value passed between them. In an earlier version of the pipeline these metrics were coupled: `attr_weighted` was computed as `attr_dist_sim` multiplied by `avg_entity_wup`. This scaling was removed, see the docstring of `run_attr_dist_stage` in `attribute_reach.py`, because it made a metric intended to capture attribute similarity alone depend on entity naming.
 
 ### Composite score and distance
 
-```
-METRICS   = [lexical_sim, wl_structural, shape_sim, attr_weighted]     (nominal weight 1/4 each)
-available = { m ∈ METRICS : value(m) > 0 }
+Let $\mathcal{M} = \{\mathrm{lexical\_sim},\ \mathrm{wl\_structural},\ \mathrm{shape\_sim},\ \mathrm{attr\_weighted}\}$, each with nominal weight $1/4$, and let $\mathcal{A} = \{m \in \mathcal{M} : \mathrm{value}(m) > 0\}$ be the subset available for a given pair. Metrics unavailable for a pair, for example $\mathrm{attr\_weighted}=0$ when neither model has observable types, are excluded from $\mathcal{A}$ rather than counted as a penalty.
 
-composite(A,B) = mean{ value(m) : m ∈ available }
-                   metrics unavailable for a pair (for example, attr_weighted=0 when neither
-                   model has observable types) are excluded rather than counted as a penalty
+$$
+\mathrm{composite}(A,B) = \frac{1}{|\mathcal{A}|}\sum_{m \in \mathcal{A}} \mathrm{value}(m)
+$$
 
-distance(A,B)  = √( Σ_{m∈available} (1 − value(m))² / |available| )     ∈ [0,1]
-                   symmetrised as d = (d + dᵀ) / 2, and used for both the domain summary and
-                   the MDS map
-```
+$$
+\mathrm{distance}(A,B) = \sqrt{\frac{1}{|\mathcal{A}|}\sum_{m \in \mathcal{A}} \big(1 - \mathrm{value}(m)\big)^2} \ \in [0,1]
+$$
+
+The distance matrix is symmetrised as $d = (d + d^\top)/2$, and used for both the domain summary and the MDS map.
 
 ### Supporting (non-composite) signals
 
