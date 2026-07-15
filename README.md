@@ -6,6 +6,25 @@ The primary use case is **within-domain analysis**: all pairwise comparisons are
 
 ---
 
+## Quick Reference
+
+```bash
+# Run the pipeline for one domain, then read its distance summary
+eom-run --domains Automobile
+eom-compare --domain-summary Automobile
+
+# Run within-domain and cross-domain pairs, then build the interactive map
+eom-run --cross-domain --skip-existing
+eom-compare
+
+# Regenerate the visualizations under docs/
+python scripts/probe_visualizer.py
+```
+
+See "CLI: end-to-end run over one domain" and "Reproducing the `docs/` visualizations" below for the full set of flags and output paths.
+
+---
+
 ## Pipeline Overview
 
 The pipeline has two entry points. `run_all_pairs.py` (the `eom-run` command) orchestrates entity matching and metric estimation for every model pair, calling the following modules:
@@ -40,7 +59,7 @@ This is aggregated across all token pairs two ways, then blended:
 
 $$
 \mathrm{max\_wup} = \max_{t_i \in T_a,\, t_j \in T_b} \mathrm{WUP}(t_i, t_j), \qquad
-\mathrm{avg\_wup} = \operatorname{mean}_{t_i \in T_a,\, t_j \in T_b} \mathrm{WUP}(t_i, t_j)
+\mathrm{avg\_wup} = \mathrm{mean}_{t_i \in T_a,\, t_j \in T_b} \mathrm{WUP}(t_i, t_j)
 $$
 
 $$
@@ -146,14 +165,14 @@ $$
 The metric takes the stricter of the two, since WUP alone tends to be too forgiving for engineering and physics nouns:
 
 $$
-\mathrm{attr\_dist\_sim} = \min(\mathrm{embed\_sim},\, \mathrm{wup\_sim})
+s_{\text{attr}} = \min(\mathrm{embed\_sim},\, \mathrm{wup\_sim})
 $$
 
 $$
-\mathrm{attr\_weighted} = \mathrm{attr\_dist\_sim}
+\mathrm{attr\_weighted} = s_{\text{attr}}
 $$
 
-`attr_weighted` shares no data with `lexical_sim`. The kernel `wup_sim` above is computed over the closed observable-type vocabulary `V` (for example, Temperature, Torque, and Pressure), and is entirely independent of the entity-name WUP score used in `lexical_sim` (Section 1). Both computations call the same underlying WordNet Wu-Palmer function, but over disjoint inputs, attribute-type tokens in one case and entity-name tokens in the other, with no value passed between them. In an earlier version of the pipeline these metrics were coupled: `attr_weighted` was computed as `attr_dist_sim` multiplied by `avg_entity_wup`. This scaling was removed, see the docstring of `run_attr_dist_stage` in `attribute_reach.py`, because it made a metric intended to capture attribute similarity alone depend on entity naming.
+where $s_{\text{attr}}$ denotes `attr_dist_sim` in the pipeline's output CSVs. `attr_weighted` shares no data with `lexical_sim`. The kernel `wup_sim` above is computed over the closed observable-type vocabulary `V` (for example, Temperature, Torque, and Pressure), and is entirely independent of the entity-name WUP score used in `lexical_sim` (Section 1). Both computations call the same underlying WordNet Wu-Palmer function, but over disjoint inputs, attribute-type tokens in one case and entity-name tokens in the other, with no value passed between them. In an earlier version of the pipeline these metrics were coupled: `attr_weighted` was computed as `attr_dist_sim` multiplied by `avg_entity_wup`. This scaling was removed, see the docstring of `run_attr_dist_stage` in `attribute_reach.py`, because it made a metric intended to capture attribute similarity alone depend on entity naming.
 
 ### Composite score and distance
 
