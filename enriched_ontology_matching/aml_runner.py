@@ -23,14 +23,14 @@ Usage
     from aml_runner import AMLRunner
 
     runner = AMLRunner()
-    mappings = runner.match_test_file("test_auto_v1_v2.json")
+    mappings = runner.match_test_file("pairs/auto_V1_V2.json")
     for m in mappings:
         print(m["entity_a"], "<->", m["entity_b"], m["confidence"])
 
 CLI
 ---
     venv/Scripts/python.exe enriched_ontology_matching/aml_runner.py \\
-        enriched_ontology_matching/test_auto_v1_v2.json
+        enriched_ontology_matching/pairs/auto_V1_V2.json
 """
 
 from __future__ import annotations

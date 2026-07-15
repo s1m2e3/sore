@@ -30,7 +30,7 @@ Output: a single CSV written to enriched_ontology_matching/outputs/enriched/
 Usage
 -----
     venv/Scripts/python.exe enriched_ontology_matching/enriched_matcher.py \\
-        enriched_ontology_matching/test_auto_v1_v2.json
+        enriched_ontology_matching/pairs/auto_V1_V2.json
 
     # run only AML or only LogMap:
     ... --matcher aml

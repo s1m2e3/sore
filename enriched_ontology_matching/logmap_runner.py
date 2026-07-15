@@ -19,7 +19,7 @@ Usage
     from logmap_runner import LogMapRunner
 
     runner = LogMapRunner()
-    mappings = runner.match_test_file("test_auto_v1_v2.json")
+    mappings = runner.match_test_file("pairs/auto_V1_V2.json")
     for m in mappings:
         print(m["entity_a"], "<->", m["entity_b"], m["confidence"])
 
@@ -27,7 +27,7 @@ CLI
 ---
     # From repo root, using the project venv:
     venv/Scripts/python.exe enriched_ontology_matching/logmap_runner.py \\
-        enriched_ontology_matching/test_auto_v1_v2.json
+        enriched_ontology_matching/pairs/auto_V1_V2.json
 """
 
 from __future__ import annotations
