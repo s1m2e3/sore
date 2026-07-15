@@ -320,21 +320,7 @@ eom-compare --domain-summary Automobile
 
 `--domain-summary` accepts one of the six domain labels that `compare_stage.py` recognizes: `Automobile`, `Hospital`, `University`, `Coffee`, `Homebrewing`, `SmartHome`. `Automobile_Synthetic` model pairs are still produced by `eom-run`, but are classified under `Automobile` for summary and map purposes, since domain classification is performed by name-keyword match.
 
-### What `eom-run` needs and generates, per pair
-
-`run_all_pairs.py` runs 6 stages per model pair and writes one file per stage. `<stem>` denotes `<ModelA_modelName>_vs_<ModelB_modelName>`; `<domain_key>` denotes a short identifier such as `auto_V1_V2`.
-
-| Stage | Module | Needs | Writes | Contents |
-|-------|--------|-------|--------|----------|
-| 0 | `run_all_pairs.py` | the two model JSONs | `enriched_ontology_matching/pairs/<domain_key>.json` | combined `{json_a, json_b}` input for the rest of the pipeline (gitignored; regenerated on every run) |
-| 1 | `enriched_matcher.py` | stage-0 pair JSON, `association_inventory.csv`, WordNet, ConceptNet (local CSV or REST) | `outputs/enriched/<stem>.csv` | AML and LogMap candidate matches, annotated with `wup`, `max_wup`, `avg_wup`, and WordNet/ConceptNet relation labels; plus `outputs/enriched/all_domains_combined.csv` (all pairs concatenated across the whole `eom-run` invocation) |
-| 2 | `semantic_encoder.py` | stage-1 CSV, both model JSONs | `outputs/embeddings/<domain_key>_emb.csv` | `cosine_avg`: name and attribute-type sentence-embedding cosine similarity (rescaled to [0, 1]) for each candidate row |
-| 3 | `attribute_reach.py` (`run_type_embed_stage`) | stage-1 CSV, both model JSONs | `outputs/type_embed/<domain_key>_type_emb.csv` | `type_embed_sim`: attribute-type embedding cosine similarity for each candidate row |
-| 4 | `merge_stage.py` | stages 1 to 3 CSVs | `outputs/merged/<stem>_metrics.csv` | one row per candidate entity pair: `entity_a, entity_b, matched, wup, cosine_avg, type_embed_sim` |
-| 5 | `wl_kernel_matcher.py` (`run_wl_stage`) | both model JSONs, stage-4 merged CSV | `outputs/wl/<stem>_metrics_wl.csv` | one row: `wl_structural, shape_sim` (plus sub-metrics `degree_sim/spectral_sim/clustering_sim/betweenness_sim`), and diagnostic-only `wl_matched, wl_composite, wl_consistency, match_coverage, induced_frac_a/b, n_entity_matches, n_shared_labels, n_nodes_a/b, n_edges_a/b` |
-| 6 | `attribute_reach.py` (`run_attr_dist_stage`) | both model JSONs | `outputs/attr_dist/<stem>_metrics_attr_dist.csv` | one row: `attr_dist_sim` |
-
-`eom-compare --domain-summary <Domain>` then reads every `outputs/merged/*_metrics.csv` file for the requested domain, pulling `shape_sim` and `wl_structural` from the matching `outputs/wl/` CSV and `attr_dist_sim` from the matching `outputs/attr_dist/` CSV, and writes:
+Running the two commands above produces the final result, stored at:
 
 ```
 enriched_ontology_matching/summaries/<domain_lower>_summary.json
@@ -356,6 +342,22 @@ This file contains `n_ontologies`, `n_pairs`, `metric_weights` (0.25 each), `ave
   ]
 }
 ```
+
+### What `eom-run` needs and generates, per pair
+
+`run_all_pairs.py` runs 6 stages per model pair and writes one file per stage. `<stem>` denotes `<ModelA_modelName>_vs_<ModelB_modelName>`; `<domain_key>` denotes a short identifier such as `auto_V1_V2`.
+
+| Stage | Module | Needs | Writes | Contents |
+|-------|--------|-------|--------|----------|
+| 0 | `run_all_pairs.py` | the two model JSONs | `enriched_ontology_matching/pairs/<domain_key>.json` | combined `{json_a, json_b}` input for the rest of the pipeline (gitignored; regenerated on every run) |
+| 1 | `enriched_matcher.py` | stage-0 pair JSON, `association_inventory.csv`, WordNet, ConceptNet (local CSV or REST) | `outputs/enriched/<stem>.csv` | AML and LogMap candidate matches, annotated with `wup`, `max_wup`, `avg_wup`, and WordNet/ConceptNet relation labels; plus `outputs/enriched/all_domains_combined.csv` (all pairs concatenated across the whole `eom-run` invocation) |
+| 2 | `semantic_encoder.py` | stage-1 CSV, both model JSONs | `outputs/embeddings/<domain_key>_emb.csv` | `cosine_avg`: name and attribute-type sentence-embedding cosine similarity (rescaled to [0, 1]) for each candidate row |
+| 3 | `attribute_reach.py` (`run_type_embed_stage`) | stage-1 CSV, both model JSONs | `outputs/type_embed/<domain_key>_type_emb.csv` | `type_embed_sim`: attribute-type embedding cosine similarity for each candidate row |
+| 4 | `merge_stage.py` | stages 1 to 3 CSVs | `outputs/merged/<stem>_metrics.csv` | one row per candidate entity pair: `entity_a, entity_b, matched, wup, cosine_avg, type_embed_sim` |
+| 5 | `wl_kernel_matcher.py` (`run_wl_stage`) | both model JSONs, stage-4 merged CSV | `outputs/wl/<stem>_metrics_wl.csv` | one row: `wl_structural, shape_sim` (plus sub-metrics `degree_sim/spectral_sim/clustering_sim/betweenness_sim`), and diagnostic-only `wl_matched, wl_composite, wl_consistency, match_coverage, induced_frac_a/b, n_entity_matches, n_shared_labels, n_nodes_a/b, n_edges_a/b` |
+| 6 | `attribute_reach.py` (`run_attr_dist_stage`) | both model JSONs | `outputs/attr_dist/<stem>_metrics_attr_dist.csv` | one row: `attr_dist_sim` |
+
+These are the intermediate stages that `eom-compare --domain-summary <Domain>` reads to assemble the final result above: it collects every `outputs/merged/*_metrics.csv` file for the requested domain, pulling `shape_sim` and `wl_structural` from the matching `outputs/wl/` CSV and `attr_dist_sim` from the matching `outputs/attr_dist/` CSV.
 
 ---
 
