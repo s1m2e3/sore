@@ -377,6 +377,43 @@ Output: `enriched_ontology_matching/outputs/ontology_map.html`, a self-contained
 
 ---
 
+## Optional extra metrics (`--with-entailment`, `--with-encapsulation`)
+
+Two additional semantic-comparison metrics exist alongside the core four. Both are experimental, both are disabled by default, and neither contributes to `composite`, `distance`, the domain summary JSON, or the interactive map. They are opt-in extras, enabled per `eom-run` invocation:
+
+```bash
+eom-run --domains Automobile --with-entailment --with-encapsulation
+```
+
+Both use a cross-encoder NLI model (default `cross-encoder/nli-MiniLM2-L6-H768`, overridable with `--nli-model`, downloaded and cached under `enriched_ontology_matching/models/` on first use). Since a cross-encoder jointly encodes premise and hypothesis in one pass (unlike the bi-encoder used elsewhere in this pipeline for `cosine_avg`/`type_embed_sim`), it can represent the directional, joint-context relationship entailment requires, something a bi-encoder's independent embeddings cannot.
+
+### Entailment (`--with-entailment`)
+
+For every candidate entity pair, tests directional textual entailment two ways:
+
+- **Entity-level** (`run_entity_entailment_stage`): premise/hypothesis built from entity *names* ("This is a {name}."). Probes taxonomic relationships, synonymy (both directions entail) and hypernymy/hyponymy (only one direction entails). Validated to correctly recover directional relationships like `MasterCylinder → Cylinder` (0.99 one-way, 0.006 reverse) and to avoid the naive lexical-overlap trap where `SteeringWheel` would otherwise be confused with `Wheel`.
+- **Attribute-level** (`run_attribute_entailment_stage`): premise/hypothesis built from each entity's K-hop attribute-type reach signature (the same reach computation `attr_weighted` uses), e.g. "The component has these properties: Temperature, Torque, Pressure." Probes whether one entity's declared-property profile entails the other's, independent of naming.
+
+Both report `entailment_a_covers_b`, `entailment_b_covers_a`, and `entailment_f1 = max(a_covers_b, b_covers_a)`, since entailment is not symmetric.
+
+| Output | Contents |
+|--------|----------|
+| `outputs/entailment_entity/<stem>_entity_entailment.csv` | one row per candidate entity pair, entity-name-level scores |
+| `outputs/entailment_attr/<stem>_attr_entailment.csv` | one row per candidate entity pair, attribute-type-level scores |
+
+### Conceptual encapsulation (`--with-encapsulation`)
+
+Answers a different question from the rest of the pipeline: does one entity in model A correspond not to a single entity in model B, but to a *group* of entities in B (the same concept described at a different resolution, sometimes called complex or 1:n matching in the ontology-alignment literature)? No other metric in this pipeline, including entailment above, tests this; every one of them is strictly pairwise, one entity versus one entity.
+
+Two-step process, both reused from validated building blocks rather than new machinery:
+
+1. **Candidate group discovery** (`subgraph_candidates.py`): Louvain community detection over each model's full association graph (every relation type, not just `PartOf`), topology-agnostic by design, a densely-interconnected ring cluster is found exactly as readily as a composition-tree cluster.
+2. **Group scoring** (`group_encapsulation.py`, `run_encapsulation_stage`): for every entity in each model, tests it against every candidate group discovered in the other model, in both directions, reusing the attribute-reach embed+WUP kernel (union of the group's reach vectors) and the entity-level entailment model above (a composite "system made of {group members}" premise). Reports only the best-scoring candidate per entity, after an abstention gate (`classify_top_match`): a 33-case evaluation across the Automobile domain (see project history) found this raises precision on reported matches from ~77% to ~89.5%, at the cost of recall dropping from ~88% to ~68%, an expected and, for this purpose, worthwhile trade, since a wrong confident answer is worse than a correctly-withheld one. The three thresholds (`min_score`, `min_margin`, `high_confidence`) are tunable if a different precision/recall balance is wanted.
+
+Output: `outputs/encapsulation/<stem>_encapsulation.csv`, one row per (direction, entity) where a candidate group was tested. `direction` is `a_in_b` (entities of A tested against B's candidate groups) or `b_in_a`. `decision` is `match` or `no_match`; `no_match` rows have blank score/group fields. `match` rows include `best_group` (the winning candidate's members), `attr_score`, `name_group_covers_entity`/`name_entity_covers_group`/`name_f1`, and `margin` (gap over the runner-up candidate).
+
+---
+
 ## Reproducing the `docs/` visualizations
 
 `scripts/probe_visualizer.py` renders four controlled micro-experiments, each isolating a single axis of variation while holding the others fixed. Each probe pair is processed through the same production pipeline that `eom-run` uses, and the resulting `lexical_sim`, `wl_structural`, `shape_sim`, `attr_weighted`, and `composite` values are read back through `compare_stage.load_pair_metrics()`. No separate, simplified reimplementation of the metrics exists in this script.
@@ -426,4 +463,7 @@ Each run also populates the standard pipeline intermediate directories (`outputs
 | `aml_runner.py`, `logmap_runner.py` | Wrappers around the AML and LogMap JARs |
 | `root_comparator.py` | CamelCase splitting, WUP, ConceptNet CSV lookup |
 | `model_normalizer.py` | Normalises model JSON schema variants (entity/association field names) |
+| `entailment_matcher.py` | Optional (`--with-entailment`): cross-encoder NLI entailment, entity-name level and attribute-type level |
+| `subgraph_candidates.py` | Optional (`--with-encapsulation`, step 1): topology-agnostic candidate subgroup discovery via graph community detection |
+| `group_encapsulation.py` | Optional (`--with-encapsulation`, step 2): scores candidate subgroups against coarse entities; `classify_top_match` abstention gate |
 | `scripts/probe_visualizer.py` | Regenerates `docs/probe_visualizations.pdf` and `docs/probe_s*.png` from the probe fixtures |

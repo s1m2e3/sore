@@ -16,12 +16,23 @@ Pipeline stages per pair
   Step 2 — Sentence embeddings (cosine_avg) — name-based fallback signal
   Step 3 — Attribute-type embeddings (type_embed_sim) — primary matching signal
   Step 4 — Merge enriched + embeddings + type-embeddings → metrics CSV
+  Step 5 — WL kernel + shape metrics → wl CSV
+  Step 6 — Attribute reach distribution → attr_dist CSV
+  Step 7 (optional, --with-entailment)    — cross-encoder NLI entailment
+  Step 8 (optional, --with-encapsulation) — conceptual-encapsulation (1:n) scoring
+
+Steps 7 and 8 are extra semantic-comparison metrics, not part of the core
+4-metric composite (lexical_sim/wl_structural/shape_sim/attr_weighted), and
+are disabled by default; enable them explicitly with the flags above.
 
 Outputs
 -------
   enriched_ontology_matching/pairs/<domain_key>.json        — test JSON per pair
   enriched_ontology_matching/outputs/enriched/<stem>.csv    — per-pair CSV
   enriched_ontology_matching/outputs/enriched/all_domains_combined.csv
+  enriched_ontology_matching/outputs/entailment_entity/<stem>_entity_entailment.csv    (--with-entailment)
+  enriched_ontology_matching/outputs/entailment_attr/<stem>_attr_entailment.csv        (--with-entailment)
+  enriched_ontology_matching/outputs/encapsulation/<stem>_encapsulation.csv            (--with-encapsulation)
 
 Usage
 -----
@@ -36,6 +47,9 @@ Usage
 
   # Only AML or only LogMap:
   .venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --matcher aml
+
+  # Also compute the optional entailment and encapsulation metrics:
+  .venv/Scripts/python.exe enriched_ontology_matching/run_all_pairs.py --domains Automobile --with-entailment --with-encapsulation
 """
 
 from __future__ import annotations
@@ -64,6 +78,12 @@ _MERGED_DIR = _DIR / "outputs" / "merged"
 _WL_DIR     = _DIR / "outputs" / "wl"
 _AD_DIR     = _DIR / "outputs" / "attr_dist"
 _COMBINED   = _ENRICHED / "all_domains_combined.csv"
+
+# Optional extra metrics (see --with-entailment / --with-encapsulation) — not
+# part of the core 4-metric composite, disabled by default.
+_ENTAIL_ENTITY_DIR = _DIR / "outputs" / "entailment_entity"
+_ENTAIL_ATTR_DIR   = _DIR / "outputs" / "entailment_attr"
+_ENCAPS_DIR        = _DIR / "outputs" / "encapsulation"
 
 # ---------------------------------------------------------------------------
 # Domain registry
@@ -150,9 +170,18 @@ def _run_pair(
     run_wl_stage,
     run_attr_dist_stage,
     _safe_local,
+    with_entailment: bool = False,
+    with_encapsulation: bool = False,
+    run_entity_entailment_stage=None,
+    run_attribute_entailment_stage=None,
+    run_encapsulation_stage=None,
+    nli_model_name: str | None = None,
 ) -> tuple[str, Path] | None:
     """
-    Run the full 6-step pipeline for a single model pair (a, b).
+    Run the full 6-step pipeline for a single model pair (a, b), plus two
+    optional extra-metric stages when requested (see --with-entailment /
+    --with-encapsulation on the CLI; both default off, neither is part of
+    the core 4-metric composite).
 
     Steps:
       1. Enriched matching (AML + LogMap + WN + CN) → per-pair CSV
@@ -161,6 +190,8 @@ def _run_pair(
       4. Merge enriched + embeddings + type-embeddings → metrics CSV
       5. WL kernel + shape metrics → wl CSV
       6. Attribute reach distribution → attr_dist CSV
+      7. (optional) Entity-level + attribute-level NLI entailment
+      8. (optional) Conceptual-encapsulation (1:n) candidate scoring
 
     Returns (domain_key, enriched_csv_path) on success, None on failure.
     """
@@ -254,6 +285,47 @@ def _run_pair(
         except Exception as exc:
             print(f"    [WARN] AttrDist failed for {domain_key}: {exc}")
 
+    # ── Step 7 (optional): NLI entailment, entity-level + attribute-level ──
+    if with_entailment:
+        entity_entail_csv = _ENTAIL_ENTITY_DIR / f"{stem}_entity_entailment.csv"
+        attr_entail_csv   = _ENTAIL_ATTR_DIR   / f"{stem}_attr_entailment.csv"
+        entail_kwargs = {"nli_model_name": nli_model_name} if nli_model_name else {}
+
+        if skip_existing and entity_entail_csv.exists():
+            print(f"    [SKIP] Entity entailment for {domain_key}")
+        else:
+            try:
+                data_a = json.loads(a.read_text(encoding="utf-8"))
+                data_b = json.loads(b.read_text(encoding="utf-8"))
+                run_entity_entailment_stage(data_a, data_b, entity_entail_csv, **entail_kwargs)
+            except Exception as exc:
+                print(f"    [WARN] Entity entailment failed for {domain_key}: {exc}")
+
+        if skip_existing and attr_entail_csv.exists():
+            print(f"    [SKIP] Attribute entailment for {domain_key}")
+        else:
+            try:
+                data_a = json.loads(a.read_text(encoding="utf-8"))
+                data_b = json.loads(b.read_text(encoding="utf-8"))
+                run_attribute_entailment_stage(data_a, data_b, attr_entail_csv, **entail_kwargs)
+            except Exception as exc:
+                print(f"    [WARN] Attribute entailment failed for {domain_key}: {exc}")
+
+    # ── Step 8 (optional): conceptual-encapsulation (1:n) candidate scoring ─
+    if with_encapsulation:
+        encaps_csv = _ENCAPS_DIR / f"{stem}_encapsulation.csv"
+        encaps_kwargs = {"nli_model_name": nli_model_name} if nli_model_name else {}
+
+        if skip_existing and encaps_csv.exists():
+            print(f"    [SKIP] Encapsulation for {domain_key}")
+        else:
+            try:
+                data_a = json.loads(a.read_text(encoding="utf-8"))
+                data_b = json.loads(b.read_text(encoding="utf-8"))
+                run_encapsulation_stage(data_a, data_b, encaps_csv, **encaps_kwargs)
+            except Exception as exc:
+                print(f"    [WARN] Encapsulation failed for {domain_key}: {exc}")
+
     return (domain_key, csv_path)
 
 
@@ -298,6 +370,32 @@ def main() -> None:
         "--cross-domain", action="store_true",
         help="Also run cross-domain pairs (AML+LogMap across all selected domain pairs).",
     )
+    parser.add_argument(
+        "--with-entailment", action="store_true",
+        help=(
+            "Also compute cross-encoder NLI entailment (entailment_matcher.py), entity-name "
+            "level and attribute-type level. Optional extra metric, not part of the core "
+            "4-metric composite; off by default. Requires a GPU-capable or CPU-tolerant "
+            "environment for the NLI cross-encoder (downloaded on first use)."
+        ),
+    )
+    parser.add_argument(
+        "--with-encapsulation", action="store_true",
+        help=(
+            "Also run conceptual-encapsulation (1:n / complex-match) candidate scoring "
+            "(subgraph_candidates.py + group_encapsulation.py): discovers candidate entity "
+            "subgroups via graph community detection and scores whether they correspond to "
+            "a single coarser entity in the other model. Optional extra metric, not part of "
+            "the core 4-metric composite; off by default."
+        ),
+    )
+    parser.add_argument(
+        "--nli-model", default=None, metavar="MODEL",
+        help=(
+            "Override the cross-encoder NLI model used by --with-entailment and "
+            "--with-encapsulation (default: cross-encoder/nli-MiniLM2-L6-H768)."
+        ),
+    )
     args = parser.parse_args()
 
     inputs_dir = Path(args.inputs_dir)
@@ -333,7 +431,22 @@ def main() -> None:
         run_wl_stage          = run_wl_stage,
         run_attr_dist_stage   = run_attr_dist_stage,
         _safe_local           = _safe_local,
+        with_entailment       = args.with_entailment,
+        with_encapsulation    = args.with_encapsulation,
+        nli_model_name        = args.nli_model,
     )
+
+    if args.with_entailment:
+        from entailment_matcher import run_entity_entailment_stage, run_attribute_entailment_stage
+        _ENTAIL_ENTITY_DIR.mkdir(parents=True, exist_ok=True)
+        _ENTAIL_ATTR_DIR.mkdir(parents=True, exist_ok=True)
+        pipeline_kwargs["run_entity_entailment_stage"] = run_entity_entailment_stage
+        pipeline_kwargs["run_attribute_entailment_stage"] = run_attribute_entailment_stage
+
+    if args.with_encapsulation:
+        from group_encapsulation import run_encapsulation_stage
+        _ENCAPS_DIR.mkdir(parents=True, exist_ok=True)
+        pipeline_kwargs["run_encapsulation_stage"] = run_encapsulation_stage
 
     domains = args.domains if args.domains else DOMAINS
     for d in domains:
