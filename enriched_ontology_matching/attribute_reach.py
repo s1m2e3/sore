@@ -83,6 +83,7 @@ _DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(_DIR))
 
 from model_normalizer import load_inventory, normalize_model
+from root_comparator import split_camel, best_wup
 
 # ── Default hop weights by canonical relation type ────────────────────────────
 
@@ -553,6 +554,55 @@ def attribute_reach(
     return reach
 
 
+# ── WUP-based type similarity kernel (offline WordNet only, no ConceptNet) ────
+# The observable-type vocabulary is a finite, closed list (declared in the JSON
+# models), so — unlike free-text names — every type can be scored pairwise via
+# WordNet Wu-Palmer similarity. This is blended with the embedding cosine below
+# so attr_dist_sim isn't solely reliant on the (more forgiving) embedding space.
+
+def _type_wup_similarity(type_a: str, type_b: str) -> float:
+    """Max Wu-Palmer similarity across camelCase-split tokens of two type names."""
+    if type_a.lower() == type_b.lower():
+        return 1.0
+    tokens_a = split_camel(type_a) or [type_a.lower()]
+    tokens_b = split_camel(type_b) or [type_b.lower()]
+    scores = [best_wup(ta, tb)[0] for ta in tokens_a for tb in tokens_b]
+    return max(scores) if scores else 0.0
+
+
+def _wup_kernel(vocab: list[str]) -> np.ndarray:
+    """Symmetric |vocab| x |vocab| WUP similarity kernel over the type vocabulary."""
+    n = len(vocab)
+    S = np.eye(n, dtype=np.float64)
+    for i in range(n):
+        for j in range(i + 1, n):
+            s = _type_wup_similarity(vocab[i], vocab[j])
+            S[i, j] = S[j, i] = s
+    return S
+
+
+def _type_weight_vector(reach: dict, vocab_index: dict[str, int]) -> np.ndarray:
+    """Aggregate raw per-type weight (not embedding-projected) summed over all entities."""
+    v = np.zeros(len(vocab_index), dtype=np.float64)
+    for sig in reach.values():
+        for obs_type, w in sig.items():
+            if obs_type in vocab_index:
+                v[vocab_index[obs_type]] += w
+    return v
+
+
+def _soft_cosine(va: np.ndarray, vb: np.ndarray, kernel: np.ndarray) -> float:
+    """Cosine similarity generalised with a type-type similarity kernel instead
+    of the identity matrix — near-synonym types (per WUP) contribute partial
+    similarity instead of only exact-type overlap."""
+    num = va @ kernel @ vb
+    da  = va @ kernel @ va
+    db  = vb @ kernel @ vb
+    if da <= 1e-10 or db <= 1e-10:
+        return 0.0
+    return round(float(num / np.sqrt(da * db)), 4)
+
+
 # ── Anonymous attribute reach distribution stage ─────────────────────────────
 
 def run_attr_dist_stage(
@@ -573,7 +623,18 @@ def run_attr_dist_stage(
          compute its K-hop reach signature via BFS through PartOf/Connects edges.
       4. Sum reach-weighted type embeddings over ALL entities → one dense
          vector per model.
-      5. attr_dist_sim = cosine(agg_A, agg_B).
+      5. embed_sim = cosine(agg_A, agg_B).
+      6. wup_sim   = soft-cosine(agg_A, agg_B) using a WUP type-similarity
+         kernel in place of the embedding dot product — since the type
+         vocabulary is a finite, closed list, every pair can be scored via
+         WordNet directly instead of relying solely on embedding proximity.
+      7. attr_dist_sim = min(embed_sim, wup_sim) — the stricter of the two.
+         WUP alone tends to be the MORE forgiving signal for engineering/
+         physics quantity nouns (WordNet lumps them under shared generic
+         ancestors like "measure" or "physical property"), so averaging
+         would have made the metric more forgiving, not less. Taking the
+         min guarantees attr_dist_sim is never more lenient than either
+         signal alone.
 
     Imputation is disabled: only declared and structurally propagated attributes
     contribute, keeping the metric purely structural/semantic rather than
@@ -608,7 +669,15 @@ def run_attr_dist_stage(
     agg_a = _agg(reach_a)
     agg_b = _agg(reach_b)
     na, nb = np.linalg.norm(agg_a), np.linalg.norm(agg_b)
-    sim = round(float(np.dot(agg_a, agg_b) / (na * nb)), 4) if na > 1e-10 and nb > 1e-10 else 0.0
+    embed_sim = round(float(np.dot(agg_a, agg_b) / (na * nb)), 4) if na > 1e-10 and nb > 1e-10 else 0.0
+
+    vocab_index = {t: i for i, t in enumerate(vocab)}
+    wup_kernel  = _wup_kernel(vocab)
+    wvec_a = _type_weight_vector(reach_a, vocab_index)
+    wvec_b = _type_weight_vector(reach_b, vocab_index)
+    wup_sim = _soft_cosine(wvec_a, wvec_b, wup_kernel)
+
+    sim = round(min(embed_sim, wup_sim), 4)
 
     out_csv.parent.mkdir(parents=True, exist_ok=True)
     with open(out_csv, "w", newline="", encoding="utf-8") as fh:
@@ -616,6 +685,6 @@ def run_attr_dist_stage(
         w.writeheader()
         w.writerow({"attr_dist_sim": sim})
 
-    print(f"[AttrDist] attr_dist_sim={sim:.4f}  vocab={len(vocab)}  "
-          f"entities_a={len(reach_a)}  entities_b={len(reach_b)}", file=sys.stderr)
+    print(f"[AttrDist] attr_dist_sim={sim:.4f}  (embed={embed_sim:.4f}, wup={wup_sim:.4f})  "
+          f"vocab={len(vocab)}  entities_a={len(reach_a)}  entities_b={len(reach_b)}", file=sys.stderr)
     return sim
