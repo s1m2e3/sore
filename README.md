@@ -1,8 +1,37 @@
 # Enriched Ontology Matching Pipeline
 
-A semantic enrichment pipeline that runs structural matchers (AML + LogMap) over pairs of conceptual models, scores every entity pair across four orthogonal similarity dimensions, and produces a domain distance summary JSON plus an interactive distance map.
+This pipeline compares pairs of conceptual (entity-relationship) models by combining two independent measurement approaches: **semantic/lexical matching** — WordNet, ConceptNet, and sentence-transformer embeddings, seeded by the AML and LogMap structural matchers — which establishes and characterises entity-level correspondences, and **graph-theoretic structural comparison** — a Weisfeiler-Lehman relational kernel, degree/spectral/clustering/betweenness graph-shape metrics, and a K-hop attribute-reachability comparison — which scores topology and attribute content without ever looking at what anything is named. The four resulting scores are combined into a per-pair composite similarity and distance, producing a domain distance summary JSON and an interactive distance map.
 
 The primary use case is **within-domain analysis**: run all pairwise comparisons for a set of ontologies that share the same domain, then read the average pairwise distance between them as a JSON summary. Cross-domain comparisons and the interactive distance map are secondary outputs.
+
+---
+
+## Pipeline Overview
+
+Every ontology pair goes through two tracks that never share signal, then a final assembly step.
+
+**Track A — Entity-level semantic matching** (produces `lexical_sim`; entity names and their attribute-type vocabulary are the whole input)
+
+| Step | Module | What happens |
+|------|--------|--------------|
+| A1 | `aml_runner.py` / `logmap_runner.py` | AML and LogMap independently propose candidate entity correspondences; results are merged and deduplicated, with `matched=1` wherever either (or both) confirms a pair |
+| A2 | `enriched_matcher.py` — Layer 1 (Characterise) | Every AML/LogMap match is annotated with a WordNet + ConceptNet relationship label (Synonym, Hypernym, PartOf, …) and a blended Wu-Palmer score (`wup`); spurious matches (same-entity attribute pairs, parent-name-embedded PartOf pairs) are filtered out |
+| A3 | `enriched_matcher.py` — Layer 2 (Discover) | For entities neither matcher found, the same WordNet/ConceptNet token- and compound-level analysis proposes new Equivalence / Subsumption / ConceptNet-relation candidates |
+| A4 | `enriched_matcher.py` — Layer 3 (WUP backup) | Any entity still without a candidate partner is paired with its top-k WordNet WUP matches (`max_wup ≥ 0.9`) — a purely lexical rescue for entities AML/LogMap/WordNet-discovery all missed |
+| A5 | `attribute_reach.py` — Layer 3b (attribute-type backup) | Any entity *still* orphaned is paired via attribute-type embedding similarity (`type_embed_sim ≥ 0.5`) instead of name — rescues entities with matching observable types but unrelated names |
+| A6 | `semantic_encoder.py` | Sentence-embedding cosine similarity (`cosine_avg`) computed for every candidate pair, built from attribute-type tokens (entity-name tokens as fallback) |
+| A7 | `attribute_reach.py` — `run_type_embed_stage` | Attribute-type embedding similarity (`type_embed_sim`) computed for every candidate pair via K-hop attribute reach |
+| A8 | `merge_stage.py` | Joins A1–A7 into one row per candidate pair; `compare_stage.py` assembles `lexical_sim` from `matched`/`wup` |
+
+**Track B — Whole-model graph-theoretic + attribute-reach comparison** (produces `wl_structural`, `shape_sim`, `attr_weighted`) — computed directly from each model's association graph; **entity names never enter this computation**
+
+| Step | Module | What happens |
+|------|--------|--------------|
+| B1 | `wl_kernel_matcher.py` | Both models' association graphs are anonymised (every node initialised to `hash("N")`, canonical relation type kept on every edge) and compared with a K=3-hop Weisfeiler-Lehman kernel → `wl_structural` |
+| B2 | `wl_kernel_matcher.py` — `graph_shape_sim` | Four global topology signatures — degree sequence, Laplacian spectrum, clustering coefficients, betweenness centrality — are each compared by cosine-of-sorted-vector and averaged → `shape_sim` |
+| B3 | `attribute_reach.py` — `run_attr_dist_stage` | Each model's declared observable-attribute types are K-hop propagated, embedded, and aggregated into one vector per model, then compared by the stricter of an embedding cosine and a WordNet-WUP soft-cosine kernel → `attr_dist_sim` (reported as `attr_weighted`) |
+
+**Assembly** — `compare_stage.py` combines the four scores (`lexical_sim`, `wl_structural`, `shape_sim`, `attr_weighted`) into an equal-weight composite similarity and a Euclidean distance per pair (excluding whichever metric is unavailable for that pair), then aggregates across all pairs in a domain into the summary JSON, or across every pair on disk into the interactive MDS map.
 
 ---
 
@@ -96,6 +125,8 @@ attr_dist_sim = min(embed_sim, wup_sim)     — the stricter of the two; WUP alo
 attr_weighted = attr_dist_sim               — unmodified; no longer scaled by entity-name WUP
 ```
 
+`attr_weighted` shares **no data at all** with `lexical_sim` — `wup_sim` above is a WUP kernel `S` computed over the closed *observable-type* vocabulary `V` (Temperature, Torque, Pressure, …), entirely independent from `lexical_sim`'s entity-*name* WUP (§1). Both call the same underlying WordNet Wu-Palmer function, but over disjoint inputs (attribute-type tokens vs. entity-name tokens) with no value passed between them. This was previously coupled — `attr_weighted` used to be `attr_dist_sim × avg_entity_wup` — but that scaling was removed (see `attribute_reach.py::run_attr_dist_stage` docstring) because it made a supposedly attribute-only metric depend on entity naming.
+
 ### Composite score and distance
 
 ```
@@ -117,7 +148,7 @@ These feed the metrics above or internal entity-match declaration, but are not t
 | Signal | Written by | Used by |
 |--------|-----------|---------|
 | `matched` | `enriched_matcher.py` (AML/LogMap confirmation) | `lexical_sim` |
-| `wup` | `enriched_matcher.py` | `lexical_sim`, `attr_dist_sim`'s WUP kernel |
+| `wup` | `enriched_matcher.py` (entity-*name* WUP) | `lexical_sim` only — **not** used by `attr_weighted`. `attribute_reach.py` computes its own separate WUP kernel over the attribute-*type* vocabulary (§4) with no data passed between the two |
 | `cosine_avg` | `semantic_encoder.py` (name-based sentence embedding) | fallback for entity-match declaration when no attribute-type evidence exists |
 | `type_embed_sim` | `attribute_reach.py` (attribute-type embedding, per entity pair) | primary signal for entity-match declaration (`wl_kernel_matcher.declare_entity_matches`), which feeds the diagnostic `wl_matched`/`wl_composite`/`wl_consistency` columns in the WL CSV — **not** part of the top-level composite |
 
