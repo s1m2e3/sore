@@ -66,20 +66,16 @@ sys.path.insert(0, str(_DIR))
 
 from model_normalizer import load_inventory, normalize_model
 from attribute_reach import attribute_reach, collect_obs_vocab
+from model_cache import load_or_download
 
 # ---------------------------------------------------------------------------
-# Model loading (cross-encoder, cached locally like the other sentence-
-# transformer models in this pipeline)
+# Model loading (cross-encoder, cached locally via model_cache.py like every
+# other neural model in this pipeline)
 # ---------------------------------------------------------------------------
 
-_MODELS_DIR       = _DIR / "models"
 DEFAULT_NLI_MODEL = "cross-encoder/nli-MiniLM2-L6-H768"
 _NLI_MODEL        = None
 _NLI_MODEL_NAME   = None
-
-
-def _model_local_path(model_name: str) -> Path:
-    return _MODELS_DIR / model_name.replace("/", "--")
 
 
 def _get_nli_model(model_name: str = DEFAULT_NLI_MODEL):
@@ -94,16 +90,7 @@ def _get_nli_model(model_name: str = DEFAULT_NLI_MODEL):
                 "Install with: pip install sentence-transformers"
             )
         device = "cuda" if torch.cuda.is_available() else "cpu"
-        local  = _model_local_path(model_name)
-        if local.is_dir():
-            print(f"[NLI] Loading {model_name} from {local} ...", file=sys.stderr)
-            _NLI_MODEL = CrossEncoder(str(local), device=device)
-        else:
-            print(f"[NLI] Downloading {model_name} ...", file=sys.stderr)
-            _MODELS_DIR.mkdir(parents=True, exist_ok=True)
-            _NLI_MODEL = CrossEncoder(model_name, device=device)
-            _NLI_MODEL.save(str(local))
-            print(f"[NLI] Saved to {local}", file=sys.stderr)
+        _NLI_MODEL      = load_or_download(model_name, CrossEncoder, device)
         _NLI_MODEL_NAME = model_name
         print(f"[NLI] Ready ({device}).", file=sys.stderr)
     return _NLI_MODEL

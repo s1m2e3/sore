@@ -338,6 +338,10 @@ gunzip conceptnet-assertions-5.7.0.csv.gz
 
 Place the extracted file at `ontology_matching/inputs/conceptnet-assertions-5.7.0.csv/assertions.csv`.
 
+### 6. Neural network model cache (no setup needed, informational)
+
+Every sentence-transformer or cross-encoder model this pipeline uses (`paraphrase-MiniLM-L6-v2` for `cosine_avg`/`attr_weighted`'s embed_sim; `cross-encoder/nli-MiniLM2-L6-H768` for the optional Section 5/6 metrics) goes through the same local-cache-or-download check (`model_cache.py`): if it's already present under `enriched_ontology_matching/models/`, it's loaded from there; otherwise it's downloaded once and saved to that directory for every later run. That directory is gitignored, since these are large binary weights, not something to check into the repo, so the first run of any command that touches one of these models will download it.
+
 ---
 
 ## Setup

@@ -44,6 +44,7 @@ _DIR = Path(__file__).parent
 sys.path.insert(0, str(_DIR))
 
 from root_comparator import split_camel
+from model_cache import load_or_download
 
 # ---------------------------------------------------------------------------
 # Model config
@@ -67,16 +68,15 @@ def _get_encoder(model_name: str = DEFAULT_MODEL):
         try:
             from sentence_transformers import SentenceTransformer
             import torch
-            device = "cuda" if torch.cuda.is_available() else "cpu"
-            print(f"[Encoder] Loading {model_name} on {device} ...")
-            _ENCODER = SentenceTransformer(model_name, device=device)
-            _ENCODER_MODEL = model_name
-            print(f"[Encoder] Ready.")
         except ImportError:
             raise ImportError(
                 "sentence-transformers is required. "
                 "Install with: pip install sentence-transformers"
             )
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        _ENCODER       = load_or_download(model_name, SentenceTransformer, device)
+        _ENCODER_MODEL = model_name
+        print(f"[Encoder] Ready ({device}).")
     return _ENCODER
 
 

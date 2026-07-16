@@ -84,6 +84,7 @@ sys.path.insert(0, str(_DIR))
 
 from model_normalizer import load_inventory, normalize_model
 from root_comparator import split_camel, best_wup
+from model_cache import load_or_download
 
 # ── Default hop weights by canonical relation type ────────────────────────────
 
@@ -120,14 +121,14 @@ def _get_encoder(model_name: str = _DEFAULT_MODEL):
         try:
             from sentence_transformers import SentenceTransformer
             import torch
-            device = "cuda" if torch.cuda.is_available() else "cpu"
-            _ENCODER       = SentenceTransformer(model_name, device=device)
-            _ENCODER_MODEL = model_name
         except ImportError:
             raise ImportError(
                 "sentence-transformers is required. "
                 "pip install sentence-transformers"
             )
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        _ENCODER       = load_or_download(model_name, SentenceTransformer, device)
+        _ENCODER_MODEL = model_name
     return _ENCODER
 
 
