@@ -256,13 +256,13 @@ written as `name_group_covers_entity`, `name_entity_covers_group`, `name_f1`.
 
 $$
 \mathrm{decision}(e_a) = \begin{cases}
-\texttt{match} & s_1 \ge \tau_{\mathrm{hc}} \\
-\texttt{match} & \tau_{\mathrm{min}} \le s_1 < \tau_{\mathrm{hc}} \ \text{and}\ \mathrm{margin} \ge \tau_{\mathrm{margin}} \\
-\texttt{no\_match} & \text{otherwise}
+\text{match} & s_1 \ge \tau_{\mathrm{hc}} \\
+\text{match} & \tau_{\mathrm{min}} \le s_1 < \tau_{\mathrm{hc}} \ \text{and}\ \mathrm{margin} \ge \tau_{\mathrm{margin}} \\
+\text{abstain} & \text{otherwise}
 \end{cases}
 $$
 
-with defaults $\tau_{\mathrm{min}} = 0.5$, $\tau_{\mathrm{margin}} = 0.15$, $\tau_{\mathrm{hc}} = 0.9$ (tunable via `min_score`/`min_margin`/`high_confidence`). A top score and margin alone cannot separate correct from incorrect top-1 picks (see the docstring in `group_encapsulation.py` for the specific near-tie cases that motivated the two-tier rule); a 33-case Automobile-domain evaluation found this gate raises precision on reported matches from ~77% to ~89.5%, at the cost of recall dropping from ~88% to ~68%, an expected and, for this purpose, worthwhile trade.
+`abstain` is written to the output CSV as the `no_match` decision label. Defaults: $\tau_{\mathrm{min}} = 0.5$, $\tau_{\mathrm{margin}} = 0.15$, $\tau_{\mathrm{hc}} = 0.9$ (tunable via `min_score`/`min_margin`/`high_confidence`). A top score and margin alone cannot separate correct from incorrect top-1 picks (see the docstring in `group_encapsulation.py` for the specific near-tie cases that motivated the two-tier rule); a 33-case Automobile-domain evaluation found this gate raises precision on reported matches from ~77% to ~89.5%, at the cost of recall dropping from ~88% to ~68%, an expected and, for this purpose, worthwhile trade.
 
 Tested in both directions (`a_in_b`: entities of A against B's candidate groups, and `b_in_a`) and written to `outputs/encapsulation/<stem>_encapsulation.csv`: `direction`, `decision`, `best_group` (winning candidate's members), `attr_score`, `name_group_covers_entity`/`name_entity_covers_group`/`name_f1`, and `margin`.
 
