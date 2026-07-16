@@ -48,11 +48,9 @@ Two further modules run only when explicitly requested via `--with-entailment` /
 
 ---
 
-## The Four Metrics
+## The Six Metrics
 
-Every entity or model pair is scored on four independent dimensions. Each dimension is designed to be blind to the signal captured by the others, so that a high score on one carries no implication for the others. This independence allows the composite score to separate vocabulary similarity, structural similarity, and attribute similarity as distinct sources of evidence.
-
-Two further metrics, directional NLI entailment and conceptual (1:n) encapsulation, are available but opt-in: disabled by default and excluded from the composite score, distance, domain summary, and interactive map. See "Optional extra metrics" below.
+Every entity or model pair is scored across six independent dimensions. Sections 1-4 form the composite similarity/distance score below; each is designed to be blind to the signal captured by the others, so that a high score on one carries no implication for the others. Sections 5 and 6 are optional, disabled by default, enabled per `eom-run` invocation with `--with-entailment` / `--with-encapsulation`, and excluded from the composite score, distance, domain summary, and interactive map (see "Optional extra metrics" for CLI usage and output-path reference).
 
 ### 1. `lexical_sim`: name-level similarity
 
@@ -183,9 +181,94 @@ $$
 
 where $s_{\text{attr}}$ denotes `attr_dist_sim` in the pipeline's output CSVs. `attr_weighted` shares no data with `lexical_sim`. The kernel `wup_sim` above is computed over the closed observable-type vocabulary `V` (for example, Temperature, Torque, and Pressure), and is entirely independent of the entity-name WUP score used in `lexical_sim` (Section 1). Both computations call the same underlying WordNet Wu-Palmer function, but over disjoint inputs, attribute-type tokens in one case and entity-name tokens in the other, with no value passed between them. In an earlier version of the pipeline these metrics were coupled: `attr_weighted` was computed as `attr_dist_sim` multiplied by `avg_entity_wup`. This scaling was removed, see the docstring of `run_attr_dist_stage` in `attribute_reach.py`, because it made a metric intended to capture attribute similarity alone depend on entity naming.
 
+### 5. Entailment (optional, `--with-entailment`)
+
+**Purpose.** This metric tests directional textual entailment, whether the description of one entity (or its declared attributes) logically implies the other's. It requires a cross-encoder, which jointly encodes premise and hypothesis in one transformer pass; the bi-encoders used elsewhere in this pipeline (`cosine_avg`, `type_embed_sim`) only ever produce independent embeddings and cannot represent this directional, joint-context relationship.
+
+A cross-encoder NLI model $M_{\mathrm{nli}}$ (default `cross-encoder/nli-MiniLM2-L6-H768`, overridable with `--nli-model`) maps a (premise, hypothesis) pair jointly to class logits; the entailment-class probability is:
+
+$$
+p_{\mathrm{ent}}(x \to y) = \big[\mathrm{softmax}(M_{\mathrm{nli}}(x, y))\big]_{\mathrm{entail}}
+$$
+
+where $x$ is the premise text, $y$ the hypothesis text, and $\mathrm{entail}$ is the model's own entailment-class index, read from its `id2label` config since NLI models do not agree on class ordering. (A minority of binary-relevance-style cross-encoders emit a single logit instead of three; for those, $p_{\mathrm{ent}}(x\to y) = \sigma(z)$, the sigmoid of that logit.)
+
+Two independent probes reuse this same $p_{\mathrm{ent}}$ function over different text-construction functions:
+
+**Entity-level** (`run_entity_entailment_stage`). Text is the camelCase-split, lower-cased entity name: $\pi(e) = \text{"This is a "} + \mathrm{readable}(e) + \text{"."}$. For every candidate pair $(e_a, e_b)$:
+
+$$
+\mathrm{ent}_{a \to b} = p_{\mathrm{ent}}(\pi(e_a) \to \pi(e_b)), \qquad \mathrm{ent}_{b \to a} = p_{\mathrm{ent}}(\pi(e_b) \to \pi(e_a))
+$$
+
+Validated to correctly recover directional hyponym/hypernym relationships, for example `MasterCylinder → Cylinder` scores 0.99 one-way and 0.006 in reverse, and to avoid the naive lexical-overlap trap where `SteeringWheel` would otherwise be confused with `Wheel`.
+
+**Attribute-level** (`run_attribute_entailment_stage`). Text is built from the same $K$-hop ($K=2$) attribute-reach signature $\mathrm{reach}(e)$ used by `attr_weighted` (Section 4), with name-based imputation disabled: $\sigma(e) = \text{"The component has these properties: "} + \mathrm{sorted}\{\mathrm{readable}(t) : t \in \mathrm{reach}(e)\} + \text{"."}$. The same two directional scores are computed with $\sigma$ substituted for $\pi$.
+
+Both probes report the same triple, since, unlike Sections 1-4, entailment is not symmetric:
+
+$$
+\mathrm{entailment\_f1}(e_a, e_b) = \max\big(\mathrm{ent}_{a \to b},\ \mathrm{ent}_{b \to a}\big)
+$$
+
+written as `entailment_a_covers_b`, `entailment_b_covers_a`, `entailment_f1` to `outputs/entailment_entity/<stem>_entity_entailment.csv` (entity-level) and `outputs/entailment_attr/<stem>_attr_entailment.csv` (attribute-level).
+
+### 6. Conceptual encapsulation (optional, `--with-encapsulation`)
+
+**Purpose.** Tests a relationship none of Sections 1-5 can, since every one of them compares exactly one entity in A against one entity in B: whether one entity in A corresponds instead to a *group* of entities in B, the same concept described at a different resolution (1:n / complex matching in the ontology-alignment literature).
+
+**Step 1: candidate group discovery** (`subgraph_candidates.py`). Build an undirected graph $G_X = (V_X, E_X)$ per model $X$, one node per entity, one edge for every pair of co-participants in any association, regardless of relation type, so that a ring of `Connects` edges is found exactly as readily as a `PartOf` composition tree. Partition via Louvain modularity-maximizing community detection into candidate groups:
+
+$$
+\mathcal{C}_X = \{\, c \in \mathrm{Louvain}(G_X) : 2 \le |c| \le 0.6\,|V_X| \,\}
+$$
+
+the lower bound drops singleton groups, the upper bound drops the degenerate whole-graph-as-one-group case.
+
+**Step 2: scoring** (`group_encapsulation.py`). For a coarse entity $e_a \in A$ and a candidate group $g \in \mathcal{C}_B$, two independent scores are computed, reusing Sections 4 and 5's machinery rather than new machinery.
+
+*Attribute-level*, reusing `attr_weighted`'s embed+WUP blend (Section 4) with the group's reach vectors summed before comparison:
+
+$$
+\mathrm{agg}(g) = \sum_{e \in g}\sum_{t \in \mathrm{reach}(e)} w(e,t)\cdot \mathrm{embed}(t), \qquad w_g = \sum_{e \in g} w_e
+$$
+
+$$
+\mathrm{embed\_sim}(e_a, g) = \cos\big(\mathrm{agg}(\{e_a\}),\, \mathrm{agg}(g)\big), \qquad
+\mathrm{wup\_sim}(e_a, g) = \frac{w_{e_a}^\top S\, w_g}{\sqrt{w_{e_a}^\top S\, w_{e_a} \cdot w_g^\top S\, w_g}}
+$$
+
+$$
+\mathrm{attr\_score}(e_a, g) = \min\big(\mathrm{embed\_sim}(e_a, g),\ \mathrm{wup\_sim}(e_a, g)\big)
+$$
+
+where $S$ is the same attribute-type WUP kernel used in Section 4.
+
+*Name-level*, reusing Section 5's $p_{\mathrm{ent}}$ over a group premise $\gamma(g) = \text{"This is a system made of "} + \mathrm{sorted}\{\mathrm{readable}(m) : m \in g\} + \text{"."}$:
+
+$$
+\mathrm{name\_f1}(e_a, g) = \max\Big(p_{\mathrm{ent}}(\gamma(g) \to \pi(e_a)),\ p_{\mathrm{ent}}(\pi(e_a) \to \gamma(g))\Big)
+$$
+
+written as `name_group_covers_entity`, `name_entity_covers_group`, `name_f1`.
+
+**Abstention gate** (`classify_top_match`). For each $e_a$, every candidate group $g \in \mathcal{C}_B$ is ranked by $\mathrm{name\_f1}(e_a, g)$; let $s_1 \ge s_2 \ge \dots$ be the sorted scores and $\mathrm{margin} = s_1 - s_2$. Only the top-ranked group is ever reported, and only when:
+
+$$
+\mathrm{decision}(e_a) = \begin{cases}
+\texttt{match} & s_1 \ge \tau_{\mathrm{hc}} \\
+\texttt{match} & \tau_{\mathrm{min}} \le s_1 < \tau_{\mathrm{hc}} \ \text{and}\ \mathrm{margin} \ge \tau_{\mathrm{margin}} \\
+\texttt{no\_match} & \text{otherwise}
+\end{cases}
+$$
+
+with defaults $\tau_{\mathrm{min}} = 0.5$, $\tau_{\mathrm{margin}} = 0.15$, $\tau_{\mathrm{hc}} = 0.9$ (tunable via `min_score`/`min_margin`/`high_confidence`). A top score and margin alone cannot separate correct from incorrect top-1 picks (see the docstring in `group_encapsulation.py` for the specific near-tie cases that motivated the two-tier rule); a 33-case Automobile-domain evaluation found this gate raises precision on reported matches from ~77% to ~89.5%, at the cost of recall dropping from ~88% to ~68%, an expected and, for this purpose, worthwhile trade.
+
+Tested in both directions (`a_in_b`: entities of A against B's candidate groups, and `b_in_a`) and written to `outputs/encapsulation/<stem>_encapsulation.csv`: `direction`, `decision`, `best_group` (winning candidate's members), `attr_score`, `name_group_covers_entity`/`name_entity_covers_group`/`name_f1`, and `margin`.
+
 ### Composite score and distance
 
-Let $\mathcal{M} = \{\mathrm{lexical\_sim},\ \mathrm{wl\_structural},\ \mathrm{shape\_sim},\ \mathrm{attr\_weighted}\}$, each with nominal weight $1/4$, and let $\mathcal{A} = \{m \in \mathcal{M} : \mathrm{value}(m) > 0\}$ be the subset available for a given pair. Metrics unavailable for a pair, for example $\mathrm{attr\_weighted}=0$ when neither model has observable types, are excluded from $\mathcal{A}$ rather than counted as a penalty.
+Let $\mathcal{M} = \{\mathrm{lexical\_sim},\ \mathrm{wl\_structural},\ \mathrm{shape\_sim},\ \mathrm{attr\_weighted}\}$ (Sections 1-4 only; Sections 5 and 6 are deliberately excluded, see above), each with nominal weight $1/4$, and let $\mathcal{A} = \{m \in \mathcal{M} : \mathrm{value}(m) > 0\}$ be the subset available for a given pair. Metrics unavailable for a pair, for example $\mathrm{attr\_weighted}=0$ when neither model has observable types, are excluded from $\mathcal{A}$ rather than counted as a penalty.
 
 $$
 \mathrm{composite}(A,B) = \frac{1}{|\mathcal{A}|}\sum_{m \in \mathcal{A}} \mathrm{value}(m)
@@ -388,38 +471,20 @@ Output: `enriched_ontology_matching/outputs/ontology_map.html`, a self-contained
 
 ## Optional extra metrics (`--with-entailment`, `--with-encapsulation`)
 
-Two additional semantic-comparison metrics exist alongside the core four. Both are experimental, both are disabled by default, and neither contributes to `composite`, `distance`, the domain summary JSON, or the interactive map. They are opt-in extras, enabled per `eom-run` invocation:
+Sections 5 (Entailment) and 6 (Conceptual encapsulation) of "The Six Metrics" above are experimental extras: disabled by default, and excluded from `composite`, `distance`, the domain summary JSON, and the interactive map. Enable them per `eom-run` invocation:
 
 ```bash
 eom-run --domains Automobile --with-entailment --with-encapsulation
 ```
 
-Both use a cross-encoder NLI model (default `cross-encoder/nli-MiniLM2-L6-H768`, overridable with `--nli-model`, downloaded and cached under `enriched_ontology_matching/models/` on first use). Since a cross-encoder jointly encodes premise and hypothesis in one pass (unlike the bi-encoder used elsewhere in this pipeline for `cosine_avg`/`type_embed_sim`), it can represent the directional, joint-context relationship entailment requires, something a bi-encoder's independent embeddings cannot.
+Both use a cross-encoder NLI model (default `cross-encoder/nli-MiniLM2-L6-H768`, overridable with `--nli-model`, downloaded and cached under `enriched_ontology_matching/models/` on first use).
 
-### Entailment (`--with-entailment`)
+| Flag | Modules | Output |
+|------|---------|--------|
+| `--with-entailment` | `entailment_matcher.py` | `outputs/entailment_entity/<stem>_entity_entailment.csv` (entity-name-level), `outputs/entailment_attr/<stem>_attr_entailment.csv` (attribute-type-level); both carry `entailment_a_covers_b`, `entailment_b_covers_a`, `entailment_f1` |
+| `--with-encapsulation` | `subgraph_candidates.py`, `group_encapsulation.py` | `outputs/encapsulation/<stem>_encapsulation.csv`: one row per (`direction`, entity) tested; `decision` is `match` or `no_match` (`no_match` rows have blank score/group fields); `match` rows carry `best_group`, `attr_score`, `name_group_covers_entity`/`name_entity_covers_group`/`name_f1`, and `margin` |
 
-For every candidate entity pair, tests directional textual entailment two ways:
-
-- **Entity-level** (`run_entity_entailment_stage`): premise/hypothesis built from entity *names* ("This is a {name}."). Probes taxonomic relationships, synonymy (both directions entail) and hypernymy/hyponymy (only one direction entails). Validated to correctly recover directional relationships like `MasterCylinder → Cylinder` (0.99 one-way, 0.006 reverse) and to avoid the naive lexical-overlap trap where `SteeringWheel` would otherwise be confused with `Wheel`.
-- **Attribute-level** (`run_attribute_entailment_stage`): premise/hypothesis built from each entity's K-hop attribute-type reach signature (the same reach computation `attr_weighted` uses), e.g. "The component has these properties: Temperature, Torque, Pressure." Probes whether one entity's declared-property profile entails the other's, independent of naming.
-
-Both report `entailment_a_covers_b`, `entailment_b_covers_a`, and `entailment_f1 = max(a_covers_b, b_covers_a)`, since entailment is not symmetric.
-
-| Output | Contents |
-|--------|----------|
-| `outputs/entailment_entity/<stem>_entity_entailment.csv` | one row per candidate entity pair, entity-name-level scores |
-| `outputs/entailment_attr/<stem>_attr_entailment.csv` | one row per candidate entity pair, attribute-type-level scores |
-
-### Conceptual encapsulation (`--with-encapsulation`)
-
-Answers a different question from the rest of the pipeline: does one entity in model A correspond not to a single entity in model B, but to a *group* of entities in B (the same concept described at a different resolution, sometimes called complex or 1:n matching in the ontology-alignment literature)? No other metric in this pipeline, including entailment above, tests this; every one of them is strictly pairwise, one entity versus one entity.
-
-Two-step process, both reused from validated building blocks rather than new machinery:
-
-1. **Candidate group discovery** (`subgraph_candidates.py`): Louvain community detection over each model's full association graph (every relation type, not just `PartOf`), topology-agnostic by design, a densely-interconnected ring cluster is found exactly as readily as a composition-tree cluster.
-2. **Group scoring** (`group_encapsulation.py`, `run_encapsulation_stage`): for every entity in each model, tests it against every candidate group discovered in the other model, in both directions, reusing the attribute-reach embed+WUP kernel (union of the group's reach vectors) and the entity-level entailment model above (a composite "system made of {group members}" premise). Reports only the best-scoring candidate per entity, after an abstention gate (`classify_top_match`): a 33-case evaluation across the Automobile domain (see project history) found this raises precision on reported matches from ~77% to ~89.5%, at the cost of recall dropping from ~88% to ~68%, an expected and, for this purpose, worthwhile trade, since a wrong confident answer is worse than a correctly-withheld one. The three thresholds (`min_score`, `min_margin`, `high_confidence`) are tunable if a different precision/recall balance is wanted.
-
-Output: `outputs/encapsulation/<stem>_encapsulation.csv`, one row per (direction, entity) where a candidate group was tested. `direction` is `a_in_b` (entities of A tested against B's candidate groups) or `b_in_a`. `decision` is `match` or `no_match`; `no_match` rows have blank score/group fields. `match` rows include `best_group` (the winning candidate's members), `attr_score`, `name_group_covers_entity`/`name_entity_covers_group`/`name_f1`, and `margin` (gap over the runner-up candidate).
+See Sections 5 and 6 above for the underlying computation, validation notes, and abstention-gate thresholds.
 
 ---
 
