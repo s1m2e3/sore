@@ -39,11 +39,20 @@ The pipeline has two entry points. `run_all_pairs.py` (the `eom-run` command) or
 
 `compare_stage.py` (the `eom-compare` command) is the second entry point: it reads these outputs and produces either a domain distance summary JSON or the interactive distance map.
 
+Two further modules run only when explicitly requested via `--with-entailment` / `--with-encapsulation`, and feed neither the composite score nor the summary/map; see "Optional extra metrics" below.
+
+| Script | Produces |
+|--------|----------|
+| `entailment_matcher.py` | Cross-encoder NLI entailment scores, entity-name level and attribute-type level |
+| `subgraph_candidates.py` + `group_encapsulation.py` | Conceptual-encapsulation (1:n group-match) candidate discovery and scoring |
+
 ---
 
 ## The Four Metrics
 
 Every entity or model pair is scored on four independent dimensions. Each dimension is designed to be blind to the signal captured by the others, so that a high score on one carries no implication for the others. This independence allows the composite score to separate vocabulary similarity, structural similarity, and attribute similarity as distinct sources of evidence.
+
+Two further metrics, directional NLI entailment and conceptual (1:n) encapsulation, are available but opt-in: disabled by default and excluded from the composite score, distance, domain summary, and interactive map. See "Optional extra metrics" below.
 
 ### 1. `lexical_sim`: name-level similarity
 
