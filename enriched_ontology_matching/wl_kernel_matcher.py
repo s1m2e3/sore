@@ -273,6 +273,34 @@ def _entity_names(model_json: dict, canonical_map: dict[str, str]) -> list[str]:
     return names
 
 
+# ── Direction-aware adjacency ─────────────────────────────────────────────────
+
+def _directed_adj(
+    edges: list[tuple[str, str, str]],
+    nodes: list[str],
+) -> dict[str, list[tuple[str, str]]]:
+    """
+    Build symmetric (both-ways-reachable) adjacency, but tag each endpoint's
+    view of an edge with its direction, so a node cannot be confused with
+    the OTHER end of a directed relation (e.g. PartOf's part vs whole)
+    purely because both ends currently share a color and degree.
+
+    Connectivity stays undirected (both u and v see each other — needed for
+    BFS/degree/clustering elsewhere in this module), but the edge label
+    itself is suffixed "->"/"<-" depending on which side of the relation the
+    node sits on, so WL refinement (which hashes label + neighbour-labels)
+    can tell source from target instead of treating every association as a
+    symmetric, undirected relation.
+    """
+    adj: dict[str, list[tuple[str, str]]] = defaultdict(list)
+    node_set = set(nodes)
+    for u, v, el in edges:
+        if u in node_set and v in node_set:
+            adj[u].append((v, f"{el}->"))
+            adj[v].append((u, f"{el}<-"))
+    return adj
+
+
 # ── WL kernel ─────────────────────────────────────────────────────────────────
 
 def wl_kernel(
@@ -296,15 +324,6 @@ def wl_kernel(
     def _h(s: str) -> str:
         return hashlib.md5(s.encode()).hexdigest()[:16]
 
-    def _build_adj(edges: list, nodes: list) -> dict[str, list[tuple[str, str]]]:
-        adj: dict[str, list[tuple[str, str]]] = defaultdict(list)
-        node_set = set(nodes)
-        for u, v, el in edges:
-            if u in node_set and v in node_set:
-                adj[u].append((v, el))
-                adj[v].append((u, el))
-        return adj
-
     def _refine(
         labels: dict[str, str],
         adj:    dict[str, list[tuple[str, str]]],
@@ -321,8 +340,8 @@ def wl_kernel(
     if not nodes_a or not nodes_b:
         return 0.0
 
-    adj_a = _build_adj(edges_a, nodes_a)
-    adj_b = _build_adj(edges_b, nodes_b)
+    adj_a = _directed_adj(edges_a, nodes_a)
+    adj_b = _directed_adj(edges_b, nodes_b)
 
     labels_a = {n: _h(n) for n in nodes_a}
     labels_b = {n: _h(n) for n in nodes_b}
@@ -369,14 +388,6 @@ def _wl_kernel_with_labels(
     def _h(s: str) -> str:
         return hashlib.md5(s.encode()).hexdigest()[:16]
 
-    def _build_adj(edges: list, nodes: list) -> dict:
-        adj: dict[str, list] = defaultdict(list)
-        ns = set(nodes)
-        for u, v, el in edges:
-            if u in ns and v in ns:
-                adj[u].append((v, el)); adj[v].append((u, el))
-        return adj
-
     def _refine(labels: dict, adj: dict) -> dict:
         new: dict = {}
         for node, lab in labels.items():
@@ -387,8 +398,8 @@ def _wl_kernel_with_labels(
     if not nodes_a or not nodes_b:
         return 0.0
 
-    adj_a = _build_adj(edges_a, nodes_a)
-    adj_b = _build_adj(edges_b, nodes_b)
+    adj_a = _directed_adj(edges_a, nodes_a)
+    adj_b = _directed_adj(edges_b, nodes_b)
 
     # Initialise from explicit label maps instead of hashing node ID
     labels_a = {n: _h(init_a.get(n, "N")) for n in nodes_a}
@@ -545,6 +556,29 @@ def _degree_sequence(entities: list[str], edges: list[tuple[str,str,str]]) -> li
     return sorted(deg.values(), reverse=True)
 
 
+def _directed_degree_sequences(
+    entities: list[str], edges: list[tuple[str, str, str]]
+) -> tuple[list[int], list[int]]:
+    """
+    Return (out_degree_sequence, in_degree_sequence), each sorted descending.
+
+    Counts distinct directed edges — (u, v) and (v, u) are tracked separately,
+    unlike _degree_sequence's undirected (min, max) dedup — so a node that is
+    always the source (a hub/whole) and a node that is always the target
+    (a leaf/part) get different sequences even at equal total degree.
+    """
+    out_deg: dict[str, int] = {e: 0 for e in entities}
+    in_deg:  dict[str, int] = {e: 0 for e in entities}
+    seen: set[tuple] = set()
+    for u, v, _ in edges:
+        key = (u, v)
+        if key not in seen:
+            seen.add(key)
+            if u in out_deg: out_deg[u] += 1
+            if v in in_deg:  in_deg[v]  += 1
+    return sorted(out_deg.values(), reverse=True), sorted(in_deg.values(), reverse=True)
+
+
 def _laplacian_eigenvalues(entities: list[str], edges: list[tuple[str,str,str]]) -> np.ndarray:
     """
     Compute sorted eigenvalues of the normalized Laplacian for an undirected graph.
@@ -676,14 +710,16 @@ def graph_shape_sim(
     canonical_map: dict[str, str],
 ) -> dict:
     """
-    Global topology similarity — degree, spectral, clustering, betweenness.
+    Global topology similarity — degree, direction, spectral, clustering, betweenness.
 
     Returns:
-      degree_sim      — cosine of sorted degree sequences (hub/leaf distribution)
+      degree_sim      — cosine of sorted (undirected) degree sequences (hub/leaf distribution)
+      out_degree_sim  — cosine of sorted out-degree sequences (source/whole role distribution)
+      in_degree_sim   — cosine of sorted in-degree sequences (target/part role distribution)
       spectral_sim    — cosine of sorted Laplacian eigenvalues (community structure)
       clustering_sim  — cosine of sorted clustering coefficients (triangle density)
       betweenness_sim — cosine of sorted betweenness centralities (bottleneck structure)
-      shape_sim       — avg of all four
+      shape_sim       — avg of all six
     """
     ea = _entity_names(data_a, canonical_map)
     eb = _entity_names(data_b, canonical_map)
@@ -693,6 +729,10 @@ def graph_shape_sim(
 
     deg_sim  = _vec_cosine(_degree_sequence(ea, edges_a),
                            _degree_sequence(eb, edges_b))
+    out_seq_a, in_seq_a = _directed_degree_sequences(ea, edges_a)
+    out_seq_b, in_seq_b = _directed_degree_sequences(eb, edges_b)
+    out_sim  = _vec_cosine(out_seq_a, out_seq_b)
+    in_sim   = _vec_cosine(in_seq_a, in_seq_b)
     spec_sim = _vec_cosine(_laplacian_eigenvalues(ea, edges_a),
                            _laplacian_eigenvalues(eb, edges_b))
     clust_sim = _vec_cosine(_clustering_coefficients(ea, edges_a),
@@ -700,9 +740,11 @@ def graph_shape_sim(
     bet_sim   = _vec_cosine(_betweenness_centrality(ea, edges_a),
                             _betweenness_centrality(eb, edges_b))
 
-    shape = round((deg_sim + spec_sim + clust_sim + bet_sim) / 4, 4)
+    shape = round((deg_sim + out_sim + in_sim + spec_sim + clust_sim + bet_sim) / 6, 4)
     return {
         "degree_sim":      round(deg_sim,   4),
+        "out_degree_sim":  round(out_sim,   4),
+        "in_degree_sim":   round(in_sim,    4),
         "spectral_sim":    round(spec_sim,  4),
         "clustering_sim":  round(clust_sim, 4),
         "betweenness_sim": round(bet_sim,   4),
@@ -767,14 +809,10 @@ def run_wl_stage(
     # Override: build adjacency from raw entity names, initialise labels as "N"
     def _wl_structural(edges, entity_list, K):
         """WL kernel where every node starts with label 'N'."""
-        from collections import Counter, defaultdict
+        from collections import Counter
         import hashlib
         def _h(s): return hashlib.md5(s.encode()).hexdigest()[:16]
-        adj = defaultdict(list)
-        node_set = set(entity_list)
-        for u, v, el in edges:
-            if u in node_set and v in node_set:
-                adj[u].append((v, el)); adj[v].append((u, el))
+        adj = _directed_adj(edges, entity_list)
         labels = {n: _h("N") for n in entity_list}
         freq: Counter = Counter()
         for _ in range(K + 1):
@@ -820,6 +858,8 @@ def run_wl_stage(
         "wl_matched":         wl_matched,
         "wl_composite":       wl_composite,
         "degree_sim":         shape["degree_sim"],
+        "out_degree_sim":     shape["out_degree_sim"],
+        "in_degree_sim":      shape["in_degree_sim"],
         "spectral_sim":       shape["spectral_sim"],
         "clustering_sim":     shape["clustering_sim"],
         "betweenness_sim":    shape["betweenness_sim"],
