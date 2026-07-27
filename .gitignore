@@ -48,8 +48,10 @@ system.drawio
 limes_configs/
 tools/
 
-# Generated relation-normalizer outputs (regenerate with relation_normalizer.py)
-enriched_ontology_matching/association_inventory.csv
+# Generated relation-normalizer output cache (relation_normalizer.py is
+# missing from this repo — association_inventory.csv below is now tracked
+# since it can't be regenerated; the embedding cache is safe to keep ignored,
+# it only speeds up re-running that missing script).
 config/.bert_embedding_cache.pkl
 
 # Large data / model files
