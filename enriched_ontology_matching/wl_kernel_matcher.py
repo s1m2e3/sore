@@ -543,18 +543,6 @@ def wl_consistency(
 
 # ── Global shape similarity ───────────────────────────────────────────────────
 
-def _degree_sequence(entities: list[str], edges: list[tuple[str,str,str]]) -> list[int]:
-    """Return sorted (descending) degree sequence, counting unique undirected edges."""
-    deg: dict[str, int] = {e: 0 for e in entities}
-    seen: set[tuple] = set()
-    for u, v, _ in edges:
-        key = (min(u, v), max(u, v))
-        if key not in seen:
-            seen.add(key)
-            if u in deg: deg[u] += 1
-            if v in deg: deg[v] += 1
-    return sorted(deg.values(), reverse=True)
-
 
 def _directed_degree_sequences(
     entities: list[str], edges: list[tuple[str, str, str]]
@@ -710,16 +698,15 @@ def graph_shape_sim(
     canonical_map: dict[str, str],
 ) -> dict:
     """
-    Global topology similarity — degree, direction, spectral, clustering, betweenness.
+    Global topology similarity — direction, spectral, clustering, betweenness.
 
     Returns:
-      degree_sim      — cosine of sorted (undirected) degree sequences (hub/leaf distribution)
       out_degree_sim  — cosine of sorted out-degree sequences (source/whole role distribution)
       in_degree_sim   — cosine of sorted in-degree sequences (target/part role distribution)
       spectral_sim    — cosine of sorted Laplacian eigenvalues (community structure)
       clustering_sim  — cosine of sorted clustering coefficients (triangle density)
       betweenness_sim — cosine of sorted betweenness centralities (bottleneck structure)
-      shape_sim       — avg of all six
+      shape_sim       — avg of all five
     """
     ea = _entity_names(data_a, canonical_map)
     eb = _entity_names(data_b, canonical_map)
@@ -727,8 +714,6 @@ def graph_shape_sim(
     edges_a = _build_edge_list(data_a, {e: e for e in ea}, canonical_map)
     edges_b = _build_edge_list(data_b, {e: e for e in eb}, canonical_map)
 
-    deg_sim  = _vec_cosine(_degree_sequence(ea, edges_a),
-                           _degree_sequence(eb, edges_b))
     out_seq_a, in_seq_a = _directed_degree_sequences(ea, edges_a)
     out_seq_b, in_seq_b = _directed_degree_sequences(eb, edges_b)
     out_sim  = _vec_cosine(out_seq_a, out_seq_b)
@@ -740,9 +725,8 @@ def graph_shape_sim(
     bet_sim   = _vec_cosine(_betweenness_centrality(ea, edges_a),
                             _betweenness_centrality(eb, edges_b))
 
-    shape = round((deg_sim + out_sim + in_sim + spec_sim + clust_sim + bet_sim) / 6, 4)
+    shape = round((out_sim + in_sim + spec_sim + clust_sim + bet_sim) / 5, 4)
     return {
-        "degree_sim":      round(deg_sim,   4),
         "out_degree_sim":  round(out_sim,   4),
         "in_degree_sim":   round(in_sim,    4),
         "spectral_sim":    round(spec_sim,  4),
@@ -857,7 +841,6 @@ def run_wl_stage(
         "wl_structural":      wl_structural,
         "wl_matched":         wl_matched,
         "wl_composite":       wl_composite,
-        "degree_sim":         shape["degree_sim"],
         "out_degree_sim":     shape["out_degree_sim"],
         "in_degree_sim":      shape["in_degree_sim"],
         "spectral_sim":       shape["spectral_sim"],

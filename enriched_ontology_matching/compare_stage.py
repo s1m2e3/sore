@@ -35,8 +35,8 @@ SUMMARIES_DIR = ROOT / "summaries"
 #                 similarity is already the whole basis of attr_weighted, so folding it
 #                 into lexical_sim too just double-counts that signal.
 # wl_structural = WL kernel, all nodes anonymous     — local edge-type motifs (pair level)
-# shape_sim     = avg(degree_sim, spectral_sim, clustering_sim, betweenness_sim)
-#                 — global graph topology (pair level)
+# shape_sim     = avg(out_degree_sim, in_degree_sim, spectral_sim, clustering_sim,
+#                 betweenness_sim) — global graph topology (pair level)
 # attr_weighted = attr_dist_sim, unmodified          — min(embed cosine, WUP kernel soft-cosine)
 #                 over the closed attribute-type vocabulary (pair level)
 WUP_THRESHOLD = 0.75  # WUP below this is treated as 0 in lexical_sim
@@ -44,7 +44,7 @@ WUP_THRESHOLD = 0.75  # WUP below this is treated as 0 in lexical_sim
 METRICS = [
     "lexical_sim",    # max(matched, wup≥0.75 else 0)
     "wl_structural",  # WL kernel: anonymous nodes, edge types preserved
-    "shape_sim",      # global shape: avg(degree_sim, spectral_sim, clustering_sim, betweenness_sim)
+    "shape_sim",      # global shape: avg(out_degree_sim, in_degree_sim, spectral_sim, clustering_sim, betweenness_sim)
     "attr_weighted",  # attr_dist_sim, unmodified — purely attribute-type-based
 ]
 CONTINUOUS = METRICS  # alias kept for backward compat

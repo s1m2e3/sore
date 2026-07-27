@@ -115,10 +115,11 @@ $$
 
 **Purpose.** This metric distinguishes models by scope and density, for example star, chain, or clique topologies, providing a signal orthogonal to both vocabulary and local relational motifs.
 
-Four sub-metrics, each a cosine similarity of sorted vectors, are averaged. Vectors of unequal length are zero-padded before computing the cosine similarity.
+Five sub-metrics, each a cosine similarity of sorted vectors, are averaged. Vectors of unequal length are zero-padded before computing the cosine similarity. There is no plain (undirected) degree sub-metric: out-degree and in-degree are tracked separately instead, since a node that is always the source of a directed association (e.g. the whole of a `PartOf`) and one that is always the target (the part) should not be treated as structurally interchangeable just because their total degree matches.
 
 $$
-\mathrm{degree\_sim} = \cos\big(\mathrm{sort}_{\text{desc}}(\deg_A),\ \mathrm{sort}_{\text{desc}}(\deg_B)\big)
+\mathrm{out\_degree\_sim} = \cos\big(\mathrm{sort}_{\text{desc}}(\deg^{\text{out}}_A),\ \mathrm{sort}_{\text{desc}}(\deg^{\text{out}}_B)\big), \qquad
+\mathrm{in\_degree\_sim} = \cos\big(\mathrm{sort}_{\text{desc}}(\deg^{\text{in}}_A),\ \mathrm{sort}_{\text{desc}}(\deg^{\text{in}}_B)\big)
 $$
 
 $$
@@ -134,7 +135,7 @@ $$
 $$
 
 $$
-\mathrm{shape\_sim} = \frac{\mathrm{degree\_sim} + \mathrm{spectral\_sim} + \mathrm{clustering\_sim} + \mathrm{betweenness\_sim}}{4}
+\mathrm{shape\_sim} = \frac{\mathrm{out\_degree\_sim} + \mathrm{in\_degree\_sim} + \mathrm{spectral\_sim} + \mathrm{clustering\_sim} + \mathrm{betweenness\_sim}}{5}
 $$
 
 Betweenness centrality $\mathrm{BC}$ is computed via Brandes' $O(VE)$ algorithm and normalised to $[0,1]$.
@@ -450,7 +451,7 @@ This file contains `n_ontologies`, `n_pairs`, `metric_weights` (0.25 each), `ave
 | 2 | `semantic_encoder.py` | stage-1 CSV, both model JSONs | `outputs/embeddings/<domain_key>_emb.csv` | `cosine_avg`: name and attribute-type sentence-embedding cosine similarity (rescaled to [0, 1]) for each candidate row |
 | 3 | `attribute_reach.py` (`run_type_embed_stage`) | stage-1 CSV, both model JSONs | `outputs/type_embed/<domain_key>_type_emb.csv` | `type_embed_sim`: attribute-type embedding cosine similarity for each candidate row |
 | 4 | `merge_stage.py` | stages 1 to 3 CSVs | `outputs/merged/<stem>_metrics.csv` | one row per candidate entity pair: `entity_a, entity_b, matched, wup, cosine_avg, type_embed_sim` |
-| 5 | `wl_kernel_matcher.py` (`run_wl_stage`) | both model JSONs, stage-4 merged CSV | `outputs/wl/<stem>_metrics_wl.csv` | one row: `wl_structural, shape_sim` (plus sub-metrics `degree_sim/spectral_sim/clustering_sim/betweenness_sim`), and diagnostic-only `wl_matched, wl_composite, wl_consistency, match_coverage, induced_frac_a/b, n_entity_matches, n_shared_labels, n_nodes_a/b, n_edges_a/b` |
+| 5 | `wl_kernel_matcher.py` (`run_wl_stage`) | both model JSONs, stage-4 merged CSV | `outputs/wl/<stem>_metrics_wl.csv` | one row: `wl_structural, shape_sim` (plus sub-metrics `out_degree_sim/in_degree_sim/spectral_sim/clustering_sim/betweenness_sim`), and diagnostic-only `wl_matched, wl_composite, wl_consistency, match_coverage, induced_frac_a/b, n_entity_matches, n_shared_labels, n_nodes_a/b, n_edges_a/b` |
 | 6 | `attribute_reach.py` (`run_attr_dist_stage`) | both model JSONs | `outputs/attr_dist/<stem>_metrics_attr_dist.csv` | one row: `attr_dist_sim` |
 
 These are the intermediate stages that `eom-compare --domain-summary <Domain>` reads to assemble the final result above: it collects every `outputs/merged/*_metrics.csv` file for the requested domain, pulling `shape_sim` and `wl_structural` from the matching `outputs/wl/` CSV and `attr_dist_sim` from the matching `outputs/attr_dist/` CSV.
