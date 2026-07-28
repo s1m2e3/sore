@@ -281,6 +281,30 @@ $$
 
 The distance matrix is symmetrised as $d = (d + d^\top)/2$, and used for both the domain summary and the MDS map.
 
+### Metric validation: relevance, redundancy, support
+
+Ex post, once all four composite metrics have already been computed for every pair in a domain (`outputs/merged/*.csv`, `outputs/wl/*.csv`, `outputs/attr_dist/*.csv`), each is checked against three properties from the feature-selection literature — computed entirely from the metrics' own real outputs. No labeled ground truth or synthetic oracle is used: the real ICD domains have no "correct answer" to check against, so the validation has to be fully unsupervised to mean anything.
+
+**Relevance** — does the metric actually discriminate between pairs, rather than collapsing to nearly the same value everywhere? For a metric $m$ with values over $n$ real pairs in a domain, discretized into $B$ equal-width bins with resulting frequencies $p_1, \ldots, p_B$:
+
+$$
+\mathrm{relevance}(m) = \frac{-\sum_{b} p_b \log_2 p_b}{\log_2 B} \ \in [0,1]
+$$
+
+the normalized Shannon entropy of $m$'s own value distribution. $B$ should stay small relative to $n$ (for instance via Sturges' rule, $B \approx \lceil \log_2 n + 1\rceil$) so entropy stays meaningful for the modest pair counts a domain actually has (15 pairs for a 6-model domain), rather than a bin count fine enough that every pair lands in its own bin. This is the "information measures" category of unsupervised feature-evaluation criteria in Liu & Yu, "Toward Integrating Feature Selection Algorithms for Classification and Clustering," IEEE TKDE, 2005 — the one category among their four (distance, information, dependency, consistency) that requires no labeled target, unlike the other three.
+
+**Redundancy** (discriminatory power) — do two metrics simply recover the same signal? For any two metrics $m_i, m_j \in \mathcal{M}$ over the same real pairs:
+
+$$
+\mathrm{redundancy}(m_i, m_j) = \mathrm{Spearman}(m_i, m_j)
+$$
+
+should be close to 0; a high value means the pair is redundant, in the same sense used in Yu & Liu, "Redundancy Based Feature Selection for Microarray Data," KDD 2004, and in the max-relevance min-redundancy (mRMR) criterion of Peng, Long & Ding (2005) — mRMR's own relevance term needs a labeled target class this project has no equivalent of, but its redundancy term (correlation between candidate features) is unsupervised and applies directly.
+
+**Support** — already introduced above as the availability set $\mathcal{A}$; restated here as $|\mathcal{A}|\, / \,n$, the fraction of a domain's pairs for which $m$ is available (value not degenerate, e.g. `attr_weighted=0` when neither model declares an observable), rather than a raw count. A metric whose support falls below a chosen threshold is treated as inapplicable to that domain rather than penalized to zero. General framing: Guyon & Elisseeff, "An Introduction to Variable and Feature Selection," JMLR, 2003.
+
+An earlier version of this validation used a hand-authored synthetic oracle (expected values for a purpose-built factorial dataset) instead of entropy-based relevance. That was replaced for two reasons: the oracle's numeric predictions are guesses, not facts, so correlating against them only checks agreement with an opinion rather than anything objectively true; and more fundamentally, real ICD domains have no such oracle at all, so a validation methodology that depends on one can't be run on the data this project actually cares about.
+
 ### Supporting (non-composite) signals
 
 These feed the metrics above or the internal entity-match declaration, but are not themselves one of the four composite dimensions.
@@ -366,14 +390,25 @@ This installs two CLI commands into the active environment: `eom-run` and `eom-c
 
 ```
 enriched_ontology_matching/inputs/
-  Automobile/            6 models   (V1, V2, V3, Net1, Net2, Net3)
-  Automobile_Synthetic/  15 models  (3x5 factorial: SAME/SYN/ALT x DEEP/WIDE/HUB/BIP/GRID)
-  Coffee/                6 models
-  Homebrewing/           6 models
-  Hospital/              6 models
-  SmartHome/             6 models
-  University/            6 models
+  Automobile/            6 models   (V1, V2, V3, Net1, Net2, Net3)             — real ICD domain
+  Automobile_Synthetic/  25 models  (5x5 factorial, see below)                 — synthetic validation dataset
+  Coffee/                6 models                                             — real ICD domain
+  Homebrewing/           6 models                                             — real ICD domain
+  Hospital/              6 models                                             — real ICD domain
+  SmartHome/             6 models                                             — real ICD domain
+  University/            6 models                                            — real ICD domain
 ```
+
+`Automobile`, `Coffee`, `Homebrewing`, `Hospital`, `SmartHome`, and `University` are the real ICD domains: hand-authored conceptual models of an actual system, compared pairwise for genuine within-domain and cross-domain distance analysis.
+
+`Automobile_Synthetic` is a different kind of input, not a seventh real domain: a factorial-design synthetic dataset used to validate and ablate the metrics themselves, where the "correct" relative ordering of pairs is known by construction. It is still processed by `eom-run`/`eom-compare` like any other domain (see "CLI: end-to-end run over one domain" below), but its outputs feed metric validation and ablation work (for example `scripts/attr_weighted_ablation.py`), not ICD domain-distance reporting. It varies two independent axes:
+
+| Axis | Values | Effect |
+|------|--------|--------|
+| Vocabulary/attribute drift | `SAME`, `SYN`, `ALT`, `ATTR_SYN`, `ATTR_ALT` | `SAME`/`SYN`/`ALT` vary entity/relation naming *and* attribute-type vocabulary together, at increasing distance from the baseline. `ATTR_SYN`/`ATTR_ALT` hold entity/relation names fixed at the standard automobile naming and vary *only* the attribute-type vocabulary, isolating the `attr_weighted` signal from `lexical_sim` |
+| Topology | `DEEP`, `WIDE`, `HUB`, `BIP`, `GRID` | Composition/association shape, held constant within a vocabulary tier |
+
+giving 5 x 5 = 25 models (`auto_<tier>_<topology>.json`, lowercased) and 300 pairs. Hand-authored oracle predictions for all 300 pairs are in `enriched_ontology_matching/inputs/Automobile_Synthetic/metric_predictions.csv`, consumed by `scripts/attr_weighted_ablation.py` to A/B different `attr_weighted` aggregation designs (see its module docstring for usage).
 
 Each JSON file is one conceptual model:
 
