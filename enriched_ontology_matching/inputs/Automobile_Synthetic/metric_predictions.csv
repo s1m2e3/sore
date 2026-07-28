@@ -1,106 +1,301 @@
-model_a,model_b,vocab_a,topo_a,vocab_b,topo_b,same_vocab,same_topo,lexical_sim_pred,wl_structural_pred,shape_sim_pred,attr_weighted_pred,composite_pred,interpretation
-SAME_DEEP,SAME_WIDE,SAME,DEEP,SAME,WIDE,yes,no,0.95,0.38,0.42,0.68,0.61,same domain+names; comp tree vs bushy+assoc — WL+shape diverge
-SAME_DEEP,SAME_HUB,SAME,DEEP,SAME,HUB,yes,no,0.95,0.22,0.18,0.55,0.48,same names; chain vs star — strong structural divergence
-SAME_DEEP,SAME_BIP,SAME,DEEP,SAME,BIP,yes,no,0.95,0.18,0.28,0.52,0.48,same names; chain vs two-partition — structural divergence
-SAME_DEEP,SAME_GRID,SAME,DEEP,SAME,GRID,yes,no,0.95,0.12,0.14,0.49,0.43,same names; most extreme topo divergence (chain vs mesh)
-SAME_WIDE,SAME_HUB,SAME,WIDE,SAME,HUB,yes,no,0.95,0.32,0.38,0.62,0.57,same names; wide bushy vs star — some shape overlap
-SAME_WIDE,SAME_BIP,SAME,WIDE,SAME,BIP,yes,no,0.95,0.24,0.32,0.57,0.52,same names; wide tree vs bipartite — moderate divergence
-SAME_WIDE,SAME_GRID,SAME,WIDE,SAME,GRID,yes,no,0.95,0.28,0.42,0.65,0.58,same names; wide+assoc vs mesh — shape_sim closer (similar degree range)
-SAME_HUB,SAME_BIP,SAME,DEEP,SAME,BIP,yes,no,0.95,0.28,0.22,0.59,0.51,same names; star vs bipartite — WL sees different edge patterns
-SAME_HUB,SAME_GRID,SAME,HUB,SAME,GRID,yes,no,0.95,0.18,0.16,0.67,0.49,same names; star vs mesh — very different shape despite both being flat
-SAME_BIP,SAME_GRID,SAME,BIP,SAME,GRID,yes,no,0.95,0.22,0.30,0.55,0.51,same names; bipartite vs mesh — attr_reach similar (both lateral)
-SYN_DEEP,SYN_WIDE,SYN,DEEP,SYN,WIDE,yes,no,0.90,0.38,0.42,0.66,0.59,synonym names; same topo contrast as SAME row — lex drops slightly
-SYN_DEEP,SYN_HUB,SYN,DEEP,SYN,HUB,yes,no,0.90,0.22,0.18,0.53,0.46,synonym names; chain vs star
-SYN_DEEP,SYN_BIP,SYN,DEEP,SYN,BIP,yes,no,0.90,0.18,0.28,0.51,0.47,synonym names; chain vs bipartite
-SYN_DEEP,SYN_GRID,SYN,DEEP,SYN,GRID,yes,no,0.90,0.12,0.14,0.48,0.41,synonym names; extreme topo divergence
-SYN_WIDE,SYN_HUB,SYN,WIDE,SYN,HUB,yes,no,0.90,0.32,0.38,0.60,0.55,synonym names; bushy vs star
-SYN_WIDE,SYN_BIP,SYN,WIDE,SYN,BIP,yes,no,0.90,0.24,0.32,0.55,0.50,synonym names; bushy vs bipartite
-SYN_WIDE,SYN_GRID,SYN,WIDE,SYN,GRID,yes,no,0.90,0.28,0.42,0.63,0.56,synonym names; bushy vs mesh
-SYN_HUB,SYN_BIP,SYN,HUB,SYN,BIP,yes,no,0.90,0.28,0.22,0.57,0.49,synonym names; star vs bipartite
-SYN_HUB,SYN_GRID,SYN,HUB,SYN,GRID,yes,no,0.90,0.18,0.16,0.64,0.47,synonym names; star vs mesh
-SYN_BIP,SYN_GRID,SYN,BIP,SYN,GRID,yes,no,0.90,0.22,0.30,0.53,0.49,synonym names; bipartite vs mesh
-ALT_DEEP,ALT_WIDE,ALT,DEEP,ALT,WIDE,yes,no,0.85,0.38,0.42,0.63,0.57,alt-label names; chain vs bushy — lex reduced further
-ALT_DEEP,ALT_HUB,ALT,DEEP,ALT,HUB,yes,no,0.85,0.22,0.18,0.51,0.44,alt-label names; chain vs star
-ALT_DEEP,ALT_BIP,ALT,DEEP,ALT,BIP,yes,no,0.85,0.18,0.28,0.48,0.45,alt-label names; chain vs bipartite
-ALT_DEEP,ALT_GRID,ALT,DEEP,ALT,GRID,yes,no,0.85,0.12,0.14,0.46,0.39,alt-label names; extreme topo divergence
-ALT_WIDE,ALT_HUB,ALT,WIDE,ALT,HUB,yes,no,0.85,0.32,0.38,0.57,0.53,alt-label names; bushy vs star
-ALT_WIDE,ALT_BIP,ALT,WIDE,ALT,BIP,yes,no,0.85,0.24,0.32,0.53,0.49,alt-label names; bushy vs bipartite
-ALT_WIDE,ALT_GRID,ALT,WIDE,ALT,GRID,yes,no,0.85,0.28,0.42,0.60,0.54,alt-label names; bushy vs mesh
-ALT_HUB,ALT_BIP,ALT,HUB,ALT,BIP,yes,no,0.85,0.28,0.22,0.55,0.47,alt-label names; star vs bipartite
-ALT_HUB,ALT_GRID,ALT,HUB,ALT,GRID,yes,no,0.85,0.18,0.16,0.62,0.45,alt-label names; star vs mesh
-ALT_BIP,ALT_GRID,ALT,BIP,ALT,GRID,yes,no,0.85,0.22,0.30,0.51,0.47,alt-label names; bipartite vs mesh
-SAME_DEEP,SYN_DEEP,SAME,DEEP,SYN,DEEP,no,yes,0.75,0.90,0.88,0.70,0.81,same topo; SAME vs SYN — lex drops WL+shape stable KEY pair
-SAME_DEEP,SYN_WIDE,SAME,DEEP,SYN,WIDE,no,no,0.75,0.38,0.42,0.58,0.53,diff vocab+topo — moderate composite
-SAME_DEEP,SYN_HUB,SAME,DEEP,SYN,HUB,no,no,0.75,0.22,0.18,0.46,0.40,diff vocab+topo — low composite
-SAME_DEEP,SYN_BIP,SAME,DEEP,SYN,BIP,no,no,0.75,0.18,0.28,0.44,0.41,diff vocab+topo
-SAME_DEEP,SYN_GRID,SAME,DEEP,SYN,GRID,no,no,0.75,0.12,0.14,0.42,0.36,diff vocab+topo — lowest composite in cross-vocab group
-SAME_WIDE,SYN_DEEP,SAME,WIDE,SYN,DEEP,no,no,0.75,0.38,0.42,0.58,0.53,diff vocab+topo
-SAME_WIDE,SYN_WIDE,SAME,WIDE,SYN,WIDE,no,yes,0.75,0.85,0.83,0.68,0.78,same topo; SAME vs SYN KEY pair — bushy topology preserved
-SAME_WIDE,SYN_HUB,SAME,WIDE,SYN,HUB,no,no,0.75,0.32,0.38,0.52,0.49,diff vocab+topo
-SAME_WIDE,SYN_BIP,SAME,WIDE,SYN,BIP,no,no,0.75,0.24,0.32,0.48,0.45,diff vocab+topo
-SAME_WIDE,SYN_GRID,SAME,WIDE,SYN,GRID,no,no,0.75,0.28,0.42,0.54,0.50,diff vocab+topo; shape closer (moderate degree)
-SAME_HUB,SYN_DEEP,SAME,HUB,SYN,DEEP,no,no,0.75,0.22,0.18,0.46,0.40,diff vocab+topo
-SAME_HUB,SYN_WIDE,SAME,HUB,SYN,WIDE,no,no,0.75,0.32,0.38,0.52,0.49,diff vocab+topo
-SAME_HUB,SYN_HUB,SAME,HUB,SYN,HUB,no,yes,0.75,0.92,0.92,0.70,0.82,same topo; SAME vs SYN KEY pair — hub fingerprint very stable
-SAME_HUB,SYN_BIP,SAME,HUB,SYN,BIP,no,no,0.75,0.28,0.22,0.50,0.44,diff vocab+topo
-SAME_HUB,SYN_GRID,SAME,HUB,SYN,GRID,no,no,0.75,0.18,0.16,0.56,0.41,diff vocab+topo
-SAME_BIP,SYN_DEEP,SAME,BIP,SYN,DEEP,no,no,0.75,0.18,0.28,0.44,0.41,diff vocab+topo
-SAME_BIP,SYN_WIDE,SAME,BIP,SYN,WIDE,no,no,0.75,0.24,0.32,0.48,0.45,diff vocab+topo
-SAME_BIP,SYN_HUB,SAME,BIP,SYN,HUB,no,no,0.75,0.28,0.22,0.50,0.44,diff vocab+topo
-SAME_BIP,SYN_BIP,SAME,BIP,SYN,BIP,no,yes,0.75,0.90,0.88,0.68,0.80,same topo; SAME vs SYN KEY pair — bipartite fingerprint stable
-SAME_BIP,SYN_GRID,SAME,BIP,SYN,GRID,no,no,0.75,0.22,0.30,0.46,0.43,diff vocab+topo
-SAME_GRID,SYN_DEEP,SAME,GRID,SYN,DEEP,no,no,0.75,0.12,0.14,0.42,0.36,diff vocab+topo
-SAME_GRID,SYN_WIDE,SAME,GRID,SYN,WIDE,no,no,0.75,0.28,0.42,0.54,0.50,diff vocab+topo; shape overlaps somewhat
-SAME_GRID,SYN_HUB,SAME,GRID,SYN,HUB,no,no,0.75,0.18,0.16,0.56,0.41,diff vocab+topo
-SAME_GRID,SYN_BIP,SAME,GRID,SYN,BIP,no,no,0.75,0.22,0.30,0.46,0.43,diff vocab+topo
-SAME_GRID,SYN_GRID,SAME,GRID,SYN,GRID,no,yes,0.75,0.93,0.90,0.70,0.82,same topo; SAME vs SYN KEY pair — grid fingerprint very stable
-SAME_DEEP,ALT_DEEP,SAME,DEEP,ALT,DEEP,no,yes,0.45,0.90,0.88,0.48,0.68,same topo; SAME vs ALT — lex very low WL+shape still high KEY pair
-SAME_DEEP,ALT_WIDE,SAME,DEEP,ALT,WIDE,no,no,0.45,0.38,0.42,0.40,0.41,diff vocab+topo — low composite
-SAME_DEEP,ALT_HUB,SAME,DEEP,ALT,HUB,no,no,0.45,0.22,0.18,0.32,0.29,diff vocab+topo — very low
-SAME_DEEP,ALT_BIP,SAME,DEEP,ALT,BIP,no,no,0.45,0.18,0.28,0.30,0.30,diff vocab+topo — very low
-SAME_DEEP,ALT_GRID,SAME,DEEP,ALT,GRID,no,no,0.45,0.12,0.14,0.29,0.25,diff vocab+topo — lowest composite overall
-SAME_WIDE,ALT_DEEP,SAME,WIDE,ALT,DEEP,no,no,0.45,0.38,0.42,0.40,0.41,diff vocab+topo
-SAME_WIDE,ALT_WIDE,SAME,WIDE,ALT,WIDE,no,yes,0.45,0.85,0.83,0.47,0.65,same topo; SAME vs ALT — topology carries the signal
-SAME_WIDE,ALT_HUB,SAME,WIDE,ALT,HUB,no,no,0.45,0.32,0.38,0.36,0.38,diff vocab+topo
-SAME_WIDE,ALT_BIP,SAME,WIDE,ALT,BIP,no,no,0.45,0.24,0.32,0.33,0.34,diff vocab+topo
-SAME_WIDE,ALT_GRID,SAME,WIDE,ALT,GRID,no,no,0.45,0.28,0.42,0.37,0.38,diff vocab+topo
-SAME_HUB,ALT_DEEP,SAME,HUB,ALT,DEEP,no,no,0.45,0.22,0.18,0.32,0.29,diff vocab+topo
-SAME_HUB,ALT_WIDE,SAME,HUB,ALT,WIDE,no,no,0.45,0.32,0.38,0.36,0.38,diff vocab+topo
-SAME_HUB,ALT_HUB,SAME,HUB,ALT,HUB,no,yes,0.45,0.92,0.92,0.48,0.69,same topo; SAME vs ALT — hub topology dominates over vocab signal
-SAME_HUB,ALT_BIP,SAME,HUB,ALT,BIP,no,no,0.45,0.28,0.22,0.34,0.32,diff vocab+topo
-SAME_HUB,ALT_GRID,SAME,HUB,ALT,GRID,no,no,0.45,0.18,0.16,0.39,0.29,diff vocab+topo
-SAME_BIP,ALT_DEEP,SAME,BIP,ALT,DEEP,no,no,0.45,0.18,0.28,0.30,0.30,diff vocab+topo
-SAME_BIP,ALT_WIDE,SAME,BIP,ALT,WIDE,no,no,0.45,0.24,0.32,0.33,0.34,diff vocab+topo
-SAME_BIP,ALT_HUB,SAME,BIP,ALT,HUB,no,no,0.45,0.28,0.22,0.34,0.32,diff vocab+topo
-SAME_BIP,ALT_BIP,SAME,BIP,ALT,BIP,no,yes,0.45,0.90,0.88,0.47,0.68,same topo; SAME vs ALT KEY pair
-SAME_BIP,ALT_GRID,SAME,BIP,ALT,GRID,no,no,0.45,0.22,0.30,0.32,0.32,diff vocab+topo
-SAME_GRID,ALT_DEEP,SAME,GRID,ALT,DEEP,no,no,0.45,0.12,0.14,0.29,0.25,diff vocab+topo
-SAME_GRID,ALT_WIDE,SAME,GRID,ALT,WIDE,no,no,0.45,0.28,0.42,0.37,0.38,diff vocab+topo
-SAME_GRID,ALT_HUB,SAME,GRID,ALT,HUB,no,no,0.45,0.18,0.16,0.39,0.29,diff vocab+topo
-SAME_GRID,ALT_BIP,SAME,GRID,ALT,BIP,no,no,0.45,0.22,0.30,0.32,0.32,diff vocab+topo
-SAME_GRID,ALT_GRID,SAME,GRID,ALT,GRID,no,yes,0.45,0.93,0.90,0.48,0.69,same topo; SAME vs ALT KEY pair
-SYN_DEEP,ALT_DEEP,SYN,DEEP,ALT,DEEP,no,yes,0.42,0.90,0.88,0.46,0.67,same topo; SYN vs ALT — lex near floor WL+shape still high
-SYN_DEEP,ALT_WIDE,SYN,DEEP,ALT,WIDE,no,no,0.42,0.38,0.42,0.37,0.40,diff vocab+topo
-SYN_DEEP,ALT_HUB,SYN,DEEP,ALT,HUB,no,no,0.42,0.22,0.18,0.30,0.28,diff vocab+topo — very low
-SYN_DEEP,ALT_BIP,SYN,DEEP,ALT,BIP,no,no,0.42,0.18,0.28,0.29,0.29,diff vocab+topo
-SYN_DEEP,ALT_GRID,SYN,DEEP,ALT,GRID,no,no,0.42,0.12,0.14,0.27,0.24,diff vocab+topo — absolute floor
-SYN_WIDE,ALT_DEEP,SYN,WIDE,ALT,DEEP,no,no,0.42,0.38,0.42,0.37,0.40,diff vocab+topo
-SYN_WIDE,ALT_WIDE,SYN,WIDE,ALT,WIDE,no,yes,0.42,0.85,0.83,0.44,0.64,same topo; SYN vs ALT KEY pair
-SYN_WIDE,ALT_HUB,SYN,WIDE,ALT,HUB,no,no,0.42,0.32,0.38,0.34,0.37,diff vocab+topo
-SYN_WIDE,ALT_BIP,SYN,WIDE,ALT,BIP,no,no,0.42,0.24,0.32,0.31,0.32,diff vocab+topo
-SYN_WIDE,ALT_GRID,SYN,WIDE,ALT,GRID,no,no,0.42,0.28,0.42,0.35,0.37,diff vocab+topo
-SYN_HUB,ALT_DEEP,SYN,HUB,ALT,DEEP,no,no,0.42,0.22,0.18,0.30,0.28,diff vocab+topo
-SYN_HUB,ALT_WIDE,SYN,HUB,ALT,WIDE,no,no,0.42,0.32,0.38,0.34,0.37,diff vocab+topo
-SYN_HUB,ALT_HUB,SYN,HUB,ALT,HUB,no,yes,0.42,0.92,0.92,0.46,0.68,same topo; SYN vs ALT KEY pair — hub even clearer fingerprint
-SYN_HUB,ALT_BIP,SYN,HUB,ALT,BIP,no,no,0.42,0.28,0.22,0.32,0.31,diff vocab+topo
-SYN_HUB,ALT_GRID,SYN,HUB,ALT,GRID,no,no,0.42,0.18,0.16,0.36,0.28,diff vocab+topo
-SYN_BIP,ALT_DEEP,SYN,BIP,ALT,DEEP,no,no,0.42,0.18,0.28,0.29,0.29,diff vocab+topo
-SYN_BIP,ALT_WIDE,SYN,BIP,ALT,WIDE,no,no,0.42,0.24,0.32,0.31,0.32,diff vocab+topo
-SYN_BIP,ALT_HUB,SYN,BIP,ALT,HUB,no,no,0.42,0.28,0.22,0.32,0.31,diff vocab+topo
-SYN_BIP,ALT_BIP,SYN,BIP,ALT,BIP,no,yes,0.42,0.90,0.88,0.44,0.66,same topo; SYN vs ALT KEY pair
-SYN_BIP,ALT_GRID,SYN,BIP,ALT,GRID,no,no,0.42,0.22,0.30,0.30,0.31,diff vocab+topo
-SYN_GRID,ALT_DEEP,SYN,GRID,ALT,DEEP,no,no,0.42,0.12,0.14,0.27,0.24,diff vocab+topo
-SYN_GRID,ALT_WIDE,SYN,GRID,ALT,WIDE,no,no,0.42,0.28,0.42,0.35,0.37,diff vocab+topo
-SYN_GRID,ALT_HUB,SYN,GRID,ALT,HUB,no,no,0.42,0.18,0.16,0.36,0.28,diff vocab+topo
-SYN_GRID,ALT_BIP,SYN,GRID,ALT,BIP,no,no,0.42,0.22,0.30,0.30,0.31,diff vocab+topo
-SYN_GRID,ALT_GRID,SYN,GRID,ALT,GRID,no,yes,0.42,0.93,0.90,0.46,0.68,same topo; SYN vs ALT KEY pair — grid still identifiable
+model_a,model_b,vocab_a,topo_a,vocab_b,topo_b,same_vocab,same_topo,same_attrs,lexical_sim_pred,wl_structural_pred,shape_sim_pred,attr_weighted_pred,composite_pred,interpretation
+SAME_DEEP,SAME_WIDE,SAME,DEEP,SAME,WIDE,yes,no,yes,0.95,0.38,0.42,0.68,0.61,same domain+names; comp tree vs bushy+assoc — WL+shape diverge
+SAME_DEEP,SAME_HUB,SAME,DEEP,SAME,HUB,yes,no,yes,0.95,0.22,0.18,0.55,0.48,same names; chain vs star — strong structural divergence
+SAME_DEEP,SAME_BIP,SAME,DEEP,SAME,BIP,yes,no,yes,0.95,0.18,0.28,0.52,0.48,same names; chain vs two-partition — structural divergence
+SAME_DEEP,SAME_GRID,SAME,DEEP,SAME,GRID,yes,no,yes,0.95,0.12,0.14,0.49,0.43,same names; most extreme topo divergence (chain vs mesh)
+SAME_WIDE,SAME_HUB,SAME,WIDE,SAME,HUB,yes,no,yes,0.95,0.32,0.38,0.62,0.57,same names; wide bushy vs star — some shape overlap
+SAME_WIDE,SAME_BIP,SAME,WIDE,SAME,BIP,yes,no,yes,0.95,0.24,0.32,0.57,0.52,same names; wide tree vs bipartite — moderate divergence
+SAME_WIDE,SAME_GRID,SAME,WIDE,SAME,GRID,yes,no,yes,0.95,0.28,0.42,0.65,0.58,same names; wide+assoc vs mesh — shape_sim closer (similar degree range)
+SAME_HUB,SAME_BIP,SAME,DEEP,SAME,BIP,yes,no,yes,0.95,0.28,0.22,0.59,0.51,same names; star vs bipartite — WL sees different edge patterns
+SAME_HUB,SAME_GRID,SAME,HUB,SAME,GRID,yes,no,yes,0.95,0.18,0.16,0.67,0.49,same names; star vs mesh — very different shape despite both being flat
+SAME_BIP,SAME_GRID,SAME,BIP,SAME,GRID,yes,no,yes,0.95,0.22,0.30,0.55,0.51,same names; bipartite vs mesh — attr_reach similar (both lateral)
+SYN_DEEP,SYN_WIDE,SYN,DEEP,SYN,WIDE,yes,no,yes,0.90,0.38,0.42,0.66,0.59,synonym names; same topo contrast as SAME row — lex drops slightly
+SYN_DEEP,SYN_HUB,SYN,DEEP,SYN,HUB,yes,no,yes,0.90,0.22,0.18,0.53,0.46,synonym names; chain vs star
+SYN_DEEP,SYN_BIP,SYN,DEEP,SYN,BIP,yes,no,yes,0.90,0.18,0.28,0.51,0.47,synonym names; chain vs bipartite
+SYN_DEEP,SYN_GRID,SYN,DEEP,SYN,GRID,yes,no,yes,0.90,0.12,0.14,0.48,0.41,synonym names; extreme topo divergence
+SYN_WIDE,SYN_HUB,SYN,WIDE,SYN,HUB,yes,no,yes,0.90,0.32,0.38,0.60,0.55,synonym names; bushy vs star
+SYN_WIDE,SYN_BIP,SYN,WIDE,SYN,BIP,yes,no,yes,0.90,0.24,0.32,0.55,0.50,synonym names; bushy vs bipartite
+SYN_WIDE,SYN_GRID,SYN,WIDE,SYN,GRID,yes,no,yes,0.90,0.28,0.42,0.63,0.56,synonym names; bushy vs mesh
+SYN_HUB,SYN_BIP,SYN,HUB,SYN,BIP,yes,no,yes,0.90,0.28,0.22,0.57,0.49,synonym names; star vs bipartite
+SYN_HUB,SYN_GRID,SYN,HUB,SYN,GRID,yes,no,yes,0.90,0.18,0.16,0.64,0.47,synonym names; star vs mesh
+SYN_BIP,SYN_GRID,SYN,BIP,SYN,GRID,yes,no,yes,0.90,0.22,0.30,0.53,0.49,synonym names; bipartite vs mesh
+ALT_DEEP,ALT_WIDE,ALT,DEEP,ALT,WIDE,yes,no,yes,0.85,0.38,0.42,0.63,0.57,alt-label names; chain vs bushy — lex reduced further
+ALT_DEEP,ALT_HUB,ALT,DEEP,ALT,HUB,yes,no,yes,0.85,0.22,0.18,0.51,0.44,alt-label names; chain vs star
+ALT_DEEP,ALT_BIP,ALT,DEEP,ALT,BIP,yes,no,yes,0.85,0.18,0.28,0.48,0.45,alt-label names; chain vs bipartite
+ALT_DEEP,ALT_GRID,ALT,DEEP,ALT,GRID,yes,no,yes,0.85,0.12,0.14,0.46,0.39,alt-label names; extreme topo divergence
+ALT_WIDE,ALT_HUB,ALT,WIDE,ALT,HUB,yes,no,yes,0.85,0.32,0.38,0.57,0.53,alt-label names; bushy vs star
+ALT_WIDE,ALT_BIP,ALT,WIDE,ALT,BIP,yes,no,yes,0.85,0.24,0.32,0.53,0.49,alt-label names; bushy vs bipartite
+ALT_WIDE,ALT_GRID,ALT,WIDE,ALT,GRID,yes,no,yes,0.85,0.28,0.42,0.60,0.54,alt-label names; bushy vs mesh
+ALT_HUB,ALT_BIP,ALT,HUB,ALT,BIP,yes,no,yes,0.85,0.28,0.22,0.55,0.47,alt-label names; star vs bipartite
+ALT_HUB,ALT_GRID,ALT,HUB,ALT,GRID,yes,no,yes,0.85,0.18,0.16,0.62,0.45,alt-label names; star vs mesh
+ALT_BIP,ALT_GRID,ALT,BIP,ALT,GRID,yes,no,yes,0.85,0.22,0.30,0.51,0.47,alt-label names; bipartite vs mesh
+SAME_DEEP,SYN_DEEP,SAME,DEEP,SYN,DEEP,no,yes,yes,0.75,0.90,0.88,0.70,0.81,same topo; SAME vs SYN — lex drops WL+shape stable KEY pair
+SAME_DEEP,SYN_WIDE,SAME,DEEP,SYN,WIDE,no,no,yes,0.75,0.38,0.42,0.58,0.53,diff vocab+topo — moderate composite
+SAME_DEEP,SYN_HUB,SAME,DEEP,SYN,HUB,no,no,yes,0.75,0.22,0.18,0.46,0.40,diff vocab+topo — low composite
+SAME_DEEP,SYN_BIP,SAME,DEEP,SYN,BIP,no,no,yes,0.75,0.18,0.28,0.44,0.41,diff vocab+topo
+SAME_DEEP,SYN_GRID,SAME,DEEP,SYN,GRID,no,no,yes,0.75,0.12,0.14,0.42,0.36,diff vocab+topo — lowest composite in cross-vocab group
+SAME_WIDE,SYN_DEEP,SAME,WIDE,SYN,DEEP,no,no,yes,0.75,0.38,0.42,0.58,0.53,diff vocab+topo
+SAME_WIDE,SYN_WIDE,SAME,WIDE,SYN,WIDE,no,yes,yes,0.75,0.85,0.83,0.68,0.78,same topo; SAME vs SYN KEY pair — bushy topology preserved
+SAME_WIDE,SYN_HUB,SAME,WIDE,SYN,HUB,no,no,yes,0.75,0.32,0.38,0.52,0.49,diff vocab+topo
+SAME_WIDE,SYN_BIP,SAME,WIDE,SYN,BIP,no,no,yes,0.75,0.24,0.32,0.48,0.45,diff vocab+topo
+SAME_WIDE,SYN_GRID,SAME,WIDE,SYN,GRID,no,no,yes,0.75,0.28,0.42,0.54,0.50,diff vocab+topo; shape closer (moderate degree)
+SAME_HUB,SYN_DEEP,SAME,HUB,SYN,DEEP,no,no,yes,0.75,0.22,0.18,0.46,0.40,diff vocab+topo
+SAME_HUB,SYN_WIDE,SAME,HUB,SYN,WIDE,no,no,yes,0.75,0.32,0.38,0.52,0.49,diff vocab+topo
+SAME_HUB,SYN_HUB,SAME,HUB,SYN,HUB,no,yes,yes,0.75,0.92,0.92,0.70,0.82,same topo; SAME vs SYN KEY pair — hub fingerprint very stable
+SAME_HUB,SYN_BIP,SAME,HUB,SYN,BIP,no,no,yes,0.75,0.28,0.22,0.50,0.44,diff vocab+topo
+SAME_HUB,SYN_GRID,SAME,HUB,SYN,GRID,no,no,yes,0.75,0.18,0.16,0.56,0.41,diff vocab+topo
+SAME_BIP,SYN_DEEP,SAME,BIP,SYN,DEEP,no,no,yes,0.75,0.18,0.28,0.44,0.41,diff vocab+topo
+SAME_BIP,SYN_WIDE,SAME,BIP,SYN,WIDE,no,no,yes,0.75,0.24,0.32,0.48,0.45,diff vocab+topo
+SAME_BIP,SYN_HUB,SAME,BIP,SYN,HUB,no,no,yes,0.75,0.28,0.22,0.50,0.44,diff vocab+topo
+SAME_BIP,SYN_BIP,SAME,BIP,SYN,BIP,no,yes,yes,0.75,0.90,0.88,0.68,0.80,same topo; SAME vs SYN KEY pair — bipartite fingerprint stable
+SAME_BIP,SYN_GRID,SAME,BIP,SYN,GRID,no,no,yes,0.75,0.22,0.30,0.46,0.43,diff vocab+topo
+SAME_GRID,SYN_DEEP,SAME,GRID,SYN,DEEP,no,no,yes,0.75,0.12,0.14,0.42,0.36,diff vocab+topo
+SAME_GRID,SYN_WIDE,SAME,GRID,SYN,WIDE,no,no,yes,0.75,0.28,0.42,0.54,0.50,diff vocab+topo; shape overlaps somewhat
+SAME_GRID,SYN_HUB,SAME,GRID,SYN,HUB,no,no,yes,0.75,0.18,0.16,0.56,0.41,diff vocab+topo
+SAME_GRID,SYN_BIP,SAME,GRID,SYN,BIP,no,no,yes,0.75,0.22,0.30,0.46,0.43,diff vocab+topo
+SAME_GRID,SYN_GRID,SAME,GRID,SYN,GRID,no,yes,yes,0.75,0.93,0.90,0.70,0.82,same topo; SAME vs SYN KEY pair — grid fingerprint very stable
+SAME_DEEP,ALT_DEEP,SAME,DEEP,ALT,DEEP,no,yes,no,0.45,0.90,0.88,0.48,0.68,same topo; SAME vs ALT — lex very low WL+shape still high KEY pair
+SAME_DEEP,ALT_WIDE,SAME,DEEP,ALT,WIDE,no,no,no,0.45,0.38,0.42,0.40,0.41,diff vocab+topo — low composite
+SAME_DEEP,ALT_HUB,SAME,DEEP,ALT,HUB,no,no,no,0.45,0.22,0.18,0.32,0.29,diff vocab+topo — very low
+SAME_DEEP,ALT_BIP,SAME,DEEP,ALT,BIP,no,no,no,0.45,0.18,0.28,0.30,0.30,diff vocab+topo — very low
+SAME_DEEP,ALT_GRID,SAME,DEEP,ALT,GRID,no,no,no,0.45,0.12,0.14,0.29,0.25,diff vocab+topo — lowest composite overall
+SAME_WIDE,ALT_DEEP,SAME,WIDE,ALT,DEEP,no,no,no,0.45,0.38,0.42,0.40,0.41,diff vocab+topo
+SAME_WIDE,ALT_WIDE,SAME,WIDE,ALT,WIDE,no,yes,no,0.45,0.85,0.83,0.47,0.65,same topo; SAME vs ALT — topology carries the signal
+SAME_WIDE,ALT_HUB,SAME,WIDE,ALT,HUB,no,no,no,0.45,0.32,0.38,0.36,0.38,diff vocab+topo
+SAME_WIDE,ALT_BIP,SAME,WIDE,ALT,BIP,no,no,no,0.45,0.24,0.32,0.33,0.34,diff vocab+topo
+SAME_WIDE,ALT_GRID,SAME,WIDE,ALT,GRID,no,no,no,0.45,0.28,0.42,0.37,0.38,diff vocab+topo
+SAME_HUB,ALT_DEEP,SAME,HUB,ALT,DEEP,no,no,no,0.45,0.22,0.18,0.32,0.29,diff vocab+topo
+SAME_HUB,ALT_WIDE,SAME,HUB,ALT,WIDE,no,no,no,0.45,0.32,0.38,0.36,0.38,diff vocab+topo
+SAME_HUB,ALT_HUB,SAME,HUB,ALT,HUB,no,yes,no,0.45,0.92,0.92,0.48,0.69,same topo; SAME vs ALT — hub topology dominates over vocab signal
+SAME_HUB,ALT_BIP,SAME,HUB,ALT,BIP,no,no,no,0.45,0.28,0.22,0.34,0.32,diff vocab+topo
+SAME_HUB,ALT_GRID,SAME,HUB,ALT,GRID,no,no,no,0.45,0.18,0.16,0.39,0.29,diff vocab+topo
+SAME_BIP,ALT_DEEP,SAME,BIP,ALT,DEEP,no,no,no,0.45,0.18,0.28,0.30,0.30,diff vocab+topo
+SAME_BIP,ALT_WIDE,SAME,BIP,ALT,WIDE,no,no,no,0.45,0.24,0.32,0.33,0.34,diff vocab+topo
+SAME_BIP,ALT_HUB,SAME,BIP,ALT,HUB,no,no,no,0.45,0.28,0.22,0.34,0.32,diff vocab+topo
+SAME_BIP,ALT_BIP,SAME,BIP,ALT,BIP,no,yes,no,0.45,0.90,0.88,0.47,0.68,same topo; SAME vs ALT KEY pair
+SAME_BIP,ALT_GRID,SAME,BIP,ALT,GRID,no,no,no,0.45,0.22,0.30,0.32,0.32,diff vocab+topo
+SAME_GRID,ALT_DEEP,SAME,GRID,ALT,DEEP,no,no,no,0.45,0.12,0.14,0.29,0.25,diff vocab+topo
+SAME_GRID,ALT_WIDE,SAME,GRID,ALT,WIDE,no,no,no,0.45,0.28,0.42,0.37,0.38,diff vocab+topo
+SAME_GRID,ALT_HUB,SAME,GRID,ALT,HUB,no,no,no,0.45,0.18,0.16,0.39,0.29,diff vocab+topo
+SAME_GRID,ALT_BIP,SAME,GRID,ALT,BIP,no,no,no,0.45,0.22,0.30,0.32,0.32,diff vocab+topo
+SAME_GRID,ALT_GRID,SAME,GRID,ALT,GRID,no,yes,no,0.45,0.93,0.90,0.48,0.69,same topo; SAME vs ALT KEY pair
+SYN_DEEP,ALT_DEEP,SYN,DEEP,ALT,DEEP,no,yes,no,0.42,0.90,0.88,0.46,0.67,same topo; SYN vs ALT — lex near floor WL+shape still high
+SYN_DEEP,ALT_WIDE,SYN,DEEP,ALT,WIDE,no,no,no,0.42,0.38,0.42,0.37,0.40,diff vocab+topo
+SYN_DEEP,ALT_HUB,SYN,DEEP,ALT,HUB,no,no,no,0.42,0.22,0.18,0.30,0.28,diff vocab+topo — very low
+SYN_DEEP,ALT_BIP,SYN,DEEP,ALT,BIP,no,no,no,0.42,0.18,0.28,0.29,0.29,diff vocab+topo
+SYN_DEEP,ALT_GRID,SYN,DEEP,ALT,GRID,no,no,no,0.42,0.12,0.14,0.27,0.24,diff vocab+topo — absolute floor
+SYN_WIDE,ALT_DEEP,SYN,WIDE,ALT,DEEP,no,no,no,0.42,0.38,0.42,0.37,0.40,diff vocab+topo
+SYN_WIDE,ALT_WIDE,SYN,WIDE,ALT,WIDE,no,yes,no,0.42,0.85,0.83,0.44,0.64,same topo; SYN vs ALT KEY pair
+SYN_WIDE,ALT_HUB,SYN,WIDE,ALT,HUB,no,no,no,0.42,0.32,0.38,0.34,0.37,diff vocab+topo
+SYN_WIDE,ALT_BIP,SYN,WIDE,ALT,BIP,no,no,no,0.42,0.24,0.32,0.31,0.32,diff vocab+topo
+SYN_WIDE,ALT_GRID,SYN,WIDE,ALT,GRID,no,no,no,0.42,0.28,0.42,0.35,0.37,diff vocab+topo
+SYN_HUB,ALT_DEEP,SYN,HUB,ALT,DEEP,no,no,no,0.42,0.22,0.18,0.30,0.28,diff vocab+topo
+SYN_HUB,ALT_WIDE,SYN,HUB,ALT,WIDE,no,no,no,0.42,0.32,0.38,0.34,0.37,diff vocab+topo
+SYN_HUB,ALT_HUB,SYN,HUB,ALT,HUB,no,yes,no,0.42,0.92,0.92,0.46,0.68,same topo; SYN vs ALT KEY pair — hub even clearer fingerprint
+SYN_HUB,ALT_BIP,SYN,HUB,ALT,BIP,no,no,no,0.42,0.28,0.22,0.32,0.31,diff vocab+topo
+SYN_HUB,ALT_GRID,SYN,HUB,ALT,GRID,no,no,no,0.42,0.18,0.16,0.36,0.28,diff vocab+topo
+SYN_BIP,ALT_DEEP,SYN,BIP,ALT,DEEP,no,no,no,0.42,0.18,0.28,0.29,0.29,diff vocab+topo
+SYN_BIP,ALT_WIDE,SYN,BIP,ALT,WIDE,no,no,no,0.42,0.24,0.32,0.31,0.32,diff vocab+topo
+SYN_BIP,ALT_HUB,SYN,BIP,ALT,HUB,no,no,no,0.42,0.28,0.22,0.32,0.31,diff vocab+topo
+SYN_BIP,ALT_BIP,SYN,BIP,ALT,BIP,no,yes,no,0.42,0.90,0.88,0.44,0.66,same topo; SYN vs ALT KEY pair
+SYN_BIP,ALT_GRID,SYN,BIP,ALT,GRID,no,no,no,0.42,0.22,0.30,0.30,0.31,diff vocab+topo
+SYN_GRID,ALT_DEEP,SYN,GRID,ALT,DEEP,no,no,no,0.42,0.12,0.14,0.27,0.24,diff vocab+topo
+SYN_GRID,ALT_WIDE,SYN,GRID,ALT,WIDE,no,no,no,0.42,0.28,0.42,0.35,0.37,diff vocab+topo
+SYN_GRID,ALT_HUB,SYN,GRID,ALT,HUB,no,no,no,0.42,0.18,0.16,0.36,0.28,diff vocab+topo
+SYN_GRID,ALT_BIP,SYN,GRID,ALT,BIP,no,no,no,0.42,0.22,0.30,0.30,0.31,diff vocab+topo
+SYN_GRID,ALT_GRID,SYN,GRID,ALT,GRID,no,yes,no,0.42,0.93,0.90,0.46,0.68,same topo; SYN vs ALT KEY pair — grid still identifiable
+SAME_DEEP,ATTR_SYN_DEEP,SAME,DEEP,ATTR_SYN,DEEP,yes,yes,no,1.0,0.9,0.88,0.88,0.915,"SAME vs ATTR_SYN, DEEP vs DEEP (attrs differ, names match)"
+SAME_DEEP,ATTR_SYN_WIDE,SAME,DEEP,ATTR_SYN,WIDE,yes,no,no,0.95,0.38,0.42,0.7313,0.6203,"SAME vs ATTR_SYN, DEEP vs WIDE (attrs differ, names match)"
+SAME_DEEP,ATTR_SYN_HUB,SAME,DEEP,ATTR_SYN,HUB,yes,no,no,0.95,0.22,0.18,0.5826,0.4831,"SAME vs ATTR_SYN, DEEP vs HUB (attrs differ, names match)"
+SAME_DEEP,ATTR_SYN_BIP,SAME,DEEP,ATTR_SYN,BIP,yes,no,no,0.95,0.18,0.28,0.5518,0.4904,"SAME vs ATTR_SYN, DEEP vs BIP (attrs differ, names match)"
+SAME_DEEP,ATTR_SYN_GRID,SAME,DEEP,ATTR_SYN,GRID,yes,no,no,0.95,0.12,0.14,0.5298,0.435,"SAME vs ATTR_SYN, DEEP vs GRID (attrs differ, names match)"
+SAME_DEEP,ATTR_ALT_DEEP,SAME,DEEP,ATTR_ALT,DEEP,yes,yes,no,1.0,0.9,0.88,0.3,0.77,"SAME vs ATTR_ALT, DEEP vs DEEP (attrs differ, names match)"
+SAME_DEEP,ATTR_ALT_WIDE,SAME,DEEP,ATTR_ALT,WIDE,yes,no,no,0.95,0.38,0.42,0.2493,0.4998,"SAME vs ATTR_ALT, DEEP vs WIDE (attrs differ, names match)"
+SAME_DEEP,ATTR_ALT_HUB,SAME,DEEP,ATTR_ALT,HUB,yes,no,no,0.95,0.22,0.18,0.1986,0.3871,"SAME vs ATTR_ALT, DEEP vs HUB (attrs differ, names match)"
+SAME_DEEP,ATTR_ALT_BIP,SAME,DEEP,ATTR_ALT,BIP,yes,no,no,0.95,0.18,0.28,0.1881,0.3995,"SAME vs ATTR_ALT, DEEP vs BIP (attrs differ, names match)"
+SAME_DEEP,ATTR_ALT_GRID,SAME,DEEP,ATTR_ALT,GRID,yes,no,no,0.95,0.12,0.14,0.1806,0.3477,"SAME vs ATTR_ALT, DEEP vs GRID (attrs differ, names match)"
+SAME_WIDE,ATTR_SYN_DEEP,SAME,WIDE,ATTR_SYN,DEEP,yes,no,no,0.95,0.38,0.42,0.7313,0.6203,"SAME vs ATTR_SYN, WIDE vs DEEP (attrs differ, names match)"
+SAME_WIDE,ATTR_SYN_WIDE,SAME,WIDE,ATTR_SYN,WIDE,yes,yes,no,1.0,0.85,0.83,0.88,0.89,"SAME vs ATTR_SYN, WIDE vs WIDE (attrs differ, names match)"
+SAME_WIDE,ATTR_SYN_HUB,SAME,WIDE,ATTR_SYN,HUB,yes,no,no,0.95,0.32,0.38,0.6565,0.5766,"SAME vs ATTR_SYN, WIDE vs HUB (attrs differ, names match)"
+SAME_WIDE,ATTR_SYN_BIP,SAME,WIDE,ATTR_SYN,BIP,yes,no,no,0.95,0.24,0.32,0.6046,0.5287,"SAME vs ATTR_SYN, WIDE vs BIP (attrs differ, names match)"
+SAME_WIDE,ATTR_SYN_GRID,SAME,WIDE,ATTR_SYN,GRID,yes,no,no,0.95,0.28,0.42,0.6785,0.5821,"SAME vs ATTR_SYN, WIDE vs GRID (attrs differ, names match)"
+SAME_WIDE,ATTR_ALT_DEEP,SAME,WIDE,ATTR_ALT,DEEP,yes,no,no,0.95,0.38,0.42,0.2493,0.4998,"SAME vs ATTR_ALT, WIDE vs DEEP (attrs differ, names match)"
+SAME_WIDE,ATTR_ALT_WIDE,SAME,WIDE,ATTR_ALT,WIDE,yes,yes,no,1.0,0.85,0.83,0.3,0.745,"SAME vs ATTR_ALT, WIDE vs WIDE (attrs differ, names match)"
+SAME_WIDE,ATTR_ALT_HUB,SAME,WIDE,ATTR_ALT,HUB,yes,no,no,0.95,0.32,0.38,0.2238,0.4684,"SAME vs ATTR_ALT, WIDE vs HUB (attrs differ, names match)"
+SAME_WIDE,ATTR_ALT_BIP,SAME,WIDE,ATTR_ALT,BIP,yes,no,no,0.95,0.24,0.32,0.2061,0.429,"SAME vs ATTR_ALT, WIDE vs BIP (attrs differ, names match)"
+SAME_WIDE,ATTR_ALT_GRID,SAME,WIDE,ATTR_ALT,GRID,yes,no,no,0.95,0.28,0.42,0.2313,0.4703,"SAME vs ATTR_ALT, WIDE vs GRID (attrs differ, names match)"
+SAME_HUB,ATTR_SYN_DEEP,SAME,HUB,ATTR_SYN,DEEP,yes,no,no,0.95,0.22,0.18,0.5826,0.4831,"SAME vs ATTR_SYN, HUB vs DEEP (attrs differ, names match)"
+SAME_HUB,ATTR_SYN_WIDE,SAME,HUB,ATTR_SYN,WIDE,yes,no,no,0.95,0.32,0.38,0.6565,0.5766,"SAME vs ATTR_SYN, HUB vs WIDE (attrs differ, names match)"
+SAME_HUB,ATTR_SYN_HUB,SAME,HUB,ATTR_SYN,HUB,yes,yes,no,1.0,0.92,0.92,0.88,0.93,"SAME vs ATTR_SYN, HUB vs HUB (attrs differ, names match)"
+SAME_HUB,ATTR_SYN_BIP,SAME,HUB,ATTR_SYN,BIP,yes,no,no,0.95,0.28,0.22,0.6257,0.5189,"SAME vs ATTR_SYN, HUB vs BIP (attrs differ, names match)"
+SAME_HUB,ATTR_SYN_GRID,SAME,HUB,ATTR_SYN,GRID,yes,no,no,0.95,0.18,0.16,0.7093,0.4998,"SAME vs ATTR_SYN, HUB vs GRID (attrs differ, names match)"
+SAME_HUB,ATTR_ALT_DEEP,SAME,HUB,ATTR_ALT,DEEP,yes,no,no,0.95,0.22,0.18,0.1986,0.3871,"SAME vs ATTR_ALT, HUB vs DEEP (attrs differ, names match)"
+SAME_HUB,ATTR_ALT_WIDE,SAME,HUB,ATTR_ALT,WIDE,yes,no,no,0.95,0.32,0.38,0.2238,0.4684,"SAME vs ATTR_ALT, HUB vs WIDE (attrs differ, names match)"
+SAME_HUB,ATTR_ALT_HUB,SAME,HUB,ATTR_ALT,HUB,yes,yes,no,1.0,0.92,0.92,0.3,0.785,"SAME vs ATTR_ALT, HUB vs HUB (attrs differ, names match)"
+SAME_HUB,ATTR_ALT_BIP,SAME,HUB,ATTR_ALT,BIP,yes,no,no,0.95,0.28,0.22,0.2133,0.4158,"SAME vs ATTR_ALT, HUB vs BIP (attrs differ, names match)"
+SAME_HUB,ATTR_ALT_GRID,SAME,HUB,ATTR_ALT,GRID,yes,no,no,0.95,0.18,0.16,0.2418,0.3829,"SAME vs ATTR_ALT, HUB vs GRID (attrs differ, names match)"
+SAME_BIP,ATTR_SYN_DEEP,SAME,BIP,ATTR_SYN,DEEP,yes,no,no,0.95,0.18,0.28,0.5518,0.4904,"SAME vs ATTR_SYN, BIP vs DEEP (attrs differ, names match)"
+SAME_BIP,ATTR_SYN_WIDE,SAME,BIP,ATTR_SYN,WIDE,yes,no,no,0.95,0.24,0.32,0.6046,0.5287,"SAME vs ATTR_SYN, BIP vs WIDE (attrs differ, names match)"
+SAME_BIP,ATTR_SYN_HUB,SAME,BIP,ATTR_SYN,HUB,yes,no,no,0.95,0.28,0.22,0.6257,0.5189,"SAME vs ATTR_SYN, BIP vs HUB (attrs differ, names match)"
+SAME_BIP,ATTR_SYN_BIP,SAME,BIP,ATTR_SYN,BIP,yes,yes,no,1.0,0.9,0.88,0.88,0.915,"SAME vs ATTR_SYN, BIP vs BIP (attrs differ, names match)"
+SAME_BIP,ATTR_SYN_GRID,SAME,BIP,ATTR_SYN,GRID,yes,no,no,0.95,0.22,0.3,0.5826,0.5131,"SAME vs ATTR_SYN, BIP vs GRID (attrs differ, names match)"
+SAME_BIP,ATTR_ALT_DEEP,SAME,BIP,ATTR_ALT,DEEP,yes,no,no,0.95,0.18,0.28,0.1881,0.3995,"SAME vs ATTR_ALT, BIP vs DEEP (attrs differ, names match)"
+SAME_BIP,ATTR_ALT_WIDE,SAME,BIP,ATTR_ALT,WIDE,yes,no,no,0.95,0.24,0.32,0.2061,0.429,"SAME vs ATTR_ALT, BIP vs WIDE (attrs differ, names match)"
+SAME_BIP,ATTR_ALT_HUB,SAME,BIP,ATTR_ALT,HUB,yes,no,no,0.95,0.28,0.22,0.2133,0.4158,"SAME vs ATTR_ALT, BIP vs HUB (attrs differ, names match)"
+SAME_BIP,ATTR_ALT_BIP,SAME,BIP,ATTR_ALT,BIP,yes,yes,no,1.0,0.9,0.88,0.3,0.77,"SAME vs ATTR_ALT, BIP vs BIP (attrs differ, names match)"
+SAME_BIP,ATTR_ALT_GRID,SAME,BIP,ATTR_ALT,GRID,yes,no,no,0.95,0.22,0.3,0.1986,0.4172,"SAME vs ATTR_ALT, BIP vs GRID (attrs differ, names match)"
+SAME_GRID,ATTR_SYN_DEEP,SAME,GRID,ATTR_SYN,DEEP,yes,no,no,0.95,0.12,0.14,0.5298,0.435,"SAME vs ATTR_SYN, GRID vs DEEP (attrs differ, names match)"
+SAME_GRID,ATTR_SYN_WIDE,SAME,GRID,ATTR_SYN,WIDE,yes,no,no,0.95,0.28,0.42,0.6785,0.5821,"SAME vs ATTR_SYN, GRID vs WIDE (attrs differ, names match)"
+SAME_GRID,ATTR_SYN_HUB,SAME,GRID,ATTR_SYN,HUB,yes,no,no,0.95,0.18,0.16,0.7093,0.4998,"SAME vs ATTR_SYN, GRID vs HUB (attrs differ, names match)"
+SAME_GRID,ATTR_SYN_BIP,SAME,GRID,ATTR_SYN,BIP,yes,no,no,0.95,0.22,0.3,0.5826,0.5131,"SAME vs ATTR_SYN, GRID vs BIP (attrs differ, names match)"
+SAME_GRID,ATTR_SYN_GRID,SAME,GRID,ATTR_SYN,GRID,yes,yes,no,1.0,0.93,0.9,0.88,0.9275,"SAME vs ATTR_SYN, GRID vs GRID (attrs differ, names match)"
+SAME_GRID,ATTR_ALT_DEEP,SAME,GRID,ATTR_ALT,DEEP,yes,no,no,0.95,0.12,0.14,0.1806,0.3477,"SAME vs ATTR_ALT, GRID vs DEEP (attrs differ, names match)"
+SAME_GRID,ATTR_ALT_WIDE,SAME,GRID,ATTR_ALT,WIDE,yes,no,no,0.95,0.28,0.42,0.2313,0.4703,"SAME vs ATTR_ALT, GRID vs WIDE (attrs differ, names match)"
+SAME_GRID,ATTR_ALT_HUB,SAME,GRID,ATTR_ALT,HUB,yes,no,no,0.95,0.18,0.16,0.2418,0.3829,"SAME vs ATTR_ALT, GRID vs HUB (attrs differ, names match)"
+SAME_GRID,ATTR_ALT_BIP,SAME,GRID,ATTR_ALT,BIP,yes,no,no,0.95,0.22,0.3,0.1986,0.4172,"SAME vs ATTR_ALT, GRID vs BIP (attrs differ, names match)"
+SAME_GRID,ATTR_ALT_GRID,SAME,GRID,ATTR_ALT,GRID,yes,yes,no,1.0,0.93,0.9,0.3,0.7825,"SAME vs ATTR_ALT, GRID vs GRID (attrs differ, names match)"
+SYN_DEEP,ATTR_SYN_DEEP,SYN,DEEP,ATTR_SYN,DEEP,no,yes,no,0.75,0.9,0.88,0.88,0.8525,"SYN vs ATTR_SYN, DEEP vs DEEP (attrs differ, names differ)"
+SYN_DEEP,ATTR_SYN_WIDE,SYN,DEEP,ATTR_SYN,WIDE,no,no,no,0.75,0.38,0.42,0.7313,0.5703,"SYN vs ATTR_SYN, DEEP vs WIDE (attrs differ, names differ)"
+SYN_DEEP,ATTR_SYN_HUB,SYN,DEEP,ATTR_SYN,HUB,no,no,no,0.75,0.22,0.18,0.5826,0.4331,"SYN vs ATTR_SYN, DEEP vs HUB (attrs differ, names differ)"
+SYN_DEEP,ATTR_SYN_BIP,SYN,DEEP,ATTR_SYN,BIP,no,no,no,0.75,0.18,0.28,0.5518,0.4405,"SYN vs ATTR_SYN, DEEP vs BIP (attrs differ, names differ)"
+SYN_DEEP,ATTR_SYN_GRID,SYN,DEEP,ATTR_SYN,GRID,no,no,no,0.75,0.12,0.14,0.5298,0.385,"SYN vs ATTR_SYN, DEEP vs GRID (attrs differ, names differ)"
+SYN_DEEP,ATTR_ALT_DEEP,SYN,DEEP,ATTR_ALT,DEEP,no,yes,no,0.75,0.9,0.88,0.3,0.7075,"SYN vs ATTR_ALT, DEEP vs DEEP (attrs differ, names differ)"
+SYN_DEEP,ATTR_ALT_WIDE,SYN,DEEP,ATTR_ALT,WIDE,no,no,no,0.75,0.38,0.42,0.2493,0.4498,"SYN vs ATTR_ALT, DEEP vs WIDE (attrs differ, names differ)"
+SYN_DEEP,ATTR_ALT_HUB,SYN,DEEP,ATTR_ALT,HUB,no,no,no,0.75,0.22,0.18,0.1986,0.3371,"SYN vs ATTR_ALT, DEEP vs HUB (attrs differ, names differ)"
+SYN_DEEP,ATTR_ALT_BIP,SYN,DEEP,ATTR_ALT,BIP,no,no,no,0.75,0.18,0.28,0.1881,0.3495,"SYN vs ATTR_ALT, DEEP vs BIP (attrs differ, names differ)"
+SYN_DEEP,ATTR_ALT_GRID,SYN,DEEP,ATTR_ALT,GRID,no,no,no,0.75,0.12,0.14,0.1806,0.2977,"SYN vs ATTR_ALT, DEEP vs GRID (attrs differ, names differ)"
+SYN_WIDE,ATTR_SYN_DEEP,SYN,WIDE,ATTR_SYN,DEEP,no,no,no,0.75,0.38,0.42,0.7313,0.5703,"SYN vs ATTR_SYN, WIDE vs DEEP (attrs differ, names differ)"
+SYN_WIDE,ATTR_SYN_WIDE,SYN,WIDE,ATTR_SYN,WIDE,no,yes,no,0.75,0.85,0.83,0.88,0.8275,"SYN vs ATTR_SYN, WIDE vs WIDE (attrs differ, names differ)"
+SYN_WIDE,ATTR_SYN_HUB,SYN,WIDE,ATTR_SYN,HUB,no,no,no,0.75,0.32,0.38,0.6565,0.5266,"SYN vs ATTR_SYN, WIDE vs HUB (attrs differ, names differ)"
+SYN_WIDE,ATTR_SYN_BIP,SYN,WIDE,ATTR_SYN,BIP,no,no,no,0.75,0.24,0.32,0.6046,0.4787,"SYN vs ATTR_SYN, WIDE vs BIP (attrs differ, names differ)"
+SYN_WIDE,ATTR_SYN_GRID,SYN,WIDE,ATTR_SYN,GRID,no,no,no,0.75,0.28,0.42,0.6785,0.5321,"SYN vs ATTR_SYN, WIDE vs GRID (attrs differ, names differ)"
+SYN_WIDE,ATTR_ALT_DEEP,SYN,WIDE,ATTR_ALT,DEEP,no,no,no,0.75,0.38,0.42,0.2493,0.4498,"SYN vs ATTR_ALT, WIDE vs DEEP (attrs differ, names differ)"
+SYN_WIDE,ATTR_ALT_WIDE,SYN,WIDE,ATTR_ALT,WIDE,no,yes,no,0.75,0.85,0.83,0.3,0.6825,"SYN vs ATTR_ALT, WIDE vs WIDE (attrs differ, names differ)"
+SYN_WIDE,ATTR_ALT_HUB,SYN,WIDE,ATTR_ALT,HUB,no,no,no,0.75,0.32,0.38,0.2238,0.4185,"SYN vs ATTR_ALT, WIDE vs HUB (attrs differ, names differ)"
+SYN_WIDE,ATTR_ALT_BIP,SYN,WIDE,ATTR_ALT,BIP,no,no,no,0.75,0.24,0.32,0.2061,0.379,"SYN vs ATTR_ALT, WIDE vs BIP (attrs differ, names differ)"
+SYN_WIDE,ATTR_ALT_GRID,SYN,WIDE,ATTR_ALT,GRID,no,no,no,0.75,0.28,0.42,0.2313,0.4203,"SYN vs ATTR_ALT, WIDE vs GRID (attrs differ, names differ)"
+SYN_HUB,ATTR_SYN_DEEP,SYN,HUB,ATTR_SYN,DEEP,no,no,no,0.75,0.22,0.18,0.5826,0.4331,"SYN vs ATTR_SYN, HUB vs DEEP (attrs differ, names differ)"
+SYN_HUB,ATTR_SYN_WIDE,SYN,HUB,ATTR_SYN,WIDE,no,no,no,0.75,0.32,0.38,0.6565,0.5266,"SYN vs ATTR_SYN, HUB vs WIDE (attrs differ, names differ)"
+SYN_HUB,ATTR_SYN_HUB,SYN,HUB,ATTR_SYN,HUB,no,yes,no,0.75,0.92,0.92,0.88,0.8675,"SYN vs ATTR_SYN, HUB vs HUB (attrs differ, names differ)"
+SYN_HUB,ATTR_SYN_BIP,SYN,HUB,ATTR_SYN,BIP,no,no,no,0.75,0.28,0.22,0.6257,0.4689,"SYN vs ATTR_SYN, HUB vs BIP (attrs differ, names differ)"
+SYN_HUB,ATTR_SYN_GRID,SYN,HUB,ATTR_SYN,GRID,no,no,no,0.75,0.18,0.16,0.7093,0.4498,"SYN vs ATTR_SYN, HUB vs GRID (attrs differ, names differ)"
+SYN_HUB,ATTR_ALT_DEEP,SYN,HUB,ATTR_ALT,DEEP,no,no,no,0.75,0.22,0.18,0.1986,0.3371,"SYN vs ATTR_ALT, HUB vs DEEP (attrs differ, names differ)"
+SYN_HUB,ATTR_ALT_WIDE,SYN,HUB,ATTR_ALT,WIDE,no,no,no,0.75,0.32,0.38,0.2238,0.4185,"SYN vs ATTR_ALT, HUB vs WIDE (attrs differ, names differ)"
+SYN_HUB,ATTR_ALT_HUB,SYN,HUB,ATTR_ALT,HUB,no,yes,no,0.75,0.92,0.92,0.3,0.7225,"SYN vs ATTR_ALT, HUB vs HUB (attrs differ, names differ)"
+SYN_HUB,ATTR_ALT_BIP,SYN,HUB,ATTR_ALT,BIP,no,no,no,0.75,0.28,0.22,0.2133,0.3658,"SYN vs ATTR_ALT, HUB vs BIP (attrs differ, names differ)"
+SYN_HUB,ATTR_ALT_GRID,SYN,HUB,ATTR_ALT,GRID,no,no,no,0.75,0.18,0.16,0.2418,0.3329,"SYN vs ATTR_ALT, HUB vs GRID (attrs differ, names differ)"
+SYN_BIP,ATTR_SYN_DEEP,SYN,BIP,ATTR_SYN,DEEP,no,no,no,0.75,0.18,0.28,0.5518,0.4405,"SYN vs ATTR_SYN, BIP vs DEEP (attrs differ, names differ)"
+SYN_BIP,ATTR_SYN_WIDE,SYN,BIP,ATTR_SYN,WIDE,no,no,no,0.75,0.24,0.32,0.6046,0.4787,"SYN vs ATTR_SYN, BIP vs WIDE (attrs differ, names differ)"
+SYN_BIP,ATTR_SYN_HUB,SYN,BIP,ATTR_SYN,HUB,no,no,no,0.75,0.28,0.22,0.6257,0.4689,"SYN vs ATTR_SYN, BIP vs HUB (attrs differ, names differ)"
+SYN_BIP,ATTR_SYN_BIP,SYN,BIP,ATTR_SYN,BIP,no,yes,no,0.75,0.9,0.88,0.88,0.8525,"SYN vs ATTR_SYN, BIP vs BIP (attrs differ, names differ)"
+SYN_BIP,ATTR_SYN_GRID,SYN,BIP,ATTR_SYN,GRID,no,no,no,0.75,0.22,0.3,0.5826,0.4632,"SYN vs ATTR_SYN, BIP vs GRID (attrs differ, names differ)"
+SYN_BIP,ATTR_ALT_DEEP,SYN,BIP,ATTR_ALT,DEEP,no,no,no,0.75,0.18,0.28,0.1881,0.3495,"SYN vs ATTR_ALT, BIP vs DEEP (attrs differ, names differ)"
+SYN_BIP,ATTR_ALT_WIDE,SYN,BIP,ATTR_ALT,WIDE,no,no,no,0.75,0.24,0.32,0.2061,0.379,"SYN vs ATTR_ALT, BIP vs WIDE (attrs differ, names differ)"
+SYN_BIP,ATTR_ALT_HUB,SYN,BIP,ATTR_ALT,HUB,no,no,no,0.75,0.28,0.22,0.2133,0.3658,"SYN vs ATTR_ALT, BIP vs HUB (attrs differ, names differ)"
+SYN_BIP,ATTR_ALT_BIP,SYN,BIP,ATTR_ALT,BIP,no,yes,no,0.75,0.9,0.88,0.3,0.7075,"SYN vs ATTR_ALT, BIP vs BIP (attrs differ, names differ)"
+SYN_BIP,ATTR_ALT_GRID,SYN,BIP,ATTR_ALT,GRID,no,no,no,0.75,0.22,0.3,0.1986,0.3671,"SYN vs ATTR_ALT, BIP vs GRID (attrs differ, names differ)"
+SYN_GRID,ATTR_SYN_DEEP,SYN,GRID,ATTR_SYN,DEEP,no,no,no,0.75,0.12,0.14,0.5298,0.385,"SYN vs ATTR_SYN, GRID vs DEEP (attrs differ, names differ)"
+SYN_GRID,ATTR_SYN_WIDE,SYN,GRID,ATTR_SYN,WIDE,no,no,no,0.75,0.28,0.42,0.6785,0.5321,"SYN vs ATTR_SYN, GRID vs WIDE (attrs differ, names differ)"
+SYN_GRID,ATTR_SYN_HUB,SYN,GRID,ATTR_SYN,HUB,no,no,no,0.75,0.18,0.16,0.7093,0.4498,"SYN vs ATTR_SYN, GRID vs HUB (attrs differ, names differ)"
+SYN_GRID,ATTR_SYN_BIP,SYN,GRID,ATTR_SYN,BIP,no,no,no,0.75,0.22,0.3,0.5826,0.4632,"SYN vs ATTR_SYN, GRID vs BIP (attrs differ, names differ)"
+SYN_GRID,ATTR_SYN_GRID,SYN,GRID,ATTR_SYN,GRID,no,yes,no,0.75,0.93,0.9,0.88,0.865,"SYN vs ATTR_SYN, GRID vs GRID (attrs differ, names differ)"
+SYN_GRID,ATTR_ALT_DEEP,SYN,GRID,ATTR_ALT,DEEP,no,no,no,0.75,0.12,0.14,0.1806,0.2977,"SYN vs ATTR_ALT, GRID vs DEEP (attrs differ, names differ)"
+SYN_GRID,ATTR_ALT_WIDE,SYN,GRID,ATTR_ALT,WIDE,no,no,no,0.75,0.28,0.42,0.2313,0.4203,"SYN vs ATTR_ALT, GRID vs WIDE (attrs differ, names differ)"
+SYN_GRID,ATTR_ALT_HUB,SYN,GRID,ATTR_ALT,HUB,no,no,no,0.75,0.18,0.16,0.2418,0.3329,"SYN vs ATTR_ALT, GRID vs HUB (attrs differ, names differ)"
+SYN_GRID,ATTR_ALT_BIP,SYN,GRID,ATTR_ALT,BIP,no,no,no,0.75,0.22,0.3,0.1986,0.3671,"SYN vs ATTR_ALT, GRID vs BIP (attrs differ, names differ)"
+SYN_GRID,ATTR_ALT_GRID,SYN,GRID,ATTR_ALT,GRID,no,yes,no,0.75,0.93,0.9,0.3,0.72,"SYN vs ATTR_ALT, GRID vs GRID (attrs differ, names differ)"
+ALT_DEEP,ATTR_SYN_DEEP,ALT,DEEP,ATTR_SYN,DEEP,no,yes,no,0.45,0.9,0.88,0.8322,0.7655,"ALT vs ATTR_SYN, DEEP vs DEEP (attrs differ, names differ)"
+ALT_DEEP,ATTR_SYN_WIDE,ALT,DEEP,ATTR_SYN,WIDE,no,no,no,0.45,0.38,0.42,0.6916,0.4854,"ALT vs ATTR_SYN, DEEP vs WIDE (attrs differ, names differ)"
+ALT_DEEP,ATTR_SYN_HUB,ALT,DEEP,ATTR_SYN,HUB,no,no,no,0.45,0.22,0.18,0.5509,0.3502,"ALT vs ATTR_SYN, DEEP vs HUB (attrs differ, names differ)"
+ALT_DEEP,ATTR_SYN_BIP,ALT,DEEP,ATTR_SYN,BIP,no,no,no,0.45,0.18,0.28,0.5218,0.3579,"ALT vs ATTR_SYN, DEEP vs BIP (attrs differ, names differ)"
+ALT_DEEP,ATTR_SYN_GRID,ALT,DEEP,ATTR_SYN,GRID,no,no,no,0.45,0.12,0.14,0.501,0.3028,"ALT vs ATTR_SYN, DEEP vs GRID (attrs differ, names differ)"
+ALT_DEEP,ATTR_ALT_DEEP,ALT,DEEP,ATTR_ALT,DEEP,no,yes,no,0.45,0.9,0.88,0.2837,0.6284,"ALT vs ATTR_ALT, DEEP vs DEEP (attrs differ, names differ)"
+ALT_DEEP,ATTR_ALT_WIDE,ALT,DEEP,ATTR_ALT,WIDE,no,no,no,0.45,0.38,0.42,0.2358,0.3715,"ALT vs ATTR_ALT, DEEP vs WIDE (attrs differ, names differ)"
+ALT_DEEP,ATTR_ALT_HUB,ALT,DEEP,ATTR_ALT,HUB,no,no,no,0.45,0.22,0.18,0.1878,0.2595,"ALT vs ATTR_ALT, DEEP vs HUB (attrs differ, names differ)"
+ALT_DEEP,ATTR_ALT_BIP,ALT,DEEP,ATTR_ALT,BIP,no,no,no,0.45,0.18,0.28,0.1779,0.272,"ALT vs ATTR_ALT, DEEP vs BIP (attrs differ, names differ)"
+ALT_DEEP,ATTR_ALT_GRID,ALT,DEEP,ATTR_ALT,GRID,no,no,no,0.45,0.12,0.14,0.1708,0.2202,"ALT vs ATTR_ALT, DEEP vs GRID (attrs differ, names differ)"
+ALT_WIDE,ATTR_SYN_DEEP,ALT,WIDE,ATTR_SYN,DEEP,no,no,no,0.45,0.38,0.42,0.6916,0.4854,"ALT vs ATTR_SYN, WIDE vs DEEP (attrs differ, names differ)"
+ALT_WIDE,ATTR_SYN_WIDE,ALT,WIDE,ATTR_SYN,WIDE,no,yes,no,0.45,0.85,0.83,0.8322,0.7406,"ALT vs ATTR_SYN, WIDE vs WIDE (attrs differ, names differ)"
+ALT_WIDE,ATTR_SYN_HUB,ALT,WIDE,ATTR_SYN,HUB,no,no,no,0.45,0.32,0.38,0.6208,0.4427,"ALT vs ATTR_SYN, WIDE vs HUB (attrs differ, names differ)"
+ALT_WIDE,ATTR_SYN_BIP,ALT,WIDE,ATTR_SYN,BIP,no,no,no,0.45,0.24,0.32,0.5717,0.3954,"ALT vs ATTR_SYN, WIDE vs BIP (attrs differ, names differ)"
+ALT_WIDE,ATTR_SYN_GRID,ALT,WIDE,ATTR_SYN,GRID,no,no,no,0.45,0.28,0.42,0.6416,0.4479,"ALT vs ATTR_SYN, WIDE vs GRID (attrs differ, names differ)"
+ALT_WIDE,ATTR_ALT_DEEP,ALT,WIDE,ATTR_ALT,DEEP,no,no,no,0.45,0.38,0.42,0.2358,0.3715,"ALT vs ATTR_ALT, WIDE vs DEEP (attrs differ, names differ)"
+ALT_WIDE,ATTR_ALT_WIDE,ALT,WIDE,ATTR_ALT,WIDE,no,yes,no,0.45,0.85,0.83,0.2837,0.6034,"ALT vs ATTR_ALT, WIDE vs WIDE (attrs differ, names differ)"
+ALT_WIDE,ATTR_ALT_HUB,ALT,WIDE,ATTR_ALT,HUB,no,no,no,0.45,0.32,0.38,0.2116,0.3404,"ALT vs ATTR_ALT, WIDE vs HUB (attrs differ, names differ)"
+ALT_WIDE,ATTR_ALT_BIP,ALT,WIDE,ATTR_ALT,BIP,no,no,no,0.45,0.24,0.32,0.1949,0.3012,"ALT vs ATTR_ALT, WIDE vs BIP (attrs differ, names differ)"
+ALT_WIDE,ATTR_ALT_GRID,ALT,WIDE,ATTR_ALT,GRID,no,no,no,0.45,0.28,0.42,0.2187,0.3422,"ALT vs ATTR_ALT, WIDE vs GRID (attrs differ, names differ)"
+ALT_HUB,ATTR_SYN_DEEP,ALT,HUB,ATTR_SYN,DEEP,no,no,no,0.45,0.22,0.18,0.5509,0.3502,"ALT vs ATTR_SYN, HUB vs DEEP (attrs differ, names differ)"
+ALT_HUB,ATTR_SYN_WIDE,ALT,HUB,ATTR_SYN,WIDE,no,no,no,0.45,0.32,0.38,0.6208,0.4427,"ALT vs ATTR_SYN, HUB vs WIDE (attrs differ, names differ)"
+ALT_HUB,ATTR_SYN_HUB,ALT,HUB,ATTR_SYN,HUB,no,yes,no,0.45,0.92,0.92,0.8322,0.7806,"ALT vs ATTR_SYN, HUB vs HUB (attrs differ, names differ)"
+ALT_HUB,ATTR_SYN_BIP,ALT,HUB,ATTR_SYN,BIP,no,no,no,0.45,0.28,0.22,0.5917,0.3854,"ALT vs ATTR_SYN, HUB vs BIP (attrs differ, names differ)"
+ALT_HUB,ATTR_SYN_GRID,ALT,HUB,ATTR_SYN,GRID,no,no,no,0.45,0.18,0.16,0.6708,0.3652,"ALT vs ATTR_SYN, HUB vs GRID (attrs differ, names differ)"
+ALT_HUB,ATTR_ALT_DEEP,ALT,HUB,ATTR_ALT,DEEP,no,no,no,0.45,0.22,0.18,0.1878,0.2595,"ALT vs ATTR_ALT, HUB vs DEEP (attrs differ, names differ)"
+ALT_HUB,ATTR_ALT_WIDE,ALT,HUB,ATTR_ALT,WIDE,no,no,no,0.45,0.32,0.38,0.2116,0.3404,"ALT vs ATTR_ALT, HUB vs WIDE (attrs differ, names differ)"
+ALT_HUB,ATTR_ALT_HUB,ALT,HUB,ATTR_ALT,HUB,no,yes,no,0.45,0.92,0.92,0.2837,0.6434,"ALT vs ATTR_ALT, HUB vs HUB (attrs differ, names differ)"
+ALT_HUB,ATTR_ALT_BIP,ALT,HUB,ATTR_ALT,BIP,no,no,no,0.45,0.28,0.22,0.2017,0.2879,"ALT vs ATTR_ALT, HUB vs BIP (attrs differ, names differ)"
+ALT_HUB,ATTR_ALT_GRID,ALT,HUB,ATTR_ALT,GRID,no,no,no,0.45,0.18,0.16,0.2287,0.2547,"ALT vs ATTR_ALT, HUB vs GRID (attrs differ, names differ)"
+ALT_BIP,ATTR_SYN_DEEP,ALT,BIP,ATTR_SYN,DEEP,no,no,no,0.45,0.18,0.28,0.5218,0.3579,"ALT vs ATTR_SYN, BIP vs DEEP (attrs differ, names differ)"
+ALT_BIP,ATTR_SYN_WIDE,ALT,BIP,ATTR_SYN,WIDE,no,no,no,0.45,0.24,0.32,0.5717,0.3954,"ALT vs ATTR_SYN, BIP vs WIDE (attrs differ, names differ)"
+ALT_BIP,ATTR_SYN_HUB,ALT,BIP,ATTR_SYN,HUB,no,no,no,0.45,0.28,0.22,0.5917,0.3854,"ALT vs ATTR_SYN, BIP vs HUB (attrs differ, names differ)"
+ALT_BIP,ATTR_SYN_BIP,ALT,BIP,ATTR_SYN,BIP,no,yes,no,0.45,0.9,0.88,0.8322,0.7655,"ALT vs ATTR_SYN, BIP vs BIP (attrs differ, names differ)"
+ALT_BIP,ATTR_SYN_GRID,ALT,BIP,ATTR_SYN,GRID,no,no,no,0.45,0.22,0.3,0.5509,0.3802,"ALT vs ATTR_SYN, BIP vs GRID (attrs differ, names differ)"
+ALT_BIP,ATTR_ALT_DEEP,ALT,BIP,ATTR_ALT,DEEP,no,no,no,0.45,0.18,0.28,0.1779,0.272,"ALT vs ATTR_ALT, BIP vs DEEP (attrs differ, names differ)"
+ALT_BIP,ATTR_ALT_WIDE,ALT,BIP,ATTR_ALT,WIDE,no,no,no,0.45,0.24,0.32,0.1949,0.3012,"ALT vs ATTR_ALT, BIP vs WIDE (attrs differ, names differ)"
+ALT_BIP,ATTR_ALT_HUB,ALT,BIP,ATTR_ALT,HUB,no,no,no,0.45,0.28,0.22,0.2017,0.2879,"ALT vs ATTR_ALT, BIP vs HUB (attrs differ, names differ)"
+ALT_BIP,ATTR_ALT_BIP,ALT,BIP,ATTR_ALT,BIP,no,yes,no,0.45,0.9,0.88,0.2837,0.6284,"ALT vs ATTR_ALT, BIP vs BIP (attrs differ, names differ)"
+ALT_BIP,ATTR_ALT_GRID,ALT,BIP,ATTR_ALT,GRID,no,no,no,0.45,0.22,0.3,0.1878,0.2894,"ALT vs ATTR_ALT, BIP vs GRID (attrs differ, names differ)"
+ALT_GRID,ATTR_SYN_DEEP,ALT,GRID,ATTR_SYN,DEEP,no,no,no,0.45,0.12,0.14,0.501,0.3028,"ALT vs ATTR_SYN, GRID vs DEEP (attrs differ, names differ)"
+ALT_GRID,ATTR_SYN_WIDE,ALT,GRID,ATTR_SYN,WIDE,no,no,no,0.45,0.28,0.42,0.6416,0.4479,"ALT vs ATTR_SYN, GRID vs WIDE (attrs differ, names differ)"
+ALT_GRID,ATTR_SYN_HUB,ALT,GRID,ATTR_SYN,HUB,no,no,no,0.45,0.18,0.16,0.6708,0.3652,"ALT vs ATTR_SYN, GRID vs HUB (attrs differ, names differ)"
+ALT_GRID,ATTR_SYN_BIP,ALT,GRID,ATTR_SYN,BIP,no,no,no,0.45,0.22,0.3,0.5509,0.3802,"ALT vs ATTR_SYN, GRID vs BIP (attrs differ, names differ)"
+ALT_GRID,ATTR_SYN_GRID,ALT,GRID,ATTR_SYN,GRID,no,yes,no,0.45,0.93,0.9,0.8322,0.7781,"ALT vs ATTR_SYN, GRID vs GRID (attrs differ, names differ)"
+ALT_GRID,ATTR_ALT_DEEP,ALT,GRID,ATTR_ALT,DEEP,no,no,no,0.45,0.12,0.14,0.1708,0.2202,"ALT vs ATTR_ALT, GRID vs DEEP (attrs differ, names differ)"
+ALT_GRID,ATTR_ALT_WIDE,ALT,GRID,ATTR_ALT,WIDE,no,no,no,0.45,0.28,0.42,0.2187,0.3422,"ALT vs ATTR_ALT, GRID vs WIDE (attrs differ, names differ)"
+ALT_GRID,ATTR_ALT_HUB,ALT,GRID,ATTR_ALT,HUB,no,no,no,0.45,0.18,0.16,0.2287,0.2547,"ALT vs ATTR_ALT, GRID vs HUB (attrs differ, names differ)"
+ALT_GRID,ATTR_ALT_BIP,ALT,GRID,ATTR_ALT,BIP,no,no,no,0.45,0.22,0.3,0.1878,0.2894,"ALT vs ATTR_ALT, GRID vs BIP (attrs differ, names differ)"
+ALT_GRID,ATTR_ALT_GRID,ALT,GRID,ATTR_ALT,GRID,no,yes,no,0.45,0.93,0.9,0.2837,0.6409,"ALT vs ATTR_ALT, GRID vs GRID (attrs differ, names differ)"
+ATTR_SYN_DEEP,ATTR_SYN_WIDE,ATTR_SYN,DEEP,ATTR_SYN,WIDE,yes,no,yes,0.95,0.38,0.42,0.831,0.6452,"ATTR_SYN vs ATTR_SYN, DEEP vs WIDE (attrs match, names match)"
+ATTR_SYN_DEEP,ATTR_SYN_HUB,ATTR_SYN,DEEP,ATTR_SYN,HUB,yes,no,yes,0.95,0.22,0.18,0.662,0.503,"ATTR_SYN vs ATTR_SYN, DEEP vs HUB (attrs match, names match)"
+ATTR_SYN_DEEP,ATTR_SYN_BIP,ATTR_SYN,DEEP,ATTR_SYN,BIP,yes,no,yes,0.95,0.18,0.28,0.627,0.5092,"ATTR_SYN vs ATTR_SYN, DEEP vs BIP (attrs match, names match)"
+ATTR_SYN_DEEP,ATTR_SYN_GRID,ATTR_SYN,DEEP,ATTR_SYN,GRID,yes,no,yes,0.95,0.12,0.14,0.602,0.453,"ATTR_SYN vs ATTR_SYN, DEEP vs GRID (attrs match, names match)"
+ATTR_SYN_DEEP,ATTR_ALT_DEEP,ATTR_SYN,DEEP,ATTR_ALT,DEEP,yes,yes,no,1.0,0.9,0.88,0.3,0.77,"ATTR_SYN vs ATTR_ALT, DEEP vs DEEP (attrs differ, names match)"
+ATTR_SYN_DEEP,ATTR_ALT_WIDE,ATTR_SYN,DEEP,ATTR_ALT,WIDE,yes,no,no,0.95,0.38,0.42,0.2493,0.4998,"ATTR_SYN vs ATTR_ALT, DEEP vs WIDE (attrs differ, names match)"
+ATTR_SYN_DEEP,ATTR_ALT_HUB,ATTR_SYN,DEEP,ATTR_ALT,HUB,yes,no,no,0.95,0.22,0.18,0.1986,0.3871,"ATTR_SYN vs ATTR_ALT, DEEP vs HUB (attrs differ, names match)"
+ATTR_SYN_DEEP,ATTR_ALT_BIP,ATTR_SYN,DEEP,ATTR_ALT,BIP,yes,no,no,0.95,0.18,0.28,0.1881,0.3995,"ATTR_SYN vs ATTR_ALT, DEEP vs BIP (attrs differ, names match)"
+ATTR_SYN_DEEP,ATTR_ALT_GRID,ATTR_SYN,DEEP,ATTR_ALT,GRID,yes,no,no,0.95,0.12,0.14,0.1806,0.3477,"ATTR_SYN vs ATTR_ALT, DEEP vs GRID (attrs differ, names match)"
+ATTR_SYN_WIDE,ATTR_SYN_HUB,ATTR_SYN,WIDE,ATTR_SYN,HUB,yes,no,yes,0.95,0.32,0.38,0.746,0.599,"ATTR_SYN vs ATTR_SYN, WIDE vs HUB (attrs match, names match)"
+ATTR_SYN_WIDE,ATTR_SYN_BIP,ATTR_SYN,WIDE,ATTR_SYN,BIP,yes,no,yes,0.95,0.24,0.32,0.687,0.5493,"ATTR_SYN vs ATTR_SYN, WIDE vs BIP (attrs match, names match)"
+ATTR_SYN_WIDE,ATTR_SYN_GRID,ATTR_SYN,WIDE,ATTR_SYN,GRID,yes,no,yes,0.95,0.28,0.42,0.771,0.6052,"ATTR_SYN vs ATTR_SYN, WIDE vs GRID (attrs match, names match)"
+ATTR_SYN_WIDE,ATTR_ALT_DEEP,ATTR_SYN,WIDE,ATTR_ALT,DEEP,yes,no,no,0.95,0.38,0.42,0.2493,0.4998,"ATTR_SYN vs ATTR_ALT, WIDE vs DEEP (attrs differ, names match)"
+ATTR_SYN_WIDE,ATTR_ALT_WIDE,ATTR_SYN,WIDE,ATTR_ALT,WIDE,yes,yes,no,1.0,0.85,0.83,0.3,0.745,"ATTR_SYN vs ATTR_ALT, WIDE vs WIDE (attrs differ, names match)"
+ATTR_SYN_WIDE,ATTR_ALT_HUB,ATTR_SYN,WIDE,ATTR_ALT,HUB,yes,no,no,0.95,0.32,0.38,0.2238,0.4684,"ATTR_SYN vs ATTR_ALT, WIDE vs HUB (attrs differ, names match)"
+ATTR_SYN_WIDE,ATTR_ALT_BIP,ATTR_SYN,WIDE,ATTR_ALT,BIP,yes,no,no,0.95,0.24,0.32,0.2061,0.429,"ATTR_SYN vs ATTR_ALT, WIDE vs BIP (attrs differ, names match)"
+ATTR_SYN_WIDE,ATTR_ALT_GRID,ATTR_SYN,WIDE,ATTR_ALT,GRID,yes,no,no,0.95,0.28,0.42,0.2313,0.4703,"ATTR_SYN vs ATTR_ALT, WIDE vs GRID (attrs differ, names match)"
+ATTR_SYN_HUB,ATTR_SYN_BIP,ATTR_SYN,HUB,ATTR_SYN,BIP,yes,no,yes,0.95,0.28,0.22,0.711,0.5403,"ATTR_SYN vs ATTR_SYN, HUB vs BIP (attrs match, names match)"
+ATTR_SYN_HUB,ATTR_SYN_GRID,ATTR_SYN,HUB,ATTR_SYN,GRID,yes,no,yes,0.95,0.18,0.16,0.806,0.524,"ATTR_SYN vs ATTR_SYN, HUB vs GRID (attrs match, names match)"
+ATTR_SYN_HUB,ATTR_ALT_DEEP,ATTR_SYN,HUB,ATTR_ALT,DEEP,yes,no,no,0.95,0.22,0.18,0.1986,0.3871,"ATTR_SYN vs ATTR_ALT, HUB vs DEEP (attrs differ, names match)"
+ATTR_SYN_HUB,ATTR_ALT_WIDE,ATTR_SYN,HUB,ATTR_ALT,WIDE,yes,no,no,0.95,0.32,0.38,0.2238,0.4684,"ATTR_SYN vs ATTR_ALT, HUB vs WIDE (attrs differ, names match)"
+ATTR_SYN_HUB,ATTR_ALT_HUB,ATTR_SYN,HUB,ATTR_ALT,HUB,yes,yes,no,1.0,0.92,0.92,0.3,0.785,"ATTR_SYN vs ATTR_ALT, HUB vs HUB (attrs differ, names match)"
+ATTR_SYN_HUB,ATTR_ALT_BIP,ATTR_SYN,HUB,ATTR_ALT,BIP,yes,no,no,0.95,0.28,0.22,0.2133,0.4158,"ATTR_SYN vs ATTR_ALT, HUB vs BIP (attrs differ, names match)"
+ATTR_SYN_HUB,ATTR_ALT_GRID,ATTR_SYN,HUB,ATTR_ALT,GRID,yes,no,no,0.95,0.18,0.16,0.2418,0.3829,"ATTR_SYN vs ATTR_ALT, HUB vs GRID (attrs differ, names match)"
+ATTR_SYN_BIP,ATTR_SYN_GRID,ATTR_SYN,BIP,ATTR_SYN,GRID,yes,no,yes,0.95,0.22,0.3,0.662,0.533,"ATTR_SYN vs ATTR_SYN, BIP vs GRID (attrs match, names match)"
+ATTR_SYN_BIP,ATTR_ALT_DEEP,ATTR_SYN,BIP,ATTR_ALT,DEEP,yes,no,no,0.95,0.18,0.28,0.1881,0.3995,"ATTR_SYN vs ATTR_ALT, BIP vs DEEP (attrs differ, names match)"
+ATTR_SYN_BIP,ATTR_ALT_WIDE,ATTR_SYN,BIP,ATTR_ALT,WIDE,yes,no,no,0.95,0.24,0.32,0.2061,0.429,"ATTR_SYN vs ATTR_ALT, BIP vs WIDE (attrs differ, names match)"
+ATTR_SYN_BIP,ATTR_ALT_HUB,ATTR_SYN,BIP,ATTR_ALT,HUB,yes,no,no,0.95,0.28,0.22,0.2133,0.4158,"ATTR_SYN vs ATTR_ALT, BIP vs HUB (attrs differ, names match)"
+ATTR_SYN_BIP,ATTR_ALT_BIP,ATTR_SYN,BIP,ATTR_ALT,BIP,yes,yes,no,1.0,0.9,0.88,0.3,0.77,"ATTR_SYN vs ATTR_ALT, BIP vs BIP (attrs differ, names match)"
+ATTR_SYN_BIP,ATTR_ALT_GRID,ATTR_SYN,BIP,ATTR_ALT,GRID,yes,no,no,0.95,0.22,0.3,0.1986,0.4172,"ATTR_SYN vs ATTR_ALT, BIP vs GRID (attrs differ, names match)"
+ATTR_SYN_GRID,ATTR_ALT_DEEP,ATTR_SYN,GRID,ATTR_ALT,DEEP,yes,no,no,0.95,0.12,0.14,0.1806,0.3477,"ATTR_SYN vs ATTR_ALT, GRID vs DEEP (attrs differ, names match)"
+ATTR_SYN_GRID,ATTR_ALT_WIDE,ATTR_SYN,GRID,ATTR_ALT,WIDE,yes,no,no,0.95,0.28,0.42,0.2313,0.4703,"ATTR_SYN vs ATTR_ALT, GRID vs WIDE (attrs differ, names match)"
+ATTR_SYN_GRID,ATTR_ALT_HUB,ATTR_SYN,GRID,ATTR_ALT,HUB,yes,no,no,0.95,0.18,0.16,0.2418,0.3829,"ATTR_SYN vs ATTR_ALT, GRID vs HUB (attrs differ, names match)"
+ATTR_SYN_GRID,ATTR_ALT_BIP,ATTR_SYN,GRID,ATTR_ALT,BIP,yes,no,no,0.95,0.22,0.3,0.1986,0.4172,"ATTR_SYN vs ATTR_ALT, GRID vs BIP (attrs differ, names match)"
+ATTR_SYN_GRID,ATTR_ALT_GRID,ATTR_SYN,GRID,ATTR_ALT,GRID,yes,yes,no,1.0,0.93,0.9,0.3,0.7825,"ATTR_SYN vs ATTR_ALT, GRID vs GRID (attrs differ, names match)"
+ATTR_ALT_DEEP,ATTR_ALT_WIDE,ATTR_ALT,DEEP,ATTR_ALT,WIDE,yes,no,yes,0.95,0.38,0.42,0.831,0.6452,"ATTR_ALT vs ATTR_ALT, DEEP vs WIDE (attrs match, names match)"
+ATTR_ALT_DEEP,ATTR_ALT_HUB,ATTR_ALT,DEEP,ATTR_ALT,HUB,yes,no,yes,0.95,0.22,0.18,0.662,0.503,"ATTR_ALT vs ATTR_ALT, DEEP vs HUB (attrs match, names match)"
+ATTR_ALT_DEEP,ATTR_ALT_BIP,ATTR_ALT,DEEP,ATTR_ALT,BIP,yes,no,yes,0.95,0.18,0.28,0.627,0.5092,"ATTR_ALT vs ATTR_ALT, DEEP vs BIP (attrs match, names match)"
+ATTR_ALT_DEEP,ATTR_ALT_GRID,ATTR_ALT,DEEP,ATTR_ALT,GRID,yes,no,yes,0.95,0.12,0.14,0.602,0.453,"ATTR_ALT vs ATTR_ALT, DEEP vs GRID (attrs match, names match)"
+ATTR_ALT_WIDE,ATTR_ALT_HUB,ATTR_ALT,WIDE,ATTR_ALT,HUB,yes,no,yes,0.95,0.32,0.38,0.746,0.599,"ATTR_ALT vs ATTR_ALT, WIDE vs HUB (attrs match, names match)"
+ATTR_ALT_WIDE,ATTR_ALT_BIP,ATTR_ALT,WIDE,ATTR_ALT,BIP,yes,no,yes,0.95,0.24,0.32,0.687,0.5493,"ATTR_ALT vs ATTR_ALT, WIDE vs BIP (attrs match, names match)"
+ATTR_ALT_WIDE,ATTR_ALT_GRID,ATTR_ALT,WIDE,ATTR_ALT,GRID,yes,no,yes,0.95,0.28,0.42,0.771,0.6052,"ATTR_ALT vs ATTR_ALT, WIDE vs GRID (attrs match, names match)"
+ATTR_ALT_HUB,ATTR_ALT_BIP,ATTR_ALT,HUB,ATTR_ALT,BIP,yes,no,yes,0.95,0.28,0.22,0.711,0.5403,"ATTR_ALT vs ATTR_ALT, HUB vs BIP (attrs match, names match)"
+ATTR_ALT_HUB,ATTR_ALT_GRID,ATTR_ALT,HUB,ATTR_ALT,GRID,yes,no,yes,0.95,0.18,0.16,0.806,0.524,"ATTR_ALT vs ATTR_ALT, HUB vs GRID (attrs match, names match)"
+ATTR_ALT_BIP,ATTR_ALT_GRID,ATTR_ALT,BIP,ATTR_ALT,GRID,yes,no,yes,0.95,0.22,0.3,0.662,0.533,"ATTR_ALT vs ATTR_ALT, BIP vs GRID (attrs match, names match)"

@@ -689,3 +689,123 @@ def run_attr_dist_stage(
     print(f"[AttrDist] attr_dist_sim={sim:.4f}  (embed={embed_sim:.4f}, wup={wup_sim:.4f})  "
           f"vocab={len(vocab)}  entities_a={len(reach_a)}  entities_b={len(reach_b)}", file=sys.stderr)
     return sim
+
+
+# ── Experimental alternative aggregation: joint-list embedding ───────────────
+# NOT wired into the production pipeline. run_attr_dist_stage (above) embeds
+# each attribute TYPE independently and weight-sums the per-type embeddings
+# (the design documented in README Section 4). This variant instead
+# accumulates an entity's whole K-hop reach signature into ONE text and
+# embeds it in a single encode() call, then applies weighting only when
+# aggregating entities into the per-model vector. It exists to A/B against
+# the production design (see scripts/attr_weighted_ablation.py) — do not call
+# from pipeline code until that comparison justifies switching.
+
+def _joint_list_text(sig: dict[str, float]) -> str:
+    """
+    One text blob from an entity's full reach signature — every reachable
+    attribute type joined into a single string, mirroring the sigma(e)
+    sentence construction entailment_matcher.py uses for its attribute-level
+    probe (README Section 5), except here the string feeds a bi-encoder
+    embedding rather than a cross-encoder NLI pair.
+
+    Per-type reach weights are intentionally dropped from the text — there is
+    no clean way to inject a continuous weight into a token sequence — so
+    weighting for this variant is deferred entirely to the entity-aggregation
+    step (see _entity_confidence / run_attr_dist_stage_joint).
+    """
+    if not sig:
+        return ""
+    return ", ".join(_readable(t) for t in sorted(sig.keys()))
+
+
+def _joint_list_vectors(
+    reach: dict[str, dict[str, float]],
+    encoder_model: str = _DEFAULT_MODEL,
+) -> dict[str, np.ndarray]:
+    """One embedding per entity (batched in a single encode() call), built
+    from that entity's whole reach signature rather than per-type."""
+    names = [e for e, sig in reach.items() if sig]
+    if not names:
+        return {}
+    texts = [_joint_list_text(reach[e]) for e in names]
+    enc = _get_encoder(encoder_model)
+    embs = enc.encode(texts, normalize_embeddings=True,
+                       show_progress_bar=False, batch_size=64)
+    return {e: embs[i] for i, e in enumerate(names)}
+
+
+def _entity_confidence(sig: dict[str, float]) -> float:
+    """
+    Scalar per-entity weight applied AFTER joint embedding — total evidence
+    mass (sum of reach weights) standing in for the per-type weights that
+    run_attr_dist_stage applies before summing. An entity with more/stronger
+    reachable attributes counts for more when the model-level vector is
+    accumulated, same spirit as the production design, just at coarser
+    (entity, not type) granularity.
+    """
+    return sum(sig.values())
+
+
+def run_attr_dist_stage_joint(
+    data_a: dict,
+    data_b: dict,
+    K: int = 2,
+    encoder_model: str = _DEFAULT_MODEL,
+) -> dict:
+    """
+    Experimental counterpart to run_attr_dist_stage: same K-hop reach, same
+    WUP soft-cosine (wup_sim never depended on individual embeddings, so it
+    is identical between the two designs), but embed_sim is computed from
+    one joint-list embedding per entity instead of a weighted sum of
+    per-type embeddings.
+
+    Returns {embed_sim, wup_sim, attr_dist_sim} — same shape as the values
+    printed by run_attr_dist_stage, for direct comparison.
+    """
+    inv    = load_inventory()
+    norm_a = normalize_model(data_a, inv)
+    norm_b = normalize_model(data_b, inv)
+
+    vocab = collect_obs_vocab(norm_a, norm_b)
+    if not vocab:
+        return {"embed_sim": 0.0, "wup_sim": 0.0, "attr_dist_sim": 0.0}
+
+    reach_a = attribute_reach(norm_a, vocab, K=K, impute_threshold=1.1)
+    reach_b = attribute_reach(norm_b, vocab, K=K, impute_threshold=1.1)
+
+    vecs_a = _joint_list_vectors(reach_a, encoder_model)
+    vecs_b = _joint_list_vectors(reach_b, encoder_model)
+
+    def _agg(reach: dict, vecs: dict[str, np.ndarray]) -> Optional[np.ndarray]:
+        if not vecs:
+            return None
+        dim = next(iter(vecs.values())).shape[0]
+        agg = np.zeros(dim, dtype=np.float64)
+        for e, sig in reach.items():
+            if e in vecs:
+                agg += _entity_confidence(sig) * vecs[e]
+        return agg
+
+    agg_a = _agg(reach_a, vecs_a)
+    agg_b = _agg(reach_b, vecs_b)
+    if agg_a is None or agg_b is None:
+        embed_sim = 0.0
+    else:
+        na, nb = np.linalg.norm(agg_a), np.linalg.norm(agg_b)
+        embed_sim = (
+            round(float(np.dot(agg_a, agg_b) / (na * nb)), 4)
+            if na > 1e-10 and nb > 1e-10 else 0.0
+        )
+
+    vocab_index = {t: i for i, t in enumerate(vocab)}
+    wup_kernel  = _wup_kernel(vocab)
+    wvec_a = _type_weight_vector(reach_a, vocab_index)
+    wvec_b = _type_weight_vector(reach_b, vocab_index)
+    wup_sim = _soft_cosine(wvec_a, wvec_b, wup_kernel)
+
+    return {
+        "embed_sim": embed_sim,
+        "wup_sim": wup_sim,
+        "attr_dist_sim": round(min(embed_sim, wup_sim), 4),
+    }
