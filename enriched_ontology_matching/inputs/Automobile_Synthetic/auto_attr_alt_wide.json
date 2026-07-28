@@ -1,0 +1,410 @@
+{
+  "modelName": "Auto_ATTR_ALT_WIDE",
+  "modelDescription": "Standard automobile entity/association names, unrelated attribute-type vocabulary, wide flat composition tree with 8 lateral associations.",
+  "observables": [
+    "Timestamp",
+    "Frequency",
+    "Viscosity",
+    "Acceleration",
+    "Humidity",
+    "Capacitance",
+    "Resistance",
+    "Density",
+    "Duration",
+    "Inductance",
+    "Concentration",
+    "Volume",
+    "Elasticity",
+    "Friction",
+    "Vibration",
+    "Wavelength",
+    "Amplitude",
+    "Conductivity",
+    "Reflectivity"
+  ],
+  "entities": [
+    {
+      "entityName": "Vehicle",
+      "entityAttributes": [
+        {
+          "name": "vehicleID",
+          "type": "Timestamp"
+        },
+        {
+          "name": "mass",
+          "type": "Density"
+        },
+        {
+          "name": "length",
+          "type": "Duration"
+        },
+        {
+          "name": "operationalState",
+          "type": "Conductivity"
+        },
+        {
+          "name": "engine",
+          "type": "Engine"
+        },
+        {
+          "name": "transmission",
+          "type": "Transmission"
+        },
+        {
+          "name": "differential",
+          "type": "Differential"
+        },
+        {
+          "name": "axle",
+          "type": "Axle"
+        },
+        {
+          "name": "wheel",
+          "type": "Wheel"
+        },
+        {
+          "name": "suspension",
+          "type": "Suspension"
+        },
+        {
+          "name": "brakeSystem",
+          "type": "BrakeSystem"
+        },
+        {
+          "name": "steeringSystem",
+          "type": "SteeringSystem"
+        },
+        {
+          "name": "fuelSystem",
+          "type": "FuelSystem"
+        },
+        {
+          "name": "coolingSystem",
+          "type": "CoolingSystem"
+        },
+        {
+          "name": "electricalSystem",
+          "type": "ElectricalSystem"
+        },
+        {
+          "name": "exhaustSystem",
+          "type": "ExhaustSystem"
+        }
+      ]
+    },
+    {
+      "entityName": "Engine",
+      "entityAttributes": [
+        {
+          "name": "engineID",
+          "type": "Timestamp"
+        },
+        {
+          "name": "power",
+          "type": "Humidity"
+        },
+        {
+          "name": "torque",
+          "type": "Acceleration"
+        },
+        {
+          "name": "rpm",
+          "type": "Capacitance"
+        },
+        {
+          "name": "temperature",
+          "type": "Frequency"
+        },
+        {
+          "name": "oilPressure",
+          "type": "Viscosity"
+        }
+      ]
+    },
+    {
+      "entityName": "Transmission",
+      "entityAttributes": [
+        {
+          "name": "transmissionID",
+          "type": "Timestamp"
+        },
+        {
+          "name": "gearRatio",
+          "type": "Concentration"
+        },
+        {
+          "name": "inputTorque",
+          "type": "Acceleration"
+        },
+        {
+          "name": "outputTorque",
+          "type": "Acceleration"
+        }
+      ]
+    },
+    {
+      "entityName": "Differential",
+      "entityAttributes": [
+        {
+          "name": "differentialID",
+          "type": "Timestamp"
+        },
+        {
+          "name": "splitRatio",
+          "type": "Concentration"
+        },
+        {
+          "name": "outputTorque",
+          "type": "Acceleration"
+        }
+      ]
+    },
+    {
+      "entityName": "Axle",
+      "entityAttributes": [
+        {
+          "name": "axleID",
+          "type": "Timestamp"
+        },
+        {
+          "name": "axleLoad",
+          "type": "Resistance"
+        },
+        {
+          "name": "rotationalSpeed",
+          "type": "Capacitance"
+        },
+        {
+          "name": "shaftMass",
+          "type": "Density"
+        }
+      ]
+    },
+    {
+      "entityName": "Wheel",
+      "entityAttributes": [
+        {
+          "name": "wheelID",
+          "type": "Timestamp"
+        },
+        {
+          "name": "radius",
+          "type": "Duration"
+        },
+        {
+          "name": "mass",
+          "type": "Density"
+        },
+        {
+          "name": "angularVelocity",
+          "type": "Capacitance"
+        }
+      ]
+    },
+    {
+      "entityName": "Suspension",
+      "entityAttributes": [
+        {
+          "name": "suspensionID",
+          "type": "Timestamp"
+        },
+        {
+          "name": "dampingForce",
+          "type": "Resistance"
+        },
+        {
+          "name": "compressionRatio",
+          "type": "Concentration"
+        },
+        {
+          "name": "mass",
+          "type": "Density"
+        }
+      ]
+    },
+    {
+      "entityName": "BrakeSystem",
+      "entityAttributes": [
+        {
+          "name": "brakeID",
+          "type": "Timestamp"
+        },
+        {
+          "name": "brakePressure",
+          "type": "Viscosity"
+        },
+        {
+          "name": "decelerationForce",
+          "type": "Resistance"
+        },
+        {
+          "name": "operationalState",
+          "type": "Conductivity"
+        }
+      ]
+    },
+    {
+      "entityName": "SteeringSystem",
+      "entityAttributes": [
+        {
+          "name": "steeringID",
+          "type": "Timestamp"
+        },
+        {
+          "name": "steeringAngle",
+          "type": "Wavelength"
+        },
+        {
+          "name": "steeringTorque",
+          "type": "Acceleration"
+        },
+        {
+          "name": "position",
+          "type": "Amplitude"
+        }
+      ]
+    },
+    {
+      "entityName": "FuelSystem",
+      "entityAttributes": [
+        {
+          "name": "fuelSystemID",
+          "type": "Timestamp"
+        },
+        {
+          "name": "fuelPressure",
+          "type": "Viscosity"
+        },
+        {
+          "name": "massFlowRate",
+          "type": "Inductance"
+        },
+        {
+          "name": "fuelEnergy",
+          "type": "Elasticity"
+        }
+      ]
+    },
+    {
+      "entityName": "CoolingSystem",
+      "entityAttributes": [
+        {
+          "name": "coolingID",
+          "type": "Timestamp"
+        },
+        {
+          "name": "coolantTemperature",
+          "type": "Frequency"
+        },
+        {
+          "name": "coolantPressure",
+          "type": "Viscosity"
+        },
+        {
+          "name": "coolantFlowRate",
+          "type": "Inductance"
+        }
+      ]
+    },
+    {
+      "entityName": "ElectricalSystem",
+      "entityAttributes": [
+        {
+          "name": "electricalID",
+          "type": "Timestamp"
+        },
+        {
+          "name": "voltage",
+          "type": "Friction"
+        },
+        {
+          "name": "current",
+          "type": "Vibration"
+        },
+        {
+          "name": "storedEnergy",
+          "type": "Elasticity"
+        }
+      ]
+    },
+    {
+      "entityName": "ExhaustSystem",
+      "entityAttributes": [
+        {
+          "name": "exhaustID",
+          "type": "Timestamp"
+        },
+        {
+          "name": "exhaustTemperature",
+          "type": "Frequency"
+        },
+        {
+          "name": "exhaustPressure",
+          "type": "Viscosity"
+        },
+        {
+          "name": "massFlowRate",
+          "type": "Inductance"
+        }
+      ]
+    }
+  ],
+  "associations": [
+    {
+      "associationName": "FuelDelivery",
+      "associationParticipants": [
+        "FuelSystem",
+        "Engine"
+      ]
+    },
+    {
+      "associationName": "CoolantCirculation",
+      "associationParticipants": [
+        "CoolingSystem",
+        "Engine"
+      ]
+    },
+    {
+      "associationName": "ExhaustGasFlow",
+      "associationParticipants": [
+        "Engine",
+        "ExhaustSystem"
+      ]
+    },
+    {
+      "associationName": "TorqueTransfer",
+      "associationParticipants": [
+        "Engine",
+        "Transmission"
+      ]
+    },
+    {
+      "associationName": "DifferentialDrive",
+      "associationParticipants": [
+        "Transmission",
+        "Differential"
+      ]
+    },
+    {
+      "associationName": "AxleDrive",
+      "associationParticipants": [
+        "Differential",
+        "Axle"
+      ]
+    },
+    {
+      "associationName": "WheelMount",
+      "associationParticipants": [
+        "Axle",
+        "Wheel"
+      ]
+    },
+    {
+      "associationName": "PowerSupply",
+      "associationParticipants": [
+        "ElectricalSystem",
+        "Engine"
+      ]
+    }
+  ]
+}
